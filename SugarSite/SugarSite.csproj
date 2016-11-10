@@ -321,10 +321,10 @@
     <Content Include="_theme\layui-v1.0.3\layui\layui.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\dest\layui.all.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\dest\layui.mod.js" />
-    <Content Include="_theme\layui-v1.0.3\layui\lay\lib\ejq.js" />
-    <Content Include="_theme\layui-v1.0.3\layui\lay\lib\jquery-form.min.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\lib\jquery.js" />
+    <Content Include="_theme\layui-v1.0.3\layui\lay\modules\ajaxforms.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\code.js" />
+    <Content Include="_theme\layui-v1.0.3\layui\lay\modules\ejq.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\element.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\flow.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\form.js" />
