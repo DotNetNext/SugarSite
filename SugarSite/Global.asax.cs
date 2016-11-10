@@ -23,7 +23,7 @@ namespace SugarSite
             #region 依赖注入
             var builder = new ContainerBuilder();
             //注册DomainServices
-            var services = Assembly.Load("BBS.Infrastructure");
+            var services = Assembly.Load("Infrastructure");
             builder.RegisterAssemblyTypes(services);
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly());
             var container = builder.Build();

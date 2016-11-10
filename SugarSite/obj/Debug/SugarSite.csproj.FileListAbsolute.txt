@@ -95,3 +95,14 @@ E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\zh-Hans\Microsoft.Owin.Security.Micr
 E:\MyOpenSource\CMS\SugarSite\SugarSite\obj\Debug\SugarSite.dll
 E:\MyOpenSource\CMS\SugarSite\SugarSite\obj\Debug\SugarSite.pdb
 E:\MyOpenSource\CMS\SugarSite\SugarSite\obj\Debug\SugarSite.csprojResolveAssemblyReference.cache
+E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\Autofac.dll
+E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\Autofac.Integration.Mvc.dll
+E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\Infrastructure.dll
+E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\RestSharp.dll
+E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\SqlSugar.dll
+E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\SyntacticSugar.dll
+E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\Infrastructure.pdb
+E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\Autofac.xml
+E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\Autofac.Integration.Mvc.xml
+E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\RestSharp.xml
+E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\SqlSugar.xml

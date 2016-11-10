@@ -345,6 +345,7 @@
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\element.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\flow.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\form.js" />
+    <Content Include="_theme\layui-v1.0.3\layui\lay\modules\global.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\laydate.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\layedit.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\layer.js" />
@@ -370,6 +371,7 @@
   <ItemGroup>
     <None Include="Properties\PublishProfiles\skx.pubxml" />
     <None Include="Properties\PublishProfiles\skx2.pubxml" />
+    <Content Include="Views\Home\Doc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">

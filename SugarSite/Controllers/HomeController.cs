@@ -10,10 +10,11 @@ namespace SugarSite.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.IsMainPage = true;
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Doc()
         {
             ViewBag.Message = "Your application description page.";
 

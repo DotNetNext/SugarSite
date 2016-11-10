@@ -55,6 +55,7 @@
     <Compile Include="Dao\DbConfig.cs" />
     <Compile Include="Dao\DbService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Pub\PubConst.cs" />
     <Compile Include="Tool\RestApi.cs" />
   </ItemGroup>
   <ItemGroup>

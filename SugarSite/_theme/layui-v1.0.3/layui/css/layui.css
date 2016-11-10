@@ -8,7 +8,7 @@
 
 */
 
-
+a.logo {color: white !important; top:23px !important }
 /* ²¼¾Ö */
 .site-inline{font-size: 0;}
 .site-tree, .site-content{display: inline-block;  *display:inline; *zoom:1; vertical-align: top; font-size: 14px;}
@@ -297,3 +297,10 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
 }
 
 
+/***diy***/
+.maincss .site-banner-bg{background-image: url(/_theme/logo.jpg)!important; background-color: #080018!important;}
+.innercss .site-banner-bg{ background:#fff !important}
+.innercss .layui-tree li { text-align:left}
+.innercss .footer-index { display:none}
+.innercss .site-banner-main{ overflow:inherit;height:inherit!important}
+.innercss .site-banner {overflow:inherit !important}
