@@ -1,4 +1,6 @@
-﻿layui.define(['layer', 'code', 'form', 'element', 'util', 'ejq'], function (exports) {
-    debugger
-    var test = layui.ejq;
+﻿layui.define(['layer'], function (exports) {
+    var $ = layui.jquery;
+    $("button").click(function (e) {
+          e.preventDefault();
+    })
 });

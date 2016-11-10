@@ -1,7 +1,7 @@
 ﻿layui.define("jquery", function (exports) { //提示：组件也可以依赖其它组件，如：layui.define('layer', callback);
     var jQuery=layui.jquery;
    (function (window, jQuery, undefined) {
-
+       var $ = jQuery;
        jQuery.extend({
            /*随机值*/
            random: {
@@ -149,7 +149,10 @@
                    var isArea = areaName != null;
                    var hidValue = $("#" + hid).val();
                    var regValue = hidValue.match("(^.*)/(.+)/(.+)/$");
-                   var virtualDirectory = regValue[1];
+                   var virtualDirectory = "";
+                   if (regValue != null) {
+                       virtualDirectory=regValue[1];
+                   }
                    if (isAction) {
                        return hidValue + actionName;
                    } else if (isControllerName) {
@@ -1036,6 +1039,5 @@
        jQuery.ejqInit();
 
    })(window, jQuery)
-    //输出test接口
     exports('ejq', jQuery);
 });

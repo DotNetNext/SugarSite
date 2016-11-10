@@ -19,6 +19,7 @@
 <body>
     <div>
         <body class="site-home @className" id="LAY_home" style="background-color: @bodyClassValue">
+            <input id="HidUrlAction" name="HidUrlAction" value="@Url.Action("/")" type="hidden" />
             <div class="layui-header header header-index">
                 <div class="layui-main">
                     <a class="logo" href="/">
@@ -75,17 +76,17 @@
     </div>
     <script src="~/_theme/layui-v1.0.3/layui/layui.js"></script>
     <script>
-layui.config({
-    base: '/_theme/layui-v1.0.3/layui/lay/modules/'
-  ,version: '1478721722481'
-}).use('global');
+        layui.config({
+            base: '/_theme/layui-v1.0.3/layui/lay/modules/'
+          , version: '1478721722481'
+        }).use('global');
 
-window.global = {
-  preview: function(){
-    var preview = document.getElementById('LAY_preview');
-    return preview ? preview.innerHTML : '';
-  }()
-};
+        window.global = {
+            preview: function () {
+                var preview = document.getElementById('LAY_preview');
+                return preview ? preview.innerHTML : '';
+            }()
+        };
     </script>
     @RenderSection("js", false)
 </body>

@@ -205,11 +205,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\BaseController.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\AdminSite\AdminSiteAreaRegistration.cs" />
     <Compile Include="Areas\AdminSite\Controllers\LoginController.cs" />
+    <Compile Include="Areas\AdminSite\Controllers\Pack\Outsourcing.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -341,7 +343,6 @@
     <Content Include="_theme\logo.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\AdminSite\Controllers\Pack\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

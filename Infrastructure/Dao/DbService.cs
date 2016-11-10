@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using SqlSugar;
 using SyntacticSugar;
+using Infrastructure.Tool;
+
 namespace Infrastructure.Dao
 {
     /// <summary>
@@ -23,7 +25,7 @@ namespace Infrastructure.Dao
         /// </summary>
         /// <typeparam name="Outsourcing">外包服务类型</typeparam>
         /// <param name="func"></param>
-        public void Command<Outsourcing>(Action<SqlSugarClient, Outsourcing> func) where Outsourcing : class, new()
+        public void Command<Outsourcing>(Action<SqlSugarClient, Outsourcing> func) where Outsourcing : class, new() 
         {
             try
             {
@@ -40,13 +42,12 @@ namespace Infrastructure.Dao
                 throw ex;
             }
         }
-
         /// <summary>
         ///服务命令
         /// </summary>
         /// <typeparam name="Outsourcing">外包服务类型</typeparam>
         /// <param name="func"></param>
-        public void Command<Outsourcing, Api>(Action<SqlSugarClient, Outsourcing, Tool.RestApi<Api>> func) where Outsourcing : class, new() where Api : class, new()
+        public void Command<Outsourcing, Api>(Action<SqlSugarClient, Outsourcing, RestApi<Api>> func) where Outsourcing : class, new() where Api : class, new()
         {
             try
             {

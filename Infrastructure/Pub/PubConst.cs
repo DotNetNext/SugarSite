@@ -8,6 +8,6 @@ namespace Infrastructure.Pub
 {
     public class PubConst
     {
-
+        public const string SessionVerifyCode = "SessionVerifyCode";
     }
 }

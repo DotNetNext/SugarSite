@@ -1,4 +1,6 @@
-﻿using SyntacticSugar;
+﻿using Infrastructure.Dao;
+using Infrastructure.Pub;
+using SyntacticSugar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +9,9 @@ using System.Web.Mvc;
 
 namespace SugarSite.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
+        public HomeController(DbService s) : base(s) { }
         public ActionResult Index()
         {
             ViewBag.IsMainPage = true;
@@ -41,7 +44,9 @@ namespace SugarSite.Controllers
            };
             var questionItem = v.GetQuestion(questionList);//不赋值为随机验证码 例如： 1*2=? 这种
             v.SetVerifyCodeText = questionItem.Key;
-            Session["VerifyCode"] = questionItem.Value;
+            string value = questionItem.Value;
+            var sm= SessionManager<string>.GetInstance();
+            sm.Add(PubConst.SessionVerifyCode, value);
             //输出图片
             v.OutputImage(System.Web.HttpContext.Current.Response);
         }
