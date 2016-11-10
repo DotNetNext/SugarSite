@@ -78,7 +78,16 @@
                         icon: 2
                     });
                 } else {
+                    $.ajax({
+                        data: $("form").serialize(),
+                        type: 'post',
+                        url: 'your url',
+                        success: function (msg) {
 
+                        }, error: function (msg) {
+
+                        }
+                    })
                 }
             });
         });
