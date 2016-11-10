@@ -14,7 +14,6 @@ E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\SugarSite.dll.config
 E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\SugarSite.dll
 E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\SugarSite.pdb
 E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\Antlr3.Runtime.dll
-E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\EntityFramework.dll
 E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\Microsoft.AI.Agent.Intercept.dll
 E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\Microsoft.AI.DependencyCollector.dll
 E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\Microsoft.AI.PerfCounterCollector.dll
@@ -61,7 +60,6 @@ E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\System.Web.WebPages.Deployment.xml
 E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\System.Web.WebPages.Razor.xml
 E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\Antlr3.Runtime.pdb
 E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\Newtonsoft.Json.xml
-E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\EntityFramework.xml
 E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\Microsoft.AspNet.Identity.Core.xml
 E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\Microsoft.AspNet.Identity.Owin.xml
 E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\Microsoft.AspNet.Identity.EntityFramework.xml
@@ -81,7 +79,6 @@ E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\zh-Hans\System.Web.Razor.resources.d
 E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\zh-Hans\System.Web.WebPages.resources.dll
 E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll
 E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
-E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\zh-Hans\EntityFramework.resources.dll
 E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\zh-Hans\Microsoft.AspNet.Identity.Core.resources.dll
 E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\zh-Hans\Microsoft.AspNet.Identity.Owin.resources.dll
 E:\MyOpenSource\CMS\SugarSite\SugarSite\bin\zh-Hans\Microsoft.AspNet.Identity.EntityFramework.resources.dll
