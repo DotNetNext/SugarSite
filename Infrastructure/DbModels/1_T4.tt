@@ -24,7 +24,7 @@
  
 	 using (var db = new SqlSugarClient("server=.;Initial Catalog=SugarSite;Persist Security Info=True;User ID=sa;Password=sasa"))
      {
-          db.ClassGenerating.CreateClassFiles(db, projectDir +"/Models","Infrastructure.DbModel");  
+          db.ClassGenerating.CreateClassFiles(db, projectDir +"/DbModels","Infrastructure.DbModel");  
 
       };
 #>
