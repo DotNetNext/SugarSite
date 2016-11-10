@@ -53,10 +53,34 @@
     <script>
         layui.define(['layer', 'code', 'form', 'element', 'util'], function (exports) {
             var $ = layui.jquery
-            var imgCode = $(".box img").click(function () {
+            var imgCode = $(".box img");
+            var btnSubmit = $(".layui-btn");
+            var form = {
+                userName: function () { return $("#userName").val() },
+                password: function () { return $("#password").val() },
+                code: function () { return $("#code").val() }
+            };
+            imgCode.click(function () {
                 var src = $(this).attr("src");
-                $(this).attr("src",src + 1);
+                $(this).attr("src", src + 1);
             })
+            btnSubmit.click(function () {
+                if (form.userName() == "") {
+                    layer.msg('用户名不能为空！', {
+                        icon: 2
+                    });
+                } else if (form.password() == "") {
+                    layer.msg('密码不能为空！', {
+                        icon: 2
+                    });
+                } else if (form.code() == "") {
+                    layer.msg('验证码不能为空！', {
+                        icon: 2
+                    });
+                } else {
+
+                }
+            });
         });
     </script>
 }
@@ -70,13 +94,13 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">用户名</label>
                     <div class="layui-input-inline">
-                        <input type="tel" name="phone" lay-verify="phone" autocomplete="off" class="layui-input">
+                        <input type="tel" id="userName" name="userName" maxlength="50" lay-verify="phone" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">密码</label>
                     <div class="layui-input-inline">
-                        <input type="tel" name="phone" lay-verify="phone" autocomplete="off" class="layui-input">
+                        <input type="tel" id="password" name="password" maxlength="50" lay-verify="phone" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -86,7 +110,7 @@
                         <img onclick="window.location.href=$(this)" src="@Url.Action("VerifyCode","Home",new { Area=""})?r=" />
 
                         <div class="layui-input-inline" style="width: 80px;">
-                            <input type="text" name="price_min" placeholder="验证码" autocomplete="off" class="layui-input">
+                            <input id="code" type="text" maxlength="30" name="code" placeholder="验证码" autocomplete="off" class="layui-input">
                         </div>
                         <button class="layui-btn">进入</button>
 
