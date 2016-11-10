@@ -17,75 +17,20 @@
     }
 </head>
 <body>
-    <div>
-        <body class="site-home @className" id="LAY_home" style="background-color: @bodyClassValue">
-            <div class="layui-header header header-index">
-                <div class="layui-main">
-                    <a class="logo" href="/">
-                        孙凯旋个人主页
-                    </a>
-                    <ul class="layui-nav">
-                        <li class="layui-nav-item ">
-                            <a href="/Home/Doc">SqlSugar框架文档</a>
-                        </li>
-                        <li class="layui-nav-item ">
-                            <a href="/Home/Question">向我提问</a>
-                        </li>
-                        <li class="layui-nav-item ">
-                            <a href="/Home/Question">已解决</a>
-                        </li>
-                        <li class="layui-nav-item ">
-                            <a href="/Home/Question">处理中</a>
-                        </li>
-                        <li class="layui-nav-item site-nav-layim">
-                            <a href="/Home/Reward" target="_blank">打赏</a>
-                        </li>
-                        <span class="layui-nav-bar" style="left: 54px; top: 61px; width: 0px; opacity: 0;"></span>
-                    </ul>
-                </div>
-            </div>
-            <div class="site-banner">
-                <div class="site-banner-bg">
-                </div>
-                <div class="site-banner-main">
-                    @RenderBody()
-                </div>
-            </div>
-            <div class="layui-main"></div>
-            <div class="layui-footer footer footer-index">
-                <div class="layui-main">
-                    <p>2016 © <a href="/">CodeIsBug.com</a>Apache Licence 2.0</p>
-                    <p>
-                        <a href="/" target="_blank">所有作品:</a>
-                        <a href="https://github.com/sunkaixuan/SqlSugar" target="_blank">SqlSugar</a>
-                        <a href="https://github.com/sunkaixuan/SqliteSugar" target="_blank">SqliteSugar</a>
-                        <a href="https://github.com/sunkaixuan/OracleSugar" target="_blank">OracleSugar</a>
-                        <a href="https://github.com/sunkaixuan/MySqlSugar" target="_blank">MySqlSugar</a>
-                    </p>
-                </div>
-            </div>
-            <div class="site-tree-mobile layui-hide">
-                <i class="layui-icon"></i>
-            </div>
-            <div class="site-mobile-shade"></div>
-            <ul class="layui-fixbar">
-                <li class="layui-icon layui-fixbar-top" lay-type="top" style=""></li>
-            </ul>
-        </body>
-    </div>
+    @RenderBody()
     <script src="~/_theme/layui-v1.0.3/layui/layui.js"></script>
     <script>
-layui.config({
-    base: '/_theme/layui-v1.0.3/layui/lay/modules/'
-  ,version: '1478721722481'
-}).use('global');
+        layui.config({
+            base: '/_theme/layui-v1.0.3/layui/lay/modules_2/'
+          , version: '1'
+        }).use('global');
 
-window.global = {
-  preview: function(){
-    var preview = document.getElementById('LAY_preview');
-    return preview ? preview.innerHTML : '';
-  }()
-};
+        window.global = {
+            preview: function () {
+                var preview = document.getElementById('LAY_preview');
+                return preview ? preview.innerHTML : '';
+            }()
+        };
     </script>
     @RenderSection("js", false)
 </body>
