@@ -1,0 +1,39 @@
+﻿using System;
+using System.Linq;
+using System.Text;
+
+namespace Infrastructure.DbModel
+{
+    public class DocContent
+    {
+        
+        /// <summary>
+        /// Desc:- 
+        /// Default:- 
+        /// Nullable:False 
+        /// </summary>
+        public int Id {get;set;}
+
+        /// <summary>
+        /// Desc:- 
+        /// Default:- 
+        /// Nullable:False 
+        /// </summary>
+        public string Content {get;set;}
+
+        /// <summary>
+        /// Desc:- 
+        /// Default:- 
+        /// Nullable:False 
+        /// </summary>
+        public int TypeId {get;set;}
+
+        /// <summary>
+        /// Desc:- 
+        /// Default:- 
+        /// Nullable:True 
+        /// </summary>
+        public int? Sort {get;set;}
+
+    }
+}
