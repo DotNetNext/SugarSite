@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "SqlSugar ORM框架 - 孙凯旋个人主页";
+    var downCount = (DateTime.Now - Convert.ToDateTime("2015-1-1")).TotalDays * 5;
+}
+
+<style>
+    a.logo {color: white !important; }
+</style>
+<div class="site-zfj site-zfj-anim">
+    <i class="layui-icon" style="color: #FBDAC7; color: rgba(255,255,255,.5);"></i>
+</div>
+<div class="layui-anim site-desc site-desc-anim">
+    <cite>.NET 4.+ & .NET CORE 高性能 轻量级<span style="color:#fff;"> ORM框架</span>，众多.NET框架中容易使用的数据库访问技术</cite>
+</div>
+<div class="site-download">
+    <a href="https://github.com/sunkai/sunkaiuan/SqlSugar" class="layui-inline site-down" target="_blank">
+        <cite class="layui-icon"></cite>
+        立即下载
+    </a>
+</div>
+<div class="site-version">
+    <span>当前版本：<cite class="site-showv">3.x</cite></span>
+    <span>下载量：<em class="site-showdowns">@Convert.ToInt32(downCount)</em></span>
+</div>
+<div class="site-banner-other">
+    <iframe src="http://ghbtns.com/github-btn.html?user=sunkaixuan&repo=sqlsugar&type=watch&count=true" width="105" height="20"></iframe>
+    <iframe src="http://ghbtns.com/github-btn.html?user=sunkaixuan&repo=sqlsugar&type=fork&count=true" width="60" height="20"></iframe>
+</div>
