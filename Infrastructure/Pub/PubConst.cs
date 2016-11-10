@@ -8,7 +8,6 @@ namespace Infrastructure.Pub
 {
     public class PubConst
     {
-        public static string MainCss = "background-image: url(/_theme/logo.jpg); background-color: #080018;";
-        public static string InnerCss = "background-color: #fff;";
+
     }
 }
