@@ -116,7 +116,7 @@
                     <label class="layui-form-label">验证码</label>
                     <div class="layui-input-inline">
 
-                        <img onclick="window.location.href=$(this)" src="@Url.Action("VerifyCode","Home",new { Area=""})?r=" />
+                        <img src="@Url.Action("VerifyCode","Home",new { Area=""})?r=" />
 
                         <div class="layui-input-inline" style="width: 80px;">
                             <input id="code" type="text" maxlength="30" name="code" placeholder="验证码" autocomplete="off" class="layui-input">
