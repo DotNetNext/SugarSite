@@ -209,6 +209,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\AdminSite\AdminSiteAreaRegistration.cs" />
+    <Compile Include="Areas\AdminSite\Controllers\LoginController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -358,9 +359,7 @@
     <Content Include="_theme\logo.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\AdminSite\Controllers\" />
-    <Folder Include="Areas\AdminSite\Models\" />
-    <Folder Include="Areas\AdminSite\Views\Shared\" />
+    <Folder Include="Areas\AdminSite\Controllers\Pack\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -374,9 +373,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\AdminSite\Views\web.config" />
+    <Content Include="Areas\AdminSite\Views\Login\Index.cshtml" />
     <None Include="Properties\PublishProfiles\skx.pubxml" />
     <None Include="Properties\PublishProfiles\skx2.pubxml" />
     <Content Include="Views\Home\Doc.cshtml" />
+    <Content Include="Views\Shared\_Layout_2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
