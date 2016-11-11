@@ -1,0 +1,38 @@
+﻿@using SyntacticSugar
+@using Infrastructure
+@using Infrastructure.Pub
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" href="~/_theme/ico.ico" type="image/x-icon" />
+    <title>@ViewBag.Title</title>
+    <link href="~/_theme/layui-v1.0.3/layui/css/layui.css" rel="stylesheet" />
+    @RenderSection("css", false)
+    @{
+        var className = Convert.ToBoolean(ViewBag.IsMainPage) ? "maincss" : "innercss";
+        var bodyClassValue = Convert.ToBoolean(ViewBag.IsMainPage) ? "#eee" : "#fff";
+    }
+</head>
+<body>
+    <input id="HidUrlAction" name="HidUrlAction" value="@Url.Content("~/")" type="hidden" />
+    @RenderBody()
+    <script src="~/_theme/layui-v1.0.3/layui/layui.js"></script>
+    <script>
+        layui.config({
+            base: '/_theme/layui-v1.0.3/layui/lay/modules/'
+          , version: '1'
+        }).use('global2');
+
+        window.global = {
+            preview: function () {
+                var preview = document.getElementById('LAY_preview');
+                return preview ? preview.innerHTML : '';
+            }()
+        };
+    </script>
+    @RenderSection("js", false)
+</body>
+</html>

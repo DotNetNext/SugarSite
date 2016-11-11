@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SugarSite.Areas.AdminSite.Controllers
 {
-    public class Outsourcing
+    public class LoginOutsourcing
     {
     }
 }

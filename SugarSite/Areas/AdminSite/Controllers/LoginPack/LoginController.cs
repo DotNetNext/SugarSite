@@ -24,7 +24,7 @@ namespace SugarSite.Areas.AdminSite.Controllers
         public JsonResult Submit(string userName, string password, string code)
         {
             var model = new ResultModel<string>();
-            _service.Command<Outsourcing>((db, o) =>
+            _service.Command<LoginOutsourcing>((db, o) =>
             {
                 var sm = SessionManager<string>.GetInstance();
                 var severCode = sm[PubConst.SessionVerifyCode];
@@ -33,8 +33,12 @@ namespace SugarSite.Areas.AdminSite.Controllers
                     password = new EncryptSugar().MD5(password);
                     var isLogin= db.Queryable<UserInfo>().FirstOrDefault(it => it.UserName == userName && it.Password == password)!=null;
                     model.Status = isLogin ? "1" : "3";
-                    if (model.Status == "3") {
+                    if (model.Status == "3")
+                    {
                         model.ResultInfo = "用户名密码不正确！";
+                    }
+                    else {
+                        model.ResultInfo =Url.Content("/")+PubConst.UrlAdminIndex;
                     }
                 }
                 else

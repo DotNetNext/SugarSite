@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "管理我的网站";
-    Layout = "~/Views/Shared/_Layout_2.cshtml";
+    Layout = "~/Views/Shared/_Layout_Admin_Login.cshtml";
 }
 @section css{
     <style>
@@ -85,7 +85,7 @@
                         url: url,
                         success: function (msg) {
                             if (msg.Status == "1") {
-                                alert(1);
+                                window.location.href = msg.ResultInfo;
                             } else {
                                 layer.msg(msg.ResultInfo, {
                                     icon: 2

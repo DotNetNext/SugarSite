@@ -210,8 +210,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\AdminSite\AdminSiteAreaRegistration.cs" />
-    <Compile Include="Areas\AdminSite\Controllers\LoginController.cs" />
-    <Compile Include="Areas\AdminSite\Controllers\Pack\Outsourcing.cs" />
+    <Compile Include="Areas\AdminSite\Controllers\LoginPack\LoginController.cs" />
+    <Compile Include="Areas\AdminSite\Controllers\LoginPack\Outsourcing.cs" />
+    <Compile Include="Areas\AdminSite\Controllers\QuestionPack\Outsourcing.cs" />
+    <Compile Include="Areas\AdminSite\Controllers\QuestionPack\QuestionContentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -357,10 +359,12 @@
   <ItemGroup>
     <Content Include="Areas\AdminSite\Views\web.config" />
     <Content Include="Areas\AdminSite\Views\Login\Index.cshtml" />
+    <Content Include="Areas\AdminSite\Views\QuestionContent\Index.cshtml" />
     <None Include="Properties\PublishProfiles\skx.pubxml" />
     <None Include="Properties\PublishProfiles\skx2.pubxml" />
     <Content Include="Views\Home\Doc.cshtml" />
-    <Content Include="Views\Shared\_Layout_2.cshtml" />
+    <Content Include="Views\Shared\_Layout_Admin_Login.cshtml" />
+    <Content Include="Views\Shared\_Layout_Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
