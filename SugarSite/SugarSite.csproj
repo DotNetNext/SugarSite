@@ -334,6 +334,7 @@
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\form.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\global2.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\global.js" />
+    <Content Include="_theme\layui-v1.0.3\layui\lay\modules\jsGrid.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\laydate.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\layedit.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\layer.js" />

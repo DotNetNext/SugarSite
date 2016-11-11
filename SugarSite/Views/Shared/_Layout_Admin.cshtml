@@ -18,7 +18,131 @@
 </head>
 <body>
     <input id="HidUrlAction" name="HidUrlAction" value="@Url.Content("~/")" type="hidden" />
-    @RenderBody()
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+
+            <ul class="layui-nav layui-nav-tree site-demo-nav">
+
+                <li class="layui-nav-item" style="height: 5px; text-align: center">
+                    <a title="纸飞机，为你护航">
+                        <i class="layui-icon" style=" font-size 16px;"></i>
+                    </a>
+                </li>
+
+                <li class="layui-nav-item layui-this">
+                    <a href="/demo/">在线调试</a>
+                </li>
+
+                <li class="layui-nav-item layui-nav-title">
+                    <a>基本元素</a>
+                </li>
+                <li class="layui-nav-item ">
+                    <a href="/demo/button.html">
+                        <i class="layui-icon" style="top: 1px; font-size: 18px;"></i>
+                        <cite>按钮</cite>
+                    </a>
+                </li>
+                <li class="layui-nav-item ">
+                    <a href="/demo/form.html">
+                        <i class="layui-icon" style="top: 2px;"></i>
+                        <cite>表单</cite>
+                    </a>
+                </li>
+                <li class="layui-nav-item ">
+                    <a href="/demo/nav.html">
+                        <i class="layui-icon" style="top: 2px; font-size: 18px;"></i>
+                        <cite>导航</cite>
+                    </a>
+                </li>
+                <li class="layui-nav-item ">
+                    <a href="/demo/tab.html">
+                        <i class="layui-icon" style="top: 2px; font-size: 16px;"></i>
+                        <cite>Tab选项卡</cite>
+                    </a>
+                </li>
+                <li class="layui-nav-item ">
+                    <a href="/demo/auxiliar.html">
+                        <i class="layui-icon" style="top: 2px;"></i>
+                        <cite>辅助性元素</cite>
+                    </a>
+                </li>
+
+
+                <li class="layui-nav-item layui-nav-title">
+                    <a>官方组件</a>
+                </li>
+                <li class="layui-nav-item ">
+                    <a href="/demo/layer.html">
+                        <i class="layui-icon" style="top: 3px;"></i><cite>弹出层</cite>
+                    </a>
+                </li>
+                <li class="layui-nav-item ">
+                    <a href="/demo/layim.html">
+                        <i class="layui-icon" style="position: relative; top: 3px;"></i>
+                        <cite>即时通讯</cite>
+                    </a>
+                </li>
+                <li class="layui-nav-item ">
+                    <a href="/demo/laydate.html">
+                        <i class="layui-icon" style="top: 1px;"></i><cite>日期时间选择</cite>
+                    </a>
+                </li>
+                <li class="layui-nav-item ">
+                    <a href="/demo/laypage.html">
+                        <i class="layui-icon"></i><cite>多功能分页</cite>
+                    </a>
+                </li>
+                <li class="layui-nav-item ">
+                    <a href="/demo/laytpl.html">
+                        <i class="layui-icon"></i><cite>模板引擎</cite>
+                    </a>
+                </li>
+                <li class="layui-nav-item ">
+                    <a href="/demo/layedit.html">
+                        <i class="layui-icon"></i>
+                        <cite>富文本编辑器</cite>
+                    </a>
+                </li>
+                <li class="layui-nav-item ">
+                    <a href="/demo/upload.html">
+                        <i class="layui-icon"></i>
+                        <cite>文件上传</cite>
+                    </a>
+                </li>
+                <li class="layui-nav-item ">
+                    <a href="/demo/tree.html">
+                        <i class="layui-icon"></i>
+                        <cite>树形菜单</cite>
+                    </a>
+                </li>
+                <li class="layui-nav-item ">
+                    <a href="/demo/util.html">
+                        <i class="layui-icon"></i>
+                        <cite>工具块</cite>
+                    </a>
+                </li>
+                <li class="layui-nav-item ">
+                    <a href="/demo/flow.html">
+                        <i class="layui-icon"></i>
+                        <cite>流加载</cite>
+                    </a>
+                </li>
+                <li class="layui-nav-item ">
+                    <a href="/demo/code.html">
+                        <i class="layui-icon" style="top: 1px;"></i>
+                        <cite>代码修饰器</cite>
+                    </a>
+                </li>
+
+                <li class="layui-nav-item" style="height: 30px; text-align: center"></li>
+                <span class="layui-nav-bar" style="top: 434.5px; height: 0px; opacity: 0;"></span>
+            </ul>
+
+        </div>
+    </div>
+    <div class="layui-body site-demo">
+        @RenderBody()
+    </div>
     <script src="~/_theme/layui-v1.0.3/layui/layui.js"></script>
     <script>
         layui.config({
