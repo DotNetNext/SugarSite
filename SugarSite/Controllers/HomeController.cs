@@ -25,7 +25,6 @@ namespace SugarSite.Controllers
             return View();
         }
 
-        [OutputCache(Duration =0)]
         public void VerifyCode()
         {
             VerifyCodeSugar v = new VerifyCodeSugar();
