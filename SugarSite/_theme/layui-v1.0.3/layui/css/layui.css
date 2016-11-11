@@ -306,11 +306,15 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
 .innercss .site-banner {overflow:inherit !important}
 
 /***±í¸ñ***/
-.gridtable .tablehead{background-image:url(headerBg.gif);white-space:nowrap;word-break:keep-all;word-wrap:normal;color:#3A3A3A;font-weight:bolder;text-align:center;vertical-align:middle;overflow:visible;font-size:12px;}
-.gridtable .doubleHead{border:0px #d6d6d6 solid;padding:0px;margin:0px;cellspacing:0px;border-collapse: collapse;table-layout:auto;}
-.gridtable .doubleHead td{color:#000000;font-size: 11px;border:1px #d6d6d6 solid;padding:0px;white-space:nowrap;word-break:keep-all;word-wrap:normal;overflow:hidden;}
-.gridtable .doubleHeadHeight{height:40px;}
+.gridtable .tablehead{background:#009688;white-space:nowrap;word-break:keep-all;word-wrap:normal;color:#3A3A3A;font-weight:bolder;
+text-align:center;vertical-align:middle;overflow:visible;font-size:12px;}
+.gridtable .doubleHead{ border:0px #d6d6d6 solid;padding:0px;margin:0px;cellspacing:0px;border-collapse: collapse;table-layout:auto;}
+.gridtable .doubleHead td{color:#fff;font-size: 12px;border:1px #d6d6d6 solid;padding:0px;white-space:nowrap;word-break:keep-all;
+word-wrap:normal;overflow:hidden;}
+.gridtable .doubleHeadHeight{height:80px;}
 .gridtable .AllTB{padding:0px;margin:0px;cellspacing:0px;}
-.gridtable .InnerTB{border:0px #d6d6d6 solid;padding:0px;margin:0px;cellspacing:0px;border-collapse: collapse;table-layout:auto;}
-.gridtable .InnerTB td{color:#000000;font-size: 11px;border:1px #d6d6d6 solid;padding:0px;height:20px;white-space:nowrap;word-break:keep-all;word-wrap:normal;overflow:hidden;}
-.gridtable .allTD{color:#000000;border:0px #d6d6d6 solid;font-size: 11px;text-align:left;vertical-align:top;padding:0px;white-space:nowrap;word-break:keep-all;word-wrap:normal;overflow:hidden;}
+.gridtable .InnerTB{ border:0px #d6d6d6 solid;padding:0px;margin:0px;cellspacing:0px;border-collapse: collapse;table-layout:auto;}
+.gridtable .InnerTB td{color:#000000;font-size: 12px;border:1px #d6d6d6 solid;padding:0px;height:40px;white-space:nowrap;word-break:keep-all;
+word-wrap:normal;overflow:hidden;}
+.gridtable .allTD{color:#000000;border:0px #d6d6d6 solid;font-size: 12px;text-align:left;vertical-align:top;padding:0px;white-space:nowrap;
+word-break:keep-all;word-wrap:normal;overflow:hidden;}
