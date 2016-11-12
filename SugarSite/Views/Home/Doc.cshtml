@@ -1,11 +1,12 @@
 ﻿
 @{
-    ViewBag.Title = "Doc";
+    ViewBag.Title =Model.ResultInfo.CurrentType.TypeName+PubConst.SitePrefix;
     Layout = "~/Views/Shared/_Layout.cshtml";
     var type = Model.ResultInfo.DocType;
     var fist = type.Where(it => it.Level == 1).ToList();
 }
 @using Infrastructure.ViewModels
+@using Infrastructure.Pub;
 @using SyntacticSugar
 @model ResultModel<Doc>
 <div class="layui-main site-inline">

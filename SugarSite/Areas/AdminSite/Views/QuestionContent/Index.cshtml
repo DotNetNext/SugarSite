@@ -6,12 +6,15 @@
 @section js{
 <script src="~/_theme/layui-v1.0.3/layui/lay/modules/jsGrid.js"></script>
     <script>
-        layui.use(['tree', 'layer', 'jsGrid'], function () {
-            var layer = layui.layer
-            , $ = layui.jquery, jsGrid = layui.jsGrid;
+        layui.use(['tree', 'layer', 'jsGrid','ejq'], function () {
+            var layer = layui.layer, $ = layui.jquery, jsGrid = layui.jsGrid;
             var $sizeDemo = $(".site-demo");
             var $gridTable = $(".gridtable");
             var $buttonBox = $(".site-demo-button");
+            var btnAdd = $("#btnAdd");
+            var btnEdit = $("#btnEdit");
+            var btnAdd = $("#btnAdd");
+            var btnDel = $("#btnDel");
             layui.tree({
                 elem: '#demo1' //指定元素
               , target: '_blank' //是否新选项卡打开（比如节点返回href才有效）
@@ -248,6 +251,10 @@
             test.RenderTo('testdiv');
             test.dataStore = datas;
             test.ShowData();
+
+            btnAdd.click(function () {
+                window.open(layui.ejq.action.url("", null, "", "AdminSite"));
+            })
         });
     </script>
 }
@@ -259,9 +266,9 @@
         <legend>操作</legend>
         <div>
             <button class="layui-btn layui-btn-primary">全选/反选</button>
-            <button class="layui-btn">添加</button>
-            <button class="layui-btn layui-btn-normal">编辑</button>
-            <button class="layui-btn layui-btn-warm">删除</button>
+            <button id="btnAdd" class="layui-btn">添加</button>
+            <button id="btnEdit" class="layui-btn layui-btn-normal">编辑</button>
+            <button id="btnDel" class="layui-btn layui-btn-warm">删除</button>
         </div>
     </fieldset>
      <div id="testdiv"></div>
