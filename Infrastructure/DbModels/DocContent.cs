@@ -35,5 +35,19 @@ namespace Infrastructure.DbModel
         /// </summary>
         public int? Sort {get;set;}
 
+        /// <summary>
+        /// Desc:- 
+        /// Default:- 
+        /// Nullable:True 
+        /// </summary>
+        public Boolean? IsDelete {get;set;}
+
+        /// <summary>
+        /// Desc:- 
+        /// Default:- 
+        /// Nullable:True 
+        /// </summary>
+        public string Title {get;set;}
+
     }
 }

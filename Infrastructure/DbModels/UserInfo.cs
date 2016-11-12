@@ -49,5 +49,19 @@ namespace Infrastructure.DbModel
         /// </summary>
         public DateTime? CreateTime {get;set;}
 
+        /// <summary>
+        /// Desc:- 
+        /// Default:- 
+        /// Nullable:True 
+        /// </summary>
+        public Boolean? IsDelete {get;set;}
+
+        /// <summary>
+        /// Desc:- 
+        /// Default:- 
+        /// Nullable:True 
+        /// </summary>
+        public int? RoleId {get;set;}
+
     }
 }

@@ -11,14 +11,16 @@
         layui.define(['ejq', 'ajaxforms'], function (exports) {
             var $ = layui.ejq;
             var url = $.action.url("DC_Submit", null, "DocContent", "AdminSite");
-            $("form").ajaxSubmit({
-                type: 'post',
-                url: url,
-                success: function (msg) {
-                    alert(1);
-                }, error: function (msg) {
-
-                }
+            $("#btnSave").click(function () {
+                $("form").ajaxSubmit({
+                    type: 'post',
+                    url: url,
+                    success: function (msg) {
+                        alert(1);
+                    }, error: function (msg) {
+                        debugger
+                    }
+                });
             });
         });
     </script>
@@ -28,7 +30,6 @@
         <legend>操作</legend>
         <div>
             <button id="btnSave" class="layui-btn">添加</button>
-            <button id="btnEdit" class="layui-btn layui-btn-normal">保存</button>
             <button id="btnClose" class="layui-btn layui-btn-warm">关闭</button>
         </div>
     </fieldset>

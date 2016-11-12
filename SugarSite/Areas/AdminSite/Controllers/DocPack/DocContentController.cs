@@ -28,6 +28,7 @@ namespace SugarSite.Areas.AdminSite.Controllers
 
         #region Admin Api
         [HttpPost]
+        [ValidateInput(false)]
         public JsonResult DC_Submit(DocContent content)
         {
             var model = new ResultModel<bool>();

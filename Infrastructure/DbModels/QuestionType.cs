@@ -42,5 +42,12 @@ namespace Infrastructure.DbModel
         /// </summary>
         public int? Level {get;set;}
 
+        /// <summary>
+        /// Desc:- 
+        /// Default:- 
+        /// Nullable:True 
+        /// </summary>
+        public Boolean? IsDelete {get;set;}
+
     }
 }
