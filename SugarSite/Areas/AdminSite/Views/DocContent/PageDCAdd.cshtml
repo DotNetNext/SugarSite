@@ -16,9 +16,8 @@
                     type: 'post',
                     url: url,
                     success: function (msg) {
-                        alert(1);
+                        window.location.href = $.action.url("PageDCAdd", null, "DocContent", "AdminSite") + "?id=" + msg.ResultInfo.id;
                     }, error: function (msg) {
-                        debugger
                     }
                 });
             });
