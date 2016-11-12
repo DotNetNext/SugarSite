@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="icon" href="~/_theme/ico.ico" type="image/x-icon" />
     <title>@ViewBag.Title</title>
-    <link href="~/_theme/layui-v1.0.3/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/_theme/layui-v1.0.3/layui/css/layui.css?v=1" rel="stylesheet" />
     @RenderSection("css", false)
     @{
         var className = Convert.ToBoolean(ViewBag.IsMainPage) ? "maincss" : "innercss";
@@ -78,7 +78,7 @@
     <script>
         layui.config({
             base: '/_theme/layui-v1.0.3/layui/lay/modules/'
-          , version: '1478721722481'
+          , version: '2'
         }).use('global');
 
         window.global = {

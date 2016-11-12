@@ -2,17 +2,29 @@
 @{
     ViewBag.Title = "AddPage";
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+    bool isAdd = ViewBag.isAdd;
 }
+@using SyntacticSugar
 @section js{
     <script src="~/_theme/ueditor/utf8-net/ueditor.config.js"></script>
     <script src="~/_theme/ueditor/utf8-net/ueditor.all.js"></script>
     <script>
         var ue = UE.getEditor('container');
         layui.define(['ejq', 'ajaxforms'], function (exports) {
+
+            //变量
             var $ = layui.ejq;
             var url = $.action.url("DC_Submit", null, "DocContent", "AdminSite");
-            $("#btnSave").click(function () {
-                $("form").ajaxSubmit({
+            var isAdd = $("#hideIsAdd").val() == "True";
+
+            //元素
+            var btnSave = $("#btnSave");
+            var btnClose = $("#btnClose");
+            var form = $("form");
+
+            //事件
+            btnSave.click(function () {
+                form.ajaxSubmit({
                     type: 'post',
                     url: url,
                     success: function (msg) {
@@ -21,20 +33,38 @@
                     }
                 });
             });
+            btnClose.click(function () {
+                window.close();
+            })
+
+            //如果是编辑填充表单
+            if (!isAdd) {
+                $.ajax({
+                    url: $.action.url("DC_Single", null, "DocContent", "AdminSite"),
+                    data: { id: $.request.queryString().id },
+                    cache:false,
+                    success: function (msg) {
+                        form.formFill({ data: msg.ResultInfo })
+                        ue.setContent(msg.ResultInfo.Content);
+                    }
+                })
+            }
         });
     </script>
 }
-<div class="layui-form" style="display: inline-block; padding: 10px; border: 0px; overflow: auto; margin: 0px;width:calc(100% - 25px)" >
+@Html.Hidden("hideIsAdd", isAdd)
+<div class="layui-form" style="display: inline-block; padding: 10px; border: 0px; overflow: auto; margin: 0px;width:calc(100% - 25px)">
     <fieldset class="layui-elem-field site-demo-button">
         <legend>操作</legend>
         <div>
-            <button id="btnSave" class="layui-btn">添加</button>
+            <button id="btnSave" class="layui-btn">@(isAdd.IIF("添加", "保存修改"))</button>
             <button id="btnClose" class="layui-btn layui-btn-warm">关闭</button>
         </div>
     </fieldset>
 
 </div>
 <form class="layui-form" action="" style="width:calc(100% - 20px)">
+    @Html.Hidden("id")
     <div class="layui-form-item">
         <label class="layui-form-label">分类编号</label>
         <div class="layui-input-block">
@@ -51,7 +81,8 @@
         <label class="layui-form-label">内容</label>
         <div class="layui-input-block">
             <!-- 加载编辑器的容器 -->
-            <script id="container" name="Content"  style="height:500px" type="text/plain"></script>
+            <script id="container" name="Content" style="height:500px" type="text/plain">
+            </script>
         </div>
     </div>
 

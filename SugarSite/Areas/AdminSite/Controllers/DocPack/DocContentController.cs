@@ -20,8 +20,9 @@ namespace SugarSite.Areas.AdminSite.Controllers
             return View();
         }
 
-        public ActionResult PageDCAdd()
+        public ActionResult PageDCAdd(int id=0)
         {
+            ViewBag.isAdd = id == 0;
             return View();
         }
         #endregion

@@ -40,6 +40,7 @@ namespace SugarSite.Controllers
         /// <param name="TypeId"></param>
         /// <param name="Id"></param>
         /// <returns></returns>
+        [OutputCache(Duration =0)]
         public JsonResult GetDoc(int typeId) 
         {
             var model = new ResultModel<Doc>();

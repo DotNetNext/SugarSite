@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title =Model.ResultInfo.CurrentType.TypeName+PubConst.SitePrefix;
+    ViewBag.Title = Model.ResultInfo.CurrentType.TypeName + PubConst.SitePrefix;
     Layout = "~/Views/Shared/_Layout.cshtml";
     var type = Model.ResultInfo.DocType;
     var fist = type.Where(it => it.Level == 1).ToList();
@@ -8,6 +8,18 @@
 @using Infrastructure.ViewModels
 @using Infrastructure.Pub;
 @using SyntacticSugar
+@section css{
+    <link href="~/_theme/ueditor/utf8-net/third-party/SyntaxHighlighter/shCoreDefault.css" rel="stylesheet" />
+    <style>
+        .syntaxhighlighter .keyword {
+            color: #cc86d4 !important;
+        }
+    </style>
+}
+@section js{
+    <script src="~/_theme/ueditor/utf8-net/third-party/SyntaxHighlighter/shCore.js"></script>
+    <script type="text/javascript">SyntaxHighlighter.all();</script>
+}
 @model ResultModel<Doc>
 <div class="layui-main site-inline">
     <div class="site-tree">
@@ -29,8 +41,17 @@
             }
         </ul>
     </div>
-
     <div class="site-content">
-       
+        @if (Model.ResultInfo.DocContent.IsValuable())
+        {
+            var list = Model.ResultInfo.DocContent.Where(it => it.TypeId == Model.ResultInfo.CurrentType.Id).ToList();
+            foreach (var item in list)
+            {
+                <h1 class="site-h1">@item.Title</h1>
+                <div>
+                    @Html.Raw(item.Content)
+                </div>
+            }
+        }
     </div>
 </div>
