@@ -45,7 +45,7 @@ namespace Infrastructure.Tool
             IRestResponse<T> reval = client.Execute<T>(request);
             if (reval.ErrorException != null)
             {
-                throw reval.ErrorException;
+                throw new Exception(reval.ErrorException.Message);
             }
             return reval;
         }
