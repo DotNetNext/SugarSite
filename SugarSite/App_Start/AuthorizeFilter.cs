@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Infrastructure.DbModel;
+using Infrastructure.Pub;
+using SyntacticSugar;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +19,11 @@ namespace SugarSite
         }
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
+            var cm = CookiesManager<string>.GetInstance();
+            if (!cm.ContainsKey(PubConst.UserUniqueKey)||cm[PubConst.UserUniqueKey].IsNullOrEmpty())
+            {
+                cm.Add(PubConst.UserUniqueKey, Guid.NewGuid().ToString(), cm.Day * 365);
+            }
             CheckAdmin(filterContext);
         }
 
@@ -38,7 +46,10 @@ namespace SugarSite
 
             AuthorizeService.Start(filterContext, smList, sr, () =>
             {
-                return false;
+                var cm = CacheManager<UserInfo>.GetInstance();
+                string uniqueKey = PubGet.GetUserKey;
+                var isLogin = cm.ContainsKey(uniqueKey);
+                return isLogin;
             });
         }
     }

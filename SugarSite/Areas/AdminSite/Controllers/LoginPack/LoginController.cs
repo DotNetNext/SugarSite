@@ -31,7 +31,8 @@ namespace SugarSite.Areas.AdminSite.Controllers
                 if (severCode == code)
                 {
                     password = new EncryptSugar().MD5(password);
-                    var isLogin= db.Queryable<UserInfo>().FirstOrDefault(it => it.UserName == userName && it.Password == password)!=null;
+                    var userInfo = db.Queryable<UserInfo>().FirstOrDefault(it => it.UserName == userName && it.Password == password);
+                    var isLogin= userInfo != null;
                     model.Status = isLogin ? "1" : "3";
                     if (model.Status == "3")
                     {
@@ -39,6 +40,9 @@ namespace SugarSite.Areas.AdminSite.Controllers
                     }
                     else {
                         model.ResultInfo =Url.Content("/")+PubConst.UrlAdminIndex;
+                        var cm = CacheManager<UserInfo>.GetInstance();
+                        string uniqueKey = PubGet.GetUserKey;
+                        cm.Add(uniqueKey, userInfo,cm.Day*365);//保存一年
                     }
                 }
                 else

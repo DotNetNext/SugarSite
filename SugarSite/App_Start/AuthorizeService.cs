@@ -69,7 +69,7 @@ namespace SugarSite
             if (PubControllerNames != null && PubControllerNames.Count > 0)
             {
                 //无需验证跳过
-                if (PubControllerNames.Contains(controllerName)) {
+                if (PubControllerNames.Any(it=>it.Equals(controllerName,StringComparison.CurrentCultureIgnoreCase))) {
                     return;
                 }
 
