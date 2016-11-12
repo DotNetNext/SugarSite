@@ -20,6 +20,31 @@ namespace Infrastructure.Dao
             _db = DbConfig.GetDbInstance();
         }
 
+
+        /// <summary>
+        ///服务命令
+        /// </summary>
+        /// <typeparam name="Outsourcing">外包服务类型</typeparam>
+        /// <param name="func"></param>
+        public void Command<Outsourcing, Api>(Action<Outsourcing, RestApi<Api>> func) where Outsourcing : class, new() where Api : class, new()
+        {
+            try
+            {
+                var o = new Outsourcing();
+                var api = new Tool.RestApi<Api>();
+                func(o, api);
+                o = null;//及时释放对象 
+                //_db 会在http请求结束前执行 dispose 
+            }
+            catch (Exception ex)
+            {
+                //在这里可以处理所有controller的异常
+                //获错误写入日志
+                WriteExMessage(ex);
+                throw ex;
+            }
+        }
+
         /// <summary>
         ///服务命令
         /// </summary>
@@ -65,6 +90,7 @@ namespace Infrastructure.Dao
                 throw ex;
             }
         }
+
 
         /// <summary>
         ///服务命令

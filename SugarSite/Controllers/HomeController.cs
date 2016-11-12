@@ -1,30 +1,67 @@
 ﻿using Infrastructure.Dao;
+using Infrastructure.DbModel;
 using Infrastructure.Pub;
+using Infrastructure.ViewModels;
 using SyntacticSugar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using SqlSugar;
 namespace SugarSite.Controllers
 {
     public class HomeController : BaseController
     {
         public HomeController(DbService s) : base(s) { }
+
+        #region Page View
         public ActionResult Index()
         {
             ViewBag.IsMainPage = true;
             return View();
         }
 
-        public ActionResult Doc()
+        public ActionResult Doc(int typeId = 0)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            var model = new ResultModel<Doc>();
+            _service.Command<HomeOutsourcing, ResultModel<Doc>>((o, api) =>
+            {
+                model = api.Get(Url.Action("GetDoc"), new { typeId = typeId });
+            });
+            return View(model);
         }
+        #endregion
 
+        #region Public API
+        /// <summary>
+        /// 获取文档
+        /// </summary>
+        /// <param name="TypeId"></param>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public JsonResult GetDoc(int typeId) 
+        {
+            var model = new ResultModel<Doc>();
+            _service.Command<HomeOutsourcing>((db, o) =>
+            {
+                model.ResultInfo = new Infrastructure.ViewModels.Doc();
+                model.ResultInfo.DocType = db.Queryable<DocType>().ToList();
+                if (typeId == 0)//如果没有文章ID取第一条
+                {
+                    typeId = model.ResultInfo.DocType.OrderByDescending(it => it.Level).ThenBy(it => it.Sort).First().Id;
+                }
+                var list = db.Queryable<DocContent>().Where(it => it.TypeId == typeId).ToList();
+                model.ResultInfo.DocContent = list;
+                model.ResultInfo.CurrentType = model.ResultInfo.DocType.Single(it => it.Id == typeId);
+                model.IsSuccess = true;
+            });
+            return Json(model, JsonRequestBehavior.AllowGet);
+
+        }
+        /// <summary>
+        /// 获取验证码图片
+        /// </summary>
         public void VerifyCode()
         {
             VerifyCodeSugar v = new VerifyCodeSugar();
@@ -44,10 +81,11 @@ namespace SugarSite.Controllers
             var questionItem = v.GetQuestion(questionList);//不赋值为随机验证码 例如： 1*2=? 这种
             v.SetVerifyCodeText = questionItem.Key;
             string value = questionItem.Value;
-            var sm= SessionManager<string>.GetInstance();
+            var sm = SessionManager<string>.GetInstance();
             sm.Add(PubConst.SessionVerifyCode, value);
             //输出图片
             v.OutputImage(System.Web.HttpContext.Current.Response);
         }
+        #endregion
     }
 }

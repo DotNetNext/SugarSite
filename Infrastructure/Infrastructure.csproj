@@ -68,6 +68,7 @@
     <Compile Include="Pub\PubConst.cs" />
     <Compile Include="Pub\PubGet.cs" />
     <Compile Include="Tool\RestApi.cs" />
+    <Compile Include="ViewModels\Doc.cs" />
     <Compile Include="ViewModels\ResultModel.cs" />
   </ItemGroup>
   <ItemGroup>
