@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "AddPage";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+@section js{
+    <script src="~/_theme/ueditor/utf8-net/ueditor.config.js"></script>
+    <script src="~/_theme/ueditor/utf8-net/ueditor.all.js"></script>
+    <script>
+        var ue = UE.getEditor('container');
+        layui.define(['ejq', 'ajaxforms'], function (exports) {
+            var $ = layui.ejq;
+            var url = $.action.url("DC_Submit", null, "DocContent", "AdminSite");
+            $("form").ajaxSubmit({
+                type: 'post',
+                url: url,
+                success: function (msg) {
+                    alert(1);
+                }, error: function (msg) {
+
+                }
+            });
+        });
+    </script>
+}
+<div class="layui-form" style="display: inline-block; padding: 10px; border: 0px; overflow: auto; margin: 0px;width:calc(100% - 25px)" >
+    <fieldset class="layui-elem-field site-demo-button">
+        <legend>操作</legend>
+        <div>
+            <button id="btnSave" class="layui-btn">添加</button>
+            <button id="btnEdit" class="layui-btn layui-btn-normal">保存</button>
+            <button id="btnClose" class="layui-btn layui-btn-warm">关闭</button>
+        </div>
+    </fieldset>
+
+</div>
+<form class="layui-form" action="" style="width:calc(100% - 20px)">
+    <div class="layui-form-item">
+        <label class="layui-form-label">分类编号</label>
+        <div class="layui-input-block">
+            <input type="text" name="TypeId" value="" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">标题</label>
+        <div class="layui-input-block">
+            <input type="text" name="Title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">内容</label>
+        <div class="layui-input-block">
+            <!-- 加载编辑器的容器 -->
+            <script id="container" name="Content"  style="height:500px" type="text/plain"></script>
+        </div>
+    </div>
+
+</form>
