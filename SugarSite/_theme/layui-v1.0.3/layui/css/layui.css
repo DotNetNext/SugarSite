@@ -239,7 +239,11 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
 .alone li{display:inline-block; width:181px; font-size: 16px; text-align:center; line-height:80px; margin:0 1px 1px 0; background-color:#393D49; color:#fff;}
 .alone li:hover{opacity:0.8;}
 .alone li a{display:block; color:#fff;}
+@media screen and (max-width: 1200px) {
 
+ a.logo{display:none !important}
+ a.logoM{ display:block !important}
+}
 
 /*   ≈‰∂‡…Ë±∏ */
 @media screen and (max-width: 750px) {

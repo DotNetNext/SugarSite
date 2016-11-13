@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="icon" href="~/_theme/ico.ico" type="image/x-icon" />
     <title>@ViewBag.Title</title>
-    <link href="~/_theme/layui-v1.0.3/layui/css/layui.css?v=2" rel="stylesheet" />
+    <link href="~/_theme/layui-v1.0.3/layui/css/layui.css?v=31" rel="stylesheet" />
     @RenderSection("css", false)
     @{
         var className = Convert.ToBoolean(ViewBag.IsMainPage) ? "maincss" : "innercss";
@@ -25,21 +25,18 @@
                     <a class="logo" href="/">
                         孙凯旋个人主页
                     </a>
+                    <a class="logo logoM" style="display:none" href="/">
+                         主页
+                    </a>
                     <ul class="layui-nav">
                         <li class="layui-nav-item ">
-                            <a href="/Home/Doc">SqlSugar框架文档</a>
+                            <a href="/Home/Doc">SqlSugarORM文档</a>
                         </li>
                         <li class="layui-nav-item ">
-                            <a href="/Home/Question">向我提问</a>
+                            <a onclick="alert('10天后开通该功能')">提问</a>
                         </li>
                         <li class="layui-nav-item ">
-                            <a href="/Home/Question">已解决</a>
-                        </li>
-                        <li class="layui-nav-item ">
-                            <a href="/Home/Question">处理中</a>
-                        </li>
-                        <li class="layui-nav-item site-nav-layim">
-                            <a href="/Home/Reward" target="_blank">打赏</a>
+                            <a onclick="alert('10天后开通该功能')">打赏</a>
                         </li>
                         <span class="layui-nav-bar" style="left: 54px; top: 61px; width: 0px; opacity: 0;"></span>
                     </ul>
@@ -78,7 +75,7 @@
     <script>
         layui.config({
             base: '/_theme/layui-v1.0.3/layui/lay/modules/'
-          , version: '2'
+          , version: '3'
         }).use('global');
 
         window.global = {
