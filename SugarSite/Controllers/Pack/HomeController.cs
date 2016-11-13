@@ -50,7 +50,7 @@ namespace SugarSite.Controllers
                 model.ResultInfo.DocType = db.Queryable<DocType>().ToList();
                 if (typeId == 0)//如果没有文章ID取第一条
                 {
-                    typeId = model.ResultInfo.DocType.OrderByDescending(it => it.Level).ThenBy(it => it.Sort).First().Id;
+                    typeId = model.ResultInfo.DocType.OrderBy(it => it.Level).ThenBy(it => it.Sort).First().Id;
                 }
                 var list = db.Queryable<DocContent>().Where(it => it.TypeId == typeId).ToList();
                 model.ResultInfo.DocContent = list;
