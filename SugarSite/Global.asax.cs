@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
+using Infrastructure.Pub;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,14 @@ namespace SugarSite
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             #endregion
 
+        }
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            //将不带www.的域名跳转到带www.的域名 (301跳转)
+            string strUrl = Request.Url.ToString().Trim().ToLower();
+            if (strUrl.Contains(PubConst.SiteDomain.ToLower())&&!strUrl.Contains("www.")){ 
+                Response.RedirectPermanent(strUrl.Replace(PubConst.SiteDomain, "www." + PubConst.SiteDomain));
+            }
         }
     }
 }

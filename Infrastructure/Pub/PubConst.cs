@@ -11,6 +11,7 @@ namespace Infrastructure.Pub
         public const string SessionVerifyCode = "SessionVerifyCode";
         public const string UserUniqueKey = "CookeUniqueKey";
         public const string UrlAdminIndex = "AdminSite/DocContent";
-        public const string SitePrefix = "-SqlSugar";
+        public const string SitePrefix = "-SqlSugar ORM-ASP.NET";
+        public const string SiteDomain = "codeisbug.com";
     }
 }
