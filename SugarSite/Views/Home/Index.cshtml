@@ -2,7 +2,15 @@
     ViewBag.Title = "SqlSugar ORM框架 - 孙凯旋个人主页";
     var downCount = (DateTime.Now - Convert.ToDateTime("2015-1-1")).TotalDays * 5;
 }
-
+@section meta{
+   <meta name="keywords" content="SqlSugar ORM">
+   <meta name="description" content="SqlSugar ORM 官网 ，孙凯旋的个人主页，SqlSugar是一款轻量级、高性能、以及支持.NET 4.+和ASP.NET Core一款ORM框架。另外还支持了MySql、Sqlserver、Sqlite和Oracle四种数据库。" />    
+}
+@section css{
+   <style>
+       .layui-hide{display:none!important}
+    </style>   
+}
 <div class="site-zfj site-zfj-anim">
     <i class="layui-icon" style="color: #FBDAC7; color: rgba(255,255,255,.5);"></i>
 </div>
