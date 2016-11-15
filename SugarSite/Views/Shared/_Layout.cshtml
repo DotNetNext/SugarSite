@@ -10,7 +10,7 @@
     @RenderSection("meta",false)
     <link rel="icon" href="~/_theme/ico.ico" type="image/x-icon" />
     <title>@ViewBag.Title</title>
-    <link href="~/_theme/layui-v1.0.3/layui/css/layui.css?v=31" rel="stylesheet" />
+    <link href="~/_theme/layui-v1.0.3/layui/css/layui.css?v=42" rel="stylesheet" />
     @RenderSection("css", false)
     @{
         var className = Convert.ToBoolean(ViewBag.IsMainPage) ? "maincss" : "innercss";
@@ -30,14 +30,14 @@
                          主页
                     </a>
                     <ul class="layui-nav">
-                        <li class="layui-nav-item ">
+                        <li class="layui-nav-item @((ViewBag.PageNum==2)?"page-current":"")">
                             <a href="/Home/Doc">SqlSugarORM文档</a>
                         </li>
-                        <li class="layui-nav-item ">
+                        <li class="layui-nav-item @((ViewBag.PageNum==3)?"page-current":"")">
                             <a onclick="alert('10天后开通该功能')">提问</a>
                         </li>
-                        <li class="layui-nav-item ">
-                            <a onclick="alert('10天后开通该功能')">打赏</a>
+                        <li class="layui-nav-item @((ViewBag.PageNum==4)?"page-current":"")">
+                            <a href="/home/Reward">打赏</a>
                         </li>
                         <span class="layui-nav-bar" style="left: 54px; top: 61px; width: 0px; opacity: 0;"></span>
                     </ul>

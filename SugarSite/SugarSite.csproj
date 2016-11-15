@@ -248,6 +248,8 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="_theme\img\wx.jpg" />
+    <Content Include="_theme\img\zfb.jpg" />
     <Content Include="_theme\jquery-1.10.2.min.js" />
     <Content Include="_theme\layui-v1.0.3\layui\css\layui.css" />
     <Content Include="_theme\layui-v1.0.3\layui\css\mobile.css" />
@@ -655,6 +657,7 @@
     <Content Include="_theme\ueditor\utf8-net\third-party\video-js\font\vjs.ttf" />
     <Content Include="_theme\ueditor\utf8-net\third-party\video-js\font\vjs.woff" />
     <Content Include="_theme\ueditor\utf8-net\net\README.md" />
+    <Content Include="Views\Home\Reward.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">

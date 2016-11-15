@@ -31,6 +31,11 @@ namespace SugarSite.Controllers
             });
             return View(model);
         }
+
+        public ActionResult Reward()
+        {
+            return View();
+        }
         #endregion
 
         #region Public API
@@ -40,8 +45,8 @@ namespace SugarSite.Controllers
         /// <param name="TypeId"></param>
         /// <param name="Id"></param>
         /// <returns></returns>
-        [OutputCache(Duration =0)]
-        public JsonResult GetDoc(int typeId) 
+        [OutputCache(Duration = 0)]
+        public JsonResult GetDoc(int typeId)
         {
             var model = new ResultModel<Doc>();
             _service.Command<HomeOutsourcing>((db, o) =>
@@ -50,7 +55,7 @@ namespace SugarSite.Controllers
                 model.ResultInfo.DocType = db.Queryable<DocType>().ToList();
                 if (typeId == 0)//如果没有文章ID取第一条
                 {
-                    typeId = model.ResultInfo.DocType.Where(it=>it.Level==2).OrderBy(it => it.Level).ThenBy(it => it.Sort).First().Id;
+                    typeId = model.ResultInfo.DocType.Where(it => it.Level == 2).OrderBy(it => it.Level).ThenBy(it => it.Sort).First().Id;
                 }
                 var list = db.Queryable<DocContent>().Where(it => it.TypeId == typeId).ToList();
                 model.ResultInfo.DocContent = list;

@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "打赏作者";
+    ViewBag.PageNum = 4;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+      <style>
+           .tableBox{width:600px;margin:auto;margin-top:4em}
+           .tableBox p{font-size:2em;font-weight:bold}
+           .tableBox img{margin-top:1em}
+           .layui-hide{display:none!important}
+           .tableBox .title{text-align:left;padding-bottom:2em;color: #f60;font-size: 1.5em;line-height:1.5}
+           @@media screen and (max-width: 1200px) {
+                  .tableBox img{width:45% !important; height:inherit!important}
+                  .tableBox{width:100%;margin-top:2em!important}
+                  .tableBox .title{padding:2em;}
+           }
+      </style>
+}
+<table  class="tableBox">
+    <tr>
+        <td class="title" colspan="2">
+            本站的所有技术都是开源的，不收取任何费用，如果本站的技术可以帮到你，或者希望它能够提供更好的服务，你可以打赏一下小站，为作者加油打气。
+        </td>
+    </tr>
+    <tr>
+        <td valign="top">
+            <p>微信</p>
+            <img height="300" title="微信" src="~/_theme/img/wx.jpg" />
+        </td>
+        <td>
+            <p>支付宝</p>
+            <img height="300" title="支付宝" src="~/_theme/img/zfb.jpg" />
+        </td>
+    </tr>
+
+</table>
+
