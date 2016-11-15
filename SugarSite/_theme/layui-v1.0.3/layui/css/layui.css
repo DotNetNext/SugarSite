@@ -311,6 +311,7 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
 .innercss .site-content{text-align:left}
 .innercss .layui-table th{ background:#d2d2d2!important; text-align:left}
 .page-current { border-bottom:4px solid #2a866c !important}
+a.admin-button{background:#5FB878 !important;color:white;padding:3px; margin-bottom:2px;border-radius:3px}
 
 /***±í¸ñ***/
 .gridtable .tablehead{background:#009688;white-space:nowrap;word-break:keep-all;word-wrap:normal;color:#3A3A3A;font-weight:bolder;

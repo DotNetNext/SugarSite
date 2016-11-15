@@ -29,6 +29,7 @@ namespace SugarSite.Controllers
             {
                 model = api.Get(Url.Action("GetDoc"), new { typeId = typeId });
             });
+            ViewBag.IsAdmin = _userInfo != null && _userInfo.RoleId == 1;
             return View(model);
         }
 
