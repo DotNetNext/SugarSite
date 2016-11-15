@@ -15,22 +15,25 @@
         var sc = $(".site-content").height();
         var sb = $(".site-banner-bg").css({ height: sc });
         var $top = $(".layui-fixbar-top");
-        var $tree = $(".layui-tree");
+        var $tree = $(".layui-main");
         var $more = $(".site-tree-mobile");
         var $shade = $(".site-mobile-shade");
         $top.click(function () {
             $(document).scrollTop(0);
         })
         $(document).scroll(function () {
-            var wh = $(window).height();
-            var dt = $(document).scrollTop();
-            if (dt > wh) {
-                $top.show();
-                $tree.css("position", "fixed");
-                $tree.css("top", "0");
-            } else {
-                $top.hide();
-                $tree.removeAttr("style");
+            if ($tree.size() > 0) {
+                var wh = $(window).height();
+                var dt = $(document).scrollTop();
+                if (dt > wh) {
+                    $top.show();
+                    if (w > 1200) {
+                        $tree.addClass("site-fix");
+                    }
+                } else {
+                    $top.hide();
+                    $tree.removeClass("site-fix");
+                }
             }
         })
         $more.click(function () {
