@@ -12,14 +12,26 @@
 @section css{
     <link href="~/_theme/ueditor/utf8-net/third-party/SyntaxHighlighter/shCoreDefault.css" rel="stylesheet" />
     <style>
+        .syntaxhighlighter td.code .line {
+            font-size: 12px !important;
+        }
+
         .syntaxhighlighter .keyword {
             color: #cc86d4 !important;
         }
-        .syntaxhighlighter td.code .line{
-           line-height: 1.8 !important;
+
+        .syntaxhighlighter td.code .line {
+            line-height: 1.8 !important;
         }
+
         .site-h1 {
-          color:#f60!important
+            color: #f60 !important;
+        }
+
+        @@media screen and (max-width: 750px) {
+            .code .container {
+                word-break: break-all;
+            }
         }
     </style>
 }
@@ -58,7 +70,7 @@
                 <div>
                     @if (ViewBag.IsAdmin == true)
                     {
-                     <a class="admin-button" target="_blank" href="/AdminSite/DocContent/PageDCAdd?id=@item.Id">管理</a>
+                        <a class="admin-button" target="_blank" href="/AdminSite/DocContent/PageDCAdd?id=@item.Id">管理</a>
                     }
                     @Html.Raw(item.Content)
                 </div>
