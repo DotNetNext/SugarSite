@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.ViewModels
 {
-    public class Doc
+    /// <summary>
+    /// 文档ViewModel
+    /// </summary>
+    public class DocResult
     {
         public List<DocType> DocType { get; set; }
-
         public List<DocContent> DocContent { get; set; }
         public DocType CurrentType { get; set; }
     }

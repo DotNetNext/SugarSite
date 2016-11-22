@@ -24,8 +24,8 @@ namespace SugarSite.Controllers
 
         public ActionResult Doc(int typeId = 0)
         {
-            var model = new ResultModel<Doc>();
-            _service.Command<HomeOutsourcing, ResultModel<Doc>>((o, api) =>
+            var model = new ResultModel<DocResult>();
+            _service.Command<HomeOutsourcing, ResultModel<DocResult>>((o, api) =>
             {
                 model = api.Get(Url.Action("GetDoc"), new { typeId = typeId });
             });
@@ -49,10 +49,10 @@ namespace SugarSite.Controllers
         [OutputCache(Duration = 0)]
         public JsonResult GetDoc(int typeId)
         {
-            var model = new ResultModel<Doc>();
+            var model = new ResultModel<DocResult>();
             _service.Command<HomeOutsourcing>((db, o) =>
             {
-                model.ResultInfo = new Infrastructure.ViewModels.Doc();
+                model.ResultInfo = new Infrastructure.ViewModels.DocResult();
                 model.ResultInfo.DocType = db.Queryable<DocType>().ToList();
                 if (typeId == 0)//如果没有文章ID取第一条
                 {

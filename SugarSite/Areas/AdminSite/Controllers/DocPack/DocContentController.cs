@@ -7,6 +7,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SqlSugar;
+using Infrastructure.Pub;
+
 namespace SugarSite.Areas.AdminSite.Controllers
 {
     public class DocContentController : BaseController
@@ -20,7 +22,7 @@ namespace SugarSite.Areas.AdminSite.Controllers
             return View();
         }
 
-        public ActionResult PageDCAdd(int id=0)
+        public ActionResult PageDCAdd(int id = 0)
         {
             ViewBag.isAdd = id == 0;
             return View();
@@ -28,6 +30,26 @@ namespace SugarSite.Areas.AdminSite.Controllers
         #endregion
 
         #region Admin Api
+        public JsonResult Dc_GetList(int typeId=0,int pageIndex = 1, int pageSize = PubConst.SitePageSize)
+        {
+            var model = new ResultModel<DocContentResult>();
+            _service.Command<LoginOutsourcing>((db, o) =>
+            {
+                int pageCount = 0;
+                model.ResultInfo = new DocContentResult();
+                model.ResultInfo.PageIndex = pageIndex;
+                model.ResultInfo.PageSize = pageSize;
+                model.ResultInfo.PageCount = 0;
+                model.ResultInfo.DocList= db.Queryable<DocContent>().JoinTable<DocType>((dc, dt) => dc.TypeId == dt.Id).Select<DocType, V_DocContent>((dc, dt) => new V_DocContent()
+                {
+                    Title = dc.Title,
+                    TypeName = dt.TypeName
+
+                }).ToPageList(pageIndex, pageSize, ref pageCount);
+            });
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         [ValidateInput(false)]
         public JsonResult DC_Submit(DocContent obj)
@@ -64,9 +86,9 @@ namespace SugarSite.Areas.AdminSite.Controllers
             var model = new ResultModel<DocContent>();
             _service.Command<LoginOutsourcing>((db, o) =>
             {
-                model.ResultInfo=db.Queryable<DocContent>().InSingle(id);
+                model.ResultInfo = db.Queryable<DocContent>().InSingle(id);
             });
-            return Json(model,JsonRequestBehavior.AllowGet);
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

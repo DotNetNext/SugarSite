@@ -13,5 +13,6 @@ namespace Infrastructure.Pub
         public const string UrlAdminIndex = "AdminSite/DocContent";
         public const string SitePrefix = "-SqlSugar ORM-ASP.NET";
         public const string SiteDomain = "codeisbug.com";
+        public const int SitePageSize = 20;
     }
 }
