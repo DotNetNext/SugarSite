@@ -120,7 +120,6 @@
               ]
             });
 
-
             //生成一个模拟树
             var createTree = function (node, start) {
                 node = node || function () {
@@ -195,25 +194,38 @@
                     width: 100
                 }]
             })
-            $.ajax({
-                url: $.action.url("Dc_GetList", null, "DocContent", "AdminSite"),
-                data: {},
-                success: function (msg) {
-                    var datas = msg.ResultInfo.DocList;
-                    test.RenderTo('testdiv');
-                    test.dataStore = datas;
-                    test.ShowData();
-                },
-                error: function (msg) {
-                    console.log(msg);
-                }
-            })
-
-
 
             btnAdd.click(function () {
                 window.open(layui.ejq.action.url("PageDCAdd", null, "DocContent", "AdminSite"));
             })
+            btnDel.click(function () {
+                $.ajax({
+                    url: $.action.url("DC_Delete", null, "DocContent", "AdminSite"),
+                    data: {},
+                    success: function (msg) {
+                        bindGird();
+                    },
+                    error: function (msg) {
+                        console.log(msg);
+                    }
+                })
+            })
+            bindGird();
+            function bindGird() {
+                $.ajax({
+                    url: $.action.url("Dc_GetList", null, "DocContent", "AdminSite"),
+                    data: {},
+                    success: function (msg) {
+                        var datas = msg.ResultInfo.DocList;
+                        test.RenderTo('testdiv');
+                        test.dataStore = datas;
+                        test.ShowData();
+                    },
+                    error: function (msg) {
+                        console.log(msg);
+                    }
+                })
+            }
         });
     </script>
 }
