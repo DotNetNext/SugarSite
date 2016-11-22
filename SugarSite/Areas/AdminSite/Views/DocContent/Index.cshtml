@@ -4,9 +4,9 @@
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
 @section js{
-<script src="~/_theme/layui-v1.0.3/layui/lay/modules/jsGrid.js"></script>
+    <script src="~/_theme/layui-v1.0.3/layui/lay/modules/jsGrid.js"></script>
     <script>
-        layui.use(['tree', 'layer', 'jsGrid','ejq'], function () {
+        layui.use(['tree', 'layer', 'jsGrid', 'ejq'], function () {
             var layer = layui.layer, $ = layui.jquery, jsGrid = layui.jsGrid;
             var $sizeDemo = $(".site-demo");
             var $gridTable = $(".gridtable");
@@ -151,10 +151,22 @@
             //创建grid
             var test = new jsGrid({
                 id: "testGrid",
-                width:"100%",
-                height:$(window).height()-$buttonBox.height()-100,
+                width: "100%",
+                doubleHead: true,
+                height: $(window).height() - $buttonBox.height() - 100,
                 "class": "gridtable",
-                columns: [{
+                columns: [
+               {
+                          title: "标题",
+                          indexname: "Title",
+                          textalign: 'center',
+                          width: "50",
+                          formatter:
+                          function (val, rowdata, rowindex, td, trL, trR) {
+                              return '<input value="'+rowdata.Id+'" type="checkbox" />';
+                          }
+                 },
+                {
                     title: "编号",
                     indexname: "Id",
                     textalign: 'left',
@@ -164,7 +176,11 @@
                     title: "标题",
                     indexname: "Title",
                     textalign: 'left',
-                    width: 500
+                    width: 500,
+                    formatter:
+                    function (val, rowdata, rowindex, td, trL, trR) {
+                        return '<a target="_blank" href="' + $.action.url("PageDCAdd", null, "DocContent", "AdminSite") + "?id=" + rowdata.Id + '">' + val + '</a>';
+                    }
                 },
                 {
                     title: "创建人",
@@ -181,7 +197,7 @@
             })
             $.ajax({
                 url: $.action.url("Dc_GetList", null, "DocContent", "AdminSite"),
-                data:{},
+                data: {},
                 success: function (msg) {
                     var datas = msg.ResultInfo.DocList;
                     test.RenderTo('testdiv');
@@ -192,7 +208,7 @@
                     console.log(msg);
                 }
             })
-             
+
 
 
             btnAdd.click(function () {
@@ -214,5 +230,5 @@
             <button id="btnDel" class="layui-btn layui-btn-warm">删除</button>
         </div>
     </fieldset>
-     <div id="testdiv"></div>
+    <div id="testdiv"></div>
 </div>

@@ -2,7 +2,7 @@
 @{
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
     bool isAdd = ViewBag.isAdd;
-    ViewBag.Title = isAdd.IIF("添加", "可存");
+    ViewBag.Title = isAdd.IIF("添加", "编辑");
 }
 @using SyntacticSugar
 @section js{
@@ -61,14 +61,13 @@
             <button id="btnClose" class="layui-btn layui-btn-warm">关闭</button>
         </div>
     </fieldset>
-
 </div>
 <form class="layui-form" action="" style="width:calc(100% - 20px)">
     @Html.Hidden("id")
     <div class="layui-form-item">
-        <label class="layui-form-label">分类编号</label>
+        <label class="layui-form-label">编号</label>
         <div class="layui-input-block">
-            <input type="text" name="TypeId" value="" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+            <input type="text" name="TypeId"  value="" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">

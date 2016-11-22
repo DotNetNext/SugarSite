@@ -102,21 +102,22 @@
     JSGrid.prototype.RenderTo = function (ControlID) {
         var id = this.id;
         var HeadArr = this.CreateGridHead();
-        var gridHTML = ' <div id="' + id + '" style="overflow:hidden;' + this.width + this.height + '"> '
+        var gridHTML = ' <div id="' + id + '"  class="grid-box" style="overflow:hidden;' + this.width + this.height + '"> '
          + '<table id="' + id + '_alltable"  style="border-collapse:collapse;" >' + '<tr>'
-         + '  <td class="allTD">' + '   <div id="' + id + '_headLeftDiv">   '
+         + '  <td class="allTD t1">' + '   <div id="' + id + '_headLeftDiv">   '
          + '     <table id="' + id + '_headLeftTB" class="' + (this.doubleHead ? 'doubleHead' : 'InnerTB') + '">'
          + HeadArr.HeadHTML1
          + '     </table>' + '   </div>' + '  </td>'
-         + '  <td class="allTD">' + '   <div id="' + id + '_headRightDiv" style="overflow:hidden;">'
+         + '  <td class="allTD hide">' + '   <div id="' + id + '_headRightDiv" style="overflow:hidden;">'
          + '     <table id="' + id + '_headRightTB" class="' + (this.doubleHead ? 'doubleHead' : 'InnerTB') + '">'
          + HeadArr.HeadHTML2
          + '     </table>' + ' </div> ' + '  </td>' + ' </tr>'
          + ' <tr>'
-         + '  <td class="allTD">' + '   <div id="' + id + '_mainLeftDiv" style="overflow:hidden">   '
+         + '  <td class="allTD t3">' + '   <div id="' + id + '_mainLeftDiv" style="overflow:hidden">   '
          + '   </div>' + '</td>'
-         + '  <td class="allTD" >' + '   <div id="' + id + '_mainRightDiv" style="overflow-x:auto;overflow-y:auto;" >'
-         + '</div>' + '</td>' + ' </tr>'
+         + '  <td class="allTD hide" >' + '   <div id="' + id + '_mainRightDiv" style="overflow-x:auto;overflow-y:auto;" >'
+         + '</div>' + '</td>'
+         + ' </tr>'
          + '</table>'
          + '</div>';
         document.getElementById(ControlID).innerHTML = gridHTML;
@@ -162,6 +163,9 @@
                 td = trR.insertCell(-1);
             }
             var tempValue = Icolumns.formatter(dtSource[rownum][Icolumns.indexname], dtSource[rownum], rownum, td, trL, trR);
+            if (tempValue == null) {
+                tempValue = "";
+            }
             td.className = 'nomarl';
             tempstr = '<div gridName="' + Icolumns.indexname + '_' + j + '_body" style="width:'
              + Icolumns.width
@@ -222,6 +226,9 @@
                 td = trR.insertCell(-1);
             }
             var tempValue = Icolumns.formatter(dtSource[rownum][Icolumns.indexname], dtSource[rownum], rownum, td, trL, trR);
+            if (tempValue == null) {
+                tempValue = "";
+            }
             td.className = 'nomarl';
             if (Icolumns.rowSpanRow) {
                 if (tdStyle == 'top') {

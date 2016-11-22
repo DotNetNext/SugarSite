@@ -42,13 +42,14 @@ namespace SugarSite.Areas.AdminSite.Controllers
                 model.ResultInfo.PageCount = 0;
                 model.ResultInfo.DocList = db.Queryable<DocContent>()
                                             .JoinTable<DocType>((dc, dt) => dc.TypeId == dt.Id)
-                                            .OrderBy(dc => dc.CreateTime, OrderByType.Desc)
+                                            .OrderBy(dc => dc.Id, OrderByType.Desc)
                                             .Select<DocType, V_DocContent>((dc, dt) => new V_DocContent()
                                             {
                                                 Title = dc.Title,
                                                 TypeName = dt.TypeName,
                                                 CreateTime = dc.CreateTime,
-                                                Creator = dc.Creator
+                                                Creator = dc.Creator,
+                                                Id=dc.Id
 
                                             }).ToPageList(pageIndex, pageSize, ref pageCount);
             });
