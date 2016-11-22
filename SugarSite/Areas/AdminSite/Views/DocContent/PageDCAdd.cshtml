@@ -1,8 +1,8 @@
 ﻿
 @{
-    ViewBag.Title = "AddPage";
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
     bool isAdd = ViewBag.isAdd;
+    ViewBag.Title = isAdd.IIF("添加", "可存");
 }
 @using SyntacticSugar
 @section js{
