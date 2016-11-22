@@ -6,7 +6,13 @@
         this.rowSpanKeys = config.rowSpanKeys != null ? config.rowSpanKeys : [];
         this.TempRowSpanKeys = [];
         this.width = config.width != null ? "width:" + config.width + "px;" : "";
+        if (this.width != null) {
+            this.width = this.width.replace("%px", "%");
+        }
         this.height = config.height != null ? "height:" + config.height + "px;" : "";
+        if (this.height != null) {
+            this.height = this.height.replace("%px", "%");
+        }
         this.id = config.id != null ? config.id : "TreGrid";
         this.columns = config.columns != null ? config.columns : [];
         this.dataStore = config.dataStore != null ? config.dataStore : [];

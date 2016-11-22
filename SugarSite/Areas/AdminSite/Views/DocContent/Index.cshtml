@@ -151,106 +151,49 @@
             //创建grid
             var test = new jsGrid({
                 id: "testGrid",
-                width: $sizeDemo.width() - 250,
+                width:"100%",
                 height:$(window).height()-$buttonBox.height()-100,
-                doubleHead: true,
-                rowSpan: true,
                 "class": "gridtable",
-                rowSpanKeys: ["id", "name"],
                 columns: [{
-                    title: "<div align=\"center\"><span title=\"详细\"  style=\"text-align:center ;\">ID</span></div>",
-                    indexname: "id",
+                    title: "编号",
+                    indexname: "Id",
                     textalign: 'left',
                     width: 100,
-                    rowSpanRow: true,
-                    locked: true,
-                    formatter:
-                    function (val, rowdata, rowindex, td, trL, trR) {
-                        return '<img src="search.gif" height=18px width=20px/>';
-                    }
                 },
                 {
-                    title: "名字",
-                    indexname: "name",
-                    textalign: 'center',
-                    width: 100,
-                    locked: true,
-                    formatter:
-                    function (val, rowdata, rowindex) {
-                        return val;
-                    }
-                },
-                {
-                    title: "<div align=\"center\"><span title=\"ID\"  style=\"text-align:center ;\">爱好</span></div>",
-                    indexname: "name2",
-                    textalign: 'center',
-                    width: 100,
-                    locked: true,
-                    formatter:
-                    function (val, rowdata, rowindex) {
-                        return val;
-                    }
-                },
-                {
-                    title: "<div align=\"center\"><span title=\"ID\"  style=\"text-align:center ;\">xxx</span></div>",
-                    indexname: "name3",
+                    title: "标题",
+                    indexname: "Title",
                     textalign: 'left',
-                    width: 100,
-                    locked: false
+                    width: 500
                 },
                 {
-                    title: "<div align=\"center\"><span title=\"cc\"  style=\"text-align:center ;\">cc</span></div>",
-                    indexname: "name4",
-                    textalign: 'right',
-                    width: 100,
-                    locked: false
+                    title: "创建人",
+                    indexname: "Creator",
+                    textalign: 'center',
+                    width: 100
                 },
                 {
-                    title: "<div align=\"center\"><span title=\"cc\"  style=\"text-align:center ;\">cc</span></div>",
-                    indexname: "name5",
-                    textalign: 'right',
-                    width: 100,
-                    doubleHeadNum: 2,
-                    doubleHeadtitle: "kkkoooo",
-                    locked: false
-                },
-                {
-                    title: "<div align=\"center\"><span title=\"cc\"  style=\"text-align:center ;\">cc</span></div>",
-                    indexname: "name6",
-                    textalign: 'right',
-                    width: 100,
-                    locked: false
-                },
-                {
-                    title: "<div align=\"center\"><span title=\"cc\"  style=\"text-align:center ;\">cc</span></div>",
-                    indexname: "name7",
-                    textalign: 'right',
-                    width: 300,
-                    locked: false
+                    title: "创建时间",
+                    indexname: "CreateTime",
+                    textalign: 'center',
+                    width: 100
                 }]
             })
+            $.ajax({
+                url: $.action.url("Dc_GetList", null, "DocContent", "AdminSite"),
+                data:{},
+                success: function (msg) {
+                    var datas = msg.ResultInfo.DocList;
+                    test.RenderTo('testdiv');
+                    test.dataStore = datas;
+                    test.ShowData();
+                },
+                error: function (msg) {
+                    console.log(msg);
+                }
+            })
+             
 
-            //数据源定义
-            var datas = [{ id: "1", name: "ttts", name2: "ttts2", name3: "asdfsadf", name4: "ttts5", name5: "ttts3", name6: "ttts3", name7: "ttts3" },
-                            { id: "2", name: "ttts", name2: "ttts2", name3: "ttts3", name4: "ttts5", name5: "ttts3", name6: "ttts3", name7: "ttts3" }
-                            , { id: "3", name: "ttts", name2: "ttts2", name3: "ttts3", name4: "ttts5", name5: "ttts3", name6: "ttts3", name7: "ttts3" }
-                            , { id: "3", name: "ttts", name2: "ttts2", name3: "ttts3", name4: "ttts5", name5: "ttts3", name6: "ttts3", name7: "ttts3" }
-                            , { id: "3", name: "ttts", name2: "ttts2", name3: "ttts3", name4: "ttts5", name5: "ttts3", name6: "ttts3", name7: "ttts3" }
-                            , { id: "3", name: "ttts", name2: "ttts2", name3: "ttts3", name4: "ttts5", name5: "ttts3", name6: "ttts3", name7: "ttts3" }
-                            , { id: "3", name: "ttts", name2: "ttts2", name3: "ttts3", name4: "ttts5", name5: "ttts3", name6: "ttts3", name7: "ttts3" }
-                            , { id: "3", name: "ttts1", name2: "ttts2", name3: "ttts3", name4: "ttts5", name5: "ttts3", name6: "ttts3", name7: "ttts3" }
-                            , { id: "3", name: "ttts2", name2: "ttts2", name3: "ttts3", name4: "ttts5", name5: "ttts3", name6: "ttts3", name7: "ttts3" }
-                            , { id: "3", name: "ttts3", name2: "ttts2", name3: "ttts3", name4: "ttts5", name5: "ttts3", name6: "ttts3", name7: "ttts3" }
-                            , { id: "3", name: "ttts4", name2: "ttts2", name3: "ttts3", name4: "ttts5", name5: "ttts3", name6: "ttts3", name7: "ttts3" }
-                            , { id: "3", name: "ttts5", name2: "ttts2", name3: "ttts3", name4: "ttts5", name5: "ttts3", name6: "ttts3", name7: "ttts3" }
-                            , { id: "3", name: "ttts", name2: "ttts2", name3: "ttts3", name4: "ttts5", name5: "ttts3", name6: "ttts3", name7: "ttts3" }
-                            , { id: "3", name: "ttts", name2: "ttts2", name3: "ttts3", name4: "ttts5", name5: "ttts3", name6: "ttts3", name7: "ttts3" }
-                            , { id: "3", name: "ttts", name2: "ttts2", name3: "ttts3", name4: "ttts5", name5: "ttts3", name6: "ttts3", name7: "ttts3" }
-            ]
-
-            test.RenderTo('testdiv');
-            test.dataStore = datas;
-            test.ShowData();
 
             btnAdd.click(function () {
                 window.open(layui.ejq.action.url("PageDCAdd", null, "DocContent", "AdminSite"));

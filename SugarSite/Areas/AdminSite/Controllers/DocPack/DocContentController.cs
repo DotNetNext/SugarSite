@@ -30,7 +30,7 @@ namespace SugarSite.Areas.AdminSite.Controllers
         #endregion
 
         #region Admin Api
-        public JsonResult Dc_GetList(int typeId=0,int pageIndex = 1, int pageSize = PubConst.SitePageSize)
+        public JsonResult Dc_GetList(int typeId = 13, int pageIndex = 1, int pageSize = PubConst.SitePageSize)
         {
             var model = new ResultModel<DocContentResult>();
             _service.Command<LoginOutsourcing>((db, o) =>
@@ -40,12 +40,17 @@ namespace SugarSite.Areas.AdminSite.Controllers
                 model.ResultInfo.PageIndex = pageIndex;
                 model.ResultInfo.PageSize = pageSize;
                 model.ResultInfo.PageCount = 0;
-                model.ResultInfo.DocList= db.Queryable<DocContent>().JoinTable<DocType>((dc, dt) => dc.TypeId == dt.Id).Select<DocType, V_DocContent>((dc, dt) => new V_DocContent()
-                {
-                    Title = dc.Title,
-                    TypeName = dt.TypeName
+                model.ResultInfo.DocList = db.Queryable<DocContent>()
+                                            .JoinTable<DocType>((dc, dt) => dc.TypeId == dt.Id)
+                                            .OrderBy(dc => dc.CreateTime, OrderByType.Desc)
+                                            .Select<DocType, V_DocContent>((dc, dt) => new V_DocContent()
+                                            {
+                                                Title = dc.Title,
+                                                TypeName = dt.TypeName,
+                                                CreateTime = dc.CreateTime,
+                                                Creator = dc.Creator
 
-                }).ToPageList(pageIndex, pageSize, ref pageCount);
+                                            }).ToPageList(pageIndex, pageSize, ref pageCount);
             });
             return Json(model, JsonRequestBehavior.AllowGet);
         }
@@ -64,7 +69,7 @@ namespace SugarSite.Areas.AdminSite.Controllers
                 }
                 else
                 {
-                    db.AddDisableUpdateColumn();
+                    db.AddDisableUpdateColumns();
                     db.Update(obj);
                     model.ResultInfo = new { id = obj.Id };
                 }

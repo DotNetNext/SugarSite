@@ -49,5 +49,19 @@ namespace Infrastructure.DbModel
         /// </summary>
         public string Title {get;set;}
 
+        /// <summary>
+        /// Desc:- 
+        /// Default:- 
+        /// Nullable:True 
+        /// </summary>
+        public DateTime? CreateTime {get;set;}
+
+        /// <summary>
+        /// Desc:- 
+        /// Default:- 
+        /// Nullable:True 
+        /// </summary>
+        public string Creator {get;set;}
+
     }
 }
