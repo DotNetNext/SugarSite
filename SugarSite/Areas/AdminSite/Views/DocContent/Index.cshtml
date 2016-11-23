@@ -84,7 +84,7 @@
                 }, function () {
                     var ccb = $("input:checkbox:checked");
                     if (ccb.size() == 0) {
-                        layer.msg('请选择一项！', { icon: 1 });
+                        layer.msg('请选择一项！');
                         return;
                     }
                     $.ajax({

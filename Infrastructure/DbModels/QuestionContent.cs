@@ -75,7 +75,7 @@ namespace Infrastructure.DbModel
         /// Default:- 
         /// Nullable:True 
         /// </summary>
-        public Boolean? IsDelete {get;set;}
+        public Boolean? IsDeleted {get;set;}
 
     }
 }

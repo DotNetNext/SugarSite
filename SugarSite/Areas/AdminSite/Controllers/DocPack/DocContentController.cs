@@ -47,7 +47,7 @@ namespace SugarSite.Areas.AdminSite.Controllers
                             .JoinTable<DocType>((m, dt) => m.TypeId == dt.Id);
                 if (typeId != null)
                 {
-                    queryable.In("m.id",o.GetChildrenTypeIds(typeList, typeId));
+                    queryable.In("m.typeId",o.GetChildrenTypeIds(typeList, typeId));
                 }
                 model.ResultInfo.DocList = queryable.OrderBy(m => m.Id, OrderByType.Desc).Select<DocType, V_DocContent>((m, dt) => new V_DocContent()
                                             {
@@ -102,6 +102,7 @@ namespace SugarSite.Areas.AdminSite.Controllers
             });
             return Json(model);
         }
+
         public JsonResult DC_Delete(int[] ids)
         {
             var model = new ResultModel<bool>();
