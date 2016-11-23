@@ -35,21 +35,22 @@ namespace SugarSite.Areas.AdminSite.Controllers
             var model = new ResultModel<DocContentResult>();
             _service.Command<LoginOutsourcing>((db, o) =>
             {
+                db.CurrentFilterKey = PubConst.FilterKeyFalseDelteJoin;
                 int pageCount = 0;
                 model.ResultInfo = new DocContentResult();
                 model.ResultInfo.PageIndex = pageIndex;
                 model.ResultInfo.PageSize = pageSize;
                 model.ResultInfo.PageCount = 0;
                 model.ResultInfo.DocList = db.Queryable<DocContent>()
-                                            .JoinTable<DocType>((dc, dt) => dc.TypeId == dt.Id)
-                                            .OrderBy(dc => dc.Id, OrderByType.Desc)
-                                            .Select<DocType, V_DocContent>((dc, dt) => new V_DocContent()
+                                            .JoinTable<DocType>((m, dt) => m.TypeId == dt.Id)
+                                            .OrderBy(m => m.Id, OrderByType.Desc)
+                                            .Select<DocType, V_DocContent>((m, dt) => new V_DocContent()
                                             {
-                                                Title = dc.Title,
+                                                Title = m.Title,
                                                 TypeName = dt.TypeName,
-                                                CreateTime = dc.CreateTime,
-                                                Creator = dc.Creator,
-                                                Id=dc.Id
+                                                CreateTime = m.CreateTime,
+                                                Creator = m.Creator,
+                                                Id= m.Id
 
                                             }).ToPageList(pageIndex, pageSize, ref pageCount);
             });
@@ -82,9 +83,9 @@ namespace SugarSite.Areas.AdminSite.Controllers
             var model = new ResultModel<bool>();
             _service.Command<LoginOutsourcing>((db, o) =>
             {
-                db.FalseDelete<DocContent, int>("id", ids);
+                db.FalseDelete<DocContent, int>("IsDeleted", ids);
             });
-            return Json(model);
+            return Json(model,JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult DC_Single(int id)

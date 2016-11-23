@@ -12,9 +12,9 @@
             var $gridTable = $(".gridtable");
             var $buttonBox = $(".site-demo-button");
             var btnAdd = $("#btnAdd");
-            var btnEdit = $("#btnEdit");
             var btnAdd = $("#btnAdd");
             var btnDel = $("#btnDel");
+            var btnSelect = $("#btnSelect");
             layui.tree({
                 elem: '#demo1' //指定元素
               , target: '_blank' //是否新选项卡打开（比如节点返回href才有效）
@@ -162,7 +162,7 @@
                           width: "50",
                           formatter:
                           function (val, rowdata, rowindex, td, trL, trR) {
-                              return '<input value="'+rowdata.Id+'" type="checkbox" />';
+                              return '<input name="ids" value="'+rowdata.Id+'" type="checkbox" />';
                           }
                  },
                 {
@@ -198,19 +198,44 @@
             btnAdd.click(function () {
                 window.open(layui.ejq.action.url("PageDCAdd", null, "DocContent", "AdminSite"));
             })
+
             btnDel.click(function () {
-                $.ajax({
-                    url: $.action.url("DC_Delete", null, "DocContent", "AdminSite"),
-                    data: {},
-                    success: function (msg) {
-                        bindGird();
-                    },
-                    error: function (msg) {
-                        console.log(msg);
+                //询问框
+                layer.confirm('您是否要删除？', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    var ccb = $("input:checkbox:checked");
+                    if (ccb.size() == 0) {
+                        layer.msg('请选择一项！', { icon: 1 });
+                        return;
                     }
-                })
+                    $.ajax({
+                        url: $.action.url("DC_Delete", null, "DocContent", "AdminSite"),
+                        data: { ids: ccb.attrToArray("value") },
+                        cache:false,
+                        traditional: true,
+                        success: function (msg) {
+                            bindGird();
+                            layer.msg('删除成功！', { icon: 1 });
+                        },
+                        error: function (msg) {
+                            console.log(msg);
+                            layer.msg('删除失败！', { icon: 1 });
+                        }
+                    })
+                }, function () {
+                    
+                });
             })
+
+            btnSelect.click(function () {
+                var cbs = $("input:checkbox");
+                var isChecked = cbs.prop("checked");
+                cbs.prop("checked",!isChecked)
+            })
+
             bindGird();
+
             function bindGird() {
                 $.ajax({
                     url: $.action.url("Dc_GetList", null, "DocContent", "AdminSite"),
@@ -236,9 +261,8 @@
     <fieldset class="layui-elem-field site-demo-button">
         <legend>操作</legend>
         <div>
-            <button class="layui-btn layui-btn-primary">全选/反选</button>
+            <button id="btnSelect" class="layui-btn layui-btn-primary">全选/反选</button>
             <button id="btnAdd" class="layui-btn">添加</button>
-            <button id="btnEdit" class="layui-btn layui-btn-normal">编辑</button>
             <button id="btnDel" class="layui-btn layui-btn-warm">删除</button>
         </div>
     </fieldset>

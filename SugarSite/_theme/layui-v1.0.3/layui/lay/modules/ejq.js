@@ -876,7 +876,16 @@
                this.each(function () {
                    reval += jQuery(this).attr(attr) + ","
                })
-               reval = jQuery.jQueryAction.trimEnd(reval, ",");
+               reval = jQuery.Action.trimEnd(reval, ",");
+               return reval;
+           },
+           //获取元素属性以","隔开
+           attrToArray: function (attr) {
+               var reval = [];
+               this.each(function () {
+                   var value=jQuery(this).attr(attr);
+                   reval.push(value);
+               })
                return reval;
            },
            //清空表单
