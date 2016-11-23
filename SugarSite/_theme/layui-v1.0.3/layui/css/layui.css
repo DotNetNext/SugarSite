@@ -319,13 +319,14 @@ a.admin-button{background:#5FB878 !important;color:white;padding:3px; margin-bot
 
 /***后台自定义***/
 .layui-laypage {padding-left:5px}
-.tree-current{background: cadetblue !important;}
+.tree-current{background: #009688 !important;}
 .tree-current cite{color:white}
 .tree-current i{ color:white !important}
-.type-name {margin-left:10px; color:#444; font-size:16px; font-weight:bold;position:relative;top:-4px}
-.type-name span{    color: #f60;margin-right:3px}
+.type-name {margin-left:10px; color:#444; font-size:13px;position:relative;top:-4px}
+.type-name span{    color: #009688;margin-right:3px}
 .action-table .left { text-align:left !important}
 .action-table .right { text-align:right !important}
+.action-table .top-submit-button{margin-top:5px;margin-right:5px}
 
 /***表格***/
 .gridtable td { text-align:center !important; padding-left:5px !important}

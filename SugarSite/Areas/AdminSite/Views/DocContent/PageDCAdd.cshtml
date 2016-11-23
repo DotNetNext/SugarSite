@@ -53,22 +53,17 @@
     </script>
 }
 @Html.Hidden("hideIsAdd", isAdd)
-<div class="layui-form" style="display: inline-block; padding: 10px; border: 0px; overflow: auto; margin: 0px;width:calc(100% - 25px)">
-    <fieldset class="layui-elem-field site-demo-button">
-        <legend>操作</legend>
-        <div>
-            <table class="action-table" width="100%">
-                <tr>
-                    <td></td>
-                    <td class="right">
-                        <button id="btnSave" class="layui-btn">@(isAdd.IIF("添加", "保存修改"))</button>
-                        <button id="btnClose" class="layui-btn">关闭</button>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </fieldset>
-</div>
+<table class="action-table" width="100%">
+    <tr>
+        <td></td>
+        <td class="right">
+            <div class="top-submit-button">
+                <button id="btnSave" class="layui-btn">@(isAdd.IIF("保存", "保存修改"))</button>
+                <button id="btnClose" class="layui-btn">关闭</button>
+            </div>
+        </td>
+    </tr>
+</table>
 <form class="layui-form" action="" style="width:calc(100% - 120px)">
     @Html.Hidden("id")
     <div class="layui-form-item">
