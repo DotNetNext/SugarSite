@@ -7,66 +7,25 @@
     <script src="~/_theme/layui-v1.0.3/layui/lay/modules/jsGrid.js"></script>
     <script>
         layui.use(['tree', 'layer', 'jsGrid', 'ejq', 'laypage'], function () {
-            var layer = layui.layer, $ = layui.jquery, jsGrid = layui.jsGrid; laypage = layui.laypage
+            /***变量***/
+            var layer = layui.layer,
+                $ = layui.jquery,
+                jsGrid = layui.jsGrid,
+                laypage = layui.laypage;
             var $sizeDemo = $(".site-demo");
             var $gridTable = $(".gridtable");
             var $buttonBox = $(".site-demo-button");
             var btnAdd = $("#btnAdd");
-            var btnAdd = $("#btnAdd");
             var btnDel = $("#btnDel");
+            var btnAddType = $("#btnAddType");
+            var btnDelType = $("#btnDelType");
+            var btnEditType = $("#btnEditType");
             var btnSelect = $("#btnSelect");
             var hidTypeId = $("#hidTypeId");
             var hidTypeName = $("#hidTypeName");
             var lblTypeName = $("#lblTypeName");
 
-            //创建grid
-            var listGird = new jsGrid({
-                id: "listGrid",
-                width: "100%",
-                doubleHead: true,
-                height: $(window).height() - $buttonBox.height() - 150,
-                "class": "gridtable",
-                columns: [
-               {
-                   title: "标题",
-                   indexname: "Title",
-                   textalign: 'center',
-                   width: "50",
-                   formatter:
-                   function (val, rowdata, rowindex, td, trL, trR) {
-                       return '<input name="ids" value="' + rowdata.Id + '" type="checkbox" />';
-                   }
-               },
-                {
-                    title: "编号",
-                    indexname: "Id",
-                    textalign: 'left',
-                    width: 100,
-                },
-                {
-                    title: "标题",
-                    indexname: "Title",
-                    textalign: 'left',
-                    width: 500,
-                    formatter:
-                    function (val, rowdata, rowindex, td, trL, trR) {
-                        return '<a target="_blank" href="' + $.action.url("PageDCAdd", null, "DocContent", "AdminSite") + "?id=" + rowdata.Id + '&typeName=' + encodeURI(rowdata.TypeName) + '">' + val + '</a>';
-                    }
-                },
-                {
-                    title: "创建人",
-                    indexname: "Creator",
-                    textalign: 'center',
-                    width: 100
-                },
-                {
-                    title: "创建时间",
-                    indexname: "CreateTime",
-                    textalign: 'center',
-                    width: 100
-                }]
-            })
-
+            /***事件***/
             btnAdd.click(function () {
                 var addUrl = layui.ejq.action.url("PageDCAdd", null, "DocContent", "AdminSite");
                 if (hidTypeId.val() != "") {
@@ -76,7 +35,6 @@
                     layer.msg('请选择分类！');
                 }
             })
-
             btnDel.click(function () {
                 //询问框
                 layer.confirm('您是否要删除？', {
@@ -105,18 +63,38 @@
 
                 });
             })
-
             btnSelect.click(function () {
                 var cbs = $("input:checkbox");
                 var isChecked = cbs.prop("checked");
                 cbs.prop("checked", !isChecked)
             })
+            btnAddType.click(function () {
+                var ccb = $("input:checkbox:checked");
+                if (ccb.size() == 0) {
+                    layer.msg('请选择一项！');
+                    return;
+                }
+            })
+            btnDelType.click(function () {
+                var ccb = $("input:checkbox:checked");
+                if (ccb.size() == 0) {
+                    layer.msg('请选择一项！');
+                    return;
+                }
+            })
+            btnEditType.click(function () {
+                var ccb = $("input:checkbox:checked");
+                if (ccb.size() == 0) {
+                    layer.msg('请选择一项！');
+                    return;
+                }
+            })
 
+            /***初始化***/
             bindGird();
-
             bindTree();
 
-
+            /***公用方法***/
             function bindTree() {
                 $.ajax({
                     url: $.action.url("Dc_GetTypeList", null, "DocContent", "AdminSite"),
@@ -136,6 +114,52 @@
                 });
             }
             function bindGird(obj) {
+                var listGird = new jsGrid({
+                    id: "listGrid",
+                    width: "100%",
+                    doubleHead: true,
+                    height: $(window).height() - $buttonBox.height() - 150,
+                    "class": "gridtable",
+                    columns: [
+                    {
+                       title: "标题",
+                       indexname: "Title",
+                       textalign: 'center',
+                       width: "50",
+                       formatter:
+                       function (val, rowdata, rowindex, td, trL, trR) {
+                           return '<input name="ids" value="' + rowdata.Id + '" type="checkbox" />';
+                       }
+                   },
+                    {
+                        title: "编号",
+                        indexname: "Id",
+                        textalign: 'left',
+                        width: 100,
+                    },
+                    {
+                        title: "标题",
+                        indexname: "Title",
+                        textalign: 'left',
+                        width: 500,
+                        formatter:
+                        function (val, rowdata, rowindex, td, trL, trR) {
+                            return '<a target="_blank" href="' + $.action.url("PageDCAdd", null, "DocContent", "AdminSite") + "?id=" + rowdata.Id + '&typeName=' + encodeURI(rowdata.TypeName) + '">' + val + '</a>';
+                        }
+                    },
+                    {
+                        title: "创建人",
+                        indexname: "Creator",
+                        textalign: 'center',
+                        width: 100
+                    },
+                    {
+                        title: "创建时间",
+                        indexname: "CreateTime",
+                        textalign: 'center',
+                        width: 100
+                    }]
+                })
                 $.ajax({
                     url: $.action.url("Dc_GetList", null, "DocContent", "AdminSite"),
                     data: { pageIndex: obj == null ? 1 : obj.curr, typeId: hidTypeId.val() },
