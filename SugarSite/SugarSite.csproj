@@ -644,7 +644,6 @@
     <Content Include="Areas\AdminSite\Views\Login\Index.cshtml" />
     <Content Include="Areas\AdminSite\Views\DocContent\Index.cshtml" />
     <Content Include="Areas\AdminSite\Views\DocContent\PageDCAdd.cshtml" />
-    <Content Include="Areas\AdminSite\Views\DocContent\Index - Copy.cshtml" />
     <None Include="Properties\PublishProfiles\skx.pubxml" />
     <None Include="Properties\PublishProfiles\skx2.pubxml" />
     <Content Include="Views\Home\Doc.cshtml" />
