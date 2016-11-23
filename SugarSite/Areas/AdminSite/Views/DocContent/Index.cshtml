@@ -148,6 +148,17 @@
                         }
                     },
                     {
+                        title: "预览",
+                        indexname: "TypeId",
+                        textalign: 'left',
+                        width: 500,
+                        formatter:
+                        function (val, rowdata, rowindex, td, trL, trR) {
+                            debugger
+                            return '<a target="_blank" href="' + $.action.url("Doc", null, "Home") + "?typeId=" + val + '&typeName=' + encodeURI(rowdata.TypeName) + '">预览 </a>';
+                        }
+                    },
+                    {
                         title: "创建人",
                         indexname: "Creator",
                         textalign: 'center',

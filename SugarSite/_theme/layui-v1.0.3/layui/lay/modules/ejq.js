@@ -147,7 +147,7 @@
                    var isAction = controllerName == null && areaName == null;
                    var isControllerName = areaName == null && controllerName != null;
                    var isArea = areaName != null;
-                   var hidValue = $("#" + hid).val();
+                   var hidValue = jQuery("#" + hid).val();
                    var regValue = hidValue.match("(^.*)/(.+)/(.+)/$");
                    var virtualDirectory = "";
                    if (regValue != null) {
@@ -156,8 +156,12 @@
                    if (isAction) {
                        return hidValue + actionName;
                    } else if (isControllerName) {
-                       areaName = regValue[2]
-                       return (virtualDirectory + "/" + areaName + "/" + controllerName + "/" + actionName);
+                       if (regValue==null) {
+                           return (virtualDirectory + "/"+ controllerName + "/" + actionName);
+                       } else {
+                           areaName = regValue[2]
+                           return (virtualDirectory + "/" + areaName + "/" + controllerName + "/" + actionName);
+                       }
                    } else if (isArea) {
                        return (virtualDirectory + "/" + areaName + "/" + controllerName + "/" + actionName);
                    }

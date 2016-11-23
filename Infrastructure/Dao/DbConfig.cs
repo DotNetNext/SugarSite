@@ -21,6 +21,7 @@ namespace Infrastructure.Dao
             {
                 var reval = new SqlSugarClient(ConnectionString);
                 reval.SetFilterItems(DefaultFilter);//给查询添加默认过滤器 （所有查询加上 isdeleted=0 or null）
+                reval.AddDisableUpdateColumns("CreateTime", "Creator");//添加禁止更新列
                 reval.CurrentFilterKey = "FalseDelte";
                 reval.IsEnableLogEvent = true;
                 reval.LogEventStarting = (sql, pars) =>

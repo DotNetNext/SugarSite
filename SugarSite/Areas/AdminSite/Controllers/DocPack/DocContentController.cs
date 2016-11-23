@@ -55,7 +55,8 @@ namespace SugarSite.Areas.AdminSite.Controllers
                                                 TypeName = dt.TypeName,
                                                 CreateTime = m.CreateTime,
                                                 Creator = m.Creator,
-                                                Id = m.Id
+                                                Id = m.Id,
+                                                TypeId=m.TypeId
 
                                             }).ToPageList(pageIndex, pageSize, ref pageCount);
                 model.ResultInfo.PageCount = pageCount;
