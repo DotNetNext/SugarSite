@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using SqlSugar;
 using Infrastructure.Pub;
+using Infrastructure.Tool;
 
 namespace SugarSite.Areas.AdminSite.Controllers
 {
@@ -30,27 +31,31 @@ namespace SugarSite.Areas.AdminSite.Controllers
         #endregion
 
         #region Admin Api
-        public JsonResult Dc_GetList(int typeId = 13, int pageIndex = 1, int pageSize = PubConst.SitePageSize)
+        public JsonResult Dc_GetList(int? typeId, int pageIndex = 1, int pageSize = PubConst.SitePageSize)
         {
             var model = new ResultModel<DocContentResult>();
-            _service.Command<LoginOutsourcing>((db, o) =>
+            _service.Command<DocOutsourcing>((db, o) =>
             {
-                db.CurrentFilterKey = PubConst.FilterKeyFalseDelteJoin;
+                var typeList = db.Queryable<DocType>().ToList();
                 int pageCount = 0;
                 model.ResultInfo = new DocContentResult();
                 model.ResultInfo.PageIndex = pageIndex;
                 model.ResultInfo.PageSize = pageSize;
                 model.ResultInfo.PageCount = 0;
-                model.ResultInfo.DocList = db.Queryable<DocContent>()
-                                            .JoinTable<DocType>((m, dt) => m.TypeId == dt.Id)
-                                            .OrderBy(m => m.Id, OrderByType.Desc)
-                                            .Select<DocType, V_DocContent>((m, dt) => new V_DocContent()
+                db.CurrentFilterKey = PubConst.FilterKeyFalseDelteJoin;
+                var queryable = db.Queryable<DocContent>()
+                            .JoinTable<DocType>((m, dt) => m.TypeId == dt.Id);
+                if (typeId != null)
+                {
+                    queryable.In("m.id",o.GetChildrenTypeIds(typeList, typeId));
+                }
+                model.ResultInfo.DocList = queryable.OrderBy(m => m.Id, OrderByType.Desc).Select<DocType, V_DocContent>((m, dt) => new V_DocContent()
                                             {
                                                 Title = m.Title,
                                                 TypeName = dt.TypeName,
                                                 CreateTime = m.CreateTime,
                                                 Creator = m.Creator,
-                                                Id= m.Id
+                                                Id = m.Id
 
                                             }).ToPageList(pageIndex, pageSize, ref pageCount);
                 model.ResultInfo.PageCount = pageCount;
@@ -59,12 +64,29 @@ namespace SugarSite.Areas.AdminSite.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult Dc_GetTypeList()
+        {
+            var model = new ResultModel<List<LayuiTreeModel>>();
+            _service.Command<DocOutsourcing>((db, o) =>
+            {
+                var list= db.Queryable<DocType>().Select(it => new LayuiTreeModel() {
+                     id=it.Id,
+                     name=it.TypeName,
+                     parentId=it.ParentId,
+                     alias=1,
+                     level =it.Level
+                }).ToList();
+                model.ResultInfo = list.ToLayuiTree();
+            });
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         [ValidateInput(false)]
         public JsonResult DC_Submit(DocContent obj)
         {
             var model = new ResultModel<object>();
-            _service.Command<LoginOutsourcing>((db, o) =>
+            _service.Command<DocOutsourcing>((db, o) =>
             {
                 var isAdd = obj.Id == 0;
                 if (isAdd)
@@ -83,17 +105,17 @@ namespace SugarSite.Areas.AdminSite.Controllers
         public JsonResult DC_Delete(int[] ids)
         {
             var model = new ResultModel<bool>();
-            _service.Command<LoginOutsourcing>((db, o) =>
+            _service.Command<DocOutsourcing>((db, o) =>
             {
                 db.FalseDelete<DocContent, int>("IsDeleted", ids);
             });
-            return Json(model,JsonRequestBehavior.AllowGet);
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult DC_Single(int id)
         {
             var model = new ResultModel<DocContent>();
-            _service.Command<LoginOutsourcing>((db, o) =>
+            _service.Command<DocOutsourcing>((db, o) =>
             {
                 model.ResultInfo = db.Queryable<DocContent>().InSingle(id);
             });

@@ -31,7 +31,10 @@ namespace SugarSite.Areas.AdminSite.Controllers
                 if (severCode == code)
                 {
                     password = new EncryptSugar().MD5(password);
-                    var userInfo = db.Queryable<UserInfo>().FirstOrDefault(it => it.UserName == userName && it.Password == password);
+                    int adminRoleId = (int)PubEnum.RoleType.Admin;
+                    var userInfo = db.Queryable<UserInfo>()
+                    .Where(it=>it.RoleId== adminRoleId)//只有管理员才可以登录
+                    .FirstOrDefault(it => it.UserName == userName && it.Password == password);
                     var isLogin= userInfo != null;
                     model.Status = isLogin ? "1" : "3";
                     if (model.Status == "3")

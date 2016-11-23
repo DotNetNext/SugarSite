@@ -15,156 +15,28 @@
             var btnAdd = $("#btnAdd");
             var btnDel = $("#btnDel");
             var btnSelect = $("#btnSelect");
-            layui.tree({
-                elem: '#demo1' //指定元素
-              , target: '_blank' //是否新选项卡打开（比如节点返回href才有效）
-              , click: function (item) { //点击节点回调
-                  layer.msg('当前节名称：' + item.name + '<br>全部参数：' + JSON.stringify(item));
-                  console.log(item);
-              }
-              , nodes: [ //节点
-                {
-                    name: '常用文件夹'
-                  , id: 1
-                  , alias: 'changyong'
-                  , children: [
-                    {
-                        name: '所有未读（设置跳转）'
-                      , id: 11
-                      , href: 'http://www.layui.com/'
-                      , alias: 'weidu'
-                    }, {
-                        name: '置顶邮件'
-                      , id: 12
-                    }, {
-                        name: '标签邮件'
-                      , id: 13
-                    }
-                  ]
-                }, {
-                    name: '我的邮箱'
-                  , id: 2
-                  , spread: true
-                  , children: [
-                    {
-                        name: 'QQ邮箱'
-                      , id: 21
-                      , spread: true
-                      , children: [
-                        {
-                            name: '收件箱'
-                          , id: 211
-                          , children: [
-                            {
-                                name: '所有未读'
-                              , id: 2111
-                            }, {
-                                name: '置顶邮件'
-                              , id: 2112
-                            }, {
-                                name: '标签邮件'
-                              , id: 2113
-                            }
-                          ]
-                        }, {
-                            name: '已发出的邮件'
-                          , id: 212
-                        }, {
-                            name: '垃圾邮件'
-                          , id: 213
-                        }
-                      ]
-                    }, {
-                        name: '阿里云邮'
-                      , id: 22
-                      , children: [
-                        {
-                            name: '收件箱'
-                          , id: 221
-                        }, {
-                            name: '已发出的邮件'
-                          , id: 222
-                        }, {
-                            name: '垃圾邮件'
-                          , id: 223
-                        }
-                      ]
-                    }
-                  ]
-                }
-                , {
-                    name: '收藏夹'
-                  , id: 3
-                  , alias: 'changyong'
-                  , children: [
-                    {
-                        name: '爱情动作片'
-                      , id: 31
-                      , alias: 'love'
-                    }, {
-                        name: '技术栈'
-                      , id: 12
-                      , children: [
-                        {
-                            name: '前端'
-                          , id: 121
-                        }
-                        , {
-                            name: '全端'
-                          , id: 122
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            });
-
-            //生成一个模拟树
-            var createTree = function (node, start) {
-                node = node || function () {
-                    var arr = [];
-                    for (var i = 1; i < 10; i++) {
-                        arr.push({
-                            name: i.toString().replace(/(\d)/, '$1$1$1$1$1$1$1$1$1')
-                        });
-                    }
-                    return arr;
-                }();
-                start = start || 1;
-                layui.each(node, function (index, item) {
-                    if (start < 10 && index < 9) {
-                        var child = [
-                          {
-                              name: (1 + index + start).toString().replace(/(\d)/, '$1$1$1$1$1$1$1$1$1')
-                          }
-                        ];
-                        node[index].children = child;
-                        createTree(child, index + start + 1);
-                    }
-                });
-                return node;
-            };
-
+            var hidTypeId = $("#hidTypeId");
+            var hidTypeName = $("#hidTypeName");
+            var lblTypeName = $("#lblTypeName");
 
             //创建grid
-            var test = new jsGrid({
-                id: "testGrid",
+            var listGird = new jsGrid({
+                id: "listGrid",
                 width: "100%",
                 doubleHead: true,
                 height: $(window).height() - $buttonBox.height() - 150,
                 "class": "gridtable",
                 columns: [
                {
-                          title: "标题",
-                          indexname: "Title",
-                          textalign: 'center',
-                          width: "50",
-                          formatter:
-                          function (val, rowdata, rowindex, td, trL, trR) {
-                              return '<input name="ids" value="'+rowdata.Id+'" type="checkbox" />';
-                          }
-                 },
+                   title: "标题",
+                   indexname: "Title",
+                   textalign: 'center',
+                   width: "50",
+                   formatter:
+                   function (val, rowdata, rowindex, td, trL, trR) {
+                       return '<input name="ids" value="' + rowdata.Id + '" type="checkbox" />';
+                   }
+               },
                 {
                     title: "编号",
                     indexname: "Id",
@@ -178,7 +50,7 @@
                     width: 500,
                     formatter:
                     function (val, rowdata, rowindex, td, trL, trR) {
-                        return '<a target="_blank" href="' + $.action.url("PageDCAdd", null, "DocContent", "AdminSite") + "?id=" + rowdata.Id + '">' + val + '</a>';
+                        return '<a target="_blank" href="' + $.action.url("PageDCAdd", null, "DocContent", "AdminSite") + "?id=" + rowdata.Id + '&typeName=' + encodeURI(rowdata.TypeName) + '">' + val + '</a>';
                     }
                 },
                 {
@@ -196,7 +68,13 @@
             })
 
             btnAdd.click(function () {
-                window.open(layui.ejq.action.url("PageDCAdd", null, "DocContent", "AdminSite"));
+                var addUrl = layui.ejq.action.url("PageDCAdd", null, "DocContent", "AdminSite");
+                if (hidTypeId.val() != "") {
+                    addUrl += "?typeId=" + hidTypeId.val() + "&typeName=" +encodeURI(hidTypeName.val());
+                    window.open(addUrl);
+                } else {
+                    layer.msg('请选择分类！');
+                }
             })
 
             btnDel.click(function () {
@@ -212,7 +90,7 @@
                     $.ajax({
                         url: $.action.url("DC_Delete", null, "DocContent", "AdminSite"),
                         data: { ids: ccb.attrToArray("value") },
-                        cache:false,
+                        cache: false,
                         traditional: true,
                         success: function (msg) {
                             bindGird();
@@ -224,28 +102,49 @@
                         }
                     })
                 }, function () {
-                    
+
                 });
             })
 
             btnSelect.click(function () {
                 var cbs = $("input:checkbox");
                 var isChecked = cbs.prop("checked");
-                cbs.prop("checked",!isChecked)
+                cbs.prop("checked", !isChecked)
             })
 
             bindGird();
 
+            bindTree();
+
+
+            function bindTree() {
+                $.ajax({
+                    url: $.action.url("Dc_GetTypeList", null, "DocContent", "AdminSite"),
+                    cache: false,
+                    success: function (msg) {
+                        layui.tree({
+                            elem: '#treediv',
+                            target: '_blank',
+                            click: function (item) { //点击节点回调
+                                hidTypeId.val(item.id);
+                                hidTypeName.val(item.name)
+                                lblTypeName.html("<span>当前分类:</span>"+item.name);
+                                bindGird();
+                            }, nodes: msg.ResultInfo
+                        });
+                    }
+                });
+            }
             function bindGird(obj) {
-                debugger
                 $.ajax({
                     url: $.action.url("Dc_GetList", null, "DocContent", "AdminSite"),
-                    data: { pageIndex:obj==null?1:obj.curr },
+                    data: { pageIndex: obj == null ? 1 : obj.curr, typeId: hidTypeId.val() },
+                    cache: false,
                     success: function (msg) {
                         var datas = msg.ResultInfo.DocList;
-                        test.RenderTo('testdiv');
-                        test.dataStore = datas;
-                        test.ShowData();
+                        listGird.RenderTo('listdiv');
+                        listGird.dataStore = datas;
+                        listGird.ShowData();
                         laypage({
                             cont: 'pagediv'
                            , pages: msg.ResultInfo.Pages
@@ -267,18 +166,32 @@
         });
     </script>
 }
+<input type="hidden" id="hidTypeName" />
+<input type="hidden" id="hidTypeId" />
 <div style="display: inline-block; width: 180px; height:calc(100% - 26px); padding: 10px; border: 1px solid #ddd; overflow: auto; margin:0">
-    <ul id="demo1"></ul>
+    <ul id="treediv"></ul>
 </div>
 <div style="display: inline-block; width: calc(100%-260px); height:calc(100% - 26px); padding: 10px; border: 0; overflow: auto; margin:0" class="gridtable">
     <fieldset class="layui-elem-field site-demo-button">
         <legend>操作</legend>
         <div>
-            <button id="btnSelect" class="layui-btn layui-btn-primary">全选/反选</button>
-            <button id="btnAdd" class="layui-btn">添加</button>
-            <button id="btnDel" class="layui-btn layui-btn-warm">删除</button>
+            <table class="action-table" width="100%">
+                <tr>
+                    <td class="left">
+                        <button id="btnSelect" class="layui-btn layui-btn-primary">全选/反选</button>
+                        <label id="lblTypeName" class="type-name"></label>
+                    </td>
+                    <td class="right">
+                        <button id="btnAdd" class="layui-btn">添加文档</button>
+                        <button id="btnDel" class="layui-btn ">删除文档</button>
+                        <button id="btnAddType" class="layui-btn layui-btn-warm">添加分类</button>
+                        <button id="btnDelType" class="layui-btn layui-btn-warm">删除分类</button>
+                        <button id="btnEditType" class="layui-btn layui-btn-warm">修改分类</button>
+                    </td>
+                </tr>
+            </table>
         </div>
     </fieldset>
-    <div id="testdiv"></div>
+    <div id="listdiv"></div>
     <div id="pagediv"></div>
 </div>

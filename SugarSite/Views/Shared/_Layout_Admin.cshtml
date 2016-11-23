@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="icon" href="~/_theme/ico.ico" type="image/x-icon" />
     <title>@ViewBag.Title</title>
-    <link href="~/_theme/layui-v1.0.3/layui/css/layui.css?v=2111112111" rel="stylesheet" />
+    <link href="~/_theme/layui-v1.0.3/layui/css/layui.css?v=x1" rel="stylesheet" />
     @RenderSection("css", false)
     @{
         var className = Convert.ToBoolean(ViewBag.IsMainPage) ? "maincss" : "innercss";
@@ -29,11 +29,11 @@
                     </a>
                 </li>
                 <li class="layui-nav-item layui-this">
-                    <a href="/demo/">文档管理</a>
+                    <a href="@Url.Content("/AdminSite/DocContent")">文档管理</a>
                 </li>
 
                 <li class="layui-nav-item layui-nav-title">
-                    <a>用户管理</a>
+                    <a href="@Url.Content("/AdminSite/UserManagement")">用户管理</a>
                 </li>
                 <li class="layui-nav-item" style="height: 30px; text-align: center"></li>
                 <span class="layui-nav-bar" style="top: 434.5px; height: 0px; opacity: 0;"></span>
