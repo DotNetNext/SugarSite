@@ -204,10 +204,13 @@
                                 hidTypeName.val(item.name)
                                 hidLevel.val(item.level);
                                 lblTypeName.html("<span>当前分类:</span>" + item.name);
-                                debugger
                                 bindGird();
                             }, nodes: msg.ResultInfo
                         });
+                        $("[data-spread=true] cite,[data-spread=true] i").click(function () {
+                            $(".tree-current").removeClass("tree-current");
+                            $(this).parent().parent().addClass("tree-current");
+                        })
                     }
                 });
             }

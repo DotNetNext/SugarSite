@@ -321,6 +321,7 @@ a.admin-button{background:#5FB878 !important;color:white;padding:3px; margin-bot
 .layui-laypage {padding-left:5px}
 .tree-current{background: cadetblue !important;}
 .tree-current cite{color:white}
+.tree-current i{ color:white !important}
 .type-name {margin-left:10px; color:#444; font-size:16px; font-weight:bold;position:relative;top:-4px}
 .type-name span{    color: #f60;margin-right:3px}
 .action-table .left { text-align:left !important}
