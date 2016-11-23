@@ -42,7 +42,7 @@
                 $.ajax({
                     url: $.action.url("DC_Single", null, "DocContent", "AdminSite"),
                     data: { id: $.request.queryString().id },
-                    cache:false,
+                    cache: false,
                     success: function (msg) {
                         form.formFill({ data: msg.ResultInfo })
                         ue.setContent(msg.ResultInfo.Content);
@@ -57,18 +57,25 @@
     <fieldset class="layui-elem-field site-demo-button">
         <legend>操作</legend>
         <div>
-            <button id="btnSave" class="layui-btn">@(isAdd.IIF("添加", "保存修改"))</button>
-            <button id="btnClose" class="layui-btn layui-btn-warm">关闭</button>
+            <table class="action-table" width="100%">
+                <tr>
+                    <td></td>
+                    <td class="right">
+                        <button id="btnSave" class="layui-btn">@(isAdd.IIF("添加", "保存修改"))</button>
+                        <button id="btnClose" class="layui-btn">关闭</button>
+                    </td>
+                </tr>
+            </table>
         </div>
     </fieldset>
 </div>
-<form class="layui-form" action="" style="width:calc(100% - 20px)">
+<form class="layui-form" action="" style="width:calc(100% - 120px)">
     @Html.Hidden("id")
     <div class="layui-form-item">
-        <label class="layui-form-label" >分类</label>
+        <label class="layui-form-label">分类</label>
         <div class="layui-input-block">
             <label class="layui-form-label" style="width:300px; text-align:left">@Request["typeName"]</label>
-            <input type="hidden" name="TypeId"   value="@Request["typeId"]" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+            <input type="hidden" name="TypeId" value="@Request["typeId"]" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
