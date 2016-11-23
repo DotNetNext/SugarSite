@@ -33,6 +33,7 @@ namespace Infrastructure.Tool
             newItem.name = oldItem.name;
             newItem.spread = oldItem.spread==null?true: oldItem.spread;
             newItem.alias = oldItem.alias;
+            newItem.level = oldItem.level;
             var childs = allTypeList.Where(it => it.parentId.TryToInt() == newItem.id.TryToInt()).ToList();
             var isAny = childs.IsValuable();
             if (isAny) {

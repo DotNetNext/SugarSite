@@ -26,11 +26,16 @@
             var lblTypeName = $("#lblTypeName");
             var lblPageCount = $("#lblPageCount");
             var typeSavediv = $("#typeSavediv");
+            var hidLevel = $("#hidLevel");
 
             /***事件***/
             btnAdd.click(function () {
                 var addUrl = layui.ejq.action.url("PageDCAdd", null, "DocContent", "AdminSite");
                 if (hidTypeId.val() != "") {
+                    if (hidLevel.val() !=2) {
+                        layer.msg('不能在一级分类和二级分类下面添加文章！');
+                        return;
+                    }
                     addUrl += "?typeId=" + hidTypeId.val() + "&typeName=" + encodeURI(hidTypeName.val());
                     window.open(addUrl);
                 } else {
@@ -75,6 +80,10 @@
                     layer.msg('请选分类！');
                     return;
                 }
+                if (hidLevel.val() == 2) {
+                    layer.msg('最多只能添加3级分类！');
+                    return;
+                }
                 layer.open({
                     type: 1
                     , title: '添加【' + hidTypeName.val() + '】的子分类'
@@ -108,6 +117,10 @@
             btnDelType.click(function () {
                 if (hidTypeId.val() == "") {
                     layer.msg('请选分类！');
+                    return;
+                }
+                if (hidLevel.val() == 0) {
+                    layer.msg('不能删除一级分类！');
                     return;
                 }
                 //询问框
@@ -189,7 +202,9 @@
                             click: function (item) { //点击节点回调
                                 hidTypeId.val(item.id);
                                 hidTypeName.val(item.name)
+                                hidLevel.val(item.level);
                                 lblTypeName.html("<span>当前分类:</span>" + item.name);
+                                debugger
                                 bindGird();
                             }, nodes: msg.ResultInfo
                         });
@@ -237,7 +252,6 @@
                         width: 500,
                         formatter:
                         function (val, rowdata, rowindex, td, trL, trR) {
-                            debugger
                             return '<a target="_blank" href="' + $.action.url("Doc", null, "Home") + "?typeId=" + val + '&typeName=' + encodeURI(rowdata.TypeName) + '">预览 </a>';
                         }
                     },
@@ -292,6 +306,7 @@
 }
 <input type="hidden" id="hidTypeName" />
 <input type="hidden" id="hidTypeId" />
+<input type="hidden" id="hidLevel"/>
 <div style="display: inline-block; width: 180px; height:calc(100% - 26px); padding: 10px; border: 1px solid #ddd; overflow: auto; margin:0">
     <ul id="treediv"></ul>
 </div>
