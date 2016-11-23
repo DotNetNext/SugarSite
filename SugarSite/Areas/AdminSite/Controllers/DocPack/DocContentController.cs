@@ -47,18 +47,18 @@ namespace SugarSite.Areas.AdminSite.Controllers
                             .JoinTable<DocType>((m, dt) => m.TypeId == dt.Id);
                 if (typeId != null)
                 {
-                    queryable.In("m.typeId",o.GetChildrenTypeIds(typeList, typeId));
+                    queryable.In("m.typeId", o.GetChildrenTypeIds(typeList, typeId));
                 }
                 model.ResultInfo.DocList = queryable.OrderBy(m => m.Id, OrderByType.Desc).Select<DocType, V_DocContent>((m, dt) => new V_DocContent()
-                                            {
-                                                Title = m.Title,
-                                                TypeName = dt.TypeName,
-                                                CreateTime = m.CreateTime,
-                                                Creator = m.Creator,
-                                                Id = m.Id,
-                                                TypeId=m.TypeId
+                {
+                    Title = m.Title,
+                    TypeName = dt.TypeName,
+                    CreateTime = m.CreateTime,
+                    Creator = m.Creator,
+                    Id = m.Id,
+                    TypeId = m.TypeId
 
-                                            }).ToPageList(pageIndex, pageSize, ref pageCount);
+                }).ToPageList(pageIndex, pageSize, ref pageCount);
                 model.ResultInfo.PageCount = pageCount;
             });
 
@@ -70,12 +70,13 @@ namespace SugarSite.Areas.AdminSite.Controllers
             var model = new ResultModel<List<LayuiTreeModel>>();
             _service.Command<DocOutsourcing>((db, o) =>
             {
-                var list= db.Queryable<DocType>().Select(it => new LayuiTreeModel() {
-                     id=it.Id,
-                     name=it.TypeName,
-                     parentId=it.ParentId,
-                     alias=1,
-                     level =it.Level
+                var list = db.Queryable<DocType>().Select(it => new LayuiTreeModel()
+                {
+                    id = it.Id,
+                    name = it.TypeName,
+                    parentId = it.ParentId,
+                    alias = 1,
+                    level = it.Level
                 }).ToList();
                 model.ResultInfo = list.ToLayuiTree();
             });
@@ -120,6 +121,34 @@ namespace SugarSite.Areas.AdminSite.Controllers
             _service.Command<DocOutsourcing>((db, o) =>
             {
                 model.ResultInfo = db.Queryable<DocContent>().InSingle(id);
+            });
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult DcType_Submit(DocType type)
+        {
+            var model = new ResultModel<DocContent>();
+            _service.Command<DocOutsourcing>((db, o) =>
+            {
+                if (type.Id > 0)
+                {
+                    db.Insert(type);
+                }
+                else
+                {
+                    db.Update<DocType>(new { typeName = type.TypeName }, it => it.Id == type.Id);
+                }
+                model.IsSuccess = true;
+            });
+            return Json(model);
+        }
+        public JsonResult DCType_Delete(int id)
+        {
+            var model = new ResultModel<bool>();
+            _service.Command<DocOutsourcing>((db, o) =>
+            {
+                db.FalseDelete<DocType, int>("IsDeleted", id);
             });
             return Json(model, JsonRequestBehavior.AllowGet);
         }
