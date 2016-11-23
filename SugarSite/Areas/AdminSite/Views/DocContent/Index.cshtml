@@ -83,7 +83,17 @@
                     , content: typeSavediv.html()
                     , btn: ['添加', '关闭'] //只是为了演示
                     , yes: function () {
-                        $(that).click();
+                        $.ajax({
+                            type:"post",
+                            url: $.action.url("DcType_Submit", null, "DocContent", "AdminSite"),
+                            data: { ParentId: hidTypeId.val(), TypeName: $(".layui-layer-content [name=Name]").val() },
+                            cache: false,
+                            success: function (msg) {
+                                layer.msg('添加成功！', { icon: 1 });
+                                bindTree();
+                            }
+                        });
+                        layer.closeAll();
                     }
                     , btn2: function () {
                         layer.closeAll();
@@ -130,6 +140,36 @@
                     layer.msg('请选择分类！');
                     return;
                 }
+                layer.open({
+                    type: 1
+                    , title: '修改【' + hidTypeName.val() + '】'
+                    , area: ['550px', '200px']
+                    , shade: 0.5
+                    , content: typeSavediv.html()
+                    , btn: ['保存修改', '关闭'] //只是为了演示
+                    , yes: function () {
+                        $.ajax({
+                            type: "post",
+                            url: $.action.url("DcType_Submit", null, "DocContent", "AdminSite"),
+                            data: { id: hidTypeId.val(), TypeName: $(".layui-layer-content [name=Name]").val() },
+                            cache: false,
+                            success: function (msg) {
+                                layer.msg('修改成功！', { icon: 1 });
+                                bindTree();
+                            }
+                        });
+                        layer.closeAll();
+                    }
+                    , btn2: function () {
+                        layer.closeAll();
+                    }
+
+                    , zIndex: layer.zIndex //重点1
+                    , success: function (layero) {
+                        layer.setTop(layero); //重点2
+                        $(".layui-layer-content [name=Name]").val(hidTypeName.val());
+                    }
+                });
             })
 
             /***初始化***/
@@ -269,8 +309,9 @@
                         <button id="btnAdd" class="layui-btn">添加文档</button>
                         <button id="btnDel" class="layui-btn ">删除文档</button>
                         <button id="btnAddType" class="layui-btn layui-btn-warm">添加分类</button>
-                        <button id="btnDelType" class="layui-btn layui-btn-warm">删除分类</button>
                         <button id="btnEditType" class="layui-btn layui-btn-warm">修改分类</button>
+                        <button id="btnDelType" class="layui-btn layui-btn-warm">删除分类</button>
+               
                     </td>
                 </tr>
             </table>
@@ -284,7 +325,7 @@
     <br />
     <br />
     <div class="layui-form-item">
-        <label class="layui-form-label">名称</label>
+        <label class="layui-form-label">分类名称</label>
         <div class="layui-input-block">
             <input type="text" name="Name" lay-verify="title" style="width:400px" autocomplete="off" placeholder="请输入名称" class="layui-input">
         </div>

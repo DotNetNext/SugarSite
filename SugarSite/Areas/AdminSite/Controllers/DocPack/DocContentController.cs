@@ -131,8 +131,13 @@ namespace SugarSite.Areas.AdminSite.Controllers
             var model = new ResultModel<DocContent>();
             _service.Command<DocOutsourcing>((db, o) =>
             {
-                if (type.Id > 0)
+                DocType parent = new DocType();
+                if (type.ParentId > 0) {
+                    parent = db.Queryable<DocType>().InSingle(type.ParentId);
+                }
+                if (type.Id == 0)
                 {
+                    type.Level = parent.Level.ObjToInt() + 1;
                     db.Insert(type);
                 }
                 else
