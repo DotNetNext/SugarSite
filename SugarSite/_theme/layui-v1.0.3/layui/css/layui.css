@@ -311,7 +311,11 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
 .innercss .site-content{text-align:left}
 .innercss .layui-table th{ background:#d2d2d2!important; text-align:left}
 .page-current { border-bottom:4px solid #2a866c !important}
+.page-count {width: 200px;float: right; position: relative;top: -30px;text-align: right;}
+.page-count #lblPageCount{color:#f60;margin:5px}
 a.admin-button{background:#5FB878 !important;color:white;padding:3px; margin-bottom:2px;border-radius:3px}
+.admin-hide {display:none}
+
 
 /***后台自定义***/
 .layui-laypage {padding-left:5px}
@@ -341,3 +345,4 @@ word-break:keep-all;word-wrap:normal;overflow:hidden;}
 .gridtable .hide{display:none}
 .gridtable .t3>div{overflow-y:scroll!important}
 /*.gridtable .grid-box{overflow-y:scroll !important}*/
+

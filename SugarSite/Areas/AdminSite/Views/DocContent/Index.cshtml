@@ -24,12 +24,14 @@
             var hidTypeId = $("#hidTypeId");
             var hidTypeName = $("#hidTypeName");
             var lblTypeName = $("#lblTypeName");
+            var lblPageCount = $("#lblPageCount");
+            var typeSavediv = $("#typeSavediv");
 
             /***事件***/
             btnAdd.click(function () {
                 var addUrl = layui.ejq.action.url("PageDCAdd", null, "DocContent", "AdminSite");
                 if (hidTypeId.val() != "") {
-                    addUrl += "?typeId=" + hidTypeId.val() + "&typeName=" +encodeURI(hidTypeName.val());
+                    addUrl += "?typeId=" + hidTypeId.val() + "&typeName=" + encodeURI(hidTypeName.val());
                     window.open(addUrl);
                 } else {
                     layer.msg('请选择分类！');
@@ -69,23 +71,63 @@
                 cbs.prop("checked", !isChecked)
             })
             btnAddType.click(function () {
-                var ccb = $("input:checkbox:checked");
-                if (ccb.size() == 0) {
-                    layer.msg('请选择一项！');
+                if (hidTypeId.val() == "") {
+                    layer.msg('请选分类！');
                     return;
                 }
+                layer.open({
+                    type: 1
+                    , title: '添加【' + hidTypeName.val() + '】的子分类'
+                    , area: ['550px', '200px']
+                    , shade: 0.5
+                    , content: typeSavediv.html()
+                    , btn: ['添加', '关闭'] //只是为了演示
+                    , yes: function () {
+                        $(that).click();
+                    }
+                    , btn2: function () {
+                        layer.closeAll();
+                    }
+
+                    , zIndex: layer.zIndex //重点1
+                    , success: function (layero) {
+                        layer.setTop(layero); //重点2
+                    }
+                });
             })
             btnDelType.click(function () {
-                var ccb = $("input:checkbox:checked");
-                if (ccb.size() == 0) {
-                    layer.msg('请选择一项！');
+                if (hidTypeId.val() == "") {
+                    layer.msg('请选分类！');
                     return;
                 }
+                //询问框
+                layer.confirm('您是否要删除:' + hidTypeName.val() + '？', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    $.ajax({
+                        url: $.action.url("DCType_Delete", null, "DocContent", "AdminSite"),
+                        data: { id: hidTypeId.val() },
+                        cache: false,
+                        traditional: true,
+                        success: function (msg) {
+                            bindTree();
+                            layer.msg('删除成功！', { icon: 1 });
+                            hidTypeId.val("");
+                            hidTypeName.val("");
+                            lblTypeName.empty();
+                        },
+                        error: function (msg) {
+                            console.log(msg);
+                            layer.msg('删除失败！', { icon: 1 });
+                        }
+                    })
+                }, function () {
+
+                });
             })
             btnEditType.click(function () {
-                var ccb = $("input:checkbox:checked");
-                if (ccb.size() == 0) {
-                    layer.msg('请选择一项！');
+                if (hidTypeId.val() == "") {
+                    layer.msg('请选择分类！');
                     return;
                 }
             })
@@ -96,6 +138,7 @@
 
             /***公用方法***/
             function bindTree() {
+                $("#treediv").html("");
                 $.ajax({
                     url: $.action.url("Dc_GetTypeList", null, "DocContent", "AdminSite"),
                     cache: false,
@@ -106,7 +149,7 @@
                             click: function (item) { //点击节点回调
                                 hidTypeId.val(item.id);
                                 hidTypeName.val(item.name)
-                                lblTypeName.html("<span>当前分类:</span>"+item.name);
+                                lblTypeName.html("<span>当前分类:</span>" + item.name);
                                 bindGird();
                             }, nodes: msg.ResultInfo
                         });
@@ -122,15 +165,15 @@
                     "class": "gridtable",
                     columns: [
                     {
-                       title: "标题",
-                       indexname: "Title",
-                       textalign: 'center',
-                       width: "50",
-                       formatter:
-                       function (val, rowdata, rowindex, td, trL, trR) {
-                           return '<input name="ids" value="' + rowdata.Id + '" type="checkbox" />';
-                       }
-                   },
+                        title: "标题",
+                        indexname: "Title",
+                        textalign: 'center',
+                        width: "50",
+                        formatter:
+                        function (val, rowdata, rowindex, td, trL, trR) {
+                            return '<input name="ids" value="' + rowdata.Id + '" type="checkbox" />';
+                        }
+                    },
                     {
                         title: "编号",
                         indexname: "Id",
@@ -180,6 +223,7 @@
                         listGird.RenderTo('listdiv');
                         listGird.dataStore = datas;
                         listGird.ShowData();
+                        lblPageCount.text(msg.ResultInfo.PageCount);
                         laypage({
                             cont: 'pagediv'
                            , pages: msg.ResultInfo.Pages
@@ -192,6 +236,11 @@
                                }
                            }
                         });
+                        if (msg.ResultInfo.Pages <= 1) {
+                            $(".page-count").hide();
+                        } else {
+                            $(".page-count").show();
+                        }
                     },
                     error: function (msg) {
                         console.log(msg);
@@ -229,4 +278,15 @@
     </fieldset>
     <div id="listdiv"></div>
     <div id="pagediv"></div>
+    <div class="page-count">总共<lable id="lblPageCount"></lable>条</div>
+</div>
+<div id="typeSavediv"class="admin-hide">
+    <br />
+    <br />
+    <div class="layui-form-item">
+        <label class="layui-form-label">名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="Name" lay-verify="title" style="width:400px" autocomplete="off" placeholder="请输入名称" class="layui-input">
+        </div>
+    </div>
 </div>
