@@ -53,7 +53,9 @@ namespace SugarSite.Areas.AdminSite.Controllers
                                                 Id= m.Id
 
                                             }).ToPageList(pageIndex, pageSize, ref pageCount);
+                model.ResultInfo.PageCount = pageCount;
             });
+
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 

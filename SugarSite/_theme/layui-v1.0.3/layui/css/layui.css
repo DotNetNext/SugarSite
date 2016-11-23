@@ -313,6 +313,9 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
 .page-current { border-bottom:4px solid #2a866c !important}
 a.admin-button{background:#5FB878 !important;color:white;padding:3px; margin-bottom:2px;border-radius:3px}
 
+/***后台自定义***/
+.layui-laypage {padding-left:5px}
+
 /***表格***/
 .gridtable td { text-align:center !important; padding-left:5px !important}
 .gridtable .tablehead{background:#009688;white-space:nowrap;word-break:keep-all;word-wrap:normal;color:#fff !important;font-weight:bolder;

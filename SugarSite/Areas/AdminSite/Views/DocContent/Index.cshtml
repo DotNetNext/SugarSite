@@ -6,8 +6,8 @@
 @section js{
     <script src="~/_theme/layui-v1.0.3/layui/lay/modules/jsGrid.js"></script>
     <script>
-        layui.use(['tree', 'layer', 'jsGrid', 'ejq'], function () {
-            var layer = layui.layer, $ = layui.jquery, jsGrid = layui.jsGrid;
+        layui.use(['tree', 'layer', 'jsGrid', 'ejq', 'laypage'], function () {
+            var layer = layui.layer, $ = layui.jquery, jsGrid = layui.jsGrid; laypage = layui.laypage
             var $sizeDemo = $(".site-demo");
             var $gridTable = $(".gridtable");
             var $buttonBox = $(".site-demo-button");
@@ -152,7 +152,7 @@
                 id: "testGrid",
                 width: "100%",
                 doubleHead: true,
-                height: $(window).height() - $buttonBox.height() - 100,
+                height: $(window).height() - $buttonBox.height() - 150,
                 "class": "gridtable",
                 columns: [
                {
@@ -236,15 +236,28 @@
 
             bindGird();
 
-            function bindGird() {
+            function bindGird(obj) {
+                debugger
                 $.ajax({
                     url: $.action.url("Dc_GetList", null, "DocContent", "AdminSite"),
-                    data: {},
+                    data: { pageIndex:obj==null?1:obj.curr },
                     success: function (msg) {
                         var datas = msg.ResultInfo.DocList;
                         test.RenderTo('testdiv');
                         test.dataStore = datas;
                         test.ShowData();
+                        laypage({
+                            cont: 'pagediv'
+                           , pages: msg.ResultInfo.Pages
+                           , curr: msg.ResultInfo.PageIndex
+                           , prev: '<em><</em>'
+                           , next: '<em>></em>'
+                           , jump: function (obj, first) {
+                               if (!first) {
+                                   bindGird(obj);
+                               }
+                           }
+                        });
                     },
                     error: function (msg) {
                         console.log(msg);
@@ -267,4 +280,5 @@
         </div>
     </fieldset>
     <div id="testdiv"></div>
+    <div id="pagediv"></div>
 </div>
