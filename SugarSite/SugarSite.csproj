@@ -216,6 +216,8 @@
     <Compile Include="Areas\AdminSite\Controllers\LoginPack\Outsourcing.cs" />
     <Compile Include="Areas\AdminSite\Controllers\DocPack\Outsourcing.cs" />
     <Compile Include="Areas\AdminSite\Controllers\DocPack\DocContentController.cs" />
+    <Compile Include="Areas\BBS\BBSAreaRegistration.cs" />
+    <Compile Include="Areas\BBS\Controllers\MainController.cs" />
     <Compile Include="Controllers\Pack\HomeController.cs" />
     <Compile Include="Controllers\Pack\HomeOutsourcing.cs" />
     <Compile Include="Global.asax.cs">
@@ -627,6 +629,7 @@
     <Content Include="_theme\ueditor\utf8-net\ueditor.parse.min.js" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\BBS\Models\" />
     <Folder Include="Models\" />
     <Folder Include="_theme\ueditor\utf8-net\net\Bin\" />
   </ItemGroup>
@@ -644,6 +647,8 @@
     <Content Include="Areas\AdminSite\Views\Login\Index.cshtml" />
     <Content Include="Areas\AdminSite\Views\DocContent\Index.cshtml" />
     <Content Include="Areas\AdminSite\Views\DocContent\PageDCAdd.cshtml" />
+    <Content Include="Areas\BBS\Views\web.config" />
+    <Content Include="Areas\BBS\Views\Main\Index.cshtml" />
     <None Include="Properties\PublishProfiles\skx.pubxml" />
     <None Include="Properties\PublishProfiles\skx2.pubxml" />
     <Content Include="Views\Home\Doc.cshtml" />
