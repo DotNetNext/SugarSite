@@ -7,7 +7,7 @@ using System.Web;
 namespace OAuth.Tools
 {
     /// <summary>
-    /// 授权基类
+    /// 第三方登录授权基类
     /// </summary>
     public abstract class OAuth2Base
     {

@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Default.cs" />
     <Compile Include="OAuth2Base.cs" />
     <Compile Include="OAuth2Factory.cs" />
     <Compile Include="OAuths\QQOAuth.cs" />
