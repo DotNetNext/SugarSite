@@ -12,6 +12,7 @@
 *bin/
 *obj/Debug/
 *.vs/
+*packages/
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
