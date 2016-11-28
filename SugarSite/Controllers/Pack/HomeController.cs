@@ -38,12 +38,12 @@ namespace SugarSite.Controllers
             return View();
         }
 
-        public ActionResult Login()
+        public ActionResult Login(UserInfo user)
         {
             return View();
         }
 
-        public ActionResult Register()
+        public ActionResult Register(UserInfo user, string confirmPassword)
         {
             return View();
         }
@@ -52,6 +52,16 @@ namespace SugarSite.Controllers
         #endregion
 
         #region Public API
+        public JsonResult LoginSubmit()
+        {
+            return Json(null);
+        }
+
+        public JsonResult RegisterSubmit()
+        {
+            return Json(null);
+        }
+
         /// <summary>
         /// 获取文档
         /// </summary>
@@ -78,14 +88,15 @@ namespace SugarSite.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
 
         }
+
         /// <summary>
         /// 获取验证码图片
         /// </summary>
-        public void VerifyCode()
+        public void OutPutVerifyCode()
         {
             _service.Command<HomeOutsourcing>(o =>
             {
-                o.OutPutVerifyCode(GetVerifyCode);
+                o.OutPutVerifyCode(this.GetVerifyCode);
             });
 
         }
