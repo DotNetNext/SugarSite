@@ -4,11 +4,13 @@
 
 
  **使用技术** 
-* ASP.NET
+
+* ASP.NET MVC
 * Layui
 * SqlSugar ORM
 * Autofac Ioc
 * MSSQL
+
 
  **技术架构图 ** 
 ![输入图片说明](http://images2015.cnblogs.com/blog/746906/201611/746906-20161127171647159-1573188157.jpg "在这里输入图片标题")
