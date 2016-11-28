@@ -9,6 +9,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SqlSugar;
+using Infrastructure;
+using Infrastructure.Tool;
+
 namespace SugarSite.Controllers
 {
     public class HomeController : BaseController
@@ -52,14 +55,58 @@ namespace SugarSite.Controllers
         #endregion
 
         #region Public API
-        public JsonResult LoginSubmit()
+        public JsonResult LoginSubmit(UserInfo user, string returnUrl)
         {
-            return Json(null);
+            var model = new ResultModel<string>();
+            _service.Command<HomeOutsourcing>((db, o) =>
+            {
+                ExpCheck.Exception(user.UserName.IsNullOrEmpty() || user.Password.IsNullOrEmpty(), "用户名和密码不能为空！");
+                user.Password = new EncryptSugar().MD5(user.Password);
+                var loginUser = db.Queryable<UserInfo>().FirstOrDefault(it => it.UserName == user.UserName && it.Password == user.Password);
+                if (loginUser == null)
+                {
+                    model.IsSuccess = false;
+                    model.ResultInfo = "邮箱或者密码不正确！";
+                }
+                else
+                {
+                    var cm = CacheManager<UserInfo>.GetInstance();
+                    string uniqueKey = PubGet.GetUserKey;
+                    cm.Add(uniqueKey, loginUser, cm.Day * 365);//保存一年
+                    model.IsSuccess = true;
+                    model.ResultInfo = returnUrl;
+                }
+
+            });
+            return Json(model);
         }
 
-        public JsonResult RegisterSubmit()
+        public JsonResult RegisterSubmit(UserInfo user, string confirmPassword, string returnUrl)
         {
-            return Json(null);
+            var model = new ResultModel<string>();
+            _service.Command<HomeOutsourcing>((db, o) =>
+            {
+                ExpCheck.Exception(user.UserName.IsNullOrEmpty() || user.Password.IsNullOrEmpty(), "用户名和密码不能为空！");
+                ExpCheck.Exception(user.Password!=confirmPassword, "两次密码不一致！");
+                user.Password = new EncryptSugar().MD5(user.Password);
+                try
+                {
+                    user.RoleId = PubEnum.RoleType.User.TryToInt();
+                    var id= db.Insert(user).ObjToInt();
+                    var loginUser = db.Queryable<UserInfo>().InSingle(id);
+                    var cm = CacheManager<UserInfo>.GetInstance();
+                    string uniqueKey = PubGet.GetUserKey;
+                    cm.Add(uniqueKey, loginUser, cm.Day * 365);//保存一年
+                    model.IsSuccess = true;
+                    model.ResultInfo = returnUrl;
+                }
+                catch
+                {
+                    model.IsSuccess = false;
+                    model.ResultInfo = "用户注册失败,请联系我们！";
+                }
+            });
+            return Json(model);
         }
 
         /// <summary>

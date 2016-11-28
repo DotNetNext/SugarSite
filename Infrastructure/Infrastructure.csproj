@@ -74,6 +74,8 @@
     <Compile Include="Pub\PubConst.cs" />
     <Compile Include="Pub\PubEnum.cs" />
     <Compile Include="Pub\PubGet.cs" />
+    <Compile Include="Tool\ExpCheck.cs" />
+    <Compile Include="Tool\SiteException.cs" />
     <Compile Include="Tool\Layui.cs" />
     <Compile Include="Tool\RestApi.cs" />
     <Compile Include="ViewModels\Home\DocResult.cs" />
