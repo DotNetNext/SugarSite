@@ -85,7 +85,7 @@ namespace SugarSite.Controllers
         {
             _service.Command<HomeOutsourcing>(o =>
             {
-                o.OutPutVerifyCode();
+                o.OutPutVerifyCode(GetVerifyCode);
             });
 
         }

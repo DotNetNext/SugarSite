@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using SqlSugar;
 namespace SugarSite
 {
 
@@ -21,5 +21,32 @@ namespace SugarSite
             string uniqueKey = PubGet.GetUserKey;
             _userInfo = CacheManager<UserInfo>.GetInstance()[uniqueKey];
         }
+
+        protected Dictionary<string, string> GetVerifyCode
+        {
+            get
+            {
+                var key = PubConst.SessionVerifyCodeDetails;
+                var cm = CacheManager<Dictionary<string,string>>.GetInstance();
+                if (cm.ContainsKey(key))
+                {
+                    return cm[key];
+                }
+                else
+                {
+                    Dictionary<string, string> reval = null;
+                    _service.Command<BaseOutsourcing>((db, o) =>
+                    {
+                        reval = db.Queryable<VerifyCode>().Select<KeyValuePair<string, string>>("Problem,Answer").ToList().ToDictionary(it=>it.Key,it=>it.Value);
+                    });
+                    cm.Add(key, reval, cm.Day);
+                    return reval;
+                }
+            }
+        }
+    }
+
+    public class BaseOutsourcing
+    {
     }
 }

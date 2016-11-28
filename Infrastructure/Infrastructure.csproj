@@ -59,11 +59,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>1_T4.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbModels\BBS_Forums.cs" />
+    <Compile Include="DbModels\BBS_Posts.cs" />
+    <Compile Include="DbModels\BBS_Topics.cs" />
+    <Compile Include="DbModels\BBS_Topictypes.cs" />
     <Compile Include="DbModels\DocContent.cs" />
     <Compile Include="DbModels\DocType.cs" />
     <Compile Include="DbModels\QuestionContent.cs" />
     <Compile Include="DbModels\QuestionType.cs" />
     <Compile Include="DbModels\UserInfo.cs" />
+    <Compile Include="DbModels\UserOAuthMapping.cs" />
+    <Compile Include="DbModels\VerifyCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pub\PubConst.cs" />
     <Compile Include="Pub\PubEnum.cs" />
