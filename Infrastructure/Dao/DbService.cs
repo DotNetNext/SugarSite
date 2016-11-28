@@ -20,11 +20,34 @@ namespace Infrastructure.Dao
             _db = DbConfig.GetDbInstance();
         }
 
+        /// <summary>
+        /// 服务命令
+        /// </summary>
+        /// <typeparam name="Outsourcing">外包对象</typeparam>
+        /// <param name="func"></param>
+        public void Command<Outsourcing>(Action<Outsourcing> func) where Outsourcing : class, new() 
+        {
+            try
+            {
+                var o = new Outsourcing();
+                func(o);
+                o = null;//及时释放对象 
+                //_db 会在http请求结束前执行 dispose 
+            }
+            catch (Exception ex)
+            {
+                //在这里可以处理所有controller的异常
+                //获错误写入日志
+                WriteExMessage(ex);
+                throw ex;
+            }
+        }
 
         /// <summary>
-        ///服务命令
+        /// 服务命令
         /// </summary>
-        /// <typeparam name="Outsourcing">外包服务类型</typeparam>
+        /// <typeparam name="Outsourcing">外包对象</typeparam>
+        /// <typeparam name="Api">接口</typeparam>
         /// <param name="func"></param>
         public void Command<Outsourcing, Api>(Action<Outsourcing, RestApi<Api>> func) where Outsourcing : class, new() where Api : class, new()
         {
@@ -46,9 +69,9 @@ namespace Infrastructure.Dao
         }
 
         /// <summary>
-        ///服务命令
+        /// 服务命令
         /// </summary>
-        /// <typeparam name="Outsourcing">外包服务类型</typeparam>
+        /// <typeparam name="Outsourcing">外包对象</typeparam>
         /// <param name="func"></param>
         public void Command<Outsourcing>(Action<SqlSugarClient, Outsourcing> func) where Outsourcing : class, new() 
         {
@@ -67,10 +90,12 @@ namespace Infrastructure.Dao
                 throw ex;
             }
         }
+
         /// <summary>
-        ///服务命令
+        /// 服务命令
         /// </summary>
-        /// <typeparam name="Outsourcing">外包服务类型</typeparam>
+        /// <typeparam name="Outsourcing">外包对象</typeparam>
+        /// <typeparam name="Api">接口</typeparam>
         /// <param name="func"></param>
         public void Command<Outsourcing, Api>(Action<SqlSugarClient, Outsourcing, RestApi<Api>> func) where Outsourcing : class, new() where Api : class, new()
         {
@@ -92,32 +117,6 @@ namespace Infrastructure.Dao
         }
 
         /// <summary>
-        ///服务命令
-        /// </summary>
-        /// <typeparam name="Outsourcing">外包服务类型</typeparam>
-        /// <param name="func"></param>
-        public void Command<Outsourcing, Api1, Api2>(Action<SqlSugarClient, Outsourcing, Tool.RestApi<Api1>, Tool.RestApi<Api2>> func) where Outsourcing : class, new() where Api1 : class, new() where Api2 : class, new()
-        {
-            try
-            {
-                var o = new Outsourcing();
-                var api1 = new Tool.RestApi<Api1>();
-                var api2 = new Tool.RestApi<Api2>();
-                func(_db, o, api1, api2);
-                o = null;//及时释放对象 
-                //_db 会在http请求结束前执行 dispose 
-            }
-            catch (Exception ex)
-            {
-                //在这里可以处理所有controller的异常
-                //获错误写入日志
-                WriteExMessage(ex);
-                throw ex;
-            }
-        }
-
-
-        /// <summary>
         /// 将错误信息写入日志
         /// </summary>
         /// <param name="ex"></param>
@@ -132,7 +131,6 @@ namespace Infrastructure.Dao
             FileSugar.AppendText(logPath, ex.Message);
             FileSugar.AppendText(logPath, "***********{0}***********\r\n".ToFormat("结束"));
         }
-
 
         public void Dispose()
         {

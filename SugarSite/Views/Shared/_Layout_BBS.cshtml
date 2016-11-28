@@ -26,8 +26,23 @@
                 <a href="/case/2016/">
                     <i class="iconfont icon-iconmingxinganli" style="top: 2px;">
                     </i>案例
-                </a>      <a href="http://www.layui.com/">        <i class="iconfont icon-ui"></i>框架      </a>
-            </div>        <div class="nav-user">                  <a class="unlogin" href="/user/login/"><i class="iconfont icon-touxiang"></i></a>      <span><a href="/user/login/">登入</a><a href="/user/reg/">注册</a></span>      <p class="out-login">        <a href="http://fly.layui.com:8098/app/qq" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" class="iconfont icon-qq" title="QQ登入"></a>        <a href="http://fly.layui.com:8098/app/weibo/" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" class="iconfont icon-weibo" title="微博登入"></a>      </p>          </div>
+                </a>
+                <a href="http://www.layui.com/">
+                    <i class="iconfont icon-ui"></i>框架
+                </a>
+            </div>
+            <div class="nav-user">
+                <a class="unlogin" href="">
+                    <i class="iconfont icon-touxiang"></i>
+                </a>
+                <span>
+                    <a href="@Url.Content("/Home/Login")">登入</a>
+                    <a href="@Url.Content("/Home/Register")">注册</a>
+                </span>
+                <p class="out-login">
+                    <a href="http://fly.layui.com:8098/app/qq" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" class="iconfont icon-qq" title="QQ登入"></a>        <a href="http://fly.layui.com:8098/app/weibo/" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" class="iconfont icon-weibo" title="微博登入"></a>
+                </p>
+            </div>
         </div>
     </div>
     <div class="main layui-clear">

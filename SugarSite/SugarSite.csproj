@@ -665,6 +665,8 @@
     <Content Include="_theme\ueditor\utf8-net\net\README.md" />
     <Content Include="Views\Home\Reward.cshtml" />
     <Content Include="Views\Shared\_Layout_BBS.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
