@@ -254,6 +254,7 @@
     <Content Include="_theme\img\wx.jpg" />
     <Content Include="_theme\img\zfb.jpg" />
     <Content Include="_theme\jquery-1.10.2.min.js" />
+    <Content Include="_theme\layui-v1.0.3\layui\css\global.css" />
     <Content Include="_theme\layui-v1.0.3\layui\css\layui.css" />
     <Content Include="_theme\layui-v1.0.3\layui\css\mobile.css" />
     <Content Include="_theme\layui-v1.0.3\layui\css\modules\code.css" />
