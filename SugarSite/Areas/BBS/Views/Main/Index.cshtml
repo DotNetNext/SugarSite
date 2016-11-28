@@ -1,17 +1,40 @@
 ﻿
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout_BBS.cshtml";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <div> 
+<div class="fly-tab">
+    <span>
+        <a href="/jie/">全部</a>
+        <a href="/jie/unsolved/">未结帖</a>
+        <a href="/jie/solved/">已采纳</a>
+        <a href="/jie/wonderful/">精帖</a>
+    </span>
+    <form action="http://cn.bing.com/search" class="fly-search">
+        <i class="iconfont icon-sousuo"></i>
+        <input class="layui-input" autocomplete="off" placeholder="搜索内容，回车跳转" type="text" name="q">
+    </form>
+    <a href="/jie/add/" class="layui-btn jie-add">发布问题</a>
+</div>
+<ul class="fly-list">
+    <li class="fly-list-li">
+        <a href="/u/168" class="fly-list-avatar">
+            <img src="/avatar/168.jpg" alt="贤心">
+        </a>
+        <h2 class="fly-tip">
+            <a href="/jie/5366.html">layui 常见问题的处理和实用干货集锦</a>
+            <span class="fly-tip-stick">置顶</span>
+            <span class="fly-tip-jing">精帖</span>
+        </h2>
+        <p>
+            <span><a href="/u/168">贤心</a></span>            <span>3天前</span>            <span>技术闲谈</span>            <span class="fly-list-hint">               <i class="iconfont" title="回答">&#xe60c;</i> 12              <i class="iconfont" title="人气">&#xe60b;</i> 1019            </span>
+        </p>
+    </li>
+    <li class="fly-list-li">
+        <a href="/u/168" class="fly-list-avatar">            <img src="/avatar/168.jpg" alt="贤心">          </a>          <h2 class="fly-tip">            <a href="/jie/5300.html">LayIM 3.0 专业版 预计1周后发布，饱含深情的重大更新</a>            <span class="fly-tip-stick">置顶</span>                      </h2>          <p>            <span><a href="/u/168">贤心</a></span>            <span>5天前</span>            <span>LayIM即时通讯</span>            <span class="fly-list-hint">               <i class="iconfont" title="回答">&#xe60c;</i> 41              <i class="iconfont" title="人气">&#xe60b;</i> 1980            </span>          </p>
+    </li>
+</ul>
+<div style="text-align: center">
+    <div class="laypage-main">
+        <a href="/jie/page/2/" class="laypage-next">更多求解</a>
     </div>
-</body>
-</html>
+</div>
