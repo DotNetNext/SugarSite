@@ -15,7 +15,7 @@
     @RenderSection("css", false)
 </head>
 <body>
-
+    <input id="HidUrlAction" name="HidUrlAction" value="@Url.Action("/")" type="hidden" />
     <div class="header">
         <div class="main">
             <a class="logo" href="/" title="Fly">Fly社区</a>
@@ -98,6 +98,18 @@
         </p>
     </div>
     <script src="~/_theme/layui-v1.0.3/layui/layui.js"></script>
+    <script>
+        layui.config({
+            base: '/_theme/layui-v1.0.3/layui/lay/modules/'
+          , version: '1'
+        });
+        window.global = {
+            preview: function () {
+                var preview = document.getElementById('LAY_preview');
+                return preview ? preview.innerHTML : '';
+            }()
+        };
+    </script>
     @RenderSection("js", false)
 </body>
 </html>
