@@ -1,6 +1,16 @@
 # SugarSite 一个支持移动端的企业站，并且后期会集成BBS
- **
-技术架构 指挥官模式** 
+
+数据库在AppData目录
+
+
+ **使用技术** 
+* ASP.NET
+* Layui
+* SqlSugar ORM
+* Autofac Ioc
+* MSSQL
+
+ **技术架构图 ** 
 ![输入图片说明](http://images2015.cnblogs.com/blog/746906/201611/746906-20161127171647159-1573188157.jpg "在这里输入图片标题")
 
  **称词解释：** 
