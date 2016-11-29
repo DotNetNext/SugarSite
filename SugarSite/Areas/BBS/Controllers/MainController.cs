@@ -11,7 +11,7 @@ namespace SugarSite.Areas.BBS.Controllers
     {
         public MainController(DbService s) : base(s) { }
 
-        public ActionResult Index()
+        public ActionResult Index(int? fid)
         {
             ViewBag.NewUserList = base.GetNewUserList;
             ViewBag.ForList = base.GetForumsList;
@@ -20,6 +20,7 @@ namespace SugarSite.Areas.BBS.Controllers
 
         public ActionResult Ask()
         {
+            ViewBag.ForList = base.GetForumsList;
             return View();
         }
     }

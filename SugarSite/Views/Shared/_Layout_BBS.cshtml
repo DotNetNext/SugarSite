@@ -106,11 +106,15 @@
                         {
                             foreach (var u in ForList)
                             {
-                                <a href="/ask">
+                                <a href="~/Ask/@(u.Fid)">
                                     <img src="~/_theme/img/forums/@(u.Fid).png">
                                     <i>@u.Name<label class="today">今天(<label class="today-num">@(u.Todayposts)</label>)</label> </i>
                                 </a>
                             }
+                            <a href="~/Ask">
+                                <img src="~/_theme/img/forums/1.png">
+                                <i>全部<label class="today">今天(<label class="today-num">100</label>)</label> </i>
+                            </a>
                         }
                     </span>
                 </div>

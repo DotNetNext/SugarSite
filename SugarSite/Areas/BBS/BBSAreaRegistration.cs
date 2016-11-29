@@ -2,22 +2,22 @@
 
 namespace SugarSite.Areas.BBS
 {
-    public class BBSAreaRegistration : AreaRegistration 
+    public class BBSAreaRegistration : AreaRegistration
     {
-        public override string AreaName 
+        public override string AreaName
         {
-            get 
+            get
             {
                 return "BBS";
             }
         }
 
-        public override void RegisterArea(AreaRegistrationContext context) 
+        public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
                 "BBS_default_Index",
-                "ask",
-                new { Controller="Main", action = "Index", id = UrlParameter.Optional }
+                "ask/{fid}",
+                new { Controller = "Main", action = "Index", fid = UrlParameter.Optional }
             );
             context.MapRoute(
             "BBS_default",

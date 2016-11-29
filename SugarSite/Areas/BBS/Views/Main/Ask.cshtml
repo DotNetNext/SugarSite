@@ -2,8 +2,47 @@
 @{
     ViewBag.Title = "Ask";
     Layout = "~/Views/Shared/_Layout_BBS.cshtml";
+    List<BBS_Forums> ForList = ViewBag.ForList;
 }
+@using Infrastructure.DbModel
+@using SyntacticSugar
+@section js{
+    <script>
+        layui.use(['form', 'layedit', 'laydate'], function () {
+            var form = layui.form()
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
 
+            //创建一个编辑器
+            var editIndex = layedit.build('L_content');
+
+            //自定义验证规则
+            form.verify({
+                title: function (value) {
+                    if (value.length < 5) {
+                        return '标题至少得5个字符啊';
+                    }
+                }
+              , pass: [/(.+){6,12}$/, '密码必须6到12位']
+              , content: function (value) {
+                  layedit.sync(editIndex);
+              }
+            });
+
+            //监听提交
+            form.on('submit(demo1)', function (data) {
+                layer.alert(JSON.stringify(data.field), {
+                    title: '最终的提交信息'
+                })
+                return false;
+            });
+
+
+        });
+    </script>
+
+}
 <div class="main layui-clear">
     <h2 class="page-title">发表问题</h2>
     <div class="layui-form layui-form-pane">
@@ -24,7 +63,18 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">所在类别</label>
                     <div class="layui-input-block">
-                        <select lay-verify="required" name="class"> <option></option> <optgroup label="Layui相关"> <option value="0">Layui</option> <option value="2">Layer弹层</option> <option value="3">LayIM即时通讯</option> </optgroup> <optgroup label="其它交流"> <option value="100">技术闲谈</option> <option value="101">建议反馈</option> <option value="168">官方公告</option> </optgroup> </select>
+                        <select lay-verify="required" name="class">
+                            <option></option>
+                            <optgroup label=".net相关的">
+                                @if (ForList.IsValuable())
+                                {
+                                    foreach (var item in ForList)
+                                    {
+                                        <option value="@item.Fid">@item.Name</option>
+                                    }
+                                }
+                            </optgroup>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -40,7 +90,7 @@
                     <input type="text" id="L_vercode" name="vercode" required="" lay-verify="required" placeholder="请回答后面的问题" autocomplete="off" class="layui-input" />
                 </div>
                 <div class="layui-form-mid">
-                    <span style="color: #c00;">&quot;1 3 2 4 6 5 7 ___&quot; 请写出&quot;____&quot;处的数字</span>
+                    <span style="color: #c00;"><img id="imgVerifyCode" src="@Url.Action("OutPutVerifyCode","Home",new { Area=""})?r=" /></span>
                 </div>
             </div>
             <div class="layui-form-item">
