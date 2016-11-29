@@ -8,35 +8,17 @@
 @using SyntacticSugar
 @section js{
     <script>
-        layui.use(['form', 'layedit', 'laydate'], function () {
+        layui.use(['form', 'layedit', 'laydate', 'ajaxforms'], function () {
             var form = layui.form()
             , layer = layui.layer
             , layedit = layui.layedit
             , laydate = layui.laydate;
+            var $ = layui.ajaxforms;
 
             //创建一个编辑器
             var editIndex = layedit.build('L_content');
 
-            //自定义验证规则
-            form.verify({
-                title: function (value) {
-                    if (value.length < 5) {
-                        return '标题至少得5个字符啊';
-                    }
-                }
-              , pass: [/(.+){6,12}$/, '密码必须6到12位']
-              , content: function (value) {
-                  layedit.sync(editIndex);
-              }
-            });
-
-            //监听提交
-            form.on('submit(demo1)', function (data) {
-                layer.alert(JSON.stringify(data.field), {
-                    title: '最终的提交信息'
-                })
-                return false;
-            });
+           
 
 
         });
@@ -94,7 +76,7 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <button class="layui-btn" lay-filter="*" lay-submit="">立即发布</button>
+                <button id="btnSubmit" class="layui-btn" lay-filter="*" lay-submit="">立即发布</button>
             </div>
         </form>
     </div>
