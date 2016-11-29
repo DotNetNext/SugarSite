@@ -65,7 +65,7 @@ namespace SugarSite.Controllers
         #endregion
 
         #region Public API
-        public JsonResult LoginSubmit(UserInfo user, string returnUrl)
+        public JsonResult LoginSubmit(UserInfo user, string vercode, string returnUrl)
         {
             var model = new ResultModel<string>();
             _service.Command<HomeOutsourcing>((db, o) =>
@@ -73,10 +73,17 @@ namespace SugarSite.Controllers
                 ExpCheck.Exception(user.UserName.IsNullOrEmpty() || user.Password.IsNullOrEmpty(), "用户名和密码不能为空！");
                 user.Password = new EncryptSugar().MD5(user.Password);
                 var loginUser = db.Queryable<UserInfo>().FirstOrDefault(it => it.UserName == user.UserName && it.Password == user.Password);
+                var sm = SessionManager<string>.GetInstance();
+                var severCode = sm[PubConst.SessionVerifyCode];
                 if (loginUser == null)
                 {
                     model.IsSuccess = false;
                     model.ResultInfo = "邮箱或者密码不正确！";
+                }
+                else if (vercode != severCode)
+                {
+                    model.IsSuccess = false;
+                    model.ResultInfo = "验证码不正确！";
                 }
                 else
                 {
@@ -91,18 +98,18 @@ namespace SugarSite.Controllers
             return Json(model);
         }
 
-        public JsonResult RegisterSubmit(UserInfo user, string confirmPassword, string returnUrl)
+        public JsonResult RegisterSubmit(UserInfo user, string vercode, string confirmPassword, string returnUrl)
         {
             var model = new ResultModel<string>();
             _service.Command<HomeOutsourcing>((db, o) =>
             {
                 ExpCheck.Exception(user.UserName.IsNullOrEmpty() || user.Password.IsNullOrEmpty(), "用户名和密码不能为空！");
-                ExpCheck.Exception(user.Password!=confirmPassword, "两次密码不一致！");
+                ExpCheck.Exception(user.Password != confirmPassword, "两次密码不一致！");
                 user.Password = new EncryptSugar().MD5(user.Password);
                 try
                 {
                     user.RoleId = PubEnum.RoleType.User.TryToInt();
-                    var id= db.Insert(user).ObjToInt();
+                    var id = db.Insert(user).ObjToInt();
                     var loginUser = db.Queryable<UserInfo>().InSingle(id);
                     var cm = CacheManager<UserInfo>.GetInstance();
                     string uniqueKey = PubGet.GetUserKey;

@@ -15,8 +15,13 @@
             var $vercode = $("#Vercode");
             var $btnLogin = $("#btnLogin");
             var $hidReturnUrl = $("#hidReturnUrl");
-
+            var $imgOutPutVerifyCode = $("#imgOutPutVerifyCode");
             /***事务***/
+            $imgOutPutVerifyCode.click(function () {
+                var th = $(this);
+                var src = th.attr("src") + "1";
+                th.attr("src", src);
+            });
             $btnLogin.click(function (e) {
                 e.preventDefault();
                 if ($userName.val() == "") {
@@ -71,10 +76,10 @@
             <div class="layui-form-item">
                 <label for="L_vercode" class="layui-form-label">人类验证</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="Vercode" name="Vercode"   lay-verify="required" placeholder="请回答后面的问题" autocomplete="off" class="layui-input" />
+                    <input type="text" id="Vercode" name="vercode"   lay-verify="required" placeholder="请回答后面的问题" autocomplete="off" class="layui-input" />
                 </div>
                 <div class="layui-form-mid">
-                    <span style="color: #c00;"><img src="@Url.Action("OutPutVerifyCode","Home",new { Area=""})?r=" /></span>
+                    <span style="color: #c00;"><img id="imgOutPutVerifyCode" src="@Url.Action("OutPutVerifyCode","Home",new { Area=""})?r=" /></span>
                 </div>
             </div>
             <div class="layui-form-item">
