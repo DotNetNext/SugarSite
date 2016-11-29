@@ -112,6 +112,7 @@ namespace SugarSite.Controllers
 
         public JsonResult RegisterSubmit(UserInfo user, string vercode, string confirmPassword, string returnUrl)
         {
+            string oldPassword = user.Password;
             var model = new ResultModel<string>();
             _service.Command<HomeOutsourcing>((db, o) =>
             {
@@ -120,16 +121,40 @@ namespace SugarSite.Controllers
                 ExpCheck.Exception(user.NickName.IsNullOrEmpty(), "妮称不能为空！");
                 ExpCheck.Exception(user.Password != confirmPassword, "两次密码不一致！");
                 user.Password = new EncryptSugar().MD5(user.Password);
+                var sm = SessionManager<string>.GetInstance();
+                var severCode = sm[PubConst.SessionVerifyCode];
                 try
                 {
-                    user.RoleId = PubEnum.RoleType.User.TryToInt();
-                    var id = db.Insert(user).ObjToInt();
-                    var loginUser = db.Queryable<UserInfo>().InSingle(id);
-                    var cm = CacheManager<UserInfo>.GetInstance();
-                    string uniqueKey = PubGet.GetUserKey;
-                    cm.Add(uniqueKey, loginUser, cm.Day * 365);//保存一年
-                    model.IsSuccess = true;
-                    model.ResultInfo = returnUrl;
+                    if (oldPassword.Length < 6 || oldPassword.Length > 16)
+                    {
+                        model.IsSuccess = false;
+                        model.ResultInfo = "密码长度为6-16个字符";
+                    }
+                    else if (severCode != vercode)
+                    {
+                        model.IsSuccess = false;
+                        model.ResultInfo = "验证码不正确！";
+                    }
+                    else
+                    {
+                        var isAny = db.Queryable<UserInfo>().Any(it => it.UserName == user.UserName);
+                        if (isAny)
+                        {
+                            model.IsSuccess = false;
+                            model.ResultInfo = "邮箱已经被注册！";
+                        }
+                        else
+                        {
+                            user.RoleId = PubEnum.RoleType.User.TryToInt();
+                            var id = db.Insert(user).ObjToInt();
+                            var loginUser = db.Queryable<UserInfo>().InSingle(id);
+                            var cm = CacheManager<UserInfo>.GetInstance();
+                            string uniqueKey = PubGet.GetUserKey;
+                            cm.Add(uniqueKey, loginUser, cm.Day * 365);//保存一年
+                            model.IsSuccess = true;
+                            model.ResultInfo = returnUrl;
+                        }
+                    }
                 }
                 catch
                 {
