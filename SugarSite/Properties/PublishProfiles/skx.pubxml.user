@@ -25,8 +25,11 @@
     <File Include="Areas/BBS/Views/Main/Ask.cshtml">
       <publishTime>11/29/2016 23:54:13</publishTime>
     </File>
+    <File Include="Areas/BBS/Views/Main/Detail.cshtml">
+      <publishTime>11/30/2016 03:33:09</publishTime>
+    </File>
     <File Include="Areas/BBS/Views/Main/Index.cshtml">
-      <publishTime>11/30/2016 00:35:33</publishTime>
+      <publishTime>11/30/2016 03:41:25</publishTime>
     </File>
     <File Include="Areas/BBS/Views/web.config">
       <publishTime>11/26/2016 23:03:28</publishTime>
@@ -35,10 +38,10 @@
       <publishTime>02/22/2013 08:43:40</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>11/30/2016 01:15:12</publishTime>
+      <publishTime>11/30/2016 03:45:47</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>11/30/2016 01:15:12</publishTime>
+      <publishTime>11/30/2016 03:45:47</publishTime>
     </File>
     <File Include="bin/Autofac.dll">
       <publishTime>11/03/2016 15:54:04</publishTime>
@@ -53,7 +56,7 @@
       <publishTime>03/02/2015 09:32:26</publishTime>
     </File>
     <File Include="bin/Infrastructure.dll">
-      <publishTime>11/30/2016 01:14:58</publishTime>
+      <publishTime>11/30/2016 03:44:38</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>12/07/2015 19:04:38</publishTime>
@@ -173,10 +176,10 @@
       <publishTime>11/21/2016 23:24:16</publishTime>
     </File>
     <File Include="bin/SugarSite.dll">
-      <publishTime>11/30/2016 01:15:03</publishTime>
+      <publishTime>11/30/2016 03:44:44</publishTime>
     </File>
     <File Include="bin/SyntacticSugar.dll">
-      <publishTime>09/02/2016 00:28:46</publishTime>
+      <publishTime>11/30/2016 02:26:10</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
       <publishTime>01/28/2015 04:04:30</publishTime>
@@ -263,10 +266,10 @@
       <publishTime>11/10/2016 15:58:23</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>11/23/2016 00:58:58</publishTime>
+      <publishTime>11/30/2016 02:28:41</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>11/30/2016 01:15:06</publishTime>
+      <publishTime>11/30/2016 03:45:41</publishTime>
     </File>
     <File Include="Views/Account/ConfirmEmail.cshtml">
       <publishTime>11/10/2016 15:58:38</publishTime>
@@ -362,7 +365,7 @@
       <publishTime>11/12/2016 12:13:21</publishTime>
     </File>
     <File Include="Views/Shared/_Layout_BBS.cshtml">
-      <publishTime>11/29/2016 22:37:38</publishTime>
+      <publishTime>11/30/2016 03:41:46</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>11/10/2016 15:58:38</publishTime>
@@ -374,7 +377,7 @@
       <publishTime>11/12/2016 12:12:48</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/29/2016 16:26:10</publishTime>
+      <publishTime>11/30/2016 03:44:46</publishTime>
     </File>
     <File Include="_theme/bbs-logo.png">
       <publishTime>11/29/2016 19:31:30</publishTime>
