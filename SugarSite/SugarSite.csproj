@@ -221,6 +221,7 @@
     <Compile Include="Controllers\OauthPack\OauthController.cs" />
     <Compile Include="Controllers\HomePack\HomeController.cs" />
     <Compile Include="Controllers\HomePack\HomeOutsourcing.cs" />
+    <Compile Include="Controllers\OauthPack\OauthOutsourcing.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
