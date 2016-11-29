@@ -58,6 +58,13 @@ namespace Infrastructure.DbModel
 
         /// <summary>
         /// Desc:- 
+        /// Default:- 
+        /// Nullable:True 
+        /// </summary>
+        public string PosterAvatar {get;set;}
+
+        /// <summary>
+        /// Desc:- 
         /// Default:((0)) 
         /// Nullable:False 
         /// </summary>

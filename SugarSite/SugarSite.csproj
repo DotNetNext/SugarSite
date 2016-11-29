@@ -217,7 +217,8 @@
     <Compile Include="Areas\AdminSite\Controllers\DocPack\Outsourcing.cs" />
     <Compile Include="Areas\AdminSite\Controllers\DocPack\DocContentController.cs" />
     <Compile Include="Areas\BBS\BBSAreaRegistration.cs" />
-    <Compile Include="Areas\BBS\Controllers\MainController.cs" />
+    <Compile Include="Areas\BBS\Controllers\MainPack\Outsourcing.cs" />
+    <Compile Include="Areas\BBS\Controllers\MainPack\MainController.cs" />
     <Compile Include="Controllers\OauthPack\OauthController.cs" />
     <Compile Include="Controllers\HomePack\HomeController.cs" />
     <Compile Include="Controllers\HomePack\HomeOutsourcing.cs" />

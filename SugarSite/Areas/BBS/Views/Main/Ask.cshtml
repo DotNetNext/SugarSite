@@ -29,6 +29,13 @@
             var $ = layui.ajaxforms;
             var $btnSubmit = $("#btnSubmit");
             var $title = $("#title");
+            var $txtVercode = $("#txtVercode");
+            var $imgOutPutVerifyCode = $("#imgVerifyCode");
+            $imgOutPutVerifyCode.click(function () {
+                var th = $(this);
+                var src = th.attr("src") + "1";
+                th.attr("src", src);
+            });
             $btnSubmit.click(function (e) {
                 e.preventDefault();
                 var $ = layui.ajaxforms;
@@ -40,7 +47,10 @@
                     layer.msg("标题不能小于5个字符，请认真点哦！");
                 } else if (c == null || c == "" || c.length < 20) {
                     layer.msg("正文不能小于20个字符，请认真点哦！");
-                } else if ($fid.val() == "") {
+                } else if ($txtVercode.val() == "") {
+                    layer.msg("请填写验证码！");
+                }
+                else if ($fid.val() == "") {
                     layer.msg("请选择分类！");
                 } else {
                     $("form").ajaxSubmit({
@@ -105,14 +115,14 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">悬赏飞吻</label>
                     <div class="layui-input-block">
-                        <select name="experience"> <option value="5">5</option> <option value="20">20</option> <option value="50">50</option> <option value="100">100</option> </select>
+                        <select name="rate"> <option value="5">5</option> <option value="20">20</option> <option value="50">50</option> <option value="100">100</option> </select>
                     </div>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label for="L_vercode" class="layui-form-label">人类验证</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="L_vercode" name="vercode" placeholder="请回答后面的问题" autocomplete="off" class="layui-input" />
+                    <input type="text" id="txtVercode" name="vercode" placeholder="请回答后面的问题" autocomplete="off" class="layui-input" />
                 </div>
                 <div class="layui-form-mid">
                     <span style="color: #c00;"><img id="imgVerifyCode" src="@Url.Action("OutPutVerifyCode","Home",new { Area=""})?r=" /></span>

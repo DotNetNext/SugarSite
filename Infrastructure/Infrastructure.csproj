@@ -78,6 +78,7 @@
     <Compile Include="Tool\SiteException.cs" />
     <Compile Include="Tool\Layui.cs" />
     <Compile Include="Tool\RestApi.cs" />
+    <Compile Include="ViewModels\BBS\MainResult.cs" />
     <Compile Include="ViewModels\Home\DocResult.cs" />
     <Compile Include="ViewModels\Admin\DocContentResult.cs" />
     <Compile Include="ViewModels\PageModel.cs" />
