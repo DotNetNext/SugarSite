@@ -7,20 +7,27 @@
 @using Infrastructure.DbModel
 @using SyntacticSugar
 @section js{
+    <script src="~/_theme/ueditor/utf8-net/ueditor.config.js"></script>
+    <script src="~/_theme/ueditor/utf8-net/ueditor.all.js"></script>
     <script>
-        layui.use(['form', 'layedit', 'laydate', 'ajaxforms'], function () {
+        var ue = UE.getEditor('container', {
+            toolbars: [['fullscreen', 'source', '|', 'undo', 'redo', '|',
+                'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist','|',
+                'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+                 'paragraph', 'fontfamily', 'fontsize', '|',
+                'directionalityltr', 'directionalityrtl', 'indent', '|',
+                'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+                'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+                'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe', 'insertcode', 'webapp', 'pagebreak', 'template', 'background', '|',
+                'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
+                'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow','splittorows', 'splittocols', '|',
+                 ]]
+        });
+        layui.use(['form', 'laydate', 'ajaxforms'], function () {
             var form = layui.form()
             , layer = layui.layer
-            , layedit = layui.layedit
             , laydate = layui.laydate;
             var $ = layui.ajaxforms;
-
-            //创建一个编辑器
-            var editIndex = layedit.build('L_content');
-
-           
-
-
         });
     </script>
 
@@ -32,12 +39,14 @@
             <div class="layui-form-item">
                 <label for="L_title" class="layui-form-label">标题</label>
                 <div class="layui-input-block">
-                    <input type="text" id="L_title" name="title" required="" lay-verify="required" autocomplete="off" class="layui-input" />
+                    <input type="text" id="L_title" name="title"  autocomplete="off" class="layui-input" />
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
                 <div class="layui-input-block">
-                    <textarea id="L_content" name="content" required="" lay-verify="required" placeholder="请输入内容" class="layui-textarea fly-editor" style="height: 260px;"></textarea>
+                    <!-- 加载编辑器的容器 -->
+                    <script id="container" name="Content" style="height:500px" type="text/plain">
+                    </script>
                 </div>
                 <label for="L_content" class="layui-form-label" style="top: -2px;">描述</label>
             </div>
@@ -45,14 +54,21 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">所在类别</label>
                     <div class="layui-input-block">
-                        <select lay-verify="required" name="class">
+                        <select  name="class">
                             <option></option>
                             <optgroup label=".net相关的">
                                 @if (ForList.IsValuable())
                                 {
                                     foreach (var item in ForList)
                                     {
-                                        <option value="@item.Fid">@item.Name</option>
+                                        if (ForList.IndexOf(item) == 0)
+                                        {
+                                        <option  selected="selected" value="@item.Fid">@item.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Fid">@item.Name</option>
+                                        }
                                     }
                                 }
                             </optgroup>
@@ -69,7 +85,7 @@
             <div class="layui-form-item">
                 <label for="L_vercode" class="layui-form-label">人类验证</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="L_vercode" name="vercode" required="" lay-verify="required" placeholder="请回答后面的问题" autocomplete="off" class="layui-input" />
+                    <input type="text" id="L_vercode" name="vercode"  placeholder="请回答后面的问题" autocomplete="off" class="layui-input" />
                 </div>
                 <div class="layui-form-mid">
                     <span style="color: #c00;"><img id="imgVerifyCode" src="@Url.Action("OutPutVerifyCode","Home",new { Area=""})?r=" /></span>
