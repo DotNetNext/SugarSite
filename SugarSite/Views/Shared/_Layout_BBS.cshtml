@@ -27,7 +27,16 @@
     @RenderSection("css", false)
     <style>
         a.logo {
-            top:13px !important;
+            top: 13px !important;
+        }
+        .forums img{
+        
+        }
+        .forums .today {
+          color:#999
+        }
+        .forums .today-num {
+           color:#f60
         }
     </style>
 </head>
@@ -87,37 +96,44 @@
         </div>
         @if (ViewBag.IsBBSMain == true)
         {
+            List<UserInfo> newUserList = ViewBag.NewUserList;
+            List<BBS_Forums> ForList = ViewBag.ForList;
             <div class="edge">
-                <h3 class="page-title">月度雷锋 - TOP 12</h3>
+                <h3 class="page-title">版块</h3>
+                <div class="user-looklog leifeng-rank">
+                    <span class="forums">
+                        @if (ForList != null)
+                        {
+                            foreach (var u in ForList)
+                            {
+                                <a href="/ask">
+                                    <img src="~/_theme/img/forums/@(u.Fid).png">
+                                    <i>@u.Name<label class="today">今天(<label class="today-num">@(u.Todayposts)</label>)</label> </i>
+                                </a>
+                            }
+                        }
+                    </span>
+                </div>
+                <h3 class="page-title">最新会员 - TOP 8</h3>
                 <div class="user-looklog leifeng-rank">
                     <span>
-                        <a href="/u/26880">
-                            <img src="/avatar/26880.gif">
-                            <cite>小魔方</cite>
-                            <i>275次回答</i>
+                        @if (newUserList != null)
+                        {
+                            foreach (var u in newUserList)
+                            {
+                                if (u.Avatar.IsNullOrEmpty())
+                                {
+                                    u.Avatar = Url.Content("~/_theme/default.jpg");
+                                }
+                        <a href="/ask">
+                            <img src="@u.Avatar">
+                            <cite>@u.NickName</cite>
+                            <i>@(u.CreateTime == null ? "" : u.CreateTime.TryToDate().ToString("yyyy-MM-dd"))</i>
                         </a>
-                        <a href="/u/336">
-                            <img src="http://res.layui.com/images/fly/avatar/00.jpg">
-                            <cite>纸飞机</cite>
-                            <i>217次回答</i>
-                        </a>
-                        <a href="/u/784224">
-                            <img src="http://res.layui.com/images/fly/avatar/0.jpg">
-                            <cite>Layui_初学者</cite>
-                            <i>153次回答</i>
-                        </a>
-                        <a href="/u/1987440">
-                            <img src="http://q.qlogo.cn/qqapp/101235792/13751607FA0B67886128D0EBE5C9B020/100">
-                            <cite>花易折</cite>
-                            <i>143次回答</i>
-                        </a>
-                        <a href="/u/11424">
-                            <img src="/avatar/11424.gif">
-                            <cite>SMALL</cite>
-                            <i>114次回答</i>
-                        </a>               <a href="/u/2215584">          <img src="http://q.qlogo.cn/qqapp/101235792/067122DD88A0625134D8929769A7D330/100">          <cite>i993</cite>          <i>81次回答</i>        </a>               <a href="/u/168">          <img src="/avatar/168.jpg">          <cite>贤心</cite>          <i>72次回答</i>        </a>               <a href="/u/998424">          <img src="http://q.qlogo.cn/qqapp/101235792/72DE888B67DE14A79456FB4F0B8010B9/100">          <cite>Army</cite>          <i>43次回答</i>        </a>               <a href="/u/2196264">          <img src="http://q.qlogo.cn/qqapp/101235792/AF7C19189FFC4F2811538106AD6CB021/100">          <cite>梅三峰</cite>          <i>40次回答</i>        </a>               <a href="/u/1022616">          <img src="http://q.qlogo.cn/qqapp/101235792/CBEA679C3168A4F1A8E701CEB3853F29/100">          <cite>夏朵儿</cite>          <i>27次回答</i>        </a>               <a href="/u/30072">          <img src="http://res.layui.com/images/fly/avatar/3.jpg">          <cite>Linyer</cite>          <i>27次回答</i>        </a>               <a href="/u/804888">          <img src="/avatar/804888.jpg">          <cite>拿客</cite>          <i>27次回答</i>        </a>
+                            }
+                        }
                     </span>
-                </div>        <h3 class="page-title">最近热帖</h3>    <ol class="fly-list-one">          <li>        <a href="/jie/5300.html">LayIM 3.0 专业版 预计1周后发布，饱含深情的重大更新</a>        <span><i class="iconfont">&#xe60b;</i> 1980</span>      </li>          <li>        <a href="/jie/5366.html">layui 常见问题的处理和实用干货集锦</a>        <span><i class="iconfont">&#xe60b;</i> 1019</span>      </li>          <li>        <a href="/jie/5362.html">问闲心一句，你那链接1000位铁杆用户得小蜜圈不整了？</a>        <span><i class="iconfont">&#xe60b;</i> 597</span>      </li>          <li>        <a href="/jie/5374.html">Think Admin 1.0后台管理系统</a>        <span><i class="iconfont">&#xe60b;</i> 463</span>      </li>          <li>        <a href="/jie/5285.html">哪位大神能帮我写一下弹窗只弹出一次的代码！</a>        <span><i class="iconfont">&#xe60b;</i> 380</span>      </li>          <li>        <a href="/jie/5377.html">Zpy`s Cms 发布</a>        <span><i class="iconfont">&#xe60b;</i> 308</span>      </li>          <li>        <a href="/jie/5379.html">基于LayUI封装的Navbar组件，动态渲染左侧nav导航栏</a>        <span><i class="iconfont">&#xe60b;</i> 293</span>      </li>          <li>        <a href="/jie/5378.html">使用layui写的一个后台模板demo</a>        <span><i class="iconfont">&#xe60b;</i> 285</span>      </li>          <li>        <a href="/jie/5418.html">后台管理模板</a>        <span><i class="iconfont">&#xe60b;</i> 205</span>      </li>          <li>        <a href="/jie/5412.html">新版-插件-省市区联动</a>        <span><i class="iconfont">&#xe60b;</i> 199</span>      </li>          <li>        <a href="/jie/5352.html"> layui2.0有没有一个准确点的时间</a>        <span><i class="iconfont">&#xe60b;</i> 194</span>      </li>          <li>        <a href="/jie/5409.html">TP5案例基于Fly社区模板，前端已完结！！后端完善中...可惜不能参赛！</a>        <span><i class="iconfont">&#xe60b;</i> 180</span>      </li>          <li>        <a href="/jie/5273.html">置顶贴的那个活动堪比是在送书，怎么就没人参与呢？</a>        <span><i class="iconfont">&#xe60b;</i> 178</span>      </li>          <li>        <a href="/jie/5284.html">谈谈layui的实用性</a>        <span><i class="iconfont">&#xe60b;</i> 158</span>      </li>          <li>        <a href="/jie/5336.html">layer.confirm如何实现阻塞/阻断</a>        <span><i class="iconfont">&#xe60b;</i> 146</span>      </li>        </ol>        <h3 class="page-title">近期热议</h3>    <ol class="fly-list-one">          <li>        <a href="/jie/5300.html">LayIM 3.0 专业版 预计1周后发布，饱含深情的重大更新</a>        <span><i class="iconfont">&#xe60c;</i> 41</span>      </li>          <li>        <a href="/jie/5362.html">问闲心一句，你那链接1000位铁杆用户得小蜜圈不整了？</a>        <span><i class="iconfont">&#xe60c;</i> 34</span>      </li>          <li>        <a href="/jie/5374.html">Think Admin 1.0后台管理系统</a>        <span><i class="iconfont">&#xe60c;</i> 24</span>      </li>          <li>        <a href="/jie/5417.html">打开一个新层，自动关闭上一个已打开的层。怎么监听这个呢？</a>        <span><i class="iconfont">&#xe60c;</i> 23</span>      </li>          <li>        <a href="/jie/5330.html">新点击的页面不会添加到iframe里</a>        <span><i class="iconfont">&#xe60c;</i> 20</span>      </li>          <li>        <a href="/jie/5372.html">求助，希望相册层也能点击一个按钮触发，而不是点击相册里的图片。</a>        <span><i class="iconfont">&#xe60c;</i> 18</span>      </li>          <li>        <a href="/jie/5285.html">哪位大神能帮我写一下弹窗只弹出一次的代码！</a>        <span><i class="iconfont">&#xe60c;</i> 16</span>      </li>          <li>        <a href="/jie/5377.html">Zpy`s Cms 发布</a>        <span><i class="iconfont">&#xe60c;</i> 15</span>      </li>          <li>        <a href="/jie/5306.html">初学者请教LAYER</a>        <span><i class="iconfont">&#xe60c;</i> 15</span>      </li>          <li>        <a href="/jie/5278.html">layer弹出层content里事件的绑定问题</a>        <span><i class="iconfont">&#xe60c;</i> 13</span>      </li>          <li>        <a href="/jie/5349.html">vue和layui会有冲突吗</a>        <span><i class="iconfont">&#xe60c;</i> 13</span>      </li>          <li>        <a href="/jie/5379.html">基于LayUI封装的Navbar组件，动态渲染左侧nav导航栏</a>        <span><i class="iconfont">&#xe60c;</i> 12</span>      </li>          <li>        <a href="/jie/5366.html">layui 常见问题的处理和实用干货集锦</a>        <span><i class="iconfont">&#xe60c;</i> 12</span>      </li>          <li>        <a href="/jie/5367.html">layer ui的基础使用。</a>        <span><i class="iconfont">&#xe60c;</i> 10</span>      </li>          <li>        <a href="/jie/5273.html">置顶贴的那个活动堪比是在送书，怎么就没人参与呢？</a>        <span><i class="iconfont">&#xe60c;</i> 10</span>      </li>        </ol>        <div class="fly-link">      <span>友情链接：</span>      <a href="http://layim.layui.com/" target="_blank">LayIM</a>      <a href="http://layer.layui.com/" target="_blank">layer</a>      <a href="http://www.ttlutuan.com" target="_blank">天天撸团</a>      <a href="http://www.hotcn.top/" target="_blank">国际热点</a>      <a href="http://www.bejson.com/" target="_blank">JSON在线工具</a>      <a href="http://www.smeoa.com/" target="_blank">小微OA</a>      <a href="http://www.pmsun.me/" target="_blank">PHP博客</a>    </div>
+                </div>
             </div>
         }
     </div>

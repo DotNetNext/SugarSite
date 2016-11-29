@@ -31,7 +31,50 @@ namespace SugarSite
                 return (_userInfo != null && _userInfo.Id > 0);
             }
         }
-
+        protected List<BBS_Forums> GetForumsList
+        {
+            get
+            {
+                var key = PubConst.SessionnForumsList;
+                var cm = CacheManager<List<BBS_Forums>>.GetInstance();
+                if (cm.ContainsKey(key))
+                {
+                    return cm[key];
+                }
+                else
+                {
+                    List<BBS_Forums> reval = null;
+                    _service.Command<BaseOutsourcing>((db, o) =>
+                    {
+                        reval = db.Queryable<BBS_Forums>().OrderBy(it => it.Displayorder, OrderByType.Asc).ToList();
+                    });
+                    cm.Add(key, reval, cm.Day);
+                    return reval;
+                }
+            }
+        }
+        protected List<UserInfo> GetNewUserList
+        {
+            get
+            {
+                var key = PubConst.SessionnNewUserList;
+                var cm = CacheManager<List<UserInfo>>.GetInstance();
+                if (cm.ContainsKey(key))
+                {
+                    return cm[key];
+                }
+                else
+                {
+                    List<UserInfo> reval = null;
+                    _service.Command<BaseOutsourcing>((db, o) =>
+                    {
+                        reval = db.Queryable<UserInfo>().OrderBy(it=>it.CreateTime,OrderByType.Desc).Take(8).ToList();
+                    });
+                    cm.Add(key, reval, cm.Day);
+                    return reval;
+                }
+            }
+        }
         protected Dictionary<string, string> GetVerifyCode
         {
             get

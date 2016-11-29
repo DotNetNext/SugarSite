@@ -10,6 +10,8 @@ namespace Infrastructure.Pub
     {
         public const string SessionVerifyCode = "SessionVerifyCode";
         public const string SessionVerifyCodeDetails = "SessionVerifyCodeDetails";
+        public const string SessionnNewUserList = "SessionnNewUserList";
+        public const string SessionnForumsList = "SessionnForumsList";
         public const string UserUniqueKey = "CookeUniqueKey";
         public const string UrlAdminIndex = "AdminSite/DocContent";
         public const string SitePrefix = "-SqlSugar ORM-ASP.NET";

@@ -13,6 +13,8 @@ namespace SugarSite.Areas.BBS.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.NewUserList = base.GetNewUserList;
+            ViewBag.ForList = base.GetForumsList;
             return View();
         }
 
