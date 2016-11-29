@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SqlSugar;
+using OAuth.Tools;
+
 namespace SugarSite.Controllers
 {
     public class OauthController : Controller
@@ -18,10 +20,8 @@ namespace SugarSite.Controllers
             else {
 
             }
-            foreach (var item in SqlSugarTool.GetParameterDictionary())
-            {
-                Response.Write(item.Key+"&nbsp;"+item.Value+"<br>");
-            }
+            var current = OAuth2Factory.Current;
+            Response.Write(current.headUrl += " " + current.openID);
             return View();
         }
     }
