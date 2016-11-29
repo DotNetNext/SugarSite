@@ -23,14 +23,19 @@
     <title>.NET开源,.NET ORM,文档园</title>
     <link rel="stylesheet" href="//at.alicdn.com/t/font_001z27klwvobt9.css">
     <link href="~/_theme/layui-v1.0.3/layui/css/layui.css" rel="stylesheet" />
-    <link href="~/_theme/layui-v1.0.3/layui/css/global.css" rel="stylesheet" />
+    <link href="~/_theme/layui-v1.0.3/layui/css/global.css?v=1" rel="stylesheet" />
     @RenderSection("css", false)
+    <style>
+        a.logo {
+            top:13px !important;
+        }
+    </style>
 </head>
 <body>
     <input id="HidUrlAction" name="HidUrlAction" value="@Url.Action("/")" type="hidden" />
     <div class="header">
         <div class="main">
-            <a class="logo" href="/" title="Fly">.NET 文档园</a>
+            <a class="logo" href="~/Ask" title="Fly">.NET 文档园</a>
             <div class="nav">
                 <a href="/">
                     <i class="iconfont icon-wenda"></i>问答

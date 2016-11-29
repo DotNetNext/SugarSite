@@ -151,6 +151,7 @@ namespace SugarSite.Controllers
                         else
                         {
                             user.RoleId = PubEnum.RoleType.User.TryToInt();
+                            user.CreateTime = DateTime.Now;
                             var id = db.Insert(user).ObjToInt();
                             var loginUser = db.Queryable<UserInfo>().InSingle(id);
                             var cm = CacheManager<UserInfo>.GetInstance();
