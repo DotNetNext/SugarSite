@@ -1,6 +1,7 @@
 ﻿
 @{
     Layout = "~/Views/Shared/_Layout_BBS.cshtml";
+    ViewBag.IsBBSMain = true;
 }
 <div class="fly-tab">
     <span>
@@ -13,7 +14,7 @@
         <i class="iconfont icon-sousuo"></i>
         <input class="layui-input" autocomplete="off" placeholder="搜索内容，回车跳转" type="text" name="q">
     </form>
-    <a href="/jie/add/" class="layui-btn jie-add">发布问题</a>
+    <a href="/BBS/Main/Ask" class="layui-btn jie-add">发布问题</a>
 </div>
 <ul class="fly-list">
     <li class="fly-list-li">

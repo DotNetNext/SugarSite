@@ -15,5 +15,10 @@ namespace SugarSite.Areas.BBS.Controllers
         {
             return View();
         }
+
+        public ActionResult Ask()
+        {
+            return View();
+        }
     }
 }
