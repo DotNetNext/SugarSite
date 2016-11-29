@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "用户登录";
     Layout = "~/Views/Shared/_Layout_BBS.cshtml";
+    var qqUrl = UI.GetQQUrl();
+    var wbUrl = UI.GetWbUrl();
 }
 @section js{
     <script type="text/javascript">
@@ -55,7 +57,9 @@
         });
     </script>
 }
-
+@using Infrastructure.DbModel
+@using OAuth.Tools
+@using SyntacticSugar
 <div class="main layui-clear">
     <h2 class="page-title">登入</h2>
     <div class="layui-form layui-form-pane">
@@ -88,8 +92,8 @@
             </div>
             <div class="layui-form-item fly-form-app">
                 <span>或者使用社交账号登入</span>
-                <a href="http://fly.layui.com:8098/app/qq" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" class="iconfont icon-qq" title="QQ登入"></a>
-                <a href="http://fly.layui.com:8098/app/weibo/" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" class="iconfont icon-weibo" title="微博登入"></a>
+                <a href="@qqUrl" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" class="iconfont icon-qq" title="QQ登入"></a>
+                <a href="@wbUrl" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" class="iconfont icon-weibo" title="微博登入"></a>
             </div>
         </form>
     </div>
