@@ -22,12 +22,20 @@ namespace SugarSite
             _userInfo = CacheManager<UserInfo>.GetInstance()[uniqueKey];
         }
 
+        protected bool IsLogin
+        {
+            get
+            {
+                return (_userInfo != null && _userInfo.Id > 0);
+            }
+        }
+
         protected Dictionary<string, string> GetVerifyCode
         {
             get
             {
                 var key = PubConst.SessionVerifyCodeDetails;
-                var cm = CacheManager<Dictionary<string,string>>.GetInstance();
+                var cm = CacheManager<Dictionary<string, string>>.GetInstance();
                 if (cm.ContainsKey(key))
                 {
                     return cm[key];
@@ -37,7 +45,7 @@ namespace SugarSite
                     Dictionary<string, string> reval = null;
                     _service.Command<BaseOutsourcing>((db, o) =>
                     {
-                        reval = db.Queryable<VerifyCode>().Select<KeyValuePair<string, string>>("Problem,Answer").ToList().ToDictionary(it=>it.Key,it=>it.Value);
+                        reval = db.Queryable<VerifyCode>().Select<KeyValuePair<string, string>>("Problem,Answer").ToList().ToDictionary(it => it.Key, it => it.Value);
                     });
                     cm.Add(key, reval, cm.Day);
                     return reval;

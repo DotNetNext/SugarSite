@@ -41,13 +41,23 @@ namespace SugarSite.Controllers
             return View();
         }
 
-        public ActionResult Login(UserInfo user)
+        public ActionResult Login()
         {
+            if (IsLogin)
+            {
+                return Redirect("~/Ask");
+            }
+            ViewBag.ReturnUrl = Request.UrlReferrer.ToString();
             return View();
         }
 
-        public ActionResult Register(UserInfo user, string confirmPassword)
+        public ActionResult Register()
         {
+            if (IsLogin)
+            {
+                return Redirect("~/Ask");
+            }
+            ViewBag.ReturnUrl = Request.UrlReferrer.ToString();
             return View();
         }
 
