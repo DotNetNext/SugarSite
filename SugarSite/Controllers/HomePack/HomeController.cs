@@ -51,6 +51,11 @@ namespace SugarSite.Controllers
             return View();
         }
 
+        public ActionResult HomeCallBack()
+        {
+            return View();
+        }
+
         public ActionResult Logout()
         {
             var cm = CacheManager<UserInfo>.GetInstance();
@@ -65,10 +70,10 @@ namespace SugarSite.Controllers
             {
                 return Redirect("~/Ask");
             }
-            _service.Command<HomeOutsourcing,RestApi<ResultModel<string>>>((db,api) =>
-            {
+            _service.Command<HomeOutsourcing, RestApi<ResultModel<string>>>((db, api) =>
+             {
 
-            });
+             });
             ViewBag.ReturnUrl = Request.UrlReferrer.TryToString(Url.Content("/ASK"));
             return View();
         }

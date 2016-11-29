@@ -218,8 +218,9 @@
     <Compile Include="Areas\AdminSite\Controllers\DocPack\DocContentController.cs" />
     <Compile Include="Areas\BBS\BBSAreaRegistration.cs" />
     <Compile Include="Areas\BBS\Controllers\MainController.cs" />
-    <Compile Include="Controllers\Pack\HomeController.cs" />
-    <Compile Include="Controllers\Pack\HomeOutsourcing.cs" />
+    <Compile Include="Controllers\OauthPack\OauthController.cs" />
+    <Compile Include="Controllers\HomePack\HomeController.cs" />
+    <Compile Include="Controllers\HomePack\HomeOutsourcing.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -668,6 +669,7 @@
     <Content Include="Views\Shared\_Layout_BBS.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Oauth\CallBack.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
