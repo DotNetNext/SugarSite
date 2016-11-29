@@ -39,18 +39,15 @@ namespace SugarSite.Controllers
                         db.CommitTran();
                         userMapping = um;
                     }
-                    else
-                    {
-                        var user = db.Queryable<UserInfo>().InSingle(userMapping.UserId);
-                        var cm = CacheManager<UserInfo>.GetInstance();
-                        string uniqueKey = PubGet.GetUserKey;
-                        cm.Add(uniqueKey, user, cm.Day * 365);//保存一年
-                    }
+                    var user = db.Queryable<UserInfo>().InSingle(userMapping.UserId);
+                    var cm = CacheManager<UserInfo>.GetInstance();
+                    string uniqueKey = PubGet.GetUserKey;
+                    cm.Add(uniqueKey, user, cm.Day * 365);//保存一年
                 }
-                catch
+                catch (Exception ex)
                 {
                     db.RollbackTran();
-                    new Exception("第三方登录注册失败！");
+                    throw new Exception("第三方登录注册失败！" + ex.Message);
                 }
             });
             return this.Redirect("~/ask");

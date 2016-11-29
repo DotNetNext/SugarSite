@@ -239,6 +239,7 @@
   <ItemGroup>
     <Content Include="App_Data\script.sql" />
     <Content Include="Global.asax" />
+    <Content Include="_theme\default.jpg" />
     <Content Include="_theme\ico.ico" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

@@ -1,10 +1,14 @@
 ﻿@{
     UserInfo user = ViewBag.User;
+    if (user!=null&&user.Avatar.IsNullOrEmpty()) {
+        user.Avatar = Url.Content("~/_theme/default.jpg");
+    }
     var qqUrl = UI.GetQQUrl();
     var wbUrl = UI.GetWbUrl();
 }
 @using Infrastructure.DbModel
 @using OAuth.Tools
+@using SyntacticSugar
     <!DOCTYPE html>
     <html>
     <head>
@@ -42,7 +46,7 @@
             {
                     <div class="nav-user">
                         <a class="avatar" href="/user/">
-                            <img src="http://q.qlogo.cn/qqapp/101235792/776B65F20CBFF4F9A548913A9A46A4AC/100" />
+                            <img src="@user.Avatar" />
                             <cite>@user.NickName</cite>
                         </a>
                         <div class="nav">

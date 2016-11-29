@@ -14,7 +14,7 @@ namespace SugarSite.Controllers
         {
             return new UserInfo()
             {
-                Avatar = current.headUrl,
+                Avatar = current.headUrl.TryToString().Replace(@"\/",@"/"),
                 UserName = current.nickName,
                 NickName = current.nickName,
                 CreateTime = DateTime.Now,
