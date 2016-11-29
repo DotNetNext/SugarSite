@@ -25,7 +25,8 @@ namespace SugarSite.Areas.BBS.Controllers
         }
 
         [HttpPost]
-        public JsonResult AskSubmit()
+        [ValidateInput(false)]
+        public JsonResult AskSubmit(int fid,string title,string content,string vercode)
         {
             return null;
         }
