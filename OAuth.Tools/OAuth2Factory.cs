@@ -27,6 +27,7 @@ namespace OAuth.Tools
                         {
                             OAuth2Base ob = ServerList[state];
                             ob.code = code;
+                            ob.Authorize();
                             HttpContext.Current.Session["OAuth2"] = ob;//对象存进Session，后期授权后会增加引用。
                             return ob;
                         }
