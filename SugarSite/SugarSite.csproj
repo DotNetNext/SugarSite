@@ -635,7 +635,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\BBS\Models\" />
-    <Folder Include="Models\" />
     <Folder Include="_theme\ueditor\utf8-net\net\Bin\" />
   </ItemGroup>
   <ItemGroup>
