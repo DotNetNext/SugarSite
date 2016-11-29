@@ -20,6 +20,8 @@ namespace SugarSite
             _service = s;
             string uniqueKey = PubGet.GetUserKey;
             _userInfo = CacheManager<UserInfo>.GetInstance()[uniqueKey];
+            ViewBag.IsLogin = IsLogin;
+            ViewBag.User = _userInfo;
         }
 
         protected bool IsLogin

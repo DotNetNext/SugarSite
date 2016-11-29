@@ -51,12 +51,24 @@ namespace SugarSite.Controllers
             return View();
         }
 
+        public ActionResult Logout()
+        {
+            var cm = CacheManager<UserInfo>.GetInstance();
+            string uniqueKey = PubGet.GetUserKey;
+            cm.Remove(uniqueKey);
+            return Redirect("~/Ask");
+        }
+
         public ActionResult Register()
         {
             if (IsLogin)
             {
                 return Redirect("~/Ask");
             }
+            _service.Command<HomeOutsourcing,RestApi<ResultModel<string>>>((db,api) =>
+            {
+
+            });
             ViewBag.ReturnUrl = Request.UrlReferrer.ToString();
             return View();
         }

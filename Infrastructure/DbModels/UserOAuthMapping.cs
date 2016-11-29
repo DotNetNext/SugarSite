@@ -21,5 +21,12 @@ namespace Infrastructure.DbModel
         /// </summary>
         public int UserId {get;set;}
 
+        /// <summary>
+        /// Desc:- 
+        /// Default:- 
+        /// Nullable:True 
+        /// </summary>
+        public Boolean? IsDeleted {get;set;}
+
     }
 }

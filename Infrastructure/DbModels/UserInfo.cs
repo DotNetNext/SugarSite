@@ -63,5 +63,12 @@ namespace Infrastructure.DbModel
         /// </summary>
         public int? RoleId {get;set;}
 
+        /// <summary>
+        /// Desc:- 
+        /// Default:- 
+        /// Nullable:True 
+        /// </summary>
+        public string NickName {get;set;}
+
     }
 }

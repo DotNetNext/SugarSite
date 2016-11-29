@@ -28,5 +28,12 @@ namespace Infrastructure.DbModel
         /// </summary>
         public string Answer {get;set;}
 
+        /// <summary>
+        /// Desc:- 
+        /// Default:- 
+        /// Nullable:True 
+        /// </summary>
+        public Boolean? IsDeleted {get;set;}
+
     }
 }
