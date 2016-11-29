@@ -47,7 +47,7 @@ namespace SugarSite.Controllers
             {
                 return Redirect("~/Ask");
             }
-            ViewBag.ReturnUrl = Request.UrlReferrer.ToString();
+            ViewBag.ReturnUrl = Request.UrlReferrer.TryToString(Url.Content("/ASK"));
             return View();
         }
 
@@ -69,7 +69,7 @@ namespace SugarSite.Controllers
             {
 
             });
-            ViewBag.ReturnUrl = Request.UrlReferrer.ToString();
+            ViewBag.ReturnUrl = Request.UrlReferrer.TryToString(Url.Content("/ASK"));
             return View();
         }
 
@@ -116,6 +116,8 @@ namespace SugarSite.Controllers
             _service.Command<HomeOutsourcing>((db, o) =>
             {
                 ExpCheck.Exception(user.UserName.IsNullOrEmpty() || user.Password.IsNullOrEmpty(), "用户名和密码不能为空！");
+                ExpCheck.Exception(user.UserName.IsEamil().IsFalse(), "不是有效邮箱！");
+                ExpCheck.Exception(user.NickName.IsNullOrEmpty(), "妮称不能为空！");
                 ExpCheck.Exception(user.Password != confirmPassword, "两次密码不一致！");
                 user.Password = new EncryptSugar().MD5(user.Password);
                 try
