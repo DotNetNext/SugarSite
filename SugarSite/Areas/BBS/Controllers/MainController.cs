@@ -23,5 +23,11 @@ namespace SugarSite.Areas.BBS.Controllers
             ViewBag.ForList = base.GetForumsList;
             return View();
         }
+
+        [HttpPost]
+        public JsonResult AskSubmit()
+        {
+            return null;
+        }
     }
 }

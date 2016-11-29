@@ -12,22 +12,50 @@
     <script>
         var ue = UE.getEditor('container', {
             toolbars: [['fullscreen', 'source', '|', 'undo', 'redo', '|',
-                'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist','|',
+                'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', '|',
                 'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
                  'paragraph', 'fontfamily', 'fontsize', '|',
                 'directionalityltr', 'directionalityrtl', 'indent', '|',
-                'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
-                'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-                'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe', 'insertcode', 'webapp', 'pagebreak', 'template', 'background', '|',
-                'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
-                'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow','splittorows', 'splittocols', '|',
-                 ]]
+                'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|',
+                'link', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+                'insertimage', 'emotion', 'scrawl', 'attachment', 'map', 'insertcode', 'template', '|',
+                'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'splittorows', 'splittocols'
+            ]]
         });
         layui.use(['form', 'laydate', 'ajaxforms'], function () {
             var form = layui.form()
             , layer = layui.layer
             , laydate = layui.laydate;
             var $ = layui.ajaxforms;
+            var $btnSubmit = $("#btnSubmit");
+            var $title = $("#title");
+            $btnSubmit.click(function (e) {
+                e.preventDefault();
+                var $ = layui.ajaxforms;
+                var $fid = $("#selfid");
+                var c = ue.getContent();
+                if ($title.val() == "") {
+                    layer.msg("标题不能为空！");
+                } else if ($title.val().length < 5) {
+                    layer.msg("标题不能小于5个字符，请认真点哦！");
+                } else if (c == null || c == "" || c.length < 20) {
+                    layer.msg("正文不能小于20个字符，请认真点哦！");
+                } else if ($fid.val() == "") {
+                    layer.msg("请选择分类！");
+                } else {
+                    $("form").ajaxSubmit({
+                        url: $.action.url("AskSubmit", null, "Main", "BBS"),
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.IsSuccess) {
+                                window.location.href = $.action.url("Index", null, "Main", "BBS");
+                            } else {
+                                layer.msg(msg.ResultInfo);
+                            }
+                        }
+                    })
+                }
+            });
         });
     </script>
 
@@ -39,22 +67,21 @@
             <div class="layui-form-item">
                 <label for="L_title" class="layui-form-label">标题</label>
                 <div class="layui-input-block">
-                    <input type="text" id="L_title" name="title"  autocomplete="off" class="layui-input" />
+                    <input type="text" maxlength="60" id="title" name="title" autocomplete="off" class="layui-input" />
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
                 <div class="layui-input-block">
                     <!-- 加载编辑器的容器 -->
-                    <script id="container" name="Content" style="height:500px" type="text/plain">
+                    <script id="container" name="Content" style="height:300px" type="text/plain">
                     </script>
                 </div>
-                <label for="L_content" class="layui-form-label" style="top: -2px;">描述</label>
             </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label">所在类别</label>
                     <div class="layui-input-block">
-                        <select  name="class">
+                        <select id="selfid" name="fid">
                             <option></option>
                             <optgroup label=".net相关的">
                                 @if (ForList.IsValuable())
@@ -63,7 +90,7 @@
                                     {
                                         if (ForList.IndexOf(item) == 0)
                                         {
-                                        <option  selected="selected" value="@item.Fid">@item.Name</option>
+                                            <option selected="selected" value="@item.Fid">@item.Name</option>
                                         }
                                         else
                                         {
@@ -85,7 +112,7 @@
             <div class="layui-form-item">
                 <label for="L_vercode" class="layui-form-label">人类验证</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="L_vercode" name="vercode"  placeholder="请回答后面的问题" autocomplete="off" class="layui-input" />
+                    <input type="text" id="L_vercode" name="vercode" placeholder="请回答后面的问题" autocomplete="off" class="layui-input" />
                 </div>
                 <div class="layui-form-mid">
                     <span style="color: #c00;"><img id="imgVerifyCode" src="@Url.Action("OutPutVerifyCode","Home",new { Area=""})?r=" /></span>
