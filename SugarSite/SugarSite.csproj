@@ -674,6 +674,10 @@
       <Project>{f0a4207c-00ca-4182-9700-0ed47f35ca7e}</Project>
       <Name>Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OAuth.Tools\OAuth.Tools.csproj">
+      <Project>{d38e6903-11a2-467c-b315-8f92bf8e89b7}</Project>
+      <Name>OAuth.Tools</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,7 +1,10 @@
 ﻿@{
     UserInfo user = ViewBag.User;
+    var qqUrl = UI.GetQQUrl();
+    var wbUrl = UI.GetWbUrl();
 }
 @using Infrastructure.DbModel
+@using OAuth.Tools
     <!DOCTYPE html>
     <html>
     <head>
@@ -59,8 +62,8 @@
                             <a href="@Url.Content("/Home/Register")">注册</a>
                         </span>
                         <p class="out-login">
-                            <a href="" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" class="iconfont icon-qq" title="QQ登入"></a>
-                            <a href="" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" class="iconfont icon-weibo" title="微博登入"></a>
+                            <a href="@qqUrl" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" class="iconfont icon-qq" title="QQ登入"></a>
+                            <a href="@wbUrl" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" class="iconfont icon-weibo" title="微博登入"></a>
                         </p>
                     </div>
                 }
