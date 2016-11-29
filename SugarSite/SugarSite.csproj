@@ -93,8 +93,8 @@
       <HintPath>..\packages\sqlSugar.3.5.2.5\lib\net40\SqlSugar.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SyntacticSugar, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SyntacticSugar.2.1.0\lib\net40\SyntacticSugar.dll</HintPath>
+    <Reference Include="SyntacticSugar, Version=2.0.1.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SyntacticSugar.2.2.0\lib\net40\SyntacticSugar.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -664,6 +664,7 @@
     <Content Include="Areas\BBS\Views\web.config" />
     <Content Include="Areas\BBS\Views\Main\Index.cshtml" />
     <Content Include="Areas\BBS\Views\Main\Ask.cshtml" />
+    <Content Include="Areas\BBS\Views\Main\Detail.cshtml" />
     <None Include="Properties\PublishProfiles\skx.pubxml" />
     <None Include="Properties\PublishProfiles\skx2.pubxml" />
     <Content Include="Views\Home\Doc.cshtml" />

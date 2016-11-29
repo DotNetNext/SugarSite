@@ -23,10 +23,22 @@ namespace SugarSite.Areas.BBS.Controllers
             MainResult model = new MainResult();
             ViewBag.NewUserList = base.GetNewUserList;
             ViewBag.ForList = base.GetForumsList;
-            _service.Command<MainOutsourcing,ResultModel<MainResult>>((db, o, api) =>
+            _service.Command<MainOutsourcing, ResultModel<MainResult>>((db, o, api) =>
+             {
+                 model = api.Get(Url.Action("GetMainResult"), new { fid = fid, orderBy = orderBy }).ResultInfo;
+                 model.ForumsList = ViewBag.ForList;
+             });
+            return View(model);
+        }
+
+        public ActionResult Detail(int id = 0)
+        {
+            ViewBag.NewUserList = base.GetNewUserList;
+            ViewBag.ForList = base.GetForumsList;
+            DetailResult model = new DetailResult();
+            _service.Command<MainOutsourcing, ResultModel<DetailResult>>((db, o, api) =>
             {
-                model = api.Get(Url.Action("GetMainResult"), new { fid = fid, orderBy = orderBy }).ResultInfo;
-                model.ForumsList = ViewBag.ForList;
+                model = api.Get(Url.Action("GetItem"), new {tid=id}).ResultInfo;
             });
             return View(model);
         }
@@ -42,6 +54,7 @@ namespace SugarSite.Areas.BBS.Controllers
         }
         #endregion
 
+        #region api
         [HttpPost]
         [ValidateInput(false)]
         public JsonResult AskSubmit(short fid, string title, string content, string vercode, int rate = 0)
@@ -73,12 +86,12 @@ namespace SugarSite.Areas.BBS.Controllers
                         var tid = db.Insert(t).ObjToInt();
                         t.Tid = tid;
                         //插贴子主体
-                        BBS_Posts p = o.GetPosts(fid, content, _userInfo,t);
+                        BBS_Posts p = o.GetPosts(fid, content, _userInfo, t);
                         db.Insert(p);
                         db.CommitTran();
                         model.IsSuccess = true;
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         model.ResultInfo = "发布失败！";
                         db.RollbackTran();
@@ -106,5 +119,18 @@ namespace SugarSite.Areas.BBS.Controllers
             });
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetItem(int tid)
+        {
+            ResultModel<DetailResult> model = new ResultModel<DetailResult>();
+            _service.Command<MainOutsourcing>((db, o) =>
+            {
+                model.ResultInfo = new DetailResult();
+                model.ResultInfo.PosItem = db.Queryable<BBS_Posts>().Single(it=>it.Tid==tid&&it.Parentid==0);//主贴
+                model.ResultInfo.TopItem = db.Queryable<BBS_Topics>().Single(it => it.Tid == tid);//主贴
+            });
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
     }
 }

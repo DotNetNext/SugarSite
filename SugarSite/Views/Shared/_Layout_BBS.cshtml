@@ -20,11 +20,21 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>.NET开源 .NET ORM - 文档园</title>
+    <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="//at.alicdn.com/t/font_001z27klwvobt9.css">
     <link href="~/_theme/layui-v1.0.3/layui/css/layui.css" rel="stylesheet" />
     <link href="~/_theme/layui-v1.0.3/layui/css/global.css?v=1" rel="stylesheet" />
     @RenderSection("css", false)
+    <style>
+        body .leifeng-rank span.forums a img {
+            width: 65px;
+            height: initial;
+        }
+
+        body .leifeng-rank span.forums i {
+            bottom: 8px;
+        }
+    </style>
     <style>
         a.logo {
             top: 13px !important;
@@ -100,7 +110,7 @@
             List<BBS_Forums> ForList = ViewBag.ForList;
             <div class="edge">
                 <h3 class="page-title">版块</h3>
-                <div class="user-looklog leifeng-rank">
+                <div class="user-looklog leifeng-rank ">
                     <span class="forums">
                         @if (ForList != null)
                         {
@@ -130,7 +140,7 @@
                                     u.Avatar = Url.Content("~/_theme/default.jpg");
                                 }
                         <a href="/ask">
-                            <img src="@u.Avatar">
+                            <img src="@u.Avatar.Replace("/30","/100")">
                             <cite>@u.NickName</cite>
                             <i>@(u.CreateTime == null ? "" : u.CreateTime.TryToDate().ToString("yyyy-MM-dd"))</i>
                         </a>
