@@ -11,5 +11,6 @@ namespace Infrastructure.ViewModels.BBS
     {
         public short Fid { get; set; }
         public List<BBS_Topics> TopicsList { get; set; }
+        public List<BBS_Forums> ForumsList { get; set; }
     }
 }

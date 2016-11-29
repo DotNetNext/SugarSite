@@ -34,7 +34,8 @@
                 </h2>
                 <p>
                     <span><a href="/u/168">@item.Poster</a></span>
-                    <span>3天前</span>            <span>技术闲谈</span>
+                    <span>3天前</span>
+                    <span>@Model.ForumsList.Single(it => it.Fid == item.Fid).Name</span>
                     <span class="fly-list-hint">
                         <i class="iconfont" title="回答">&#xe60c;</i> 0
                         <i class="iconfont" title="人气">&#xe60b;</i> 0

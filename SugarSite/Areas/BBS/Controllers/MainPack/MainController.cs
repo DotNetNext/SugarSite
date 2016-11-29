@@ -60,26 +60,11 @@ namespace SugarSite.Areas.BBS.Controllers
                     {
                         db.BeginTran();
                         //插贴子标题
-                        BBS_Topics t = new BBS_Topics()
-                        {
-                            Fid = fid,
-                            Title = title,
-                            Posterid = _userInfo.Id,
-                            Poster = _userInfo.NickName,
-                            Postdatetime = DateTime.Now,
-                            Rate = rate,
-                            PosterAvatar=_userInfo.Avatar
-                        };
+                        BBS_Topics t = o.GetTopics(fid, title, rate,_userInfo);
                         var tid = db.Insert(t).ObjToInt();
                         //插贴子主体
-                        BBS_Posts p = new BBS_Posts()
-                        {
-                            Fid = fid,
-                            Ip = RequestInfo.UserAddress,
-                            Posterid = _userInfo.Id,
-                            Poster = _userInfo.NickName,
-                            Message = content
-                        };
+                        BBS_Posts p = o.GetPosts(fid, content,_userInfo);
+                        db.Insert(p);
                         db.CommitTran();
                         model.IsSuccess = true;
                     }
@@ -92,5 +77,6 @@ namespace SugarSite.Areas.BBS.Controllers
             });
             return Json(model);
         }
+
     }
 }
