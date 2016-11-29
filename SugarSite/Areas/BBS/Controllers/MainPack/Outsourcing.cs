@@ -9,7 +9,7 @@ namespace SugarSite.Areas.BBS.Controllers
 {
     public class MainOutsourcing
     {
-        public BBS_Posts GetPosts(short fid, string content,UserInfo _userInfo)
+        public BBS_Posts GetPosts(short fid, string content,UserInfo _userInfo,BBS_Topics top)
         {
             return new BBS_Posts()
             {
@@ -17,8 +17,12 @@ namespace SugarSite.Areas.BBS.Controllers
                 Ip = RequestInfo.UserAddress,
                 Posterid = _userInfo.Id,
                 Poster = _userInfo.NickName,
-                Message = content
-            };
+                Message = content,
+                Postdatetime=DateTime.Now,
+                Title=top.Title,
+                Tid=top.Tid,
+                Lastedit=_userInfo.NickName
+             };
         }
 
         public BBS_Topics GetTopics(short fid, string title, int rate, UserInfo _userInfo)

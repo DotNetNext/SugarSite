@@ -9,6 +9,7 @@ using Infrastructure.ViewModels;
 using SyntacticSugar;
 using SqlSugar;
 using Infrastructure.Pub;
+using Infrastructure.ViewModels.BBS;
 
 namespace SugarSite.Areas.BBS.Controllers
 {
@@ -16,11 +17,18 @@ namespace SugarSite.Areas.BBS.Controllers
     {
         public MainController(DbService s) : base(s) { }
 
-        public ActionResult Index(int? fid)
+        #region page
+        public ActionResult Index(int? fid, int? orderBy)
         {
+            MainResult model = new MainResult();
             ViewBag.NewUserList = base.GetNewUserList;
             ViewBag.ForList = base.GetForumsList;
-            return View();
+            _service.Command<MainOutsourcing,ResultModel<MainResult>>((db, o, api) =>
+            {
+                model = api.Get(Url.Action("GetMainResult"), new { fid = fid, orderBy = orderBy }).ResultInfo;
+                model.ForumsList = ViewBag.ForList;
+            });
+            return View(model);
         }
 
         public ActionResult Ask()
@@ -32,6 +40,7 @@ namespace SugarSite.Areas.BBS.Controllers
             ViewBag.ForList = base.GetForumsList;
             return View();
         }
+        #endregion
 
         [HttpPost]
         [ValidateInput(false)]
@@ -60,15 +69,16 @@ namespace SugarSite.Areas.BBS.Controllers
                     {
                         db.BeginTran();
                         //插贴子标题
-                        BBS_Topics t = o.GetTopics(fid, title, rate,_userInfo);
+                        BBS_Topics t = o.GetTopics(fid, title, rate, _userInfo);
                         var tid = db.Insert(t).ObjToInt();
+                        t.Tid = tid;
                         //插贴子主体
-                        BBS_Posts p = o.GetPosts(fid, content,_userInfo);
+                        BBS_Posts p = o.GetPosts(fid, content, _userInfo,t);
                         db.Insert(p);
                         db.CommitTran();
                         model.IsSuccess = true;
                     }
-                    catch
+                    catch(Exception ex)
                     {
                         model.ResultInfo = "发布失败！";
                         db.RollbackTran();
@@ -78,5 +88,23 @@ namespace SugarSite.Areas.BBS.Controllers
             return Json(model);
         }
 
+        public JsonResult GetMainResult(int? fid, int? orderBy)
+        {
+            ResultModel<MainResult> model = new ResultModel<MainResult>();
+            model.ResultInfo = new MainResult();
+            model.ResultInfo.PageIndex = 1;
+            model.ResultInfo.PageSize = PubConst.SitePageSize;
+            _service.Command<MainOutsourcing>((db, o) =>
+            {
+                var qureyable = db.Queryable<BBS_Topics>();
+                if (fid > 0)
+                {
+                    qureyable = qureyable.Where(it => it.Fid == fid);
+                }
+                model.ResultInfo.TopicsList = qureyable.OrderBy(it => it.Postdatetime, OrderByType.Desc).ToList();
+                model.ResultInfo.PageCount = qureyable.Count();
+            });
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
     }
 }

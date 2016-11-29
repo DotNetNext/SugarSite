@@ -23,6 +23,9 @@
     {
         foreach (var item in Model.TopicsList)
         {
+            if (item.PosterAvatar.IsNullOrEmpty()) {
+                item.PosterAvatar = Url.Content("~/_theme/default.jpg");
+            }
             <li class="fly-list-li">
                 <a href="/u/168" class="fly-list-avatar">
                     <img src="@item.PosterAvatar" alt="@item.Poster">
