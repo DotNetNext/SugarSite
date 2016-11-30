@@ -188,8 +188,9 @@ namespace SugarSite.Areas.BBS.Controllers
                             p.Postdatetime = DateTime.Now;
                             p.Ip = RequestInfo.UserAddress;
                             db.Insert(p);
-                            db.Update<BBS_Topics>(" Replies=isnull([Replies],0)+1", it => it.Tid == tid);//回复数加1
+                            db.Update<BBS_Topics>(" Replies=isnull([Replies],0)+1,Lastpost=@lp", it => it.Tid == tid,new { lp=DateTime.Now});//回复数加1
                             model.IsSuccess = true;
+                            base.RemoveForumsStatisticsCache();
                         }
                     }
                     catch (Exception ex)
