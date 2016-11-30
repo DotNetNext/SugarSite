@@ -41,8 +41,8 @@
                     <span>@DateSugar.DateStringFromNow(item.Postdatetime.TryToDate().ToLocalTime())</span>
                     <span>@Model.ForumsList.Single(it => it.Fid == item.Fid).Name</span>
                     <span class="fly-list-hint">
-                        <i class="iconfont" title="回答">&#xe60c;</i> 0
-                        <i class="iconfont" title="人气">&#xe60b;</i> 0
+                        <i class="iconfont" title="回答">&#xe60c;</i> @item.Replies
+                        <i class="iconfont" title="人气">&#xe60b;</i> @item.Views
                     </span>
                 </p>
             </li>

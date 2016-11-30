@@ -41,6 +41,7 @@ namespace SugarSite.Areas.BBS.Controllers
             _service.Command<MainOutsourcing, ResultModel<DetailResult>>((db, o, api) =>
             {
                 model = api.Get(Url.Action("GetItem"), new {tid=id}).ResultInfo;
+                db.Update<BBS_Topics>(new { Views = model.TopItem.Views.TryToInt() + 1 },it=>it.Tid== model.TopItem.Tid);
             });
             return View(model);
         }

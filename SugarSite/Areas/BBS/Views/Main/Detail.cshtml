@@ -17,8 +17,8 @@
     <div class="fly-tip fly-detail-hint" data-id="5467">
         <span>未结贴</span>
         <div class="fly-list-hint">
-            <i class="iconfont" title="回答"></i> 4
-            <i class="iconfont" title="人气"></i> 29
+            <i class="iconfont" title="回答"></i> @Model.TopItem.Replies
+            <i class="iconfont" title="人气"></i> @Model.TopItem.Views
         </div>
     </div>
     <div class="detail-about">
@@ -31,7 +31,7 @@
        @Html.Raw(Model.PosItem.Message)
     </div>
     <a name="comment"></a>
-    <h2 class="page-title">热忱回答<span>（<em id="jiedaCount">4</em>）</span></h2>
+    <h2 class="page-title">热忱回答<span>（<em id="jiedaCount">@Model.TopItem.Replies.TryToInt()</em>）</span></h2>
     <ul class="jieda photos" id="jieda">
         <li data-id="19288">
             <a name="item-1480412603361"></a>
