@@ -80,7 +80,9 @@ namespace SugarSite
             {
                 _service.Command<BaseOutsourcing>((db, o) =>
                 {
+                    var date = DateTime.Now.ToString("yyyy-MM-dd").TryToDate();
                     reval = db.Queryable<BBS_Topics>()
+                    .Where(it=>it.Postdatetime>=date)
                     .GroupBy(it => it.Fid)
                      .Select<KeyValuePair<string, string>>("Fid,count(1) as Count ")
                      .ToList().ToDictionary(it =>Convert.ToInt32(it.Key), it => it.Value);
