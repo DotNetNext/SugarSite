@@ -148,7 +148,7 @@
                         <a href="/ask">
                             <img src="@u.Avatar.Replace("/30","/100")">
                             <cite>@u.NickName</cite>
-                            <i>@(u.CreateTime == null ? "" : u.CreateTime.TryToDate().ToString("yyyy-MM-dd"))</i>
+                            <i>@(u.CreateTime == null ? "" :SyntacticSugar.DateSugar.DateStringFromNow(u.CreateTime.TryToDate()))</i>
                         </a>
                             }
                         }
