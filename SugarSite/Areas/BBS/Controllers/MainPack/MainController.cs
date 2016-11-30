@@ -88,13 +88,21 @@ namespace SugarSite.Areas.BBS.Controllers
                     try
                     {
                         db.BeginTran();
-                        //插贴子标题
-                        BBS_Topics t = o.GetTopics(fid, title, rate, _userInfo);
-                        var tid = db.Insert(t).ObjToInt();
-                        t.Tid = tid;
-                        //插贴子主体
-                        BBS_Posts p = o.GetPosts(fid, content, _userInfo, t);
-                        db.Insert(p);
+                        var isAdd = id == 0;
+                        if (isAdd)
+                        {
+                            //插贴子标题
+                            BBS_Topics t = o.GetTopics(fid, title, rate, _userInfo);
+                            var tid = db.Insert(t).ObjToInt();
+                            t.Tid = tid;
+                            //插贴子主体
+                            BBS_Posts p = o.GetPosts(fid, content, _userInfo, t);
+                            db.Insert(p);
+                        }
+                        else {
+                            db.Update<BBS_Topics>(new BBS_Topics { Title = title, Rate=rate, Fid=fid }, it => it.Tid == id);
+                            db.Update<BBS_Posts>(new BBS_Posts { Title = title, Rate = rate, Fid = fid, Message=content }, it => it.Tid == id&&it.Parentid==0);
+                        }
                         db.CommitTran();
                         model.IsSuccess = true;
                         base.RemoveForumsStatisticsCache();//清除统计缓存
