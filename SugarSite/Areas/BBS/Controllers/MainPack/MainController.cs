@@ -28,6 +28,8 @@ namespace SugarSite.Areas.BBS.Controllers
              {
                  model = api.Get(Url.Action("GetMainResult"), new { fid = fid, orderBy = orderBy }).ResultInfo;
                  model.ForumsList = ViewBag.ForList;
+                 model.OrderBy = orderBy.TryToInt();
+                 model.Fid = (short)fid.TryToInt();
              });
             return View(model);
         }
@@ -118,8 +120,20 @@ namespace SugarSite.Areas.BBS.Controllers
                 {
                     qureyable = qureyable.Where(it => it.Fid == fid);
                 }
-                model.ResultInfo.TopicsList = qureyable.OrderBy(it => it.Postdatetime, OrderByType.Desc).ToList();
-                model.ResultInfo.PageCount = qureyable.Count();
+                if (orderBy == 1)
+                {
+                    qureyable = qureyable.OrderBy(it => it.Postdatetime, OrderByType.Desc);
+                }
+                else if (orderBy == 2)
+                {
+                    qureyable = qureyable.OrderBy(it => it.Lastpost, OrderByType.Desc);
+                }
+                else {
+                    qureyable = qureyable.OrderBy(it => it.Postdatetime, OrderByType.Desc);
+                }
+                int pageCount = 0;
+                model.ResultInfo.TopicsList =qureyable.ToPageList(1,PubConst.SitePageSize,ref pageCount);
+               
             });
             return Json(model, JsonRequestBehavior.AllowGet);
         }

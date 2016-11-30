@@ -21,5 +21,7 @@ namespace Infrastructure.ViewModels.BBS
         /// </summary>
         public List<BBS_Forums> ForumsList { get; set; }
 
+        public int OrderBy { get; set; }
+
     }
 }

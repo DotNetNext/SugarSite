@@ -3,15 +3,19 @@
     Layout = "~/Views/Shared/_Layout_BBS.cshtml";
     ViewBag.IsBBSMain = true;
     ViewBag.Title = ".NET文档园 .NET开源ORM - 首页";
+    var fname = Model.ForumsList.SingleOrDefault(it => it.Fid == Model.Fid);
 }
 @using SyntacticSugar
 @model Infrastructure.ViewModels.BBS.MainResult
 <div class="fly-tab">
     <span>
-        <a href="~/Ask/@Model.Fid?orderBy=1">最新发布</a>
-        <a href="~/Ask/@Model.Fid?orderBy=2">最新回复</a>
-        <a href="~/Ask/@Model.Fid?orderBy=3">精华</a>
-        <a href="~/Ask/@Model.Fid?orderBy=4">活动</a>
+        <a style="color:#ccc">
+           <img width="25" src="~/_theme/img/forums/@(Model.Fid==0?1:Model.Fid).png" />  @((fname==null)?"全部": fname.Name)
+        </a>
+        <a class="@((Model.OrderBy<=1).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=1">最新</a>
+        <a class="@((Model.OrderBy==2).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=2">最新回复</a>
+        <a class="@((Model.OrderBy==3).IIF("tab-this"))"  href="~/Ask/@Model.Fid?orderBy=3">精华</a>
+        <a class="@((Model.OrderBy==4).IIF("tab-this"))"  href="~/Ask/@Model.Fid?orderBy=4">活动</a>
     </span>
     <form action="http://cn.bing.com/search" class="fly-search">
         <i class="iconfont icon-sousuo"></i>
