@@ -29,7 +29,26 @@
             var $btnSubmit = $("#btnSubmit");
             var $title = $("#title");
             var $txtVercode = $("#txtVercode");
+            var $id = $("#id");
+            var $selfid = $("#selfid");
+            var $rate = $("[name=rate]");
             var $imgOutPutVerifyCode = $("#imgVerifyCode");
+            var isEdit = $.request.queryString().id > 0;
+            if (isEdit) {
+                $.ajax({
+                    url: $.action.url("GetPost", null, "Main", "BBS"),
+                    cache: false,
+                    data: { tid: $.request.queryString().id },
+                    success: function (msg) {
+                        var result = msg.ResultInfo;
+                        ue.setContent(result.Message);
+                        $id.val(result.Tid);
+                        $title.val(result.Title);
+                        $rate.val(result.Rate);
+                        $selfid.val(result.Fid);
+                    }
+                })
+            }
             $imgOutPutVerifyCode.click(function () {
                 var th = $(this);
                 var src = th.attr("src") + "1";
@@ -73,6 +92,7 @@
     <h2 class="page-title">发表问题</h2>
     <div class="layui-form layui-form-pane">
         <form action="" method="post">
+            <input type="hidden" id="id" name="id"  />
             <div class="layui-form-item">
                 <label for="L_title" class="layui-form-label">标题</label>
                 <div class="layui-input-block">

@@ -101,8 +101,10 @@ namespace SugarSite.Areas.BBS.Controllers
                         }
                         else
                         {
-                            db.Update<BBS_Topics>(new BBS_Topics { Title = title, Rate = rate, Fid = fid }, it => it.Tid == id);
-                            db.Update<BBS_Posts>(new BBS_Posts { Title = title, Rate = rate, Fid = fid, Message = content }, it => it.Tid == id && it.Parentid == 0);
+                            var topics = db.Queryable<BBS_Topics>().InSingle(id);
+                            Check.Exception(topics.Posterid!=_userInfo.Id&&_userInfo.RoleId==PubEnum.RoleType.User.TryToInt(), "您没有权限修改！");
+                            db.Update<BBS_Topics>(new  { Title = title, Rate = rate, Fid = fid }, it => it.Tid == id);
+                            db.Update<BBS_Posts>(new  { Title = title, Rate = rate, Fid = fid, Message = content }, it => it.Tid == id && it.Parentid == 0);
                         }
                         db.CommitTran();
                         model.IsSuccess = true;
