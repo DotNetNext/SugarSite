@@ -170,10 +170,10 @@ namespace SugarSite.Areas.BBS.Controllers
                     try
                     {
                        var prePost=db.Queryable<BBS_Posts>().OrderBy(it=>it.Postdatetime,OrderByType.Desc).SingleOrDefault(it => it.Parentid == _userInfo.Id);
-                        if (prePost != null && (DateTime.Now - prePost.Postdatetime.TryToDate()).TotalMilliseconds <= 6)
+                        if (prePost != null && (DateTime.Now - prePost.Postdatetime.TryToDate()).Seconds <= 6)
                         {
                             model.ResultInfo ="你回复的太快了，请在等"
-                            +(5-(DateTime.Now - prePost.Postdatetime.TryToDate()).TotalMilliseconds)+"秒！";
+                            +(5-(DateTime.Now - prePost.Postdatetime.TryToDate()).Seconds) +"秒！";
                         }
                         else
                         {

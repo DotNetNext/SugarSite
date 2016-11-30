@@ -12,6 +12,22 @@
 @using SyntacticSugar
 @using Infrastructure.DbModel;
 @using Infrastructure.Pub;
+@section css{
+    <link href="~/_theme/ueditor/utf8-net/third-party/SyntaxHighlighter/shCoreDefault.css" rel="stylesheet" />
+    <style>
+        .syntaxhighlighter td.code .line {
+            font-size: 12px !important;
+        }
+
+        .syntaxhighlighter .keyword {
+            color: #cc86d4 !important;
+        }
+
+        .syntaxhighlighter td.code .line {
+            line-height: 1.8 !important;
+        }
+    </style>
+}
 @section js{
     <script src="~/_theme/ueditor/utf8-net/ueditor.config.js"></script>
     <script src="~/_theme/ueditor/utf8-net/ueditor.all.js"></script>
@@ -53,6 +69,9 @@
 
         });
     </script>
+    <script src="~/_theme/ueditor/utf8-net/third-party/SyntaxHighlighter/shCore.js"></script>
+    <script type="text/javascript">SyntaxHighlighter.all();</script>
+
 }
 @model Infrastructure.ViewModels.BBS.DetailResult
 <input type="hidden" id="hidLoginUrl" value="@Url.Content("~/Home/Login")" />
@@ -108,7 +127,7 @@
         <form action="/" method="post">
             <div class="layui-form-item layui-form-text">
                 <div class="layui-input-block">
-                    <input type="hidden" id="hidTid" name="tid" value="@Model.TopItem.Tid"/>
+                    <input type="hidden" id="hidTid" name="tid" value="@Model.TopItem.Tid" />
                     <!-- 加载编辑器的容器 -->
                     <script id="container" name="Content" style="height:300px" type="text/plain">
                     </script>
