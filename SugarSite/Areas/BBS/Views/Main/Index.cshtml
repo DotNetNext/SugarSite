@@ -36,14 +36,14 @@
                     <img src="@item.PosterAvatar" alt="@item.Poster">
                 </a>
                 <h2 class="fly-tip">
-                    <a href="~/BBS/Main/Detail/@item.Tid">@item.Title</a>
+                    <a href="~/BBS/Main/Detail/@item.Tid">[@Model.ForumsList.Single(it => it.Fid == item.Fid).Name.Trim()] @item.Title</a>
                     @*<span class="fly-tip-stick">置顶</span>
                         <span class="fly-tip-jing">精帖</span>*@
                 </h2>
                 <p>
                     <span><a href="~/BBS/Main/Detail/@item.Tid">@item.Poster</a></span>
                     <span>@DateSugar.DateStringFromNow(item.Postdatetime.TryToDate().ToLocalTime())</span>
-                    <span>@Model.ForumsList.Single(it => it.Fid == item.Fid).Name</span>
+                 
                     <span class="fly-list-hint">
                         <i class="iconfont" title="回答">&#xe60c;</i> @item.Replies
                         <i class="iconfont" title="人气">&#xe60b;</i> @item.Views
