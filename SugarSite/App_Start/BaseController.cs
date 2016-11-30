@@ -35,7 +35,7 @@ namespace SugarSite
         {
             get
             {
-                var key = PubConst.SessionnForumsList;
+                var key = PubConst.SessionForumsList;
                 var cm = CacheManager<List<BBS_Forums>>.GetInstance();
                 if (cm.ContainsKey(key))
                 {
@@ -58,7 +58,7 @@ namespace SugarSite
         /// </summary>
         protected void RemoveNewUserListCache()
         {
-            var key = PubConst.SessionnNewUserList;
+            var key = PubConst.SessionNewUserList;
             var cm = CacheManager<List<UserInfo>>.GetInstance();
             if (cm.ContainsKey(key))
             {
@@ -72,7 +72,7 @@ namespace SugarSite
         {
             get
             {
-                var key = PubConst.SessionnNewUserList;
+                var key = PubConst.SessionNewUserList;
                 var cm = CacheManager<List<UserInfo>>.GetInstance();
                 if (cm.ContainsKey(key))
                 {
