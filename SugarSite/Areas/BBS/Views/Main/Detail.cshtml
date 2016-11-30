@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = Model.PosItem.Title + "- ASP.NET";
     ViewBag.IsBBSMain = true;
+    bool isLogin = ViewBag.IsLogin;
+    UserInfo user = ViewBag.User;
     Layout = "~/Views/Shared/_Layout_BBS.cshtml";
     if (Model.TopItem.PosterAvatar.IsNullOrEmpty())
     {
@@ -26,6 +28,16 @@
         .syntaxhighlighter td.code .line {
             line-height: 1.8 !important;
         }
+
+        .top-edit {
+            text-align: right;
+            cursor: pointer;
+        }
+
+            .top-edit a {
+                margin-right: 5px;
+                color:#f60
+            }
     </style>
 }
 @section js{
@@ -57,7 +69,7 @@
                         success: function (msg) {
                             if (msg.ResultInfo == "-1") {
                                 window.location.href = $("#hidLoginUrl").val();
-                            }else if (msg.IsSuccess) {
+                            } else if (msg.IsSuccess) {
                                 window.location.reload();
                             } else {
                                 layer.msg(msg.ResultInfo);
@@ -93,6 +105,12 @@
     <div class="detail-body photos" style="margin-bottom: 20px;">
         @Html.Raw(Model.PosItem.Message)
     </div>
+    <p class="top-edit">
+        @if (isLogin && (user.Id == Model.TopItem.Posterid || user.RoleId != PubEnum.RoleType.User.TryToInt()))
+        {
+            <a href="/BBS/Main/Ask?id=@Model.TopItem.Tid">修改</a>
+        }
+    </p>
     <a name="comment"></a>
     <h2 class="page-title">热忱回答<span>（<em id="jiedaCount">@Model.TopItem.Replies.TryToInt()</em>）</span></h2>
     <ul class="jieda photos" id="jieda">

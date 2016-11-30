@@ -39,6 +39,8 @@ namespace SugarSite.Areas.BBS.Controllers
             ViewBag.NewUserList = base.GetNewUserList;
             ViewBag.ForList = base.GetForumsList;
             ViewBag.ForumsStatistics = base.GetForumsStatistics();
+            ViewBag.IsLogin = base.IsLogin;
+            ViewBag.User = base._userInfo;
             DetailResult model = new DetailResult();
             _service.Command<MainOutsourcing, ResultModel<DetailResult>>((db, o, api) =>
             {
