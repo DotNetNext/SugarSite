@@ -54,6 +54,42 @@ namespace SugarSite
             }
         }
         /// <summary>
+        /// 移除新贴统计缓存
+        /// </summary>
+        /// <returns></returns>
+        protected void RemoveForumsStatisticsCache()
+        {
+            var cm = CacheManager<Dictionary<string, string>>.GetInstance();
+            var key = PubConst.SessionGetForumsStatistics;
+            if (cm.ContainsKey(key))
+            {
+                cm.Remove(key);
+            }
+        }
+        /// <summary>
+        /// 获取新贴统计
+        /// </summary>
+        /// <returns></returns>
+        protected Dictionary<string, string> GetForumsStatistics()
+        {
+            Dictionary<string, string> reval = null;
+            var key = PubConst.SessionGetForumsStatistics;
+            var cm = CacheManager<Dictionary<string, string>>.GetInstance();
+            if (cm.ContainsKey(key)) return cm[key];
+            else
+            {
+                _service.Command<BaseOutsourcing>((db, o) =>
+                {
+                    reval = db.Queryable<BBS_Topics>()
+                    .GroupBy(it => it.Fid)
+                     .Select<KeyValuePair<string, string>>("count(1) as Count,Fid ")
+                     .ToList().ToDictionary(it => it.Key, it => it.Value);
+                    cm.Add(key, reval, cm.Day);
+                });
+            }
+            return reval;
+        }
+        /// <summary>
         /// 删除最新用户缓存
         /// </summary>
         protected void RemoveNewUserListCache()
@@ -83,7 +119,7 @@ namespace SugarSite
                     List<UserInfo> reval = null;
                     _service.Command<BaseOutsourcing>((db, o) =>
                     {
-                        reval = db.Queryable<UserInfo>().OrderBy(it=>it.CreateTime,OrderByType.Desc).Take(8).ToList();
+                        reval = db.Queryable<UserInfo>().OrderBy(it => it.CreateTime, OrderByType.Desc).Take(8).ToList();
                     });
                     cm.Add(key, reval, cm.Day);
                     return reval;
