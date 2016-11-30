@@ -53,6 +53,21 @@ namespace SugarSite
                 }
             }
         }
+        /// <summary>
+        /// 删除最新用户缓存
+        /// </summary>
+        protected void RemoveNewUserListCache()
+        {
+            var key = PubConst.SessionnNewUserList;
+            var cm = CacheManager<List<UserInfo>>.GetInstance();
+            if (cm.ContainsKey(key))
+            {
+                cm.Remove(key);
+            }
+        }
+        /// <summary>
+        /// 获取最新用户
+        /// </summary>
         protected List<UserInfo> GetNewUserList
         {
             get
