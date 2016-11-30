@@ -64,7 +64,7 @@ namespace SugarSite.Areas.BBS.Controllers
         #region api
         [HttpPost]
         [ValidateInput(false)]
-        public JsonResult AskSubmit(short fid, string title, string content, string vercode, int rate = 0)
+        public JsonResult AskSubmit(short fid, string title, string content, string vercode, int rate = 0, int tid = 0)
         {
             ResultModel<string> model = new ResultModel<string>();
             _service.Command<MainOutsourcing>((db, o) =>
