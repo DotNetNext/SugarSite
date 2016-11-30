@@ -59,7 +59,7 @@ namespace SugarSite
         /// <returns></returns>
         protected void RemoveForumsStatisticsCache()
         {
-            var cm = CacheManager<Dictionary<string, string>>.GetInstance();
+            var cm = CacheManager<Dictionary<int, string>>.GetInstance();
             var key = PubConst.SessionGetForumsStatistics;
             if (cm.ContainsKey(key))
             {
@@ -70,11 +70,11 @@ namespace SugarSite
         /// 获取新贴统计
         /// </summary>
         /// <returns></returns>
-        protected Dictionary<string, string> GetForumsStatistics()
+        protected Dictionary<int, string> GetForumsStatistics()
         {
-            Dictionary<string, string> reval = null;
+            Dictionary<int, string> reval = null;
             var key = PubConst.SessionGetForumsStatistics;
-            var cm = CacheManager<Dictionary<string, string>>.GetInstance();
+            var cm = CacheManager<Dictionary<int, string>>.GetInstance();
             if (cm.ContainsKey(key)) return cm[key];
             else
             {
@@ -82,8 +82,8 @@ namespace SugarSite
                 {
                     reval = db.Queryable<BBS_Topics>()
                     .GroupBy(it => it.Fid)
-                     .Select<KeyValuePair<string, string>>("count(1) as Count,Fid ")
-                     .ToList().ToDictionary(it => it.Key, it => it.Value);
+                     .Select<KeyValuePair<string, string>>("Fid,count(1) as Count ")
+                     .ToList().ToDictionary(it =>Convert.ToInt32(it.Key), it => it.Value);
                     cm.Add(key, reval, cm.Day);
                 });
             }

@@ -107,15 +107,21 @@
         @if (ViewBag.IsBBSMain == true)
         {
             List<UserInfo> newUserList = ViewBag.NewUserList;
-            List<BBS_Forums> ForList = ViewBag.ForList;
+            List<BBS_Forums> forList = ViewBag.ForList;
+            Dictionary<int,string> forumsStatistics = ViewBag.ForumsStatistics;
             <div class="edge">
                 <h3 class="page-title">版块</h3>
                 <div class="user-looklog leifeng-rank ">
                     <span class="forums">
-                        @if (ForList != null)
+                        @if (forList != null)
                         {
-                            foreach (var u in ForList)
+                            var allPosts=0;
+                            foreach (var u in forList)
                             {
+                                if(forumsStatistics.ContainsKey(u.Fid)){ 
+                                   u.Todayposts = forumsStatistics[u.Fid].TryToInt();
+                                }
+                                allPosts += u.Todayposts;
                                 <a href="~/Ask/@(u.Fid)">
                                     <img src="~/_theme/img/forums/@(u.Fid).png">
                                     <i>@u.Name<label class="today">今天(<label class="today-num">@(u.Todayposts)</label>)</label> </i>
@@ -123,7 +129,7 @@
                             }
                             <a href="~/Ask">
                                 <img src="~/_theme/img/forums/1.png">
-                                <i>全部<label class="today">今天(<label class="today-num">100</label>)</label> </i>
+                                <i>全部<label class="today">今天(<label class="today-num">@allPosts</label>)</label> </i>
                             </a>
                         }
                     </span>

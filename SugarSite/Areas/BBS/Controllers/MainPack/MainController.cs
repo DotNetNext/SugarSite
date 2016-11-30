@@ -23,6 +23,7 @@ namespace SugarSite.Areas.BBS.Controllers
             MainResult model = new MainResult();
             ViewBag.NewUserList = base.GetNewUserList;
             ViewBag.ForList = base.GetForumsList;
+            ViewBag.ForumsStatistics = base.GetForumsStatistics();
             _service.Command<MainOutsourcing, ResultModel<MainResult>>((db, o, api) =>
              {
                  model = api.Get(Url.Action("GetMainResult"), new { fid = fid, orderBy = orderBy }).ResultInfo;
@@ -35,6 +36,7 @@ namespace SugarSite.Areas.BBS.Controllers
         {
             ViewBag.NewUserList = base.GetNewUserList;
             ViewBag.ForList = base.GetForumsList;
+            ViewBag.ForumsStatistics = base.GetForumsStatistics();
             DetailResult model = new DetailResult();
             _service.Command<MainOutsourcing, ResultModel<DetailResult>>((db, o, api) =>
             {
