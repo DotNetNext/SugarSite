@@ -42,8 +42,8 @@ namespace SugarSite.Areas.BBS.Controllers
             DetailResult model = new DetailResult();
             _service.Command<MainOutsourcing, ResultModel<DetailResult>>((db, o, api) =>
             {
-                model = api.Get(Url.Action("GetItem"), new {tid=id}).ResultInfo;
-                db.Update<BBS_Topics>(new { Views = model.TopItem.Views.TryToInt() + 1 },it=>it.Tid== model.TopItem.Tid);
+                model = api.Get(Url.Action("GetItem"), new { tid = id }).ResultInfo;
+                db.Update<BBS_Topics>(new { Views = model.TopItem.Views.TryToInt() + 1 }, it => it.Tid == model.TopItem.Tid);
             });
             return View(model);
         }
@@ -128,12 +128,13 @@ namespace SugarSite.Areas.BBS.Controllers
                 {
                     qureyable = qureyable.OrderBy(it => it.Lastpost, OrderByType.Desc);
                 }
-                else {
+                else
+                {
                     qureyable = qureyable.OrderBy(it => it.Postdatetime, OrderByType.Desc);
                 }
                 int pageCount = 0;
-                model.ResultInfo.TopicsList =qureyable.ToPageList(1,PubConst.SitePageSize,ref pageCount);
-               
+                model.ResultInfo.TopicsList = qureyable.ToPageList(1, PubConst.SitePageSize, ref pageCount);
+
             });
             return Json(model, JsonRequestBehavior.AllowGet);
         }
@@ -144,12 +145,61 @@ namespace SugarSite.Areas.BBS.Controllers
             _service.Command<MainOutsourcing>((db, o) =>
             {
                 model.ResultInfo = new DetailResult();
-                model.ResultInfo.PosItem = db.Queryable<BBS_Posts>().Single(it=>it.Tid==tid&&it.Parentid==0);//主贴
+                model.ResultInfo.PosItem = db.Queryable<BBS_Posts>().Single(it => it.Tid == tid && it.Parentid == 0);//主贴
                 model.ResultInfo.TopItem = db.Queryable<BBS_Topics>().Single(it => it.Tid == tid);//主贴
-                model.ResultInfo.PostsChildren = db.Queryable<V_BBS_Posts>().Where(it => it.Tid == tid&&it.Parentid>0)
-                .OrderBy(it=>it.Postdatetime).ToList();
+                model.ResultInfo.PostsChildren = db.Queryable<V_BBS_Posts>().Where(it => it.Tid == tid && it.Parentid > 0)
+                .OrderBy(it => it.Postdatetime).ToList();
             });
             return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public JsonResult RepliesSubmit(int tid,string content)
+        {
+            ResultModel<string> model = new ResultModel<string>();
+            _service.Command<MainOutsourcing>((db, o) =>
+            {
+                model.IsSuccess = false;
+                if (base.IsLogin.IsFalse())
+                {
+                    model.ResultInfo = "-1";
+                }
+                else {
+                    db.BeginTran();
+                    try
+                    {
+                       var prePost=db.Queryable<BBS_Posts>().OrderBy(it=>it.Postdatetime,OrderByType.Desc).SingleOrDefault(it => it.Parentid == _userInfo.Id);
+                        if (prePost != null && (DateTime.Now - prePost.Postdatetime.TryToDate()).TotalMilliseconds <= 6)
+                        {
+                            model.ResultInfo ="你回复的太快了，请在等"
+                            +(5-(DateTime.Now - prePost.Postdatetime.TryToDate()).TotalMilliseconds)+"秒！";
+                        }
+                        else
+                        {
+                            BBS_Posts p = new BBS_Posts();
+                            p.Title = "";
+                            p.Parentid = tid;
+                            p.Message = content;
+                            p.Tid = tid;
+                            p.Posterid = base._userInfo.Id;
+                            p.Poster = base._userInfo.NickName;
+                            p.Lastedit= base._userInfo.NickName;
+                            p.Postdatetime = DateTime.Now;
+                            p.Ip = RequestInfo.UserAddress;
+                            db.Insert(p);
+                            db.Update<BBS_Topics>(" Replies=isnull([Replies],0)+1", it => it.Tid == tid);//回复数加1
+                            model.IsSuccess = true;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        model.ResultInfo = "回复失败！";
+                    }
+                    
+                }
+            });
+            return Json(model);
         }
         #endregion
     }

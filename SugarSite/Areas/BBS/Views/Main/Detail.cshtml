@@ -1,9 +1,10 @@
 ﻿
 @{
-    ViewBag.Title = Model.PosItem.Title+"- ASP.NET";
+    ViewBag.Title = Model.PosItem.Title + "- ASP.NET";
     ViewBag.IsBBSMain = true;
     Layout = "~/Views/Shared/_Layout_BBS.cshtml";
-    if (Model.TopItem.PosterAvatar.IsNullOrEmpty()){
+    if (Model.TopItem.PosterAvatar.IsNullOrEmpty())
+    {
         Model.TopItem.PosterAvatar = Url.Content("~/_theme/default.jpg");
     }
 }
@@ -19,23 +20,42 @@
             toolbars: [[
                 'fullscreen', 'source', 'insertcode', 'paragraph', 'fontfamily',
                 'bold', 'italic', 'underline', 'fontborder',
-                'fontsize', 'simpleupload', 'emotion', 'insertrow' 
+                'fontsize', 'simpleupload', 'emotion', 'insertrow'
             ]]
         });
-        layui.use(['form', 'laydate','ejq' ,'ajaxforms'], function () {
+        layui.use(['form', 'laydate', 'ejq', 'ajaxforms'], function () {
             var form = layui.form()
             , layer = layui.layer
             , laydate = layui.laydate;
             var $ = layui.ajaxforms;
             var $btnSubmit = $("#btnSubmit");
-            $btnSubmit.click(function () {
-                 alert(1)
+            $btnSubmit.click(function (e) {
+                e.preventDefault();
+                var c = ue.getContent();
+                if (c == "") {
+                    layer.msg("回复不能为空！");
+                } else {
+                    $("form").ajaxSubmit({
+                        url: $.action.url("RepliesSubmit", null, "Main", "BBS"),
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.ResultInfo == "-1") {
+                                window.location.href = $("#hidLoginUrl").val();
+                            }else if (msg.IsSuccess) {
+                                window.location.reload();
+                            } else {
+                                layer.msg(msg.ResultInfo);
+                            }
+                        }
+                    })
+                }
             });
- 
+
         });
-</script>
+    </script>
 }
 @model Infrastructure.ViewModels.BBS.DetailResult
+<input type="hidden" id="hidLoginUrl" value="@Url.Content("~/Home/Login")" />
 <div class="content detail" style="width:100%">
     <h1>@Model.PosItem.Title</h1>
     <div class="fly-tip fly-detail-hint" data-id="5467">
@@ -52,7 +72,7 @@
         </div>
     </div>
     <div class="detail-body photos" style="margin-bottom: 20px;">
-       @Html.Raw(Model.PosItem.Message)
+        @Html.Raw(Model.PosItem.Message)
     </div>
     <a name="comment"></a>
     <h2 class="page-title">热忱回答<span>（<em id="jiedaCount">@Model.TopItem.Replies.TryToInt()</em>）</span></h2>
@@ -61,8 +81,9 @@
         {
             foreach (var item in Model.PostsChildren)
             {
-                if (item.Avatar.IsNullOrEmpty()) {
-                    item.Avatar=Url.Content("~/_theme/default.jpg");
+                if (item.Avatar.IsNullOrEmpty())
+                {
+                    item.Avatar = Url.Content("~/_theme/default.jpg");
                 }
                 <li data-id="19288">
                     <a name="item-1480412603361"></a>
@@ -73,7 +94,7 @@
                         </div>
                     </div>
                     <div class="detail-body jieda-body">
-                         @Html.Raw(item.Message)
+                        @Html.Raw(item.Message)
                     </div>
                     <div class="jieda-reply">
                         <span class="jieda-zan " type="zan"> <i class="iconfont icon-zan"></i> <em>0</em> </span>
@@ -84,9 +105,10 @@
         }
     </ul>
     <div class="layui-form layui-form-pane">
-        <form action="/jie/reply/" method="post">
+        <form action="/" method="post">
             <div class="layui-form-item layui-form-text">
                 <div class="layui-input-block">
+                    <input type="hidden" id="hidTid" name="tid" value="@Model.TopItem.Tid"/>
                     <!-- 加载编辑器的容器 -->
                     <script id="container" name="Content" style="height:300px" type="text/plain">
                     </script>
