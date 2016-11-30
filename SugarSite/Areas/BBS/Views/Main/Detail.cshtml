@@ -12,8 +12,28 @@
 @using Infrastructure.DbModel;
 @using Infrastructure.Pub;
 @section js{
-    
-    
+    <script src="~/_theme/ueditor/utf8-net/ueditor.config.js"></script>
+    <script src="~/_theme/ueditor/utf8-net/ueditor.all.js"></script>
+    <script>
+        var ue = UE.getEditor('container', {
+            toolbars: [[
+                'fullscreen', 'source', 'insertcode', 'paragraph', 'fontfamily',
+                'bold', 'italic', 'underline', 'fontborder',
+                'fontsize', 'simpleupload', 'emotion', 'insertrow' 
+            ]]
+        });
+        layui.use(['form', 'laydate','ejq' ,'ajaxforms'], function () {
+            var form = layui.form()
+            , layer = layui.layer
+            , laydate = layui.laydate;
+            var $ = layui.ajaxforms;
+            var $btnSubmit = $("#btnSubmit");
+            $btnSubmit.click(function () {
+                 alert(1)
+            });
+ 
+        });
+</script>
 }
 @model Infrastructure.ViewModels.BBS.DetailResult
 <div class="content detail" style="width:100%">
@@ -67,7 +87,9 @@
         <form action="/jie/reply/" method="post">
             <div class="layui-form-item layui-form-text">
                 <div class="layui-input-block">
-                   
+                    <!-- 加载编辑器的容器 -->
+                    <script id="container" name="Content" style="height:300px" type="text/plain">
+                    </script>
                 </div>
             </div>
             <div class="layui-form-item">
