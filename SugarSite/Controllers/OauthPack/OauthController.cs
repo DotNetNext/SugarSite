@@ -38,6 +38,7 @@ namespace SugarSite.Controllers
                         db.Insert(um);
                         db.CommitTran();
                         userMapping = um;
+                        RemoveNewUserListCache();
                     }
                     var user = db.Queryable<UserInfo>().InSingle(userMapping.UserId);
                     var cm = CacheManager<UserInfo>.GetInstance();

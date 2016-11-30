@@ -159,6 +159,7 @@ namespace SugarSite.Controllers
                             cm.Add(uniqueKey, loginUser, cm.Day * 365);//保存一年
                             model.IsSuccess = true;
                             model.ResultInfo = returnUrl;
+                            RemoveNewUserListCache();
                         }
                     }
                 }
