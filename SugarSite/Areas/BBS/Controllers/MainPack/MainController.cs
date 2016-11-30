@@ -90,6 +90,7 @@ namespace SugarSite.Areas.BBS.Controllers
                         db.Insert(p);
                         db.CommitTran();
                         model.IsSuccess = true;
+                        base.RemoveForumsStatisticsCache();//清除统计缓存
                     }
                     catch (Exception ex)
                     {
