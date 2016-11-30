@@ -11,6 +11,10 @@
 @using SyntacticSugar
 @using Infrastructure.DbModel;
 @using Infrastructure.Pub;
+@section js{
+    
+    
+}
 @model Infrastructure.ViewModels.BBS.DetailResult
 <div class="content detail" style="width:100%">
     <h1>@Model.PosItem.Title</h1>
@@ -33,91 +37,42 @@
     <a name="comment"></a>
     <h2 class="page-title">热忱回答<span>（<em id="jiedaCount">@Model.TopItem.Replies.TryToInt()</em>）</span></h2>
     <ul class="jieda photos" id="jieda">
-        <li data-id="19288">
-            <a name="item-1480412603361"></a>
-            <div class="detail-about detail-about-reply">
-                <a class="jie-user" href="/u/1475208/"> <img src="http://q.qlogo.cn/qqapp/101235792/DB5157389C614D07594517449BBC8DCC/100" alt="antidote" layer-index="0" /> <cite> <i>antidote</i> <em style="padding:0 ; color: #FF7200;">VIP0</em> </cite> </a>
-                <div class="detail-hits">
-                    <span>8小时前</span>
-                </div>
-            </div>
-            <div class="detail-body jieda-body">
-                http://www.layui.com/doc/modules/layer.html#btn
-            </div>
-            <div class="jieda-reply">
-                <span class="jieda-zan " type="zan"> <i class="iconfont icon-zan"></i> <em>0</em> </span>
-                <span type="reply"> <i class="iconfont icon-svgmoban53"></i> 回复 </span>
-            </div>
-        </li>
-        <li data-id="19289">
-            <a name="item-1480412762042"></a>
-            <div class="detail-about detail-about-reply">
-                <a class="jie-user" href="/u/937440/"> <img src="http://q.qlogo.cn/qqapp/101235792/DE131893434AD226D75DEC6745F9C578/100" alt="该叫什么" layer-index="1" /> <cite> <i>该叫什么</i> </cite> </a>
-                <div class="detail-hits">
-                    <span>7小时前</span>
-                </div>
-            </div>
-            <div class="detail-body jieda-body">
-               
-                <a href="javascript:;" class="fly-aite">antidote</a> 谢谢你的回答，但是这里没有，没有办法更改默认的，我不需要确认和关闭按钮，怎么取消掉？
-            </div>
-            <div class="jieda-reply">
-                <span class="jieda-zan " type="zan"> <i class="iconfont icon-zan"></i> <em>0</em> </span>
-                <span type="reply"> <i class="iconfont icon-svgmoban53"></i> 回复 </span>
-            </div>
-        </li>
-        <li data-id="19291">
-            <a name="item-1480413037274"></a>
-            <div class="detail-about detail-about-reply">
-                <a class="jie-user" href="/u/1475208/"> <img src="http://q.qlogo.cn/qqapp/101235792/DB5157389C614D07594517449BBC8DCC/100" alt="antidote" layer-index="2" /> <cite> <i>antidote</i> <em style="padding:0 ; color: #FF7200;">VIP0</em> </cite> </a>
-                <div class="detail-hits">
-                    <span>7小时前</span>
-                </div>
-            </div>
-            <div class="detail-body jieda-body">
-             
-                <a href="javascript:;" class="fly-aite">该叫什么</a>
-                <pre><a href="javascript:;" class="fly-aite"></a><br />layer.open({<br />    type:0,<br />    content:'不要按钮',<br />    btn:[]<br />});<br /></pre>
-            </div>
-            <div class="jieda-reply">
-                <span class="jieda-zan " type="zan"> <i class="iconfont icon-zan"></i> <em>0</em> </span>
-                <span type="reply"> <i class="iconfont icon-svgmoban53"></i> 回复 </span>
-            </div>
-        </li>
-        <li data-id="19300">
-            <a name="item-1480422941485"></a>
-            <div class="detail-about detail-about-reply">
-                <a class="jie-user" href="/u/26880/"> <img src="/avatar/26880.gif" alt="小魔方" layer-index="3" /> <cite> <i>小魔方</i> <em style="padding:0 ; color: #FF7200;">VIP2</em> <em style="color:#FF9E3F">（社区之光）</em> </cite> </a>
-                <div class="detail-hits">
-                    <span>5小时前</span>
-                </div>
-            </div>
-            <div class="detail-body jieda-body">
-                type 1 不写 btn 参数就行了
-            </div>
-            <div class="jieda-reply">
-                <span class="jieda-zan " type="zan"> <i class="iconfont icon-zan"></i> <em>0</em> </span>
-                <span type="reply"> <i class="iconfont icon-svgmoban53"></i> 回复 </span>
-            </div>
-        </li>
+        @if (Model.PostsChildren.IsValuable())
+        {
+            foreach (var item in Model.PostsChildren)
+            {
+                if (item.Avatar.IsNullOrEmpty()) {
+                    item.Avatar=Url.Content("~/_theme/default.jpg");
+                }
+                <li data-id="19288">
+                    <a name="item-1480412603361"></a>
+                    <div class="detail-about detail-about-reply">
+                        <a class="jie-user" href="/u/1475208/"> <img src="@item.Avatar" alt="antidote" layer-index="0" /> <cite> <i>antidote</i> <em style="padding:0 ; color: #FF7200;">VIP0</em> </cite> </a>
+                        <div class="detail-hits">
+                            <span>@DateSugar.DateStringFromNow(item.Postdatetime.TryToDate().ToLocalTime())</span>
+                        </div>
+                    </div>
+                    <div class="detail-body jieda-body">
+                         @Html.Raw(item.Message)
+                    </div>
+                    <div class="jieda-reply">
+                        <span class="jieda-zan " type="zan"> <i class="iconfont icon-zan"></i> <em>0</em> </span>
+                        <span type="reply"> <i class="iconfont icon-svgmoban53"></i> 回复 </span>
+                    </div>
+                </li>
+            }
+        }
     </ul>
     <div class="layui-form layui-form-pane">
         <form action="/jie/reply/" method="post">
             <div class="layui-form-item layui-form-text">
                 <div class="layui-input-block">
-                    <div class="fly-edit">
-                        <span type="face" title="插入表情"><i class="iconfont icon-biaoqing"></i>表情</span>
-                        <span type="picture" title="插入图片：img[src]"><i class="iconfont icon-tupian"></i>图片</span>
-                        <span type="href" title="超链接格式：a(href)[text]"><i class="iconfont icon-lianjie"></i>链接</span>
-                        <span type="code" title="插入代码"><i class="iconfont icon-daima"></i>代码</span>
-                        <span type="yulan" title="预览"><i class="iconfont icon-yulan"></i>预览</span>
-                    </div>
-                    <textarea id="L_content" name="content" required="" lay-verify="required" placeholder="我要回答" class="layui-textarea fly-editor" style="height: 150px;"></textarea>
+                   
                 </div>
             </div>
             <div class="layui-form-item">
                 <input type="hidden" name="jid" value="5467" />
-                <button onclick="alert('还在开发中。。。')" class="layui-btn" lay-filter="*" lay-submit="">提交回答</button>
+                <button id="btnSubmit" class="layui-btn" lay-filter="*" lay-submit="">提交回答</button>
             </div>
         </form>
     </div>

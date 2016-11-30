@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Infrastructure.DbModel
 {
-    public class BBS_Posts
+    public class V_BBS_Posts
     {
         
         /// <summary>
@@ -30,28 +30,28 @@ namespace Infrastructure.DbModel
 
         /// <summary>
         /// Desc:- 
-        /// Default:((0)) 
+        /// Default:- 
         /// Nullable:False 
         /// </summary>
         public int Parentid {get;set;}
 
         /// <summary>
         /// Desc:- 
-        /// Default:((0)) 
+        /// Default:- 
         /// Nullable:False 
         /// </summary>
         public int Layer {get;set;}
 
         /// <summary>
         /// Desc:- 
-        /// Default:('') 
+        /// Default:- 
         /// Nullable:False 
         /// </summary>
         public string Poster {get;set;}
 
         /// <summary>
         /// Desc:- 
-        /// Default:((0)) 
+        /// Default:- 
         /// Nullable:False 
         /// </summary>
         public int Posterid {get;set;}
@@ -65,91 +65,91 @@ namespace Infrastructure.DbModel
 
         /// <summary>
         /// Desc:- 
-        /// Default:(getdate()) 
+        /// Default:- 
         /// Nullable:False 
         /// </summary>
         public DateTime Postdatetime {get;set;}
 
         /// <summary>
         /// Desc:- 
-        /// Default:('') 
+        /// Default:- 
         /// Nullable:False 
         /// </summary>
         public string Message {get;set;}
 
         /// <summary>
         /// Desc:- 
-        /// Default:('') 
+        /// Default:- 
         /// Nullable:False 
         /// </summary>
         public string Ip {get;set;}
 
         /// <summary>
         /// Desc:- 
-        /// Default:('') 
+        /// Default:- 
         /// Nullable:False 
         /// </summary>
         public string Lastedit {get;set;}
 
         /// <summary>
         /// Desc:- 
-        /// Default:((0)) 
+        /// Default:- 
         /// Nullable:False 
         /// </summary>
         public int Invisible {get;set;}
 
         /// <summary>
         /// Desc:- 
-        /// Default:((0)) 
+        /// Default:- 
         /// Nullable:False 
         /// </summary>
         public int Usesig {get;set;}
 
         /// <summary>
         /// Desc:- 
-        /// Default:((0)) 
+        /// Default:- 
         /// Nullable:False 
         /// </summary>
         public int Htmlon {get;set;}
 
         /// <summary>
         /// Desc:- 
-        /// Default:((0)) 
+        /// Default:- 
         /// Nullable:False 
         /// </summary>
         public int Smileyoff {get;set;}
 
         /// <summary>
         /// Desc:- 
-        /// Default:((0)) 
+        /// Default:- 
         /// Nullable:False 
         /// </summary>
         public int Parseurloff {get;set;}
 
         /// <summary>
         /// Desc:- 
-        /// Default:((0)) 
+        /// Default:- 
         /// Nullable:False 
         /// </summary>
         public int Bbcodeoff {get;set;}
 
         /// <summary>
         /// Desc:- 
-        /// Default:((0)) 
+        /// Default:- 
         /// Nullable:False 
         /// </summary>
         public int Attachment {get;set;}
 
         /// <summary>
         /// Desc:- 
-        /// Default:((0)) 
+        /// Default:- 
         /// Nullable:False 
         /// </summary>
         public int Rate {get;set;}
 
         /// <summary>
         /// Desc:- 
-        /// Default:((0)) 
+        /// Default:- 
         /// Nullable:False 
         /// </summary>
         public int Ratetimes {get;set;}
@@ -160,6 +160,13 @@ namespace Infrastructure.DbModel
         /// Nullable:False 
         /// </summary>
         public Boolean IsDeleted {get;set;}
+
+        /// <summary>
+        /// Desc:- 
+        /// Default:- 
+        /// Nullable:True 
+        /// </summary>
+        public string Avatar {get;set;}
 
     }
 }

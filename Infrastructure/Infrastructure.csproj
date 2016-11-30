@@ -71,6 +71,7 @@
     <Compile Include="DbModels\UserInfo.cs" />
     <Compile Include="DbModels\UserOAuthMapping.cs" />
     <Compile Include="DbModels\VerifyCode.cs" />
+    <Compile Include="DbModels\V_BBS_Posts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pub\PubConst.cs" />
     <Compile Include="Pub\PubEnum.cs" />

@@ -146,6 +146,8 @@ namespace SugarSite.Areas.BBS.Controllers
                 model.ResultInfo = new DetailResult();
                 model.ResultInfo.PosItem = db.Queryable<BBS_Posts>().Single(it=>it.Tid==tid&&it.Parentid==0);//主贴
                 model.ResultInfo.TopItem = db.Queryable<BBS_Topics>().Single(it => it.Tid == tid);//主贴
+                model.ResultInfo.PostsChildren = db.Queryable<V_BBS_Posts>().Where(it => it.Tid == tid&&it.Parentid>0)
+                .OrderBy(it=>it.Postdatetime).ToList();
             });
             return Json(model, JsonRequestBehavior.AllowGet);
         }
