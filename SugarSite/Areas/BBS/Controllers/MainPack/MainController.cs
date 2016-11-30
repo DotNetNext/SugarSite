@@ -99,9 +99,10 @@ namespace SugarSite.Areas.BBS.Controllers
                             BBS_Posts p = o.GetPosts(fid, content, _userInfo, t);
                             db.Insert(p);
                         }
-                        else {
-                            db.Update<BBS_Topics>(new BBS_Topics { Title = title, Rate=rate, Fid=fid }, it => it.Tid == id);
-                            db.Update<BBS_Posts>(new BBS_Posts { Title = title, Rate = rate, Fid = fid, Message=content }, it => it.Tid == id&&it.Parentid==0);
+                        else
+                        {
+                            db.Update<BBS_Topics>(new BBS_Topics { Title = title, Rate = rate, Fid = fid }, it => it.Tid == id);
+                            db.Update<BBS_Posts>(new BBS_Posts { Title = title, Rate = rate, Fid = fid, Message = content }, it => it.Tid == id && it.Parentid == 0);
                         }
                         db.CommitTran();
                         model.IsSuccess = true;
@@ -165,7 +166,7 @@ namespace SugarSite.Areas.BBS.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public JsonResult RepliesSubmit(int tid,string content)
+        public JsonResult RepliesSubmit(int tid, string content)
         {
             ResultModel<string> model = new ResultModel<string>();
             _service.Command<MainOutsourcing>((db, o) =>
@@ -175,15 +176,16 @@ namespace SugarSite.Areas.BBS.Controllers
                 {
                     model.ResultInfo = "-1";
                 }
-                else {
+                else
+                {
                     db.BeginTran();
                     try
                     {
-                       var prePost=db.Queryable<BBS_Posts>().OrderBy(it=>it.Postdatetime,OrderByType.Desc).SingleOrDefault(it => it.Parentid == _userInfo.Id);
+                        var prePost = db.Queryable<BBS_Posts>().OrderBy(it => it.Postdatetime, OrderByType.Desc).SingleOrDefault(it => it.Parentid == _userInfo.Id);
                         if (prePost != null && (DateTime.Now - prePost.Postdatetime.TryToDate()).Seconds <= 6)
                         {
-                            model.ResultInfo ="你回复的太快了，请在等"
-                            +(5-(DateTime.Now - prePost.Postdatetime.TryToDate()).Seconds) +"秒！";
+                            model.ResultInfo = "你回复的太快了，请在等"
+                            + (5 - (DateTime.Now - prePost.Postdatetime.TryToDate()).Seconds) + "秒！";
                         }
                         else
                         {
@@ -194,11 +196,11 @@ namespace SugarSite.Areas.BBS.Controllers
                             p.Tid = tid;
                             p.Posterid = base._userInfo.Id;
                             p.Poster = base._userInfo.NickName;
-                            p.Lastedit= base._userInfo.NickName;
+                            p.Lastedit = base._userInfo.NickName;
                             p.Postdatetime = DateTime.Now;
                             p.Ip = RequestInfo.UserAddress;
                             db.Insert(p);
-                            db.Update<BBS_Topics>(" Replies=isnull([Replies],0)+1,Lastpost=@lp", it => it.Tid == tid,new { lp=DateTime.Now});//回复数加1
+                            db.Update<BBS_Topics>(" Replies=isnull([Replies],0)+1,Lastpost=@lp", it => it.Tid == tid, new { lp = DateTime.Now });//回复数加1
                             model.IsSuccess = true;
                             base.RemoveForumsStatisticsCache();
                         }
@@ -207,10 +209,20 @@ namespace SugarSite.Areas.BBS.Controllers
                     {
                         model.ResultInfo = "回复失败！";
                     }
-                    
+
                 }
             });
             return Json(model);
+        }
+
+        public JsonResult GetPost(int tid)
+        {
+            ResultModel<BBS_Posts> model = new ResultModel<BBS_Posts>();
+            _service.Command<MainOutsourcing>((db, o) =>
+            {
+                model.ResultInfo= db.Queryable<BBS_Posts>().Where(it => it.Tid == tid).Where(it => it.Parentid == 0).Single();
+            });
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
         #endregion
     }
