@@ -46,7 +46,7 @@ namespace SugarSite.Controllers
                 string savePath = FileSugar.GetMapPath("~" + path);
                 WebClient my = new WebClient();
                 byte[] mybyte;
-                mybyte = my.DownloadData(user.Avatar);
+                mybyte = my.DownloadData(user.Avatar.Replace(@"/30", @"/100"));
                 using (MemoryStream ms = new MemoryStream(mybyte))
                 {
                     System.Drawing.Image img;
