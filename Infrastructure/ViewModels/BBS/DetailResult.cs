@@ -17,5 +17,11 @@ namespace Infrastructure.ViewModels.BBS
         /// 回贴
         /// </summary>
         public List<V_BBS_Posts> PostsChildren { get; set; }
+
+        /// <summary>
+        /// 是否是收藏
+        /// </summary>
+        public bool IsFavorites { get; set; }
+
     }
 }

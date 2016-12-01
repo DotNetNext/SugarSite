@@ -91,6 +91,7 @@ namespace SugarSite.Areas.BBS.Controllers
                     {
                         db.Insert(data);
                         model.ResultInfo = "收藏成功";
+                        model.Status = "1";
                     }
                     model.IsSuccess = true;
                 });
@@ -194,6 +195,10 @@ namespace SugarSite.Areas.BBS.Controllers
                 model.ResultInfo.TopItem = db.Queryable<BBS_Topics>().Single(it => it.Tid == tid);//主贴
                 model.ResultInfo.PostsChildren = db.Queryable<V_BBS_Posts>().Where(it => it.Tid == tid && it.Parentid > 0)
                 .OrderBy(it => it.Postdatetime).ToList();
+                if (base.IsLogin)
+                {
+                    model.ResultInfo.IsFavorites = db.Queryable<BBS_Favorites>().Any(it => it.Tid == tid && it.Uid == _userInfo.Id);
+                }
             });
             return Json(model, JsonRequestBehavior.AllowGet);
         }

@@ -24,5 +24,6 @@ namespace Infrastructure.ViewModels.BBS
 
         public int OrderBy { get; set; }
 
+
     }
 }
