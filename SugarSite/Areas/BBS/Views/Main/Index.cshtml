@@ -20,8 +20,8 @@
         <a class="@((Model.OrderBy==2).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=2">最新回复</a>
         @if (ViewBag.IsLogin)
         {
-        <a class="@((Model.OrderBy == 3).IIF("tab-this"))"  href="~/Ask/@Model.Fid?orderBy=3">我的发布</a>
-        <a class="@((Model.OrderBy == 4).IIF("tab-this"))"  href="~/Ask/@Model.Fid?orderBy=4">我的回复</a>
+        <a class="@((Model.OrderBy == 3).IIF("tab-this"))"  href="~/Ask/@Model.Fid?orderBy=3">我布</a>
+        <a class="@((Model.OrderBy == 4).IIF("tab-this"))"  href="~/Ask/@Model.Fid?orderBy=4">我回</a>
         <a class="@((Model.OrderBy == 5).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=5">收藏</a>
         }
         <a class="@((Model.OrderBy==6).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=6">精华</a>

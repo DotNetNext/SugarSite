@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Ask";
+    ViewBag.Title = "发布信息";
     Layout = "~/Views/Shared/_Layout_BBS.cshtml";
     List<BBS_Forums> ForList = ViewBag.ForList;
 }
@@ -71,6 +71,9 @@
                 else if ($fid.val() == "") {
                     layer.msg("请选择分类！");
                 } else {
+                    var index = layer.load(1, {
+                        shade: [0.3, '#fff']
+                    });
                     $("form").ajaxSubmit({
                         url: $.action.url("AskSubmit", null, "Main", "BBS"),
                         cache: false,
@@ -80,6 +83,9 @@
                             } else {
                                 layer.msg(msg.ResultInfo);
                             }
+                            layer.close(index);
+                        },error:function(){
+                            layer.close(index);
                         }
                     })
                 }

@@ -92,6 +92,7 @@
             });
             $iReplies.click(function () {
                 ue.setContent("<p><span style=\"color:#4f99cf\">@@" + $(this).data("name") + "</span>：</p>", ue.getContent() != null && ue.getContent() != "");
+                $(document).scrollTop(10000);
             });
             $favorites.click(function () {
                 var th = $(this);
@@ -123,6 +124,9 @@
                 if (c == "") {
                     layer.msg("回复不能为空！");
                 } else {
+                    var index = layer.load(1, {
+                        shade: [0.3, '#fff'] 
+                    });
                     $("form").ajaxSubmit({
                         url: $.action.url("RepliesSubmit", null, "Main", "BBS"),
                         cache: false,
@@ -134,6 +138,9 @@
                             } else {
                                 layer.msg(msg.ResultInfo);
                             }
+                            layer.close(index);
+                        }, error: function () {
+                            layer.close(index);
                         }
                     })
                 }

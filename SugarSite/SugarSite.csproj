@@ -362,6 +362,7 @@
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\element.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\flow.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\form.js" />
+    <Content Include="_theme\layui-v1.0.3\layui\lay\modules\global-bbs.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\global2.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\global.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\jsGrid.js" />

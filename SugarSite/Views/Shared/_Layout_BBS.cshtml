@@ -28,7 +28,7 @@
     <style>
         body .leifeng-rank span.forums a img {
             width: 64px;
-            height: initial;
+            height: 64px;
         }
 
         body .leifeng-rank span.forums i {
@@ -175,7 +175,7 @@
         layui.config({
             base: '/_theme/layui-v1.0.3/layui/lay/modules/'
           , version: '11'
-        });
+        }).use('global-bbs');
         window.global = {
             preview: function () {
                 var preview = document.getElementById('LAY_preview');
@@ -184,5 +184,8 @@
         };
     </script>
     @RenderSection("js", false)
+    <ul class="layui-fixbar">
+        <li class="layui-icon layui-fixbar-top" lay-type="top" style=""></li>
+    </ul>
 </body>
 </html>
