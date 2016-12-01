@@ -11,103 +11,103 @@
   </PropertyGroup>
   <ItemGroup>
     <File Include="Areas/AdminSite/Views/DocContent/Index.cshtml">
-      <publishTime>12/01/2016 14:27:50</publishTime>
+      <publishTime>12/01/2016 22:57:46</publishTime>
     </File>
     <File Include="Areas/AdminSite/Views/DocContent/PageDCAdd.cshtml">
-      <publishTime>12/01/2016 14:27:50</publishTime>
+      <publishTime>12/01/2016 22:57:46</publishTime>
     </File>
     <File Include="Areas/AdminSite/Views/Login/Index.cshtml">
-      <publishTime>12/01/2016 14:27:50</publishTime>
+      <publishTime>12/01/2016 22:57:46</publishTime>
     </File>
     <File Include="Areas/AdminSite/Views/web.config">
       <publishTime>12/01/2016 02:08:38</publishTime>
     </File>
     <File Include="Areas/BBS/Views/Main/Ask.cshtml">
-      <publishTime>12/01/2016 14:27:50</publishTime>
+      <publishTime>12/01/2016 22:57:46</publishTime>
     </File>
     <File Include="Areas/BBS/Views/Main/Detail.cshtml">
-      <publishTime>12/01/2016 14:27:50</publishTime>
+      <publishTime>12/01/2016 22:57:46</publishTime>
     </File>
     <File Include="Areas/BBS/Views/Main/Index.cshtml">
-      <publishTime>12/01/2016 14:27:50</publishTime>
+      <publishTime>12/01/2016 22:57:46</publishTime>
     </File>
     <File Include="Areas/BBS/Views/web.config">
       <publishTime>12/01/2016 02:08:38</publishTime>
     </File>
     <File Include="bin/about.cshtml.a8d08dba.compiled">
-      <publishTime>12/01/2016 14:27:42</publishTime>
+      <publishTime>12/01/2016 22:57:40</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>02/22/2013 08:43:40</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>12/01/2016 14:27:36</publishTime>
+      <publishTime>12/01/2016 22:57:35</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>12/01/2016 14:27:36</publishTime>
+      <publishTime>12/01/2016 22:57:34</publishTime>
     </File>
     <File Include="bin/App_Web_about.cshtml.a8d08dba.dll">
-      <publishTime>12/01/2016 14:27:42</publishTime>
+      <publishTime>12/01/2016 22:57:40</publishTime>
     </File>
     <File Include="bin/App_Web_ask.cshtml.623a3119.dll">
-      <publishTime>12/01/2016 14:27:40</publishTime>
+      <publishTime>12/01/2016 22:57:38</publishTime>
     </File>
     <File Include="bin/App_Web_callback.cshtml.c4ce1fad.dll">
-      <publishTime>12/01/2016 14:27:45</publishTime>
+      <publishTime>12/01/2016 22:57:43</publishTime>
     </File>
     <File Include="bin/App_Web_contact.cshtml.a8d08dba.dll">
-      <publishTime>12/01/2016 14:27:43</publishTime>
+      <publishTime>12/01/2016 22:57:40</publishTime>
     </File>
     <File Include="bin/App_Web_controller.ashx.fe9559f5.dll">
-      <publishTime>12/01/2016 14:27:50</publishTime>
+      <publishTime>12/01/2016 22:57:46</publishTime>
     </File>
     <File Include="bin/App_Web_detail.cshtml.623a3119.dll">
-      <publishTime>12/01/2016 14:27:41</publishTime>
+      <publishTime>12/01/2016 22:57:39</publishTime>
     </File>
     <File Include="bin/App_Web_doc.cshtml.a8d08dba.dll">
-      <publishTime>12/01/2016 14:27:43</publishTime>
+      <publishTime>12/01/2016 22:57:41</publishTime>
     </File>
     <File Include="bin/App_Web_index.cshtml.623a3119.dll">
-      <publishTime>12/01/2016 14:27:42</publishTime>
+      <publishTime>12/01/2016 22:57:39</publishTime>
     </File>
     <File Include="bin/App_Web_index.cshtml.a8d08dba.dll">
-      <publishTime>12/01/2016 14:27:44</publishTime>
+      <publishTime>12/01/2016 22:57:41</publishTime>
     </File>
     <File Include="bin/App_Web_index.cshtml.b34c9a48.dll">
-      <publishTime>12/01/2016 14:27:37</publishTime>
+      <publishTime>12/01/2016 22:57:36</publishTime>
     </File>
     <File Include="bin/App_Web_index.cshtml.fbb8f8f9.dll">
-      <publishTime>12/01/2016 14:27:39</publishTime>
+      <publishTime>12/01/2016 22:57:37</publishTime>
     </File>
     <File Include="bin/App_Web_login.cshtml.a8d08dba.dll">
-      <publishTime>12/01/2016 14:27:44</publishTime>
+      <publishTime>12/01/2016 22:57:42</publishTime>
     </File>
     <File Include="bin/App_Web_pagedcadd.cshtml.b34c9a48.dll">
-      <publishTime>12/01/2016 14:27:38</publishTime>
+      <publishTime>12/01/2016 22:57:37</publishTime>
     </File>
     <File Include="bin/App_Web_register.cshtml.a8d08dba.dll">
-      <publishTime>12/01/2016 14:27:45</publishTime>
+      <publishTime>12/01/2016 22:57:42</publishTime>
     </File>
     <File Include="bin/App_Web_reward.cshtml.a8d08dba.dll">
-      <publishTime>12/01/2016 14:27:45</publishTime>
+      <publishTime>12/01/2016 22:57:43</publishTime>
     </File>
     <File Include="bin/App_Web__layout.cshtml.639c3968.dll">
-      <publishTime>12/01/2016 14:27:46</publishTime>
+      <publishTime>12/01/2016 22:57:43</publishTime>
     </File>
     <File Include="bin/App_Web__layout_admin.cshtml.639c3968.dll">
-      <publishTime>12/01/2016 14:27:47</publishTime>
+      <publishTime>12/01/2016 22:57:44</publishTime>
     </File>
     <File Include="bin/App_Web__layout_admin_login.cshtml.639c3968.dll">
-      <publishTime>12/01/2016 14:27:47</publishTime>
+      <publishTime>12/01/2016 22:57:44</publishTime>
     </File>
     <File Include="bin/App_Web__layout_bbs.cshtml.639c3968.dll">
-      <publishTime>12/01/2016 14:27:48</publishTime>
+      <publishTime>12/01/2016 22:57:45</publishTime>
     </File>
     <File Include="bin/App_Web__viewstart.cshtml.65a2d1ee.dll">
-      <publishTime>12/01/2016 14:27:48</publishTime>
+      <publishTime>12/01/2016 22:57:45</publishTime>
     </File>
     <File Include="bin/ask.cshtml.623a3119.compiled">
-      <publishTime>12/01/2016 14:27:40</publishTime>
+      <publishTime>12/01/2016 22:57:38</publishTime>
     </File>
     <File Include="bin/Autofac.dll">
       <publishTime>11/03/2016 15:54:04</publishTime>
@@ -116,19 +116,19 @@
       <publishTime>08/10/2016 16:06:52</publishTime>
     </File>
     <File Include="bin/callback.cshtml.c4ce1fad.compiled">
-      <publishTime>12/01/2016 14:27:46</publishTime>
+      <publishTime>12/01/2016 22:57:43</publishTime>
     </File>
     <File Include="bin/contact.cshtml.a8d08dba.compiled">
-      <publishTime>12/01/2016 14:27:43</publishTime>
+      <publishTime>12/01/2016 22:57:40</publishTime>
     </File>
     <File Include="bin/controller.ashx.fe9559f5.compiled">
-      <publishTime>12/01/2016 14:27:50</publishTime>
+      <publishTime>12/01/2016 22:57:46</publishTime>
     </File>
     <File Include="bin/detail.cshtml.623a3119.compiled">
-      <publishTime>12/01/2016 14:27:41</publishTime>
+      <publishTime>12/01/2016 22:57:39</publishTime>
     </File>
     <File Include="bin/doc.cshtml.a8d08dba.compiled">
-      <publishTime>12/01/2016 14:27:43</publishTime>
+      <publishTime>12/01/2016 22:57:41</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>03/02/2015 09:32:26</publishTime>
@@ -137,22 +137,22 @@
       <publishTime>03/02/2015 09:32:26</publishTime>
     </File>
     <File Include="bin/index.cshtml.623a3119.compiled">
-      <publishTime>12/01/2016 14:27:42</publishTime>
+      <publishTime>12/01/2016 22:57:39</publishTime>
     </File>
     <File Include="bin/index.cshtml.a8d08dba.compiled">
-      <publishTime>12/01/2016 14:27:44</publishTime>
+      <publishTime>12/01/2016 22:57:41</publishTime>
     </File>
     <File Include="bin/index.cshtml.b34c9a48.compiled">
-      <publishTime>12/01/2016 14:27:37</publishTime>
+      <publishTime>12/01/2016 22:57:36</publishTime>
     </File>
     <File Include="bin/index.cshtml.fbb8f8f9.compiled">
-      <publishTime>12/01/2016 14:27:39</publishTime>
+      <publishTime>12/01/2016 22:57:38</publishTime>
     </File>
     <File Include="bin/Infrastructure.dll">
-      <publishTime>12/01/2016 03:50:36</publishTime>
+      <publishTime>12/01/2016 22:47:34</publishTime>
     </File>
     <File Include="bin/login.cshtml.a8d08dba.compiled">
-      <publishTime>12/01/2016 14:27:44</publishTime>
+      <publishTime>12/01/2016 22:57:42</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>12/07/2015 19:04:38</publishTime>
@@ -227,16 +227,16 @@
       <publishTime>11/13/2012 12:19:34</publishTime>
     </File>
     <File Include="bin/pagedcadd.cshtml.b34c9a48.compiled">
-      <publishTime>12/01/2016 14:27:38</publishTime>
+      <publishTime>12/01/2016 22:57:37</publishTime>
     </File>
     <File Include="bin/register.cshtml.a8d08dba.compiled">
-      <publishTime>12/01/2016 14:27:45</publishTime>
+      <publishTime>12/01/2016 22:57:42</publishTime>
     </File>
     <File Include="bin/RestSharp.dll">
       <publishTime>08/26/2015 16:33:34</publishTime>
     </File>
     <File Include="bin/reward.cshtml.a8d08dba.compiled">
-      <publishTime>12/01/2016 14:27:45</publishTime>
+      <publishTime>12/01/2016 22:57:43</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>06/18/2015 20:19:46</publishTime>
@@ -278,10 +278,10 @@
       <publishTime>11/10/2016 19:38:10</publishTime>
     </File>
     <File Include="bin/SqlSugar.dll">
-      <publishTime>11/21/2016 23:24:16</publishTime>
+      <publishTime>11/26/2016 11:51:32</publishTime>
     </File>
     <File Include="bin/SugarSite.dll">
-      <publishTime>12/01/2016 14:23:05</publishTime>
+      <publishTime>12/01/2016 22:47:44</publishTime>
     </File>
     <File Include="bin/SyntacticSugar.dll">
       <publishTime>11/30/2016 02:26:10</publishTime>
@@ -368,28 +368,28 @@
       <publishTime>01/28/2015 04:04:32</publishTime>
     </File>
     <File Include="bin/_layout.cshtml.639c3968.compiled">
-      <publishTime>12/01/2016 14:27:46</publishTime>
+      <publishTime>12/01/2016 22:57:43</publishTime>
     </File>
     <File Include="bin/_layout_admin.cshtml.639c3968.compiled">
-      <publishTime>12/01/2016 14:27:47</publishTime>
+      <publishTime>12/01/2016 22:57:44</publishTime>
     </File>
     <File Include="bin/_layout_admin_login.cshtml.639c3968.compiled">
-      <publishTime>12/01/2016 14:27:47</publishTime>
+      <publishTime>12/01/2016 22:57:44</publishTime>
     </File>
     <File Include="bin/_layout_bbs.cshtml.639c3968.compiled">
-      <publishTime>12/01/2016 14:27:48</publishTime>
+      <publishTime>12/01/2016 22:57:45</publishTime>
     </File>
     <File Include="bin/_viewstart.cshtml.65a2d1ee.compiled">
-      <publishTime>12/01/2016 14:27:49</publishTime>
+      <publishTime>12/01/2016 22:57:45</publishTime>
     </File>
     <File Include="Global.asax">
       <publishTime>11/10/2016 15:58:23</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>12/01/2016 02:08:46</publishTime>
+      <publishTime>12/01/2016 21:16:42</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>12/01/2016 14:27:22</publishTime>
+      <publishTime>12/01/2016 22:57:23</publishTime>
     </File>
     <File Include="Views/Account/ConfirmEmail.cshtml">
       <publishTime>11/10/2016 15:58:38</publishTime>
@@ -428,25 +428,25 @@
       <publishTime>11/10/2016 15:58:38</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
-      <publishTime>12/01/2016 14:27:50</publishTime>
+      <publishTime>12/01/2016 22:57:47</publishTime>
     </File>
     <File Include="Views/Home/Contact.cshtml">
-      <publishTime>12/01/2016 14:27:50</publishTime>
+      <publishTime>12/01/2016 22:57:47</publishTime>
     </File>
     <File Include="Views/Home/Doc.cshtml">
-      <publishTime>12/01/2016 14:27:50</publishTime>
+      <publishTime>12/01/2016 22:57:47</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>12/01/2016 14:27:50</publishTime>
+      <publishTime>12/01/2016 22:57:47</publishTime>
     </File>
     <File Include="Views/Home/Login.cshtml">
-      <publishTime>12/01/2016 14:27:50</publishTime>
+      <publishTime>12/01/2016 22:57:47</publishTime>
     </File>
     <File Include="Views/Home/Register.cshtml">
-      <publishTime>12/01/2016 14:27:50</publishTime>
+      <publishTime>12/01/2016 22:57:47</publishTime>
     </File>
     <File Include="Views/Home/Reward.cshtml">
-      <publishTime>12/01/2016 14:27:50</publishTime>
+      <publishTime>12/01/2016 22:57:47</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>11/10/2016 15:58:38</publishTime>
@@ -467,7 +467,7 @@
       <publishTime>11/10/2016 15:58:38</publishTime>
     </File>
     <File Include="Views/Oauth/CallBack.cshtml">
-      <publishTime>12/01/2016 14:27:50</publishTime>
+      <publishTime>12/01/2016 22:57:47</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>11/10/2016 15:58:37</publishTime>
@@ -476,16 +476,16 @@
       <publishTime>11/10/2016 15:58:38</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>12/01/2016 14:27:50</publishTime>
+      <publishTime>12/01/2016 22:57:47</publishTime>
     </File>
     <File Include="Views/Shared/_Layout_Admin.cshtml">
-      <publishTime>12/01/2016 14:27:50</publishTime>
+      <publishTime>12/01/2016 22:57:47</publishTime>
     </File>
     <File Include="Views/Shared/_Layout_Admin_Login.cshtml">
-      <publishTime>12/01/2016 14:27:50</publishTime>
+      <publishTime>12/01/2016 22:57:47</publishTime>
     </File>
     <File Include="Views/Shared/_Layout_BBS.cshtml">
-      <publishTime>12/01/2016 14:27:50</publishTime>
+      <publishTime>12/01/2016 22:57:47</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>11/10/2016 15:58:38</publishTime>
@@ -494,10 +494,10 @@
       <publishTime>12/01/2016 02:08:39</publishTime>
     </File>
     <File Include="Views/_ViewStart.cshtml">
-      <publishTime>12/01/2016 14:27:50</publishTime>
+      <publishTime>12/01/2016 22:57:47</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/01/2016 03:50:48</publishTime>
+      <publishTime>12/01/2016 22:47:52</publishTime>
     </File>
     <File Include="_theme/bbs-logo.png">
       <publishTime>12/01/2016 02:08:39</publishTime>
@@ -509,7 +509,7 @@
       <publishTime>12/01/2016 02:08:39</publishTime>
     </File>
     <File Include="_theme/img/forums/1.png">
-      <publishTime>12/01/2016 02:08:39</publishTime>
+      <publishTime>12/01/2016 18:11:35</publishTime>
     </File>
     <File Include="_theme/img/forums/11.png">
       <publishTime>12/01/2016 02:08:39</publishTime>
@@ -548,7 +548,7 @@
       <publishTime>12/01/2016 02:08:39</publishTime>
     </File>
     <File Include="_theme/layui-v1.0.3/layui/css/layui.css">
-      <publishTime>12/01/2016 02:08:39</publishTime>
+      <publishTime>12/01/2016 17:41:43</publishTime>
     </File>
     <File Include="_theme/layui-v1.0.3/layui/css/mobile.css">
       <publishTime>12/01/2016 02:08:39</publishTime>
@@ -830,7 +830,7 @@
       <publishTime>12/01/2016 02:08:40</publishTime>
     </File>
     <File Include="_theme/layui-v1.0.3/layui/lay/modules/ejq.js">
-      <publishTime>12/01/2016 02:08:40</publishTime>
+      <publishTime>12/01/2016 19:32:20</publishTime>
     </File>
     <File Include="_theme/layui-v1.0.3/layui/lay/modules/element.js">
       <publishTime>12/01/2016 02:08:40</publishTime>
@@ -840,6 +840,9 @@
     </File>
     <File Include="_theme/layui-v1.0.3/layui/lay/modules/form.js">
       <publishTime>12/01/2016 02:08:40</publishTime>
+    </File>
+    <File Include="_theme/layui-v1.0.3/layui/lay/modules/global-bbs.js">
+      <publishTime>12/01/2016 22:23:07</publishTime>
     </File>
     <File Include="_theme/layui-v1.0.3/layui/lay/modules/global.js">
       <publishTime>12/01/2016 02:08:40</publishTime>
@@ -1370,7 +1373,7 @@
       <publishTime>12/01/2016 02:08:42</publishTime>
     </File>
     <File Include="_theme/ueditor/utf8-net/net/controller.ashx">
-      <publishTime>12/01/2016 14:27:52</publishTime>
+      <publishTime>12/01/2016 22:57:48</publishTime>
     </File>
     <File Include="_theme/ueditor/utf8-net/net/net.sln">
       <publishTime>12/01/2016 02:08:42</publishTime>
