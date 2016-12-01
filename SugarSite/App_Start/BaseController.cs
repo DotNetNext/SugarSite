@@ -80,12 +80,16 @@ namespace SugarSite
             {
                 _service.Command<BaseOutsourcing>((db, o) =>
                 {
+                    string filtre = null;
+                    filtre=db.CurrentFilterKey;
+                    db.CurrentFilterKey = null;
                     var date = DateTime.Now.ToString("yyyy-MM-dd").TryToDate();
-                    reval = db.Queryable<BBS_Topics>()
-                    .Where(it=>it.Postdatetime>=date)
-                    .GroupBy(it => it.Fid)
-                     .Select<KeyValuePair<string, string>>("Fid,count(1) as Count ")
-                     .ToList().ToDictionary(it =>Convert.ToInt32(it.Key), it => it.Value);
+                    string sql = @"select fid,count(1) as c from(
+                                select fid from  BBS_Topics where fid>0 and [Postdatetime]>@d AND  (isdeleted=0  or isdeleted is null )
+                                union all
+                                select fid  from [dbo].[BBS_Posts] where fid>0 and [Postdatetime]>@d AND  (isdeleted=0  or isdeleted is null ))t  group by fid ";
+                    reval=db.SqlQuery<KeyValuePair<string, string>>(sql,new {d=date }).ToDictionary(it =>Convert.ToInt32(it.Key), it => it.Value);
+                    db.CurrentFilterKey = filtre;
                     cm.Add(key, reval, cm.Day);
                 });
             }
