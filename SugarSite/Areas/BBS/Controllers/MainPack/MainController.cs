@@ -206,7 +206,7 @@ namespace SugarSite.Areas.BBS.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public JsonResult RepliesSubmit(int tid, string content)
+        public JsonResult RepliesSubmit(int tid, string content,int fid)
         {
             ResultModel<string> model = new ResultModel<string>();
             _service.Command<MainOutsourcing>((db, o) =>
@@ -233,6 +233,7 @@ namespace SugarSite.Areas.BBS.Controllers
                             p.Title = "";
                             p.Parentid = tid;
                             p.Message = content;
+                            p.Fid = fid;
                             p.Tid = tid;
                             p.Posterid = base._userInfo.Id;
                             p.Poster = base._userInfo.NickName;
