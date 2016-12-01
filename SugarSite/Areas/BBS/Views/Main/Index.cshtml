@@ -7,6 +7,7 @@
 }
 @using SyntacticSugar
 @model Infrastructure.ViewModels.BBS.MainResult
+@using Infrastructure.Pub;
 <div class="fly-tab">
     <span>
         <a style="color:#ccc">
@@ -36,7 +37,14 @@
                     <img src="@item.PosterAvatar" alt="@item.Poster">
                 </a>
                 <h2 class="fly-tip">
+                    @if (PubConst.SiteSeoFidList.Contains(item.Fid))
+                    {
+                    <a href="~/Ask/@item.Fid/@item.Tid">[@Model.ForumsList.Single(it => it.Fid == item.Fid).Name.Trim()] @item.Title</a>
+                    }
+                    else
+                    {
                     <a href="~/BBS/Main/Detail/@item.Tid">[@Model.ForumsList.Single(it => it.Fid == item.Fid).Name.Trim()] @item.Title</a>
+                    }
                     @*<span class="fly-tip-stick">置顶</span>
                         <span class="fly-tip-jing">精帖</span>*@
                 </h2>
