@@ -25,5 +25,7 @@ namespace Infrastructure.ViewModels
                 }
             }
         }
+
+        public string PageString { get; set; }
     }
 }

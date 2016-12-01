@@ -18,7 +18,7 @@ namespace SugarSite.Areas.BBS.Controllers
         public MainController(DbService s) : base(s) { }
 
         #region page
-        public ActionResult Index(int? fid, int? orderBy)
+        public ActionResult Index(int? fid, int? orderBy,int? pageIndex)
         {
             MainResult model = new MainResult();
             ViewBag.NewUserList = base.GetNewUserList;
@@ -26,10 +26,12 @@ namespace SugarSite.Areas.BBS.Controllers
             ViewBag.ForumsStatistics = base.GetForumsStatistics();
             _service.Command<MainOutsourcing, ResultModel<MainResult>>((db, o, api) =>
              {
-                 model = api.Get(Url.Action("GetMainResult"), new { fid = fid, orderBy = orderBy }).ResultInfo;
+                 model = api.Get(Url.Action("GetMainResult"), new { fid = fid, orderBy = orderBy, pageIndex= pageIndex }).ResultInfo;
                  model.ForumsList = ViewBag.ForList;
                  model.OrderBy = orderBy.TryToInt();
                  model.Fid = (short)fid.TryToInt();
+                 var ps = new SyntacticSugar.PageString();
+                 model.PageString =ps.ToPageString(model.PageCount,model.PageSize,model.PageIndex,Url.Content("/Ask?"));
              });
             return View(model);
         }
@@ -120,7 +122,7 @@ namespace SugarSite.Areas.BBS.Controllers
             return Json(model);
         }
 
-        public JsonResult GetMainResult(int? fid, int? orderBy)
+        public JsonResult GetMainResult(int? fid, int? orderBy,int pageIndex=1)
         {
             ResultModel<MainResult> model = new ResultModel<MainResult>();
             model.ResultInfo = new MainResult();
@@ -146,7 +148,9 @@ namespace SugarSite.Areas.BBS.Controllers
                     qureyable = qureyable.OrderBy(it => it.Postdatetime, OrderByType.Desc);
                 }
                 int pageCount = 0;
-                model.ResultInfo.TopicsList = qureyable.ToPageList(1, PubConst.SitePageSize, ref pageCount);
+                model.ResultInfo.TopicsList = qureyable.ToPageList(pageIndex, PubConst.SitePageSize, ref pageCount);
+                model.ResultInfo.PageCount = pageCount;
+                model.ResultInfo.PageIndex = pageIndex;
 
             });
             return Json(model, JsonRequestBehavior.AllowGet);
