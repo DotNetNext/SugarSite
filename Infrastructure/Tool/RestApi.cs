@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using RestSharp;
 using SyntacticSugar;
+using Infrastructure.DbModel;
+using Infrastructure.Pub;
 
 namespace Infrastructure.Tool
 {
@@ -40,6 +42,11 @@ namespace Infrastructure.Tool
             var request = new RestRequest(type);
             if (pars != null)
                 request.AddObject(pars);
+            var cm = CacheManager<UserInfo>.GetInstance();
+            string uniqueKey = PubGet.GetUserKey;
+            if (cm.ContainsKey(uniqueKey)) {
+                request.AddCookie(PubConst.UserUniqueKey, CookiesManager<string>.GetInstance()[PubConst.UserUniqueKey]);
+            }
             var client = new RestClient(RequestInfo.HttpDomain + url);
             client.CookieContainer = new System.Net.CookieContainer();
             IRestResponse<T> reval = client.Execute<T>(request);
