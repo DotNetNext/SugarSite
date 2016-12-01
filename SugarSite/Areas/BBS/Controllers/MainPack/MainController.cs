@@ -24,6 +24,7 @@ namespace SugarSite.Areas.BBS.Controllers
             ViewBag.NewUserList = base.GetNewUserList;
             ViewBag.ForList = base.GetForumsList;
             ViewBag.ForumsStatistics = base.GetForumsStatistics();
+            ViewBag.IsLogin = base.IsLogin;
             _service.Command<MainOutsourcing, ResultModel<MainResult>>((db, o, api) =>
              {
                  model = api.Get(Url.Action("GetMainResult"), new { fid = fid, orderBy = orderBy, pageIndex= pageIndex }).ResultInfo;
@@ -134,6 +135,13 @@ namespace SugarSite.Areas.BBS.Controllers
                 if (fid > 0)
                 {
                     qureyable = qureyable.Where(it => it.Fid == fid);
+                }
+                if (orderBy == 3)
+                {
+                    if (base.IsLogin)
+                    {
+                        qureyable = qureyable.Where(it => it.Posterid == _userInfo.Id);
+                    }
                 }
                 if (orderBy == 1)
                 {

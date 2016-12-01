@@ -10,18 +10,24 @@
 @using Infrastructure.Pub;
 <div class="fly-tab">
     <span>
+        @if (Model.Fid > 0)
+        {
         <a style="color:#ccc">
-           <img width="25" src="~/_theme/img/forums/@(Model.Fid==0?1:Model.Fid).png" />  @((fname==null)?"全部": fname.Name)
+           <img width="25" src="~/_theme/img/forums/@(Model.Fid).png" />  @((fname == null) ? "全部" : fname.Name)
         </a>
+        }
         <a class="@((Model.OrderBy<=1).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=1">最新</a>
         <a class="@((Model.OrderBy==2).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=2">最新回复</a>
-        <a class="@((Model.OrderBy==3).IIF("tab-this"))"  href="~/Ask/@Model.Fid?orderBy=3">精华</a>
-        <a class="@((Model.OrderBy==4).IIF("tab-this"))"  href="~/Ask/@Model.Fid?orderBy=4">活动</a>
+        @if (ViewBag.IsLogin)
+        {
+        <a class="@((Model.OrderBy == 3).IIF("tab-this"))"  href="~/Ask/@Model.Fid?orderBy=3">我发</a>
+        <a class="@((Model.OrderBy == 4).IIF("tab-this"))"  href="~/Ask/@Model.Fid?orderBy=4">我评</a>
+        <a class="@((Model.OrderBy == 5).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=5">收藏</a>
+        }
+        <a class="@((Model.OrderBy==6).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=6">精华</a>
+        <a class="@((Model.OrderBy==7).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=7">公告</a>
     </span>
-    <form action="http://cn.bing.com/search" class="fly-search">
-        <i class="iconfont icon-sousuo"></i>
-        <input class="layui-input" autocomplete="off" placeholder="搜索内容，回车跳转" type="text" name="q">
-    </form>
+ 
     <a href="/BBS/Main/Ask" class="layui-btn jie-add">发布问题</a>
 </div>
 <ul class="fly-list">
@@ -61,4 +67,7 @@
         }
     }
 </ul>
-@Html.Raw(Model.PageString)
+@if (Model.PageCount > 10)
+{
+ @: @Html.Raw(Model.PageString)
+}
