@@ -20,8 +20,8 @@
         <a class="@((Model.OrderBy==2).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=2">最新回复</a>
         @if (ViewBag.IsLogin)
         {
-        <a class="@((Model.OrderBy == 3).IIF("tab-this"))"  href="~/Ask/@Model.Fid?orderBy=3">我发</a>
-        <a class="@((Model.OrderBy == 4).IIF("tab-this"))"  href="~/Ask/@Model.Fid?orderBy=4">我评</a>
+        <a class="@((Model.OrderBy == 3).IIF("tab-this"))"  href="~/Ask/@Model.Fid?orderBy=3">我的发布</a>
+        <a class="@((Model.OrderBy == 4).IIF("tab-this"))"  href="~/Ask/@Model.Fid?orderBy=4">我的回复</a>
         <a class="@((Model.OrderBy == 5).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=5">收藏</a>
         }
         <a class="@((Model.OrderBy==6).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=6">精华</a>
@@ -55,9 +55,17 @@
                         <span class="fly-tip-jing">精帖</span>*@
                 </h2>
                 <p>
-                    <span><a href="~/BBS/Main/Detail/@item.Tid">@item.Poster</a></span>
-                    <span>@DateSugar.DateStringFromNow(item.Postdatetime.TryToDate().ToLocalTime())</span>
-                 
+                    
+                    @if (Request["orderBy"].IsIn("2", "4"))
+                    {
+                       <span><a href="~/BBS/Main/Detail/@item.Tid">@item.Lastposter</a></span>
+                      <span>@DateSugar.DateStringFromNow(item.Lastpost.TryToDate().ToLocalTime())</span>
+                    }
+                    else
+                    {
+                       <span><a href="~/BBS/Main/Detail/@item.Tid">@item.Poster</a></span>
+                       <span>@DateSugar.DateStringFromNow(item.Postdatetime.TryToDate().ToLocalTime())</span>
+                    }
                     <span class="fly-list-hint">
                         <i class="iconfont" title="回答">&#xe60c;</i> @item.Replies
                         <i class="iconfont" title="人气">&#xe60b;</i> @item.Views

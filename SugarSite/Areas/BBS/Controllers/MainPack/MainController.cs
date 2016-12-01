@@ -125,7 +125,6 @@ namespace SugarSite.Areas.BBS.Controllers
 
         public JsonResult GetMainResult(int? fid, int? orderBy,int pageIndex=1)
         {
-            //解析:1最新 2最新回复 3我发 4我回 5收藏 6精华
             ResultModel<MainResult> model = new ResultModel<MainResult>();
             model.ResultInfo = new MainResult();
             model.ResultInfo.PageIndex = 1;
@@ -137,36 +136,7 @@ namespace SugarSite.Areas.BBS.Controllers
                 {
                     qureyable = qureyable.Where(it => it.Fid == fid);
                 }
-                if (base.IsLogin)
-                {
-                    if (orderBy == 3)
-                    {
-                        qureyable = qureyable.Where(it => it.Posterid == _userInfo.Id);
-                    }
-                    if (orderBy == 4)
-                    {
-                        var tidList = db.Queryable<BBS_Posts>().Where(it => it.Parentid > 0 && it.Posterid == _userInfo.Id).Select<int>("distinct Tid").ToList();
-                        if (tidList.IsValuable())
-                        {
-                            qureyable = qureyable.In(it => it.Tid, tidList);
-                        }
-                        else {
-                            qureyable = qureyable.In(it => it.Tid, "-1");
-                        }
-                    }
-                }
-                if (orderBy == 1)
-                {
-                    qureyable = qureyable.OrderBy(it => it.Postdatetime, OrderByType.Desc);
-                }
-                else if (orderBy == 2|| orderBy == 4)
-                {
-                    qureyable = qureyable.OrderBy(it => it.Lastpost, OrderByType.Desc);
-                }
-                else
-                {
-                    qureyable = qureyable.OrderBy(it => it.Postdatetime, OrderByType.Desc);
-                }
+                qureyable = o.GetMainQueryable(orderBy, db, qureyable,this);
                 int pageCount = 0;
                 model.ResultInfo.TopicsList = qureyable.ToPageList(pageIndex, PubConst.SitePageSize, ref pageCount);
                 model.ResultInfo.PageCount = pageCount;
@@ -175,6 +145,8 @@ namespace SugarSite.Areas.BBS.Controllers
             });
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+
+    
 
         public JsonResult GetItem(int tid)
         {
@@ -226,9 +198,9 @@ namespace SugarSite.Areas.BBS.Controllers
                             p.Postdatetime = DateTime.Now;
                             p.Ip = RequestInfo.UserAddress;
                             db.Insert(p);
-                            db.Update<BBS_Topics>(" Replies=isnull([Replies],0)+1,Lastpost=@lp,Poster=@Poster,Lastposterid=@Lastposterid",
+                            db.Update<BBS_Topics>(" Replies=isnull([Replies],0)+1,Lastpost=@lp,Lastposter=@Lastposter,Lastposterid=@Lastposterid",
                                 it => it.Tid == tid, 
-                                new { lp = DateTime.Now, Poster=_userInfo.NickName, Lastposterid=_userInfo.Id });//回复数加1
+                                new { lp = DateTime.Now, Lastposter = _userInfo.NickName, Lastposterid=_userInfo.Id });//回复数加1
                             model.IsSuccess = true;
                             base.RemoveForumsStatisticsCache();
                         }

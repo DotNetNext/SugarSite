@@ -60,6 +60,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>1_T4.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbModels\BBS_Favorites.cs" />
     <Compile Include="DbModels\BBS_Forums.cs" />
     <Compile Include="DbModels\BBS_Posts.cs" />
     <Compile Include="DbModels\BBS_Topics.cs" />

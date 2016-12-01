@@ -13,9 +13,9 @@ namespace SugarSite
 
     public class BaseController : Controller
     {
-        protected DbService _service;
-        protected UserInfo _userInfo;
-        protected BaseController(DbService s)
+        public DbService _service;
+        public UserInfo _userInfo;
+        public BaseController(DbService s)
         {
             _service = s;
             string uniqueKey = PubGet.GetUserKey;
@@ -24,14 +24,14 @@ namespace SugarSite
             ViewBag.User = _userInfo;
         }
 
-        protected bool IsLogin
+        public bool IsLogin
         {
             get
             {
                 return (_userInfo != null && _userInfo.Id > 0);
             }
         }
-        protected List<BBS_Forums> GetForumsList
+        public List<BBS_Forums> GetForumsList
         {
             get
             {
@@ -57,7 +57,7 @@ namespace SugarSite
         /// 移除新贴统计缓存
         /// </summary>
         /// <returns></returns>
-        protected void RemoveForumsStatisticsCache()
+        public void RemoveForumsStatisticsCache()
         {
             var cm = CacheManager<Dictionary<int, string>>.GetInstance();
             var key = PubConst.SessionGetForumsStatistics;
@@ -70,7 +70,7 @@ namespace SugarSite
         /// 获取新贴统计
         /// </summary>
         /// <returns></returns>
-        protected Dictionary<int, string> GetForumsStatistics()
+        public Dictionary<int, string> GetForumsStatistics()
         {
             Dictionary<int, string> reval = null;
             var key = PubConst.SessionGetForumsStatistics;
@@ -94,7 +94,7 @@ namespace SugarSite
         /// <summary>
         /// 删除最新用户缓存
         /// </summary>
-        protected void RemoveNewUserListCache()
+        public void RemoveNewUserListCache()
         {
             var key = PubConst.SessionNewUserList;
             var cm = CacheManager<List<UserInfo>>.GetInstance();
@@ -106,7 +106,7 @@ namespace SugarSite
         /// <summary>
         /// 获取最新用户
         /// </summary>
-        protected List<UserInfo> GetNewUserList
+        public List<UserInfo> GetNewUserList
         {
             get
             {
@@ -128,7 +128,7 @@ namespace SugarSite
                 }
             }
         }
-        protected Dictionary<string, string> GetVerifyCode
+        public Dictionary<string, string> GetVerifyCode
         {
             get
             {
