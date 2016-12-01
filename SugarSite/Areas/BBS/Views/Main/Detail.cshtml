@@ -45,6 +45,17 @@
                 margin-right: 5px;
                 color:#f60
         }
+        .my-favorites i {
+         font-size: 25px;
+        }
+        .my-favorites {
+          color: #1E9FFF;
+          cursor:pointer;
+          text-align:center
+        }
+        .my-favorites:hover {
+          color:#EE9FFF;
+        }
     </style>
 }
 @section js{
@@ -123,6 +134,9 @@
     <div class="detail-body photos" style="margin-bottom: 20px;">
         @Html.Raw(Model.PosItem.Message)
     </div>
+    <p class="my-favorites">
+        <i class="layui-icon" >&#xe600;收藏</i>
+    </p>
     <p class="top-edit">
         @if (isLogin && (user.Id == Model.TopItem.Posterid || user.RoleId != PubEnum.RoleType.User.TryToInt()))
         {
