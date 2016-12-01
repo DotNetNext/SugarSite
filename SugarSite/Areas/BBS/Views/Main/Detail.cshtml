@@ -76,6 +76,9 @@
             var $ = layui.ajaxforms;
             var $btnSubmit = $("#btnSubmit");
             var $btnBack = $("#btnBack");
+            var $favorites = $(".my-favorites i");
+            var $hideTid = $("#hideTid");
+            var $hideFid = $("#hideFid");
             $btnBack.click(function () {
                 var url = document.referrer;
                 var thisUrl = location.href;
@@ -84,6 +87,24 @@
                 } else {
                     window.location.href = url;
                 }
+            });
+            $favorites.click(function () {
+                var th = $(this);
+                $.ajax({
+                    url: $.action.url("AddFavorites", null, "Main", "BBS"),
+                    cache: false,
+                    type:"post",
+                    data:{tid:$hideTid.val(),fid:$hideFid.val()},
+                    success: function (msg) {
+                        if (msg.ResultInfo == "-1") {
+                            window.location.href = $("#hidLoginUrl").val();
+                        } else if (msg.IsSuccess) {
+                            layer.msg(msg.ResultInfo, { icon: 6, shade: 0.3 });
+                        } else {
+                            layer.msg(msg.ResultInfo, { icon: 6, shade: 0.3 });
+                        }
+                    }
+                })
             });
             $btnSubmit.click(function (e) {
                 e.preventDefault();
@@ -115,6 +136,8 @@
 }
 @model Infrastructure.ViewModels.BBS.DetailResult
 <input type="hidden" id="hidLoginUrl" value="@Url.Content("~/Home/Login")" />
+<input type="hidden" id="hideTid" value="@Model.TopItem.Tid" />
+<input type="hidden" id="hideFid" value="@Model.TopItem.Fid" />
 <div class="content detail" style="width:100%">
     <h1>[@fName] @Model.PosItem.Title <a id="btnBack" class="layui-btn">返回</a></h1>
 

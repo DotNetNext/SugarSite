@@ -42,5 +42,12 @@ namespace Infrastructure.DbModel
         /// </summary>
         public DateTime Viewtime {get;set;}
 
+        /// <summary>
+        /// Desc:- 
+        /// Default:- 
+        /// Nullable:False 
+        /// </summary>
+        public Boolean IsDeleted {get;set;}
+
     }
 }

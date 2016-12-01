@@ -18,7 +18,7 @@ namespace SugarSite.Areas.BBS.Controllers
         public MainController(DbService s) : base(s) { }
 
         #region page
-        public ActionResult Index(int? fid, int? orderBy,int? pageIndex)
+        public ActionResult Index(int? fid, int? orderBy, int? pageIndex)
         {
             MainResult model = new MainResult();
             ViewBag.NewUserList = base.GetNewUserList;
@@ -27,12 +27,12 @@ namespace SugarSite.Areas.BBS.Controllers
             ViewBag.IsLogin = base.IsLogin;
             _service.Command<MainOutsourcing, ResultModel<MainResult>>((db, o, api) =>
              {
-                 model = api.Get(Url.Action("GetMainResult"), new { fid = fid, orderBy = orderBy, pageIndex= pageIndex }).ResultInfo;
+                 model = api.Get(Url.Action("GetMainResult"), new { fid = fid, orderBy = orderBy, pageIndex = pageIndex }).ResultInfo;
                  model.ForumsList = ViewBag.ForList;
                  model.OrderBy = orderBy.TryToInt();
                  model.Fid = (short)fid.TryToInt();
                  var ps = new SyntacticSugar.PageString();
-                 model.PageString =ps.ToPageString(model.PageCount,model.PageSize,model.PageIndex,Url.Content("/Ask?"));
+                 model.PageString = ps.ToPageString(model.PageCount, model.PageSize, model.PageIndex, Url.Content("/Ask?"));
              });
             return View(model);
         }
@@ -65,6 +65,42 @@ namespace SugarSite.Areas.BBS.Controllers
         #endregion
 
         #region api
+        [HttpPost]
+        public JsonResult AddFavorites(int tid, short fid)
+        {
+            ResultModel<string> model = new ResultModel<string>();
+            if (base.IsLogin)
+            {
+                _service.Command<MainOutsourcing>((db, o) =>
+                {
+                    BBS_Favorites data = new BBS_Favorites()
+                    {
+                        Favtime = DateTime.Now,
+                        Tid = tid,
+                        Uid = _userInfo.Id,
+                        Typeid = 0,
+                        Viewtime=DateTime.Now
+                    };
+                    var isAny = (db.Queryable<BBS_Favorites>().Any(it => it.Tid == tid && it.Uid == _userInfo.Id));
+                    if (isAny)
+                    {
+                        db.Delete<BBS_Favorites>(it => it.Tid == tid && it.Uid == _userInfo.Id);
+                        model.ResultInfo = "已经取消收藏";
+                    }
+                    else
+                    {
+                        db.Insert(data);
+                        model.ResultInfo = "收藏成功";
+                    }
+                    model.IsSuccess = true;
+                });
+            }
+            else {
+                model.ResultInfo = "-1";
+            }
+           return  Json(model);
+        }
+
         [HttpPost]
         [ValidateInput(false)]
         public JsonResult AskSubmit(short fid, string title, string content, string vercode, int rate = 0, int id = 0)
@@ -105,9 +141,9 @@ namespace SugarSite.Areas.BBS.Controllers
                         else
                         {
                             var topics = db.Queryable<BBS_Topics>().InSingle(id);
-                            Check.Exception(topics.Posterid!=_userInfo.Id&&_userInfo.RoleId==PubEnum.RoleType.User.TryToInt(), "您没有权限修改！");
-                            db.Update<BBS_Topics>(new  { Title = title, Rate = rate, Fid = fid }, it => it.Tid == id);
-                            db.Update<BBS_Posts>(new  { Title = title, Rate = rate, Fid = fid, Message = content }, it => it.Tid == id && it.Parentid == 0);
+                            Check.Exception(topics.Posterid != _userInfo.Id && _userInfo.RoleId == PubEnum.RoleType.User.TryToInt(), "您没有权限修改！");
+                            db.Update<BBS_Topics>(new { Title = title, Rate = rate, Fid = fid }, it => it.Tid == id);
+                            db.Update<BBS_Posts>(new { Title = title, Rate = rate, Fid = fid, Message = content }, it => it.Tid == id && it.Parentid == 0);
                         }
                         db.CommitTran();
                         model.IsSuccess = true;
@@ -123,7 +159,7 @@ namespace SugarSite.Areas.BBS.Controllers
             return Json(model);
         }
 
-        public JsonResult GetMainResult(int? fid, int? orderBy,int pageIndex=1)
+        public JsonResult GetMainResult(int? fid, int? orderBy, int pageIndex = 1)
         {
             ResultModel<MainResult> model = new ResultModel<MainResult>();
             model.ResultInfo = new MainResult();
@@ -136,7 +172,7 @@ namespace SugarSite.Areas.BBS.Controllers
                 {
                     qureyable = qureyable.Where(it => it.Fid == fid);
                 }
-                qureyable = o.GetMainQueryable(orderBy, db, qureyable,this);
+                qureyable = o.GetMainQueryable(orderBy, db, qureyable, this);
                 int pageCount = 0;
                 model.ResultInfo.TopicsList = qureyable.ToPageList(pageIndex, PubConst.SitePageSize, ref pageCount);
                 model.ResultInfo.PageCount = pageCount;
@@ -146,7 +182,7 @@ namespace SugarSite.Areas.BBS.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-    
+
 
         public JsonResult GetItem(int tid)
         {
@@ -199,8 +235,8 @@ namespace SugarSite.Areas.BBS.Controllers
                             p.Ip = RequestInfo.UserAddress;
                             db.Insert(p);
                             db.Update<BBS_Topics>(" Replies=isnull([Replies],0)+1,Lastpost=@lp,Lastposter=@Lastposter,Lastposterid=@Lastposterid",
-                                it => it.Tid == tid, 
-                                new { lp = DateTime.Now, Lastposter = _userInfo.NickName, Lastposterid=_userInfo.Id });//回复数加1
+                                it => it.Tid == tid,
+                                new { lp = DateTime.Now, Lastposter = _userInfo.NickName, Lastposterid = _userInfo.Id });//回复数加1
                             model.IsSuccess = true;
                             base.RemoveForumsStatisticsCache();
                         }
@@ -220,7 +256,7 @@ namespace SugarSite.Areas.BBS.Controllers
             ResultModel<BBS_Posts> model = new ResultModel<BBS_Posts>();
             _service.Command<MainOutsourcing>((db, o) =>
             {
-                model.ResultInfo= db.Queryable<BBS_Posts>().Where(it => it.Tid == tid).Where(it => it.Parentid == 0).Single();
+                model.ResultInfo = db.Queryable<BBS_Posts>().Where(it => it.Tid == tid).Where(it => it.Parentid == 0).Single();
             });
             return Json(model, JsonRequestBehavior.AllowGet);
         }
