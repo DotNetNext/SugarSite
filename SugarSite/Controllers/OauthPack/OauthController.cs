@@ -48,6 +48,7 @@ namespace SugarSite.Controllers
                 }
                 catch (Exception ex)
                 {
+                    PubMethod.WirteExp(ex);
                     db.RollbackTran();
                     throw new Exception("第三方登录注册失败！" + ex.Message);
                 }

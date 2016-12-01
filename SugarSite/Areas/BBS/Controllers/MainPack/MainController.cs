@@ -154,6 +154,7 @@ namespace SugarSite.Areas.BBS.Controllers
                     {
                         model.ResultInfo = "发布失败！";
                         db.RollbackTran();
+                        PubMethod.WirteExp(ex);
                     }
                 }
             });
@@ -249,6 +250,7 @@ namespace SugarSite.Areas.BBS.Controllers
                     catch (Exception ex)
                     {
                         model.ResultInfo = "回复失败！";
+                        PubMethod.WirteExp(ex);
                     }
 
                 }
