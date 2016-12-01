@@ -46,9 +46,9 @@
     <script>
         var ue = UE.getEditor('container', {
             toolbars: [[
-                'fullscreen', 'source', 'insertcode', 'paragraph', 'fontfamily',
-                'bold', 'italic', 'underline', 'fontborder',
-                'fontsize', 'simpleupload', 'emotion', 'insertrow'
+                'fullscreen', 'source','fontsize', 'insertcode', 'paragraph', 'fontfamily', 'forecolor', 'backcolor',
+                'bold', 'italic', 'underline',
+                'simpleupload', 'emotion'
             ]]
         });
         layui.use(['form', 'laydate', 'ejq', 'ajaxforms'], function () {
@@ -147,7 +147,7 @@
                 <div class="layui-input-block">
                     <input type="hidden" id="hidTid" name="tid" value="@Model.TopItem.Tid" />
                     <!-- 加载编辑器的容器 -->
-                    <script id="container" name="Content" style="height:300px" type="text/plain">
+                    <script id="container" name="Content" style="height:200px" type="text/plain">
                     </script>
                 </div>
             </div>
