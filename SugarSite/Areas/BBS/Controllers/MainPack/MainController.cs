@@ -245,12 +245,14 @@ namespace SugarSite.Areas.BBS.Controllers
                                 new { lp = DateTime.Now, Lastposter = _userInfo.NickName, Lastposterid = _userInfo.Id });//回复数加1
                             model.IsSuccess = true;
                             base.RemoveForumsStatisticsCache();
+                            db.CommitTran();
                         }
                     }
                     catch (Exception ex)
                     {
                         model.ResultInfo = "回复失败！";
                         PubMethod.WirteExp(ex);
+                        db.RollbackTran();
                     }
 
                 }
