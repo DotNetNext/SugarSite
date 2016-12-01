@@ -221,7 +221,7 @@ namespace SugarSite.Areas.BBS.Controllers
                     db.BeginTran();
                     try
                     {
-                        var prePost = db.Queryable<BBS_Posts>().OrderBy(it => it.Postdatetime, OrderByType.Desc).SingleOrDefault(it => it.Parentid == _userInfo.Id);
+                        var prePost = db.Queryable<BBS_Posts>().OrderBy(it => it.Postdatetime, OrderByType.Desc).FirstOrDefault(it => it.Posterid == _userInfo.Id);
                         if (prePost != null && (DateTime.Now - prePost.Postdatetime.TryToDate()).Seconds <= 6)
                         {
                             model.ResultInfo = "你回复的太快了，请在等"
