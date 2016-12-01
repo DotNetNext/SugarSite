@@ -9,6 +9,7 @@ using SyntacticSugar;
 using System.Net;
 using System.Drawing.Imaging;
 using System.IO;
+using SqlSugar;
 
 namespace SugarSite.Controllers
 {
@@ -36,7 +37,7 @@ namespace SugarSite.Controllers
             };
         }
 
-        internal void SaveAvatar(UserInfo user)
+        internal void SaveAvatar(SqlSugarClient db,UserInfo user)
         {
             //将远程图片下载到本地
             if (user.Avatar.IsValuable() && user.Avatar.Contains("http://"))
@@ -53,6 +54,7 @@ namespace SugarSite.Controllers
                     img.Save(savePath, ImageFormat.Jpeg);//保存
                 }
                 user.Avatar = path;
+                db.Update<UserInfo>(new { Avatar = user.Avatar},it=>it.Id==user.Id);
             }
         }
     }
