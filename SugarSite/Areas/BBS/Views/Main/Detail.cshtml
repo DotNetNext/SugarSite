@@ -1,7 +1,7 @@
 ﻿
 @{
-    ViewBag.Title = Model.PosItem.Title + "- ASP.NET";
     ViewBag.IsBBSMain = true;
+    List<BBS_Forums> forList = ViewBag.ForList;
     bool isLogin = ViewBag.IsLogin;
     UserInfo user = ViewBag.User;
     Layout = "~/Views/Shared/_Layout_BBS.cshtml";
@@ -9,6 +9,8 @@
     {
         Model.TopItem.PosterAvatar = Url.Content("~/_theme/default.jpg");
     }
+    string fName = forList.Single(it => it.Fid == Model.TopItem.Fid).Name;
+    ViewBag.Title = Model.PosItem.Title + " - " + fName + " - .NET文档园";
 }
 @using Infrastructure.DbModel
 @using SyntacticSugar
@@ -33,11 +35,16 @@
             text-align: right;
             cursor: pointer;
         }
-
-            .top-edit a {
+        h1 .layui-btn {
+            font-size: 12px;
+            height: 30px;
+            line-height: 30px;
+            float: right;
+        }
+        .top-edit a {
                 margin-right: 5px;
                 color:#f60
-            }
+        }
     </style>
 }
 @section js{
@@ -57,6 +64,16 @@
             , laydate = layui.laydate;
             var $ = layui.ajaxforms;
             var $btnSubmit = $("#btnSubmit");
+            var $btnBack = $("#btnBack");
+            $btnBack.click(function () {
+                var url = document.referrer;
+                var thisUrl = location.href;
+                if (thisUrl == url) {
+                    window.location.href = $.action.urlContent("Ask");
+                } else {
+                    window.location.href = url;
+                }
+            });
             $btnSubmit.click(function (e) {
                 e.preventDefault();
                 var c = ue.getContent();
@@ -88,7 +105,8 @@
 @model Infrastructure.ViewModels.BBS.DetailResult
 <input type="hidden" id="hidLoginUrl" value="@Url.Content("~/Home/Login")" />
 <div class="content detail" style="width:100%">
-    <h1>@Model.PosItem.Title</h1>
+    <h1>[@fName] @Model.PosItem.Title <a id="btnBack" class="layui-btn">返回</a></h1>
+
     <div class="fly-tip fly-detail-hint" data-id="5467">
         <span>未结贴</span>
         <div class="fly-list-hint">
@@ -125,7 +143,7 @@
                 <li data-id="19288">
                     <a name="item-1480412603361"></a>
                     <div class="detail-about detail-about-reply">
-                        <a class="jie-user" href="/u/1475208/"> <img src="@item.Avatar" alt="antidote" layer-index="0" /> <cite> <i>antidote</i> <em style="padding:0 ; color: #FF7200;">VIP0</em> </cite> </a>
+                        <a class="jie-user" href="/u/1475208/"> <img src="@item.Avatar" alt="@item.Poster" layer-index="0" /> <cite> <i>@item.Poster</i> <em style="padding:0 ; color: #FF7200;">VIP0</em> </cite> </a>
                         <div class="detail-hits">
                             <span>@DateSugar.DateStringFromNow(item.Postdatetime.TryToDate().ToLocalTime())</span>
                         </div>

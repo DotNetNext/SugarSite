@@ -166,6 +166,12 @@
                        return (virtualDirectory + "/" + areaName + "/" + controllerName + "/" + actionName);
                    }
                },
+               urlContent:function(url,hid){
+                   if (hid == null) {
+                       hid = "HidUrlAction2";
+                   }
+                   return $("#" + hid).val() + url;
+               },
 
                //移除最后一个字符
                trimEnd: function (str, c) {

@@ -125,6 +125,7 @@ namespace SugarSite.Areas.BBS.Controllers
 
         public JsonResult GetMainResult(int? fid, int? orderBy,int pageIndex=1)
         {
+            //解析:1最新 2最新回复 3我发 4我回 5收藏 6精华
             ResultModel<MainResult> model = new ResultModel<MainResult>();
             model.ResultInfo = new MainResult();
             model.ResultInfo.PageIndex = 1;
@@ -136,18 +137,29 @@ namespace SugarSite.Areas.BBS.Controllers
                 {
                     qureyable = qureyable.Where(it => it.Fid == fid);
                 }
-                if (orderBy == 3)
+                if (base.IsLogin)
                 {
-                    if (base.IsLogin)
+                    if (orderBy == 3)
                     {
                         qureyable = qureyable.Where(it => it.Posterid == _userInfo.Id);
+                    }
+                    if (orderBy == 4)
+                    {
+                        var tidList = db.Queryable<BBS_Posts>().Where(it => it.Parentid > 0 && it.Posterid == _userInfo.Id).Select<int>("distinct Tid").ToList();
+                        if (tidList.IsValuable())
+                        {
+                            qureyable = qureyable.In(it => it.Tid, tidList);
+                        }
+                        else {
+                            qureyable = qureyable.In(it => it.Tid, "-1");
+                        }
                     }
                 }
                 if (orderBy == 1)
                 {
                     qureyable = qureyable.OrderBy(it => it.Postdatetime, OrderByType.Desc);
                 }
-                else if (orderBy == 2)
+                else if (orderBy == 2|| orderBy == 4)
                 {
                     qureyable = qureyable.OrderBy(it => it.Lastpost, OrderByType.Desc);
                 }
@@ -214,7 +226,9 @@ namespace SugarSite.Areas.BBS.Controllers
                             p.Postdatetime = DateTime.Now;
                             p.Ip = RequestInfo.UserAddress;
                             db.Insert(p);
-                            db.Update<BBS_Topics>(" Replies=isnull([Replies],0)+1,Lastpost=@lp", it => it.Tid == tid, new { lp = DateTime.Now });//回复数加1
+                            db.Update<BBS_Topics>(" Replies=isnull([Replies],0)+1,Lastpost=@lp,Poster=@Poster,Lastposterid=@Lastposterid",
+                                it => it.Tid == tid, 
+                                new { lp = DateTime.Now, Poster=_userInfo.NickName, Lastposterid=_userInfo.Id });//回复数加1
                             model.IsSuccess = true;
                             base.RemoveForumsStatisticsCache();
                         }

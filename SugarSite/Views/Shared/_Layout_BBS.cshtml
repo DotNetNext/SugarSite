@@ -52,6 +52,7 @@
 </head>
 <body>
     <input id="HidUrlAction" name="HidUrlAction" value="@Url.Action("/")" type="hidden" />
+    <input id="HidUrlAction2" name="HidUrlAction" value="@Url.Content("/")" type="hidden" />
     <div class="header">
         <div class="main">
             <a class="logo" href="~/Ask" title="Fly">.NET 文档园</a>
@@ -173,7 +174,7 @@
     <script>
         layui.config({
             base: '/_theme/layui-v1.0.3/layui/lay/modules/'
-          , version: '1'
+          , version: '11'
         });
         window.global = {
             preview: function () {
