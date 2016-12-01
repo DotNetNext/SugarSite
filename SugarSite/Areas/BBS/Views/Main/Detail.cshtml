@@ -80,6 +80,7 @@
             var $hideTid = $("#hideTid");
             var $hideFid = $("#hideFid");
             var $favoritesText = $("#favoritesText");
+            var $iReplies = $(".iReply");
             $btnBack.click(function () {
                 var url = document.referrer;
                 var thisUrl = location.href;
@@ -88,6 +89,9 @@
                 } else {
                     window.location.href = url;
                 }
+            });
+            $iReplies.click(function () {
+                ue.setContent("<p><span style=\"color:#4f99cf\">@@" + $(this).data("name") + "</span>：</p>", ue.getContent() != null && ue.getContent() != "");
             });
             $favorites.click(function () {
                 var th = $(this);
@@ -146,10 +150,10 @@
 <input type="hidden" id="hideTid" value="@Model.TopItem.Tid" />
 <input type="hidden" id="hideFid" value="@Model.TopItem.Fid" />
 <div class="content detail" style="width:100%">
-    <h1>[@fName] @Model.PosItem.Title <a id="btnBack" class="layui-btn">返回</a></h1>
+    <h1>@Model.PosItem.Title <a id="btnBack" class="layui-btn">返回</a></h1>
 
     <div class="fly-tip fly-detail-hint" data-id="5467">
-        <span>未结贴</span>
+        <span>@fName</span>
         <div class="fly-list-hint">
             <i class="iconfont" title="回答"></i> @Model.TopItem.Replies
             <i class="iconfont" title="人气"></i> @Model.TopItem.Views
@@ -197,20 +201,19 @@
                     </div>
                     <div class="jieda-reply">
                         <span class="jieda-zan " type="zan"> <i class="iconfont icon-zan"></i> <em>0</em> </span>
-                        <span type="reply"> <i class="iconfont icon-svgmoban53"></i> 回复 </span>
+                        <span data-name="@item.Poster" data-id="@item.Posterid"  type="reply" class="iReply"> <i class="iconfont icon-svgmoban53"></i> 回复 </span>
                     </div>
                 </li>
             }
         }
     </ul>
     <div class="layui-form layui-form-pane">
-        <form action="/" method="post">
+        <form  method="post">
             <div class="layui-form-item layui-form-text">
                 <div class="layui-input-block">
                     <input type="hidden" id="hidTid" name="tid" value="@Model.TopItem.Tid" />
                     <!-- 加载编辑器的容器 -->
-                    <script id="container" name="Content" style="height:200px" type="text/plain">
-                    </script>
+                    <script id="container" name="Content" style="height:200px" type="text/plain"></script>
                 </div>
             </div>
             <div class="layui-form-item">
