@@ -163,8 +163,9 @@ namespace SugarSite.Controllers
                         }
                     }
                 }
-                catch
+                catch(Exception ex)
                 {
+                    PubMethod.WirteExp(ex);
                     model.IsSuccess = false;
                     model.ResultInfo = "用户注册失败,请联系我们！";
                 }
