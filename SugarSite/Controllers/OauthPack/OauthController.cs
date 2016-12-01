@@ -41,6 +41,7 @@ namespace SugarSite.Controllers
                         RemoveNewUserListCache();
                     }
                     var user = db.Queryable<UserInfo>().InSingle(userMapping.UserId);
+                    o.SaveAvatar(user);
                     var cm = CacheManager<UserInfo>.GetInstance();
                     string uniqueKey = PubGet.GetUserKey;
                     cm.Add(uniqueKey, user, cm.Day * 365);//保存一年
