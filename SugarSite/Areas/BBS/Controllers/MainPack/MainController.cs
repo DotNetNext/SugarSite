@@ -70,7 +70,7 @@ namespace SugarSite.Areas.BBS.Controllers
             _service.Command<MainOutsourcing>((db, o) =>
             {
                 Check.Exception(fid == 0 || title.IsNullOrEmpty() || content.IsNullOrEmpty() || vercode.IsNullOrEmpty(), "参数不合法！");
-                Check.Exception(title.Length < 5 && content.Length < 20 || content.Length > 10000, "参数不合法！");
+                Check.Exception(title.Length < 5 && content.Length < 20 || content.Length > 1000000, "参数不合法！");
                 Check.Exception(base.GetForumsList != null && base.GetForumsList.Any(it => it.Fid == fid).IsFalse(), "参数不合法！");
                 var sm = SessionManager<string>.GetInstance();
                 var severCode = sm[PubConst.SessionVerifyCode];
