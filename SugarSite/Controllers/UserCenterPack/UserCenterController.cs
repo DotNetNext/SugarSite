@@ -52,6 +52,7 @@ namespace SugarSite.Controllers
                 //最新回复信息
                 model.ResultInfo.RecentReplies = db.Queryable<BBS_Posts>()
                .Where(it => it.Posterid == id)
+               .Where(it=>it.Parentid>0)
                .OrderBy(it => it.Postdatetime, OrderByType.Desc)
                .ToList();
                 if (model.ResultInfo.RecentReplies.IsValuable())

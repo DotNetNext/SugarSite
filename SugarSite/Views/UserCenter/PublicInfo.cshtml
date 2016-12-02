@@ -35,7 +35,7 @@
 </div>
 <div class="main fly-home-main">
     <div class="layui-inline fly-home-jie">
-        <h2 class="page-title">@Model.UserInfo.NickName 最近的提问</h2>
+        <h2 class="page-title">@Model.UserInfo.NickName 最近的发布</h2>
         <ul class="jie-row">
             @if (Model.RecentAsks.IsValuable())
             {
@@ -58,7 +58,7 @@
                     <li>
                         <p>
                             <span>@DateSugar.DateStringFromNow(item.Postdatetime.TryToDate().ToLocalTime())</span>
-                            在<a href="~/BBS/Main/Detail?id=@item.Tid" target="_blank">
+                            在<a href="~/BBS/Main/Detail?id=@item.Tid" >
                                 @top.Title
                         </a>中回答：
                     </p>

@@ -39,7 +39,7 @@
                 item.PosterAvatar = Url.Content("~/_theme/default.jpg");
             }
             <li class="fly-list-li">
-                <a href="~/BBS/Main/Detail/@item.Tid" class="fly-list-avatar">
+                <a href="~/UserCenter/PublicInfo?id=@item.Posterid" class="fly-list-avatar">
                     <img src="@item.PosterAvatar.Replace(@"/30",@"/100")" alt="@item.Poster">
                 </a>
                 <h2 class="fly-tip">
