@@ -648,7 +648,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\BBS\Models\" />
-    <Folder Include="Views\UserCenter\" />
     <Folder Include="_theme\ueditor\utf8-net\net\Bin\" />
   </ItemGroup>
   <ItemGroup>
@@ -687,6 +686,7 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Oauth\CallBack.cshtml" />
+    <Content Include="Views\UserCenter\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">

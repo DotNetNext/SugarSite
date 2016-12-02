@@ -71,12 +71,11 @@
             @if (ViewBag.IsLogin)
             {
                 <div class="nav-user">
-                    <a class="avatar" href="/user/">
+                    <a class="avatar" href="~/UserCenter">
                         <img src="@user.Avatar" />
                         <cite>@user.NickName</cite>
                     </a>
                     <div class="nav">
-                        <a href="/user/set/"><i class="iconfont icon-shezhi"></i>设置</a>
                         <a href="@Url.Content("/Home/Logout")"><i class="iconfont icon-tuichu" style="top: 0; font-size: 22px;"></i>退了</a>
                     </div>
                 </div>
@@ -153,6 +152,18 @@
                         </a>
                             }
                         }
+                    </span>
+                </div>
+                <h3 class="page-title">在线会员</h3>
+                <div class="user-looklog leifeng-rank">
+                    <span>
+
+                    </span>
+                </div>
+                <h3 class="page-title">在线游客</h3>
+                <div class="user-looklog leifeng-rank">
+                    <span>
+
                     </span>
                 </div>
             </div>

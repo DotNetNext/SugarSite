@@ -117,7 +117,7 @@ namespace SugarSite.Areas.BBS.Controllers
                 model.IsSuccess = false;
                 if (vercode != severCode)
                 {
-                    model.ResultInfo = "参证码错误！";
+                    model.ResultInfo = "验证码错误！";
                 }
                 else if (IsLogin.IsFalse())
                 {

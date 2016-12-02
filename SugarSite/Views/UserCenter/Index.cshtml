@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "用户中心";
+    Layout = "~/Views/Shared/_Layout_BBS.cshtml";
+    UserInfo user = ViewBag.User;
+    if (user != null && user.Avatar.IsNullOrEmpty())
+    {
+        user.Avatar = Url.Content("~/_theme/default.jpg");
+    }
+}
+@using SyntacticSugar
+@using Infrastructure.DbModel
+@using Infrastructure.Pub
+<div class="main layui-clear">
+    <h2 class="page-title">用心中心</h2>
+    <div class="wrap">
+        <div class="content">
+            <div class="fly-msg">
+                您的邮箱尚未验证，这比较影响您的帐号安全，
+                <a href="/user/activate/">立即去激活？</a>
+            </div>
+            <div class="fly-tab user-tab">
+                <span id="LAY-mine">
+                    <a href="">我的主页</a>
+                    <a href="/user/message/">修改头像</a>
+                    <a href="/u/2104368/">消息</a>
+                </span>
+            </div>
+            <div class="user-mine">
+                <ul class="mine-view jie-row" style="display: block;">
+                    <div class="fly-msg">
+                        没有相关数据
+                    </div>
+                </ul>
+            </div>
+            <div id="LAY-page"></div>
+        </div>
+    </div>
+    <div class="edge">
+        <div class="user-about">
+            <a href="~/UserCenter" title="修改头像"> <img class="user-avatar" src="@user.Avatar" /> </a>
+            <p> <span style="color:#333">@user.NickName</span> </p>
+            <p> <span>加入时间：@user.CreateTime.TryToDate().ToString("yyyy-MM-dd")</span> <span> 飞吻： <em style="color:#FF7200">100</em> </span> </p>
+            <p> <span>城市：</span> <span> 性别：  </span> </p>
+            <p> <span></span> </p>
+            <div class="user-looklog" style="padding-bottom:200px;">
+                <h3>最近访客</h3>
+                <span>
+                    <a href="/u/168">
+                        <img src="http://fly.layui.com/avatar/168.jpg" />
+                        <cite>贤心</cite> <i>刚刚</i>
+                    </a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
