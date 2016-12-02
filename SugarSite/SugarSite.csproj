@@ -244,6 +244,8 @@
     <Content Include="Global.asax" />
     <Content Include="_theme\bbs-logo.png" />
     <Content Include="_theme\css\bbs.css" />
+    <Content Include="_theme\css\fonts\fonts.css" />
+    <Content Include="_theme\css\fonts\font_001z27klwvobt9.svg" />
     <Content Include="_theme\default.jpg" />
     <Content Include="_theme\ico.ico" />
     <Content Include="Web.config" />
@@ -689,6 +691,9 @@
     <Content Include="Views\Oauth\CallBack.cshtml" />
     <Content Include="Views\UserCenter\Index.cshtml" />
     <Content Include="Views\UserCenter\PublicInfo.cshtml" />
+    <Content Include="_theme\css\fonts\font_001z27klwvobt9.eot" />
+    <Content Include="_theme\css\fonts\font_001z27klwvobt9.woff" />
+    <Content Include="_theme\css\fonts\font_001z27klwvobt9.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
