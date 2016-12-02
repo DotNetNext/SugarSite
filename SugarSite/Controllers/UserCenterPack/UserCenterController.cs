@@ -31,18 +31,18 @@ namespace SugarSite.Controllers
             {
                 model = api.Get(Url.Action("GetPublicInfo"), new { id = id }).ResultInfo;
             });
-            return View();
+            return View(model);
         }
 
-        public JsonResult GetPublicInfo(int uid)
+        public JsonResult GetPublicInfo(int id)
         {
             var model = new ResultModel<PubUserResult>();
             _service.Command<HomeOutsourcing>((db, o) =>
             {
                 model.ResultInfo = new PubUserResult();
-                model.ResultInfo.UserInfo = db.Queryable<UserInfo>().InSingle(uid);
+                model.ResultInfo.UserInfo = db.Queryable<UserInfo>().InSingle(id);
             });
-            return Json(model);
+            return Json(model,JsonRequestBehavior.AllowGet);
         }
     }
 }

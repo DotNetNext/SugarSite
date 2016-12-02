@@ -2,10 +2,72 @@
 @{
     ViewBag.Title = "PublicInfo";
     Layout = "~/Views/Shared/_Layout_BBS.cshtml";
+    if (Model.UserInfo.Avatar.IsNullOrEmpty())
+    {
+        Model.UserInfo.Avatar = Url.Content("~/_theme/default.jpg");
+    }
 }
 @model PubUserResult
 @using SyntacticSugar
 @using Infrastructure.DbModel
 @using Infrastructure.Pub
 @using Infrastructure.ViewModels.UserCenter
-
+@section css{
+    <style>
+        .content {
+            width: 100%;
+        }
+    </style>
+}
+<div class="fly-home">
+    <img src="@Model.UserInfo.Avatar" alt="@Model.UserInfo.NickName" />
+    <h1>
+        @Model.UserInfo.NickName <i class="iconfont icon-nv"></i>
+        <span style="color:#c00;">（@(((PubEnum.RoleType)Model.UserInfo.RoleId).GetAttributeValue())）</span>
+    </h1>
+    <p class="fly-home-info">
+        <i class="iconfont icon-zuichun" title="飞吻"></i>
+        <span style="color: #FF7200;"></span>
+        <i class="iconfont icon-shijian"></i><span>@Model.UserInfo.CreateTime.TryToDate().ToString("yyyy-MM-dd") 加入</span>
+        <i class="iconfont icon-chengshi"></i><span></span>
+    </p>
+    <p class="fly-home-sign">（为每一位到来的程序猿，传递纯真的梦想）</p>
+</div>
+<div class="main fly-home-main">
+    <div class="layui-inline fly-home-jie">
+        <h2 class="page-title">@Model.UserInfo.NickName 最近的提问</h2>
+        <ul class="jie-row">
+            @if (Model.RecentAsks.IsValuable())
+            {
+                foreach (var item in Model.RecentAsks)
+                {
+                    <li> <a href="~/BBS/Main/Detail?id=@item.Tid" class="jie-title">@item.Title</a> <i>@DateSugar.DateStringFromNow(item.Postdatetime.TryToDate().ToLocalTime())</i> <em>@(item.Replies)阅/@(item.Replies)答</em> </li>
+                }
+            }
+        </ul>
+    </div>
+    <div class="layui-inline fly-home-da">
+        <h2 class="page-title">@Model.UserInfo.NickName 最近的回答</h2>
+        <ul class="home-jieda">
+            @if (Model.RecentReplies.IsValuable())
+            {
+                var tops = Model.RecentRepliesTopics;
+                foreach (var item in Model.RecentReplies)
+                {
+                    var top = tops.First(it => it.Tid == item.Tid);
+                    <li>
+                        <p>
+                            <span>@DateSugar.DateStringFromNow(item.Postdatetime.TryToDate().ToLocalTime())</span>
+                            在<a href="~/BBS/Main/Detail?id=@item.Tid" target="_blank">
+                                @top.Title
+                        </a>中回答：
+                    </p>
+                    <div class="home-dacontent">
+                        @Html.Raw(item.Message)
+                    </div>
+                </li>
+                }
+            }
+        </ul>
+    </div>
+</div>

@@ -24,31 +24,8 @@
     <link rel="stylesheet" href="//at.alicdn.com/t/font_001z27klwvobt9.css">
     <link href="~/_theme/layui-v1.0.3/layui/css/layui.css" rel="stylesheet" />
     <link href="~/_theme/layui-v1.0.3/layui/css/global.css?v=1" rel="stylesheet" />
+    <link href="~/_theme/css/bbs.css" rel="stylesheet" />
     @RenderSection("css", false)
-    <style>
-        body .leifeng-rank span.forums a img {
-            width: 64px;
-            height: 64px;
-        }
-
-        body .leifeng-rank span.forums i {
-            bottom: 8px;
-        }
-    </style>
-    <style>
-        a.logo {
-            top: 13px !important;
-        }
-        .forums img{
-        
-        }
-        .forums .today {
-          color:#999
-        }
-        .forums .today-num {
-           color:#f60
-        }
-    </style>
 </head>
 <body>
     <input id="HidUrlAction" name="HidUrlAction" value="@Url.Action("/")" type="hidden" />
@@ -108,18 +85,19 @@
         {
             List<UserInfo> newUserList = ViewBag.NewUserList;
             List<BBS_Forums> forList = ViewBag.ForList;
-            Dictionary<int,string> forumsStatistics = ViewBag.ForumsStatistics;
+            Dictionary<int, string> forumsStatistics = ViewBag.ForumsStatistics;
             <div class="edge">
                 <h3 class="page-title">版块</h3>
                 <div class="user-looklog leifeng-rank ">
                     <span class="forums">
                         @if (forList != null)
                         {
-                            var allPosts=0;
+                            var allPosts = 0;
                             foreach (var u in forList)
                             {
-                                if(forumsStatistics.ContainsKey(u.Fid)){ 
-                                   u.Todayposts = forumsStatistics[u.Fid].TryToInt();
+                                if (forumsStatistics.ContainsKey(u.Fid))
+                                {
+                                    u.Todayposts = forumsStatistics[u.Fid].TryToInt();
                                 }
                                 allPosts += u.Todayposts;
                                 <a href="~/Ask/@(u.Fid)">
@@ -145,11 +123,11 @@
                                 {
                                     u.Avatar = Url.Content("~/_theme/default.jpg");
                                 }
-                        <a href="/ask">
-                            <img src="@u.Avatar.Replace("/30","/100")">
-                            <cite>@u.NickName</cite>
-                            <i>@(u.CreateTime == null ? "" :SyntacticSugar.DateSugar.DateStringFromNow(u.CreateTime.TryToDate()))</i>
-                        </a>
+                                <a href="~/UserCenter/PublicInfo?id=@u.Id">
+                                    <img src="@u.Avatar.Replace("/30","/100")">
+                                    <cite>@u.NickName</cite>
+                                    <i>@(u.CreateTime == null ? "" : SyntacticSugar.DateSugar.DateStringFromNow(u.CreateTime.TryToDate()))</i>
+                                </a>
                             }
                         }
                     </span>

@@ -1,0 +1,23 @@
+﻿body .leifeng-rank span.forums a img {
+    width: 64px;
+    height: 64px;
+}
+
+body .leifeng-rank span.forums i {
+    bottom: 8px;
+}
+
+body a.logo {
+    top: 13px !important;
+}
+
+body .forums img {
+}
+
+body .forums .today {
+    color: #999;
+}
+
+body .forums .today-num {
+    color: #f60;
+}

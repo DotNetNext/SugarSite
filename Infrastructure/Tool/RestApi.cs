@@ -52,7 +52,8 @@ namespace Infrastructure.Tool
             IRestResponse<T> reval = client.Execute<T>(request);
             if (reval.ErrorException != null)
             {
-                throw new Exception(reval.ErrorException.Message);
+                PubMethod.WirteExp(new Exception(reval.Content));
+                throw new Exception("请求出错");
             }
             return reval;
         }

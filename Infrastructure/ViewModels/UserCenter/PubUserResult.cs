@@ -12,6 +12,6 @@ namespace Infrastructure.ViewModels.UserCenter
         public UserInfo UserInfo { get; set; }
         public List<BBS_Posts> RecentReplies { get; set; }
         public List<BBS_Topics> RecentRepliesTopics { get; set; }
-        public List<BBS_Posts> RecentAsks { get; set; }
+        public List<BBS_Topics> RecentAsks { get; set; }
     }
 }
