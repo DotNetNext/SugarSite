@@ -221,8 +221,10 @@
     <Compile Include="Areas\BBS\Controllers\MainPack\MainController.cs" />
     <Compile Include="Controllers\OauthPack\OauthController.cs" />
     <Compile Include="Controllers\HomePack\HomeController.cs" />
-    <Compile Include="Controllers\HomePack\HomeOutsourcing.cs" />
-    <Compile Include="Controllers\OauthPack\OauthOutsourcing.cs" />
+    <Compile Include="Controllers\HomePack\Outsourcing.cs" />
+    <Compile Include="Controllers\OauthPack\Outsourcing.cs" />
+    <Compile Include="Controllers\UserCenterPack\Outsourcing.cs" />
+    <Compile Include="Controllers\UserCenterPack\UserCenterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -646,6 +648,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\BBS\Models\" />
+    <Folder Include="Views\UserCenter\" />
     <Folder Include="_theme\ueditor\utf8-net\net\Bin\" />
   </ItemGroup>
   <ItemGroup>
