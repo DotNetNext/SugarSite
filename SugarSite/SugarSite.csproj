@@ -687,6 +687,7 @@
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Oauth\CallBack.cshtml" />
     <Content Include="Views\UserCenter\Index.cshtml" />
+    <Content Include="Views\UserCenter\PublicInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">

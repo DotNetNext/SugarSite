@@ -88,6 +88,7 @@
     <Compile Include="ViewModels\Admin\DocContentResult.cs" />
     <Compile Include="ViewModels\PageModel.cs" />
     <Compile Include="ViewModels\ResultModel.cs" />
+    <Compile Include="ViewModels\UserCenter\PubUserResult.cs" />
     <Compile Include="ViewModels\Views\V_DocContent.cs" />
   </ItemGroup>
   <ItemGroup>
