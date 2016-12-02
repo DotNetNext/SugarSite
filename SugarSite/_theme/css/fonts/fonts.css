@@ -30,36 +30,52 @@
 /*设置*/
 .icon-shezhi:before { content: "\e607"; }
 
+/*时间*/
 .icon-shijian:before { content: "\e60a"; }
 
+/*关闭*/
 .icon-guanbi:before { content: "\e614"; }
 
+/*添加*/
 .icon-tianjia:before { content: "\e616"; }
 
+/*注销*/
 .icon-tuichu:before { content: "\e601"; }
 
+/*水*/
 .icon-shui:before { content: "\e602"; }
 
+/*qq*/
 .icon-qq:before { content: "\e618"; }
 
+/*weibo*/
 .icon-weibo:before { content: "\e617"; }
 
+/*图片*/
 .icon-tupian:before { content: "\e608"; }
 
+/*logo*/
 .icon-logo:before { content: "\e603"; }
 
+/*代码*/
 .icon-daima:before { content: "\e609"; }
 
+/*表情*/
 .icon-biaoqing:before { content: "\e60f"; }
 
+/*指针*/
 .icon-nan:before { content: "\e619"; }
 
+/*指针*/
 .icon-nv:before { content: "\e61a"; }
 
+/*缩屏*/
 .icon-quitquanping:before { content: "\e61e"; }
 
+/*亲嘴*/
 .icon-zuichun:before { content: "\e61c"; }
 
+/*?*/
 .icon-charushuipingxian:before { content: "\e622"; }
 
 .icon-yulan:before { content: "\e60d"; }
