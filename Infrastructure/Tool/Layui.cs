@@ -34,6 +34,8 @@ namespace Infrastructure.Tool
             newItem.spread = oldItem.spread==null?true: oldItem.spread;
             newItem.alias = oldItem.alias;
             newItem.level = oldItem.level;
+            newItem.sort = oldItem.sort;
+            newItem.masterId = oldItem.masterId;
             var childs = allTypeList.Where(it => it.parentId.TryToInt() == newItem.id.TryToInt()).ToList();
             var isAny = childs.IsValuable();
             if (isAny) {
@@ -57,6 +59,8 @@ namespace Infrastructure.Tool
 
         public object id { get; set; }
 
+        public int? sort { get; set; }
+
         public object parentId { get; set; }
 
         //1是展开
@@ -65,5 +69,7 @@ namespace Infrastructure.Tool
         public List<LayuiTreeModel> children { get; set; }
 
         public int? level { get; set; }
+
+        public int masterId { get; set; }
     }
 }

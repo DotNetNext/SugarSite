@@ -76,7 +76,9 @@ namespace SugarSite.Areas.AdminSite.Controllers
                     name = it.TypeName,
                     parentId = it.ParentId,
                     alias = 1,
-                    level = it.Level
+                    level = it.Level,
+                    sort=it.Sort,
+                    masterId=it.MasterId.ObjToInt()
                 }).ToList();
                 model.ResultInfo = list.ToLayuiTree();
             });
@@ -142,7 +144,7 @@ namespace SugarSite.Areas.AdminSite.Controllers
                 }
                 else
                 {
-                    db.Update<DocType>(new { typeName = type.TypeName }, it => it.Id == type.Id);
+                    db.Update<DocType>(new { typeName = type.TypeName,Sort=type.Sort, MasterId = type.MasterId }, it => it.Id == type.Id);
                 }
                 model.IsSuccess = true;
             });

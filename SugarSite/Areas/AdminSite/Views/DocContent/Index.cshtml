@@ -6,6 +6,7 @@
 @section js{
     <script src="~/_theme/layui-v1.0.3/layui/lay/modules/jsGrid.js"></script>
     <script>
+        var typeDataKey = "typeDataKey";
         layui.use(['tree', 'layer', 'jsGrid', 'ejq', 'laypage'], function () {
             /***变量***/
             var layer = layui.layer,
@@ -27,7 +28,7 @@
             var lblPageCount = $("#lblPageCount");
             var typeSavediv = $("#typeSavediv");
             var hidLevel = $("#hidLevel");
-
+            var hidTypeSort = $("#hidTypeSort");
             /***事件***/
             btnAdd.click(function () {
                 var addUrl = layui.ejq.action.url("PageDCAdd", null, "DocContent", "AdminSite");
@@ -87,7 +88,7 @@
                 layer.open({
                     type: 1
                     , title: '添加【' + hidTypeName.val() + '】的子分类'
-                    , area: ['550px', '200px']
+                    , area: ['550px', '300px']
                     , shade: 0.5
                     , content: typeSavediv.html()
                     , btn: ['添加', '关闭'] //只是为了演示
@@ -95,7 +96,12 @@
                         $.ajax({
                             type:"post",
                             url: $.action.url("DcType_Submit", null, "DocContent", "AdminSite"),
-                            data: { ParentId: hidTypeId.val(), TypeName: $(".layui-layer-content [name=Name]").val() },
+                            data: {
+                                ParentId: hidTypeId.val(),
+                                TypeName: $(".layui-layer-content [name=Name]").val(),
+                                Sort: $(".layui-layer-content [name=Sort]").val(),
+                                MasterId: $(".layui-layer-content [name=MasterId]").val()
+                            },
                             cache: false,
                             success: function (msg) {
                                 layer.msg('添加成功！', { icon: 1 });
@@ -156,7 +162,7 @@
                 layer.open({
                     type: 1
                     , title: '修改【' + hidTypeName.val() + '】'
-                    , area: ['550px', '200px']
+                    , area: ['550px', '300px']
                     , shade: 0.5
                     , content: typeSavediv.html()
                     , btn: ['保存修改', '关闭'] //只是为了演示
@@ -164,7 +170,12 @@
                         $.ajax({
                             type: "post",
                             url: $.action.url("DcType_Submit", null, "DocContent", "AdminSite"),
-                            data: { id: hidTypeId.val(), TypeName: $(".layui-layer-content [name=Name]").val() },
+                            data: {
+                                id: hidTypeId.val(),
+                                TypeName: $(".layui-layer-content [name=Name]").val(),
+                                Sort: $(".layui-layer-content [name=Sort]").val(),
+                                MasterId: $(".layui-layer-content [name=MasterId]").val()
+                            },
                             cache: false,
                             success: function (msg) {
                                 layer.msg('修改成功！', { icon: 1 });
@@ -180,7 +191,10 @@
                     , zIndex: layer.zIndex //重点1
                     , success: function (layero) {
                         layer.setTop(layero); //重点2
+                        var treeItem = $("body").data(typeDataKey);
                         $(".layui-layer-content [name=Name]").val(hidTypeName.val());
+                        $(".layui-layer-content [name=Sort]").val(hidTypeSort.val());
+                        $(".layui-layer-content [name=MasterId]").val(treeItem.masterId);
                     }
                 });
             })
@@ -203,6 +217,8 @@
                                 hidTypeId.val(item.id);
                                 hidTypeName.val(item.name)
                                 hidLevel.val(item.level);
+                                hidTypeSort.val(item.sort);
+                                $("body").data(typeDataKey,item);
                                 lblTypeName.html("<span>当前分类:</span>" + item.name);
                                 bindGird();
                             }, nodes: msg.ResultInfo
@@ -309,6 +325,7 @@
 }
 <input type="hidden" id="hidTypeName" />
 <input type="hidden" id="hidTypeId" />
+<input type="hidden" id="hidTypeSort" />
 <input type="hidden" id="hidLevel"/>
 <div style="display: inline-block; width: 180px; height:calc(100% - 26px); padding: 10px; border: 1px solid #ddd; overflow: auto; margin:0">
     <ul id="treediv"></ul>
@@ -347,6 +364,18 @@
         <label class="layui-form-label">分类名称</label>
         <div class="layui-input-block">
             <input type="text" name="Name" lay-verify="title" style="width:400px" autocomplete="off" placeholder="请输入名称" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">栏目</label>
+        <div class="layui-input-block">
+            <input type="text" name="MasterId" lay-verify="title" style="width:400px" autocomplete="off" placeholder="请输入名称" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序号</label>
+        <div class="layui-input-block">
+            <input type="text" name="Sort" value="100" lay-verify="title" style="width:400px" autocomplete="off" placeholder="请输入名称" class="layui-input">
         </div>
     </div>
 </div>

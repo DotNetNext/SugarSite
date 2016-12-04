@@ -63,12 +63,5 @@ namespace Infrastructure.DbModel
         /// </summary>
         public string Creator {get;set;}
 
-        /// <summary>
-        /// Desc:- 
-        /// Default:- 
-        /// Nullable:True 
-        /// </summary>
-        public int? MasterId {get;set;}
-
     }
 }
