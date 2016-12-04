@@ -62,6 +62,7 @@
     </Compile>
     <Compile Include="DbModels\BBS_Favorites.cs" />
     <Compile Include="DbModels\BBS_Forums.cs" />
+    <Compile Include="DbModels\BBS_PMS.cs" />
     <Compile Include="DbModels\BBS_Posts.cs" />
     <Compile Include="DbModels\BBS_Topics.cs" />
     <Compile Include="DbModels\BBS_Topictypes.cs" />
