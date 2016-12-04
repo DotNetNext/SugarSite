@@ -35,27 +35,32 @@
             text-align: right;
             cursor: pointer;
         }
+
         h1 .layui-btn {
             font-size: 12px;
             height: 30px;
             line-height: 30px;
             float: right;
         }
+
         .top-edit a {
-                margin-right: 5px;
-                color:#f60
+            margin-right: 5px;
+            color: #f60;
         }
+
         .my-favorites i {
-         font-size: 25px;
+            font-size: 25px;
         }
+
         .my-favorites {
-          color: #1E9FFF;
-          cursor:pointer;
-          text-align:center
+            color: #1E9FFF;
+            cursor: pointer;
+            text-align: center;
         }
-        .my-favorites:hover {
-          color:#EE9FFF;
-        }
+
+            .my-favorites:hover {
+                color: #EE9FFF;
+            }
     </style>
 }
 @section js{
@@ -64,7 +69,7 @@
     <script>
         var ue = UE.getEditor('container', {
             toolbars: [[
-                'fullscreen', 'source','fontsize', 'insertcode', 'paragraph', 'fontfamily', 'forecolor', 'backcolor',
+                'fullscreen', 'source', 'fontsize', 'insertcode', 'paragraph', 'fontfamily', 'forecolor', 'backcolor',
                 'bold', 'italic', 'underline',
                 'simpleupload', 'emotion'
             ]]
@@ -99,8 +104,8 @@
                 $.ajax({
                     url: $.action.url("AddFavorites", null, "Main", "BBS"),
                     cache: false,
-                    type:"post",
-                    data:{tid:$hideTid.val(),fid:$hideFid.val()},
+                    type: "post",
+                    data: { tid: $hideTid.val(), fid: $hideFid.val() },
                     success: function (msg) {
                         if (msg.ResultInfo == "-1") {
                             window.location.href = $("#hidLoginUrl").val();
@@ -125,7 +130,7 @@
                     layer.msg("回复不能为空！");
                 } else {
                     var index = layer.load(1, {
-                        shade: [0.3, '#fff'] 
+                        shade: [0.3, '#fff']
                     });
                     $("form").ajaxSubmit({
                         url: $.action.url("RepliesSubmit", null, "Main", "BBS"),
@@ -176,7 +181,16 @@
         @Html.Raw(Model.PosItem.Message)
     </div>
     <p class="my-favorites">
-        <i class="layui-icon" >&#xe600;<label id="favoritesText">@Model.IsFavorites.IIF("取消","收藏")</label></i>
+        <i class="layui-icon">
+            &#xe600;<label id="favoritesText">@Model.IsFavorites.IIF("取消", "收藏")</label>
+        </i>
+        <div class="bdsharebuttonbox">
+           <a style="background:none;padding-left: 0;">&nbsp; 分享朋友圈：</a>
+            <a href="#" class="bds_qzone" data-cmd="qzone"></a>
+            <a href="#" class="bds_tsina" data-cmd="tsina"></a>
+            <a href="#" class="bds_weixin" data-cmd="weixin"></a>
+        </div>
+        <script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "分享朋友圈：", "bdMini": "2", "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {}, "image": { "viewList": ["qzone", "tsina", "weixin"], "viewText": "分享到：", "viewSize": "16" }, "selectShare": { "bdContainerClass": null, "bdSelectMiniList": ["qzone", "qzone", "weixin"] } }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
     </p>
     <p class="top-edit">
         @if (isLogin && (user.Id == Model.TopItem.Posterid || user.RoleId != PubEnum.RoleType.User.TryToInt()))
@@ -208,20 +222,21 @@
                     </div>
                     <div class="jieda-reply">
                         <span class="jieda-zan " type="zan"> <i class="iconfont icon-zan"></i> <em>0</em> </span>
-                        <span data-name="@item.Poster" data-id="@item.Posterid"  type="reply" class="iReply"> <i class="iconfont icon-svgmoban53"></i> 回复 </span>
+                        <span data-name="@item.Poster" data-id="@item.Posterid" type="reply" class="iReply"> <i class="iconfont icon-svgmoban53"></i> 回复 </span>
                     </div>
                 </li>
             }
         }
     </ul>
     <div class="layui-form layui-form-pane">
-        <form  method="post">
+        <form method="post">
             <div class="layui-form-item layui-form-text">
                 <div class="layui-input-block">
                     <input type="hidden" id="hidTid" name="tid" value="@Model.TopItem.Tid" />
                     <input type="hidden" id="hidFid" name="fid" value="@Model.TopItem.Fid" />
                     <!-- 加载编辑器的容器 -->
-                    <script id="container" name="Content" style="height:200px" type="text/plain"></script>
+                    <script id="container" name="Content" style="height:200px" type="text/plain">
+                    </script>
                 </div>
             </div>
             <div class="layui-form-item">
