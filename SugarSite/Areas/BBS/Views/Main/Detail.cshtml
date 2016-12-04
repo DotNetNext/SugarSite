@@ -172,7 +172,7 @@
         </div>
     </div>
     <div class="detail-about">
-        <a class="jie-user" href="#"> <img src="@Model.TopItem.PosterAvatar.Replace(@"/30",@"/100")" alt="该叫什么" /> <cite> @Model.PosItem.Poster <em>发布于@(DateSugar.DateStringFromNow(Model.TopItem.Postdatetime.TryToDate().ToLocalTime()))</em> </cite> </a>
+        <a class="jie-user" href="~/UserCenter/PublicInfo?id=@Model.TopItem.Posterid"> <img src="@Model.TopItem.PosterAvatar.Replace(@"/30",@"/100")" alt="该叫什么" /> <cite> @Model.PosItem.Poster <em>发布于@(DateSugar.DateStringFromNow(Model.TopItem.Postdatetime.TryToDate().ToLocalTime()))</em> </cite> </a>
         <div class="detail-hits" data-id="5467">
             <span style="color:#FF7200">悬赏：@Model.TopItem.Rate 飞吻</span>
         </div>
@@ -212,7 +212,7 @@
                 <li data-id="19288">
                     <a name="item-1480412603361"></a>
                     <div class="detail-about detail-about-reply">
-                        <a class="jie-user" href="/u/1475208/"> <img src="@item.Avatar" alt="@item.Poster" layer-index="0" /> <cite> <i>@item.Poster</i> <em style="padding:0 ; color: #FF7200;">VIP0</em> </cite> </a>
+                        <a class="jie-user" href="~/UserCenter/PublicInfo?id=@item.Posterid"> <img src="@item.Avatar" alt="@item.Poster" layer-index="0" /> <cite> <i>@item.Poster</i> <em style="padding:0 ; color: #FF7200;">VIP0</em> </cite> </a>
                         <div class="detail-hits">
                             <span>@DateSugar.DateStringFromNow(item.Postdatetime.TryToDate().ToLocalTime())</span>
                         </div>
