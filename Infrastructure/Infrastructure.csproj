@@ -84,6 +84,7 @@
     <Compile Include="Tool\SiteException.cs" />
     <Compile Include="Tool\Layui.cs" />
     <Compile Include="Tool\RestApi.cs" />
+    <Compile Include="ViewModels\BBS\RightRelust.cs" />
     <Compile Include="ViewModels\BBS\DetailResult.cs" />
     <Compile Include="ViewModels\BBS\MainResult.cs" />
     <Compile Include="ViewModels\Home\DocResult.cs" />

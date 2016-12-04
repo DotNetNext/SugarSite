@@ -8,6 +8,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SqlSugar;
+using Infrastructure.ViewModels.BBS;
+
 namespace SugarSite
 {
 
@@ -81,14 +83,14 @@ namespace SugarSite
                 _service.Command<BaseOutsourcing>((db, o) =>
                 {
                     string filtre = null;
-                    filtre=db.CurrentFilterKey;
+                    filtre = db.CurrentFilterKey;
                     db.CurrentFilterKey = null;
                     var date = DateTime.Now.ToString("yyyy-MM-dd").TryToDate();
                     string sql = @"select fid,count(1) as c from(
                                 select fid from  BBS_Topics where fid>0 and [Postdatetime]>@d AND  (isdeleted=0  or isdeleted is null )
                                 union all
                                 select fid  from [dbo].[BBS_Posts] where fid>0 and [Postdatetime]>@d AND  (isdeleted=0  or isdeleted is null ))t  group by fid ";
-                    reval=db.SqlQuery<KeyValuePair<string, string>>(sql,new {d=date }).ToDictionary(it =>Convert.ToInt32(it.Key), it => it.Value);
+                    reval = db.SqlQuery<KeyValuePair<string, string>>(sql, new { d = date }).ToDictionary(it => Convert.ToInt32(it.Key), it => it.Value);
                     db.CurrentFilterKey = filtre;
                     cm.Add(key, reval, cm.Day);
                 });
@@ -152,6 +154,22 @@ namespace SugarSite
                     cm.Add(key, reval, cm.Day);
                     return reval;
                 }
+            }
+        }
+
+        /// <summary>
+        /// 论坛右边数据
+        /// </summary>
+        public RightRelust GetBBS_Right
+        {
+            get
+            {
+                RightRelust reval = new RightRelust();
+                _service.Command<BaseOutsourcing>((db, o) =>
+                {
+                    reval.DocMasterList = db.Queryable<DocMaster>().OrderBy(it => it.Sort).ToList();
+                });
+                return reval;
             }
         }
     }

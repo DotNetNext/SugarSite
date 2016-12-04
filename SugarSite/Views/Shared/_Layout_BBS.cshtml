@@ -10,6 +10,7 @@
 @using Infrastructure.DbModel
 @using OAuth.Tools
 @using SyntacticSugar
+@using Infrastructure.ViewModels.BBS
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,6 +89,7 @@
             List<UserInfo> newUserList = ViewBag.NewUserList;
             List<BBS_Forums> forList = ViewBag.ForList;
             Dictionary<int, string> forumsStatistics = ViewBag.ForumsStatistics;
+            RightRelust rightData=ViewBag.BBS_Right;
             <div class="edge">
                 <h3 class="page-title">版块</h3>
                 <div class="user-looklog leifeng-rank ">
@@ -137,15 +139,18 @@
                 <h3 class="page-title">学习文档</h3>
                 <div class="user-looklog leifeng-rank">
                    <ul class="fly-list-one">
-                       <li><a href="~/Home/Doc">SqlSugr ORM</a></li>
-                       <li><a href="~/Doc/2/">Asp.net Core</a></li>
+                       @if (rightData.DocMasterList.IsValuable())
+                       {
+                           foreach (var item in rightData.DocMasterList)
+                           {
+                             <li><a href="~/@((item.Id==1).IIF("Home/Doc","Doc/"+item.Id))">@item.MasterName</a></li>
+                           }
+                       }
                    </ul>
                 </div>
                 <h3 class="page-title">在线游客</h3>
                 <div class="user-looklog leifeng-rank">
-                    <span>
-
-                    </span>
+                    
                 </div>
             </div>
         }
