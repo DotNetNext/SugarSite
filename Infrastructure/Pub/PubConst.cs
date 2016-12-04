@@ -15,7 +15,7 @@ namespace Infrastructure.Pub
         public const string SessionForumsList = "SessionnForumsList";
         public const string UserUniqueKey = "CookeUniqueKey";
         public const string UrlAdminIndex = "AdminSite/DocContent";
-        public const string SitePrefix = "-ASP.NET";
+        public const string SitePrefix = "-.NET文档园";
         public const string SiteDomain = "codeisbug.com";
         public const int SitePageSize = 20;
         public const string FilterKeyFalseDelteJoin = "FalseDelteJoin";
