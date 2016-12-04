@@ -14,10 +14,17 @@ namespace SugarSite
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "DefaultDoc2",
+                url: "Doc/{masterId}/{typeId}",
+                defaults: new { controller = "Home", action = "Doc", typeId = UrlParameter.Optional }
+            );
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+
         }
     }
 }

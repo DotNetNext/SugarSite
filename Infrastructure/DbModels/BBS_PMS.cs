@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Infrastructure.DbModel
 {
-    public class DocContent
+    public class BBS_PMS
     {
         
         /// <summary>
@@ -12,63 +12,70 @@ namespace Infrastructure.DbModel
         /// Default:- 
         /// Nullable:False 
         /// </summary>
-        public int Id {get;set;}
+        public int Pmid {get;set;}
 
         /// <summary>
         /// Desc:- 
         /// Default:- 
         /// Nullable:False 
         /// </summary>
-        public string Content {get;set;}
+        public string Msgfrom {get;set;}
 
         /// <summary>
         /// Desc:- 
         /// Default:- 
         /// Nullable:False 
         /// </summary>
-        public int TypeId {get;set;}
+        public int Msgfromid {get;set;}
 
         /// <summary>
         /// Desc:- 
         /// Default:- 
-        /// Nullable:True 
+        /// Nullable:False 
         /// </summary>
-        public int? Sort {get;set;}
+        public string Msgto {get;set;}
 
         /// <summary>
         /// Desc:- 
         /// Default:- 
-        /// Nullable:True 
+        /// Nullable:False 
         /// </summary>
-        public Boolean? IsDeleted {get;set;}
+        public int Msgtoid {get;set;}
 
         /// <summary>
         /// Desc:- 
         /// Default:- 
-        /// Nullable:True 
+        /// Nullable:False 
         /// </summary>
-        public string Title {get;set;}
+        public Int16 Folder {get;set;}
 
         /// <summary>
         /// Desc:- 
         /// Default:- 
-        /// Nullable:True 
+        /// Nullable:False 
         /// </summary>
-        public DateTime? CreateTime {get;set;}
+        public int New {get;set;}
 
         /// <summary>
         /// Desc:- 
         /// Default:- 
-        /// Nullable:True 
+        /// Nullable:False 
         /// </summary>
-        public string Creator {get;set;}
+        public string Subject {get;set;}
 
         /// <summary>
         /// Desc:- 
         /// Default:- 
-        /// Nullable:True 
+        /// Nullable:False 
         /// </summary>
-        public int? MasterId {get;set;}
+        public DateTime Postdatetime {get;set;}
+
+        /// <summary>
+        /// Desc:- 
+        /// Default:- 
+        /// Nullable:False 
+        /// </summary>
+        public string Message {get;set;}
 
     }
 }

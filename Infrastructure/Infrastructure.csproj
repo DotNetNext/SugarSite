@@ -66,6 +66,7 @@
     <Compile Include="DbModels\BBS_Topics.cs" />
     <Compile Include="DbModels\BBS_Topictypes.cs" />
     <Compile Include="DbModels\DocContent.cs" />
+    <Compile Include="DbModels\DocMaster.cs" />
     <Compile Include="DbModels\DocType.cs" />
     <Compile Include="DbModels\QuestionContent.cs" />
     <Compile Include="DbModels\QuestionType.cs" />

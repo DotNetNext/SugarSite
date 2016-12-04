@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Infrastructure.DbModel
 {
-    public class DocType
+    public class DocMaster
     {
         
         /// <summary>
@@ -17,9 +17,9 @@ namespace Infrastructure.DbModel
         /// <summary>
         /// Desc:- 
         /// Default:- 
-        /// Nullable:False 
+        /// Nullable:True 
         /// </summary>
-        public string TypeName {get;set;}
+        public string MasterName {get;set;}
 
         /// <summary>
         /// Desc:- 
@@ -33,20 +33,6 @@ namespace Infrastructure.DbModel
         /// Default:- 
         /// Nullable:True 
         /// </summary>
-        public int? ParentId {get;set;}
-
-        /// <summary>
-        /// Desc:- 
-        /// Default:- 
-        /// Nullable:True 
-        /// </summary>
-        public int? Level {get;set;}
-
-        /// <summary>
-        /// Desc:- 
-        /// Default:- 
-        /// Nullable:True 
-        /// </summary>
         public Boolean? IsDeleted {get;set;}
 
         /// <summary>
@@ -54,7 +40,7 @@ namespace Infrastructure.DbModel
         /// Default:- 
         /// Nullable:True 
         /// </summary>
-        public int? MasterId {get;set;}
+        public DateTime? CreateTime {get;set;}
 
     }
 }
