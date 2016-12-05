@@ -240,6 +240,7 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
 .alone li:hover{opacity:0.8;}
 .alone li a{display:block; color:#fff;}
 @media screen and (max-width: 1200px) {
+ #LAY_home a.logo{display:none }
  a.logoM{ display:block !important}
 }
 
