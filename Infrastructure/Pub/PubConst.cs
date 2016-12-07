@@ -13,6 +13,7 @@ namespace Infrastructure.Pub
         public const string SessionNewUserList = "SessionnNewUserList";
         public const string SessionGetForumsStatistics = "SessionGetForumsStatistics";
         public const string SessionForumsList = "SessionnForumsList";
+        public const string SessionBBSRight = "SessionBBSRight";
         public const string UserUniqueKey = "CookeUniqueKey";
         public const string UrlAdminIndex = "AdminSite/DocContent";
         public const string SitePrefix = "-文档园";

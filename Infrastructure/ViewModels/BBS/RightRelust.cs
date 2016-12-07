@@ -9,5 +9,9 @@ namespace Infrastructure.ViewModels.BBS
     public class RightRelust
     {
         public List<DocMaster> DocMasterList { get; set; }
+
+        public List<V_UserStatisticsInfo> UserTopicsInfoList { get; set; }
+
+        public List<V_UserStatisticsInfo> UserRepliesList { get; set; }
     }
 }

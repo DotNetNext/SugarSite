@@ -10,7 +10,7 @@
         Model.TopItem.PosterAvatar = Url.Content("~/_theme/default.jpg");
     }
     string fName = forList.Single(it => it.Fid == Model.TopItem.Fid).Name;
-    ViewBag.Title = Model.PosItem.Title + " - " + fName + " - .NET文档园";
+    ViewBag.Title = Model.PosItem.Title + " - " + fName.TryToString().Trim() + " - .NET文档园";
 }
 @using Infrastructure.DbModel
 @using SyntacticSugar

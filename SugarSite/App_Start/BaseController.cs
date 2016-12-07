@@ -164,12 +164,25 @@ namespace SugarSite
         {
             get
             {
-                RightRelust reval = new RightRelust();
-                _service.Command<BaseOutsourcing>((db, o) =>
+                var key = PubConst.SessionBBSRight;
+                var cm = CacheManager<RightRelust>.GetInstance();
+                if (cm.ContainsKey(key)) return cm[key];
+                else
                 {
-                    reval.DocMasterList = db.Queryable<DocMaster>().OrderBy(it => it.Sort).ToList();
-                });
-                return reval;
+                    RightRelust reval = new RightRelust();
+                    _service.Command<BaseOutsourcing>((db, o) =>
+                    {
+                        reval.DocMasterList = db.Queryable<DocMaster>().OrderBy(it => it.Sort).ToList();
+                        reval.UserRepliesList = db.Queryable<V_UserStatisticsInfo>()
+                        .OrderBy(it => it.RepliesCount, OrderByType.Desc)
+                        .Take(8).ToList();
+                        reval.UserTopicsInfoList = db.Queryable<V_UserStatisticsInfo>()
+                        .OrderBy(it => it.TopicsCount, OrderByType.Desc)
+                        .Take(8).ToList();
+                    });
+                    cm.Add(key,reval,cm.Minutes*8);//8分钟
+                    return reval;
+                }
             }
         }
     }

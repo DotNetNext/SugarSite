@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Infrastructure.DbModel
 {
-    public class DocMaster
+    public class V_UserStatisticsInfo
     {
         
         /// <summary>
@@ -17,23 +17,30 @@ namespace Infrastructure.DbModel
         /// <summary>
         /// Desc:- 
         /// Default:- 
-        /// Nullable:True 
+        /// Nullable:False 
         /// </summary>
-        public string MasterName {get;set;}
+        public string UserName {get;set;}
+
+        /// <summary>
+        /// Desc:- 
+        /// Default:- 
+        /// Nullable:False 
+        /// </summary>
+        public string Password {get;set;}
 
         /// <summary>
         /// Desc:- 
         /// Default:- 
         /// Nullable:True 
         /// </summary>
-        public int? Sort {get;set;}
+        public string Email {get;set;}
 
         /// <summary>
         /// Desc:- 
         /// Default:- 
         /// Nullable:True 
         /// </summary>
-        public Boolean? IsDeleted {get;set;}
+        public string Avatar {get;set;}
 
         /// <summary>
         /// Desc:- 
@@ -47,21 +54,35 @@ namespace Infrastructure.DbModel
         /// Default:- 
         /// Nullable:True 
         /// </summary>
-        public string Html {get;set;}
+        public Boolean? IsDeleted {get;set;}
 
         /// <summary>
         /// Desc:- 
         /// Default:- 
         /// Nullable:True 
         /// </summary>
-        public string Icon {get;set;}
+        public int? RoleId {get;set;}
 
         /// <summary>
         /// Desc:- 
         /// Default:- 
         /// Nullable:True 
         /// </summary>
-        public DateTime? LastPostDate {get;set;}
+        public string NickName {get;set;}
+
+        /// <summary>
+        /// Desc:- 
+        /// Default:- 
+        /// Nullable:True 
+        /// </summary>
+        public int? TopicsCount {get;set;}
+
+        /// <summary>
+        /// Desc:- 
+        /// Default:- 
+        /// Nullable:True 
+        /// </summary>
+        public int? RepliesCount {get;set;}
 
     }
 }

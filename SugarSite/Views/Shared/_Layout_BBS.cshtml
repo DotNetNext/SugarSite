@@ -116,7 +116,26 @@
                         }
                     </span>
                 </div>
-                <h3 class="page-title">最新会员 - TOP 8</h3>
+
+                <h3 class="page-title">学习文档</h3>
+                <div class="user-looklog leifeng-rank">
+                    <ul class="fly-list-one">
+                        @if (rightData.DocMasterList.IsValuable())
+                        {
+                            foreach (var item in rightData.DocMasterList)
+                            {
+                                <li>
+                                    <a href="~/@((item.Id==1).IIF("Home/Doc","Doc/"+item.Id))">
+                                        @item.MasterName
+                                    <i style="position:absolute;right:5px;color:#f60;font-style: initial;">最后更新:@item.LastPostDate.TryToDate().ToString("yyyy-MM-dd")</i>
+                                </a>
+                            </li>
+                            }
+                        }
+                    </ul>
+                </div>
+
+                <h3 class="page-title">最新会员</h3>
                 <div class="user-looklog leifeng-rank">
                     <span>
                         @if (newUserList != null)
@@ -136,22 +155,49 @@
                         }
                     </span>
                 </div>
-                <h3 class="page-title">学习文档</h3>
+
+                <h3 class="page-title">发布达人</h3>
                 <div class="user-looklog leifeng-rank">
-                   <ul class="fly-list-one">
-                       @if (rightData.DocMasterList.IsValuable())
-                       {
-                           foreach (var item in rightData.DocMasterList)
-                           {
-                             <li><a href="~/@((item.Id==1).IIF("Home/Doc","Doc/"+item.Id))">@item.MasterName</a></li>
-                           }
-                       }
-                   </ul>
+                    <span>
+                        @if (rightData != null&&rightData.UserTopicsInfoList.IsValuable())
+                        {
+                            foreach (var u in rightData.UserTopicsInfoList)
+                            {
+                                if (u.Avatar.IsNullOrEmpty())
+                                {
+                                    u.Avatar = Url.Content("~/_theme/default.jpg");
+                                }
+                                <a href="~/UserCenter/PublicInfo?id=@u.Id">
+                                    <img src="@u.Avatar.Replace("/30","/100")">
+                                    <cite>@u.NickName</cite>
+                                    <i>@u.TopicsCount 贴</i>
+                                </a>
+                            }
+                        }
+                    </span>
                 </div>
-                <h3 class="page-title">在线游客</h3>
+
+                <h3 class="page-title">回贴达人</h3>
                 <div class="user-looklog leifeng-rank">
-                    
+                    <span>
+                        @if (rightData != null&& rightData.UserRepliesList.IsValuable())
+                        {
+                            foreach (var u in rightData.UserRepliesList)
+                            {
+                                if (u.Avatar.IsNullOrEmpty())
+                                {
+                                    u.Avatar = Url.Content("~/_theme/default.jpg");
+                                }
+                                <a href="~/UserCenter/PublicInfo?id=@u.Id">
+                                    <img src="@u.Avatar.Replace("/30","/100")">
+                                    <cite>@u.NickName</cite>
+                                    <i>@u.RepliesCount 贴</i>
+                                </a>
+                            }
+                        }
+                    </span>
                 </div>
+
             </div>
         }
     </div>

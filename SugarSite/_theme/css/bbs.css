@@ -21,4 +21,7 @@ body .forums .today {
 body .forums .today-num {
     color: #f60;
 }
- 
+
+body .code .container {
+     word-break: break-all;
+ }
