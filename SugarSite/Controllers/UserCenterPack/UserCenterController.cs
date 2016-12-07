@@ -56,8 +56,29 @@ namespace SugarSite.Controllers
         #endregion
 
         #region api
-
-        public JsonResult ActivateMailSubmit(string key, string userId)
+        public JsonResult ActivateMailSubmit(string key, string userId,string mail)
+        {
+            var model = new ResultModel<string>();
+            _service.Command<HomeOutsourcing>((db, o) =>
+            {
+                var userIdInt = EncryptSugar.GetInstance().Decrypto(key).ObjToInt();
+                var date = EncryptSugar.GetInstance().Decrypto(userId).ObjToDate();
+                var isAny = db.Queryable<UserInfo>().Any(it => userIdInt == it.Id);
+                var isOkDate = ((DateTime.Now - date).TotalDays <= 3);
+                if (isAny && isOkDate)
+                {
+                    model.ResultInfo = "激活成功！";
+                    model.IsSuccess = true;
+                    db.Update<UserInfo>(new { Email = mail }, it => it.Id == userIdInt);
+                }
+                else
+                {
+                    model.ResultInfo = "激活失败，请重新发送邮箱验证或者联系管理员 610262374@qq.com 。";
+                }
+            });
+            return Json(model,JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult ActivateMailSend(string key, string userId)
         {
             //命名反的防止误导黑客
             var userIdInt = EncryptSugar.GetInstance().Decrypto(key).ObjToInt();

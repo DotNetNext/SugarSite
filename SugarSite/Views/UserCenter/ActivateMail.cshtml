@@ -38,7 +38,7 @@
     <li class="layui-form-li"> <label for="activate">您的邮箱：</label> <span class="layui-form-text"><em style="color:#c00;">（尚未激活）</em> </span> </li>
     <li class="layui-form-li" style="margin-top: 20px; line-height: 26px;">
         <div>
-            1. <a class="layui-form-a" style="color:#4f99cf; cursor:pointer" id="aActivate" data-url="@Url.Content("~/UserCenter/ActivateMailSubmit?key="+Server.UrlEncode(Model.UserCode)+"&UserId="+Server.UrlEncode(Model.Now))" email="610262374@qq.com">发送验证邮件</a>，或者
+            1. <a class="layui-form-a" style="color:#4f99cf; cursor:pointer" id="aActivate" data-url="@Url.Content("~/UserCenter/ActivateMailSend?key="+Server.UrlEncode(Model.UserCode)+"&UserId="+Server.UrlEncode(Model.Now))" email="610262374@qq.com">发送验证邮件</a>，或者
         </div>
         <div>
             2. 如果您始终没有收到我们发送的邮件，请注意查看您邮箱中的垃圾邮件；
