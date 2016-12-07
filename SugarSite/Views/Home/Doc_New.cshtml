@@ -60,7 +60,7 @@
                 {
                     var itemChildren = type.Where(it => item.Id == it.ParentId).ToList();
                     <li><h2>@item.TypeName</h2></li>
-                    foreach (var childItem in itemChildren)
+                    foreach (var childItem in itemChildren.OrderBy(ic=>ic.Sort))
                     {
                         <li class="site-tree-noicon @((Model.ResultInfo.CurrentType.Id==childItem.Id).IIF("layui-this",""))">
                             <a href="@Url.Action("Doc",new { typeId=childItem.Id})"><cite>@childItem.TypeName</cite></a>

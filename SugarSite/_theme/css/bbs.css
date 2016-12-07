@@ -23,5 +23,26 @@ body .forums .today-num {
 }
 
 body .code .container {
-     word-break: break-all;
- }
+    word-break: break-all;
+}
+
+body .syntaxhighlighter {
+    padding-bottom: 20px !important;
+    padding-top: 20px !important;
+}
+
+body .gutter {
+    display: none;
+}
+
+body .syntaxhighlighter td.code .line {
+    font-size: 12px !important;
+}
+
+body .syntaxhighlighter .keyword {
+    color: #cc86d4 !important;
+}
+
+body .syntaxhighlighter td.code .line {
+    line-height: 1.8 !important;
+}
