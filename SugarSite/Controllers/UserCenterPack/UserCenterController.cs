@@ -31,7 +31,12 @@ namespace SugarSite.Controllers
             {
                 return this.Redirect("~/Ask");
             }
-            return View();
+            UserMailResult model = new UserMailResult();
+            model.UserInfo = _userInfo;
+            model.UserCode = EncryptSugar.GetInstance().Encrypto(model.UserInfo.Id.ToString());
+            string dateStr = DateTime.Now.ToString("yyyy-MM-dd");
+            model.Now = EncryptSugar.GetInstance().Encrypto(dateStr);
+            return View(model);
         }
 
         public ActionResult PublicInfo(int id = 0)
@@ -46,6 +51,28 @@ namespace SugarSite.Controllers
         #endregion
 
         #region api
+        public JsonResult ActivateMailSubmit(string key, string userId)
+        {
+            //命名反的防止误导黑客
+            var userIdInt = EncryptSugar.GetInstance().Decrypto(key).ObjToInt();
+            var date =EncryptSugar.GetInstance().Decrypto(userId).ObjToDate();
+            var model = new ResultModel<string>();
+            _service.Command<HomeOutsourcing>((db, o) =>
+            {
+                var isAny=db.Queryable<UserInfo>().Any(it => userIdInt == it.Id);
+                var isOkDate = ((DateTime.Now - date).TotalDays<=3);
+                if (isAny && isOkDate)
+                {
+                    model.ResultInfo = "发送成功，请打开邮箱完成激活！";
+                    model.IsSuccess = true;
+                }
+                else {
+                    model.ResultInfo = "发送失败";
+                }
+            });
+            return Json(model,JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetPublicInfo(int id)
         {
             var model = new ResultModel<PubUserResult>();
@@ -61,7 +88,7 @@ namespace SugarSite.Controllers
                 //最新回复信息
                 model.ResultInfo.RecentReplies = db.Queryable<BBS_Posts>()
                .Where(it => it.Posterid == id)
-               .Where(it=>it.Parentid>0)
+               .Where(it => it.Parentid > 0)
                .OrderBy(it => it.Postdatetime, OrderByType.Desc)
                .ToList();
                 if (model.ResultInfo.RecentReplies.IsValuable())

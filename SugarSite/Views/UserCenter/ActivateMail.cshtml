@@ -3,12 +3,42 @@
     ViewBag.Title = "激活您的邮箱";
     Layout = "~/Views/Shared/_Layout_BBS.cshtml";
 }
-
+@section js{
+    <script>
+        layui.define(['ejq','layer'], function (exports) {
+            var $ = layui.ejq;
+            var layer = layui.layer;
+            var aActivate = $("#aActivate");
+            aActivate.click(function () {
+                $.ajax({
+                    cache: false,
+                    url:aActivate.data("url"),
+                    success: function (msg) {
+                        debugger
+                        if (msg.IsSuccess) {
+                            layer.msg(msg.ResultInfo,   { icon: 1,shade: 0.2 });
+                        } else {
+                            layer.msg(msg.ResultInfo, { icon: 2, shade: 0.2 });
+                        }
+                    }, error: function (msg) {
+                        layer.msg("发送失败！");
+                    }
+                })
+            })
+        });
+        
+    </script>
+ }
+@model UserMailResult
+@using Infrastructure.ViewModels.UserCenter
+@using SyntacticSugar
 <ul class="layui-form">
-    <li class="layui-form-li"> <label for="activate">您的邮箱：</label> <span class="layui-form-text">610262374@qq.com <em style="color:#c00;">（尚未激活）</em> </span> </li>
+    @if (Model.UserInfo.Email.IsNullOrEmpty()||Model.UserInfo.Email.IsEamil().IsFalse())
+    {
+    <li class="layui-form-li"> <label for="activate">您的邮箱：</label> <span class="layui-form-text"><em style="color:#c00;">（尚未激活）</em> </span> </li>
     <li class="layui-form-li" style="margin-top: 20px; line-height: 26px;">
         <div>
-            <a class="layui-form-a" style="color:#4f99cf;" id="LAY-activate" href="javascript:;" email="610262374@qq.com">重新发送邮件</a>，或者
+            1. <a class="layui-form-a" style="color:#4f99cf; cursor:pointer" id="aActivate" data-url="@Url.Content("~/UserCenter/ActivateMailSubmit?key="+Server.UrlEncode(Model.UserCode)+"&UserId="+Server.UrlEncode(Model.Now))" email="610262374@qq.com">发送验证邮件</a>，或者
         </div>
         <div>
             2. 如果您始终没有收到我们发送的邮件，请注意查看您邮箱中的垃圾邮件；
@@ -17,5 +47,10 @@
             3. 如果你实在无法激活邮件，您还可以联系：610262374@qq.com
         </div>
     </li>
+    }
+    else
+    {
+        <li class="layui-form-li"> <label for="activate">您的邮箱：@Model.UserInfo.Email</label> <span class="layui-form-text"><em style="color:#c00;">（已激活）</em> </span> </li>
+    }
 </ul>
 
