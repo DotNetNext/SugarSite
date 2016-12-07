@@ -48,9 +48,15 @@ namespace SugarSite.Controllers
             });
             return View(model);
         }
+
+        public ActionResult ActivateMailSubmitSuccess(string key ,string userId)
+        {
+            return View();
+        }
         #endregion
 
         #region api
+
         public JsonResult ActivateMailSubmit(string key, string userId)
         {
             //命名反的防止误导黑客
