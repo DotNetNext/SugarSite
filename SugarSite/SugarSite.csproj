@@ -695,6 +695,7 @@
     <Content Include="_theme\css\fonts\font_001z27klwvobt9.woff" />
     <Content Include="_theme\css\fonts\font_001z27klwvobt9.ttf" />
     <Content Include="Views\Home\Doc_New.cshtml" />
+    <Content Include="Views\UserCenter\ActivateMail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">

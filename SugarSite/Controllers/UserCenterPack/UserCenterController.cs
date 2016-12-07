@@ -20,7 +20,16 @@ namespace SugarSite.Controllers
         {
             if (base.IsLogin == false)
             {
-                return this.Redirect("/UserCenter");
+                return this.Redirect("~/Ask");
+            }
+            return View();
+        }
+
+        public ActionResult ActivateMail()
+        {
+            if (base.IsLogin == false)
+            {
+                return this.Redirect("~/Ask");
             }
             return View();
         }
