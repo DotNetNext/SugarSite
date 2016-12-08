@@ -23,6 +23,34 @@ namespace SugarSite
             string uniqueKey = PubGet.GetUserKey;
             _userInfo = CacheManager<UserInfo>.GetInstance()[uniqueKey];
             ViewBag.IsLogin = IsLogin;
+            if (IsLogin == false)
+            {
+                var request = System.Web.HttpContext.Current.Request;
+                var appPath = request.AppRelativeCurrentExecutionFilePath;
+                var isAgainLogin = appPath.TryToString().ToLower().IsContainsIn("~/ask","~/bbs");
+                string[] keys = request.QueryString.AllKeys;
+                var isLogout = keys.IsValuable()&&keys.Contains("isLogout");
+                if (isAgainLogin&& isLogout.IsFalse())
+                {
+                    _service.Command<BaseOutsourcing>((db, o) =>
+                    {
+                    //近一个月
+                    var userHistory = db.Queryable<LoginHistory>()
+                        .Where(it => it.CreateDate > DateTime.Now.AddDays(-30))
+                        .Where(it => it.UniqueKey == uniqueKey)
+                        .OrderBy(it => it.CreateDate, OrderByType.Desc)
+                        .SingleOrDefault();
+                        if (userHistory != null)
+                        {
+                            var user = db.Queryable<UserInfo>().Single(it => it.Id == userHistory.Uid);
+                            _userInfo = user;
+                        //重新将登录信息加到缓存
+                        CacheManager<UserInfo>.GetInstance().Add(uniqueKey, user, int.MaxValue);
+                            ViewBag.IsLogin = IsLogin;
+                        }
+                    });
+                }
+            }
             ViewBag.User = _userInfo;
         }
 

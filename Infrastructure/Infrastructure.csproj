@@ -69,6 +69,7 @@
     <Compile Include="DbModels\DocContent.cs" />
     <Compile Include="DbModels\DocMaster.cs" />
     <Compile Include="DbModels\DocType.cs" />
+    <Compile Include="DbModels\LoginHistory.cs" />
     <Compile Include="DbModels\QuestionContent.cs" />
     <Compile Include="DbModels\QuestionType.cs" />
     <Compile Include="DbModels\UserInfo.cs" />

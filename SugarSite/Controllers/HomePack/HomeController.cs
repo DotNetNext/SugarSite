@@ -25,20 +25,21 @@ namespace SugarSite.Controllers
             return View();
         }
 
-        public ActionResult Doc(int masterId=1, int typeId = 0)
+        public ActionResult Doc(int masterId = 1, int typeId = 0)
         {
             var model = new ResultModel<DocResult>();
             _service.Command<HomeOutsourcing, ResultModel<DocResult>>((o, api) =>
             {
-                model = api.Get(Url.Action("GetDoc"), new { typeId = typeId , masterId = masterId });
+                model = api.Get(Url.Action("GetDoc"), new { typeId = typeId, masterId = masterId });
             });
             ViewBag.IsAdmin = _userInfo != null && _userInfo.RoleId == 1;
             if (masterId == 1)//获取老的文档视图，主要是考虑到SEO更换URL保留老的，新站可以直接去掉这个判段
             {
                 return View(model);
             }
-            else {
-                return View("~/Views/Home/Doc_New.cshtml",model);
+            else
+            {
+                return View("~/Views/Home/Doc_New.cshtml", model);
             }
         }
 
@@ -65,9 +66,11 @@ namespace SugarSite.Controllers
         public ActionResult Logout()
         {
             var cm = CacheManager<UserInfo>.GetInstance();
+            var cm2 = CookiesManager<string>.GetInstance();
             string uniqueKey = PubGet.GetUserKey;
             cm.Remove(uniqueKey);
-            return Redirect("~/Ask");
+            cm2.Remove(PubConst.UserUniqueKey);
+            return Redirect("~/Ask?isLogout=true");
         }
 
         public ActionResult Register()
@@ -113,6 +116,14 @@ namespace SugarSite.Controllers
                     var cm = CacheManager<UserInfo>.GetInstance();
                     string uniqueKey = PubGet.GetUserKey;
                     cm.Add(uniqueKey, loginUser, cm.Day * 365);//保存一年
+                    LoginHistory lh = new LoginHistory()
+                    {
+                        CreateDate = DateTime.Now,
+                        IsDeleted = false,
+                        Uid = loginUser.Id,
+                        UniqueKey = uniqueKey
+                    };
+                    db.Insert(lh);
                     model.IsSuccess = true;
                     model.ResultInfo = returnUrl;
                 }
@@ -169,7 +180,7 @@ namespace SugarSite.Controllers
                         }
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     PubMethod.WirteExp(ex);
                     model.IsSuccess = false;
@@ -186,21 +197,21 @@ namespace SugarSite.Controllers
         /// <param name="Id"></param>
         /// <returns></returns>
         [OutputCache(Duration = 0)]
-        public JsonResult GetDoc(int typeId,int masterId=1)
+        public JsonResult GetDoc(int typeId, int masterId = 1)
         {
             var model = new ResultModel<DocResult>();
             _service.Command<HomeOutsourcing>((db, o) =>
             {
                 model.ResultInfo = new Infrastructure.ViewModels.DocResult();
-                model.ResultInfo.DocType = db.Queryable<DocType>().Where(it=>it.MasterId==masterId).ToList();
+                model.ResultInfo.DocType = db.Queryable<DocType>().Where(it => it.MasterId == masterId).ToList();
                 if (typeId == 0)//如果没有文章ID取第一条
                 {
-                    typeId = model.ResultInfo.DocType.Where(it=>it.MasterId==masterId).Where(it => it.Level == 2).OrderBy(it => it.Level).ThenBy(it => it.Sort).First().Id;
+                    typeId = model.ResultInfo.DocType.Where(it => it.MasterId == masterId).Where(it => it.Level == 2).OrderBy(it => it.Level).ThenBy(it => it.Sort).First().Id;
                 }
                 var list = db.Queryable<DocContent>().Where(it => it.TypeId == typeId).ToList();
                 model.ResultInfo.DocContent = list;
                 model.ResultInfo.CurrentType = model.ResultInfo.DocType.Single(it => it.Id == typeId);
-                model.ResultInfo.Master = db.Queryable<DocMaster>().Single(it =>it.Id== model.ResultInfo.CurrentType.MasterId);
+                model.ResultInfo.Master = db.Queryable<DocMaster>().Single(it => it.Id == model.ResultInfo.CurrentType.MasterId);
                 model.IsSuccess = true;
             });
             return Json(model, JsonRequestBehavior.AllowGet);

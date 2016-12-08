@@ -45,6 +45,13 @@ namespace SugarSite.Controllers
                     var cm = CacheManager<UserInfo>.GetInstance();
                     string uniqueKey = PubGet.GetUserKey;
                     cm.Add(uniqueKey, user, cm.Day * 365);//保存一年
+                    LoginHistory lh = new LoginHistory()
+                    {
+                        CreateDate = DateTime.Now,
+                        IsDeleted = false,
+                        Uid = user.Id,
+                        UniqueKey = uniqueKey
+                    };
                 }
                 catch (Exception ex)
                 {
