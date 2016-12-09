@@ -247,6 +247,7 @@
     <Content Include="_theme\bbs-logo.png" />
     <Content Include="_theme\css\bbs-detail.css" />
     <Content Include="_theme\css\bbs.css" />
+    <Content Include="_theme\css\doc.css" />
     <Content Include="_theme\css\fonts\fonts.css" />
     <Content Include="_theme\css\fonts\font_001z27klwvobt9.svg" />
     <Content Include="_theme\default.jpg" />
