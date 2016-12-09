@@ -133,11 +133,11 @@ namespace SugarSite.Areas.BBS.Controllers
                     var html = FileSugar.FileToString(FileSugar.GetMapPath("~/Template/mail/Replies.html")).Replace('\r', ' ').Replace('\n', ' ');
                     string toUserName = toUser.NickName;
                     string fromUserName = currentUser.NickName;
-                    string toMail = currentUser.Email;
+                    string toMail = toUser.Email;
                     MailSmtp ms = new MailSmtp(PubGet.GetEmailSmtp, PubGet.GetEmailUserName, PubGet.GetEmailPassword);
                     string url =RequestInfo.HttpDomain+ "/Ask/{0}/{1}".ToFormat(topic.Fid,topic.Tid);
                     html = html.ToFormat(toUserName,fromUserName,topic.Title,DateTime.Now,url);
-                    ms.Send(PubGet.GetEmailUserName, PubConst.SiteMailUserName, toMail, fromUserName + "回复了您的贴子："+topic.Title, html);
+                    ms.Send(PubGet.GetEmailUserName, PubConst.SiteMailUserName, toMail, fromUserName + "回复了您的贴子："+topic.Title.Trim(), html);
                 }
             }
             //处理@
