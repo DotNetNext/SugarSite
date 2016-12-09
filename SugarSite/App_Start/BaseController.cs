@@ -27,25 +27,25 @@ namespace SugarSite
             {
                 var request = System.Web.HttpContext.Current.Request;
                 var appPath = request.AppRelativeCurrentExecutionFilePath;
-                var isAgainLogin = appPath.TryToString().ToLower().IsContainsIn("~/ask","~/bbs");
+                var isAgainLogin = appPath.TryToString().ToLower().IsContainsIn("~/ask", "~/bbs");
                 string[] keys = request.QueryString.AllKeys;
-                var isLogout = keys.IsValuable()&&keys.Contains("isLogout");
-                if (isAgainLogin&& isLogout.IsFalse())
+                var isLogout = keys.IsValuable() && keys.Contains("isLogout");
+                if (isAgainLogin && isLogout.IsFalse())
                 {
                     _service.Command<BaseOutsourcing>((db, o) =>
                     {
-                    //近一个月
-                    var userHistory = db.Queryable<LoginHistory>()
-                        .Where(it => it.CreateDate > DateTime.Now.AddDays(-30))
-                        .Where(it => it.UniqueKey == uniqueKey)
-                        .OrderBy(it => it.CreateDate, OrderByType.Desc)
-                        .SingleOrDefault();
+                        //近一个月
+                        var userHistory = db.Queryable<LoginHistory>()
+                            .Where(it => it.CreateDate > DateTime.Now.AddDays(-30))
+                            .Where(it => it.UniqueKey == uniqueKey)
+                            .OrderBy(it => it.CreateDate, OrderByType.Desc)
+                            .SingleOrDefault();
                         if (userHistory != null)
                         {
                             var user = db.Queryable<UserInfo>().Single(it => it.Id == userHistory.Uid);
                             _userInfo = user;
-                        //重新将登录信息加到缓存
-                        CacheManager<UserInfo>.GetInstance().Add(uniqueKey, user, int.MaxValue);
+                            //重新将登录信息加到缓存
+                            CacheManager<UserInfo>.GetInstance().Add(uniqueKey, user, int.MaxValue);
                             ViewBag.IsLogin = IsLogin;
                         }
                     });
@@ -61,6 +61,47 @@ namespace SugarSite
                 return (_userInfo != null && _userInfo.Id > 0);
             }
         }
+
+        public void AddUpdateMailCache(string updateKey)
+        {
+            string key = PubConst.SessionUpdateUserMail;
+            var cm = CacheManager<List<string>>.GetInstance();
+            var list = new List<string>();
+            if (cm.ContainsKey(key))
+            {
+                list = cm[key];
+            }
+            if (list.Contains(updateKey).IsFalse())
+            {
+                list.Add(updateKey);
+            }
+            cm.Add(key, list, cm.Day * 365);
+        }
+
+        public void UpdateMailCache(int userId,string mail)
+        {
+            var cm = CacheManager<List<string>>.GetInstance();
+            string key = PubConst.SessionUpdateUserMail;
+            if (cm.ContainsKey(key))
+            {
+                var listKey=cm[key];
+                if (listKey.IsValuable()) {
+                    var cmUser = CacheManager<UserInfo>.GetInstance();
+                    string uniqueKey = PubGet.GetUserKey;
+                    foreach (var item in listKey)
+                    {
+                        if (cmUser.ContainsKey(item)) {
+                            var userInfo = cmUser[item];
+                            if (userInfo.Id == userId) {
+                                userInfo.Email = mail;
+                                cmUser.Add(item,userInfo,cm.Day*365);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         public List<BBS_Forums> GetForumsList
         {
             get
@@ -208,7 +249,7 @@ namespace SugarSite
                         .OrderBy(it => it.TopicsCount, OrderByType.Desc)
                         .Take(8).ToList();
                     });
-                    cm.Add(key,reval,cm.Minutes*8);//8分钟
+                    cm.Add(key, reval, cm.Minutes * 8);//8分钟
                     return reval;
                 }
             }

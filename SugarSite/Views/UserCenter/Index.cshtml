@@ -16,8 +16,14 @@
     <div class="wrap">
         <div class="content">
             <div class="fly-msg">
-                您的邮箱尚未验证，这比较影响您的帐号安全，
+                @if (user == null || user.Email.IsNullOrEmpty())
+                {
+                   @: 您的邮箱尚未验证，激活后别人回复了您的贴子我们会发邮件提醒你哦，
                 <a href="~/UserCenter/ActivateMail">立即去激活？</a>
+                }
+                else {
+                    @:你的邮箱 @user.Email 已经激活
+                }
             </div>
             <div class="fly-tab user-tab">
                 <span id="LAY-mine">

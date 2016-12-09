@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using SqlSugar;
 using SyntacticSugar;
+using Infrastructure.Pub;
+
 namespace SugarSite.Controllers
 {
     public class UserCenterController : BaseController
@@ -70,6 +72,7 @@ namespace SugarSite.Controllers
                     model.ResultInfo = "激活成功！";
                     model.IsSuccess = true;
                     db.Update<UserInfo>(new { Email = mail }, it => it.Id == userIdInt);
+                    UpdateMailCache(userIdInt,mail);
                 }
                 else
                 {
@@ -78,7 +81,7 @@ namespace SugarSite.Controllers
             });
             return Json(model,JsonRequestBehavior.AllowGet);
         }
-        public JsonResult ActivateMailSend(string key, string userId)
+        public JsonResult ActivateMailSend(string key, string userId,string mail)
         {
             //命名反的防止误导黑客
             var userIdInt = EncryptSugar.GetInstance().Decrypto(key).ObjToInt();
@@ -90,8 +93,18 @@ namespace SugarSite.Controllers
                 var isOkDate = ((DateTime.Now - date).TotalDays<=3);
                 if (isAny && isOkDate)
                 {
+                    var html=FileSugar.FileToString(FileSugar.GetMapPath("~/Template/mail/Validate.html")).Replace('\r', ' ').Replace('\n', ' ');
+                    string userName = _userInfo.NickName;
+                    string aHtml = "<a href=\"{0}\">{1}</a>".ToFormat(RequestInfo.HttpDomain+""+Url.Action("ActivateMailSubmit", "UserCenter", new { key=key,userId=userId,mail}),"请点击这儿完成激活");
+                    string dateString = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    MailSmtp ms = new MailSmtp(PubGet.GetEmailSmtp,PubGet.GetEmailUserName,PubGet.GetEmailPassword);
+                    html = html.ToFormat(userName, aHtml, dateString);
+                    ms.Send(PubGet.GetEmailUserName, PubConst.SiteMailUserName,mail,userName+"邮箱激活通知", html);
                     model.ResultInfo = "发送成功，请打开邮箱完成激活！";
+                    string uniqueKey = PubGet.GetUserKey;
+                    base.AddUpdateMailCache(uniqueKey);
                     model.IsSuccess = true;
+                    Check.Exception(ms.Result.IsValuable(), "邮件激活失败！" + ms.Result);
                 }
                 else {
                     model.ResultInfo = "发送失败";

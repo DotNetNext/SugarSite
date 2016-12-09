@@ -9,21 +9,34 @@
             var $ = layui.ejq;
             var layer = layui.layer;
             var aActivate = $("#aActivate");
+            var txtEmail = $("#txtEmail");
+            
             aActivate.click(function () {
-                $.ajax({
-                    cache: false,
-                    url:aActivate.data("url"),
-                    success: function (msg) {
-                        debugger
-                        if (msg.IsSuccess) {
-                            layer.msg(msg.ResultInfo,   { icon: 1,shade: 0.2 });
-                        } else {
-                            layer.msg(msg.ResultInfo, { icon: 2, shade: 0.2 });
+                if (txtEmail.val() == "") {
+                    layer.msg("请填写验证邮箱！");
+                } else if (!$.valiData.isMail(txtEmail.val())) {
+                    layer.msg("邮箱格式不正确！");
+                } else {
+                    var index = layer.load(1, {
+                        shade: [0.3, '#fff']
+                    });
+                    $.ajax({
+                        cache: false,
+                        data: { mail: txtEmail.val() },
+                        url: aActivate.data("url"),
+                        success: function (msg) {
+                            if (msg.IsSuccess) {
+                                layer.msg(msg.ResultInfo, { icon: 1 });
+                            } else {
+                                layer.msg(msg.ResultInfo, { icon: 2});
+                            }
+                            layer.close(index);
+                        }, error: function (msg) {
+                            layer.msg("发送失败！");
+                            layer.close(index);
                         }
-                    }, error: function (msg) {
-                        layer.msg("发送失败！");
-                    }
-                })
+                    })
+                }
             })
         });
         
@@ -35,16 +48,20 @@
 <ul class="layui-form">
     @if (Model.UserInfo.Email.IsNullOrEmpty()||Model.UserInfo.Email.IsEamil().IsFalse())
     {
-    <li class="layui-form-li"> <label for="activate">您的邮箱：</label> <span class="layui-form-text"><em style="color:#c00;">（尚未激活）</em> </span> </li>
+    <li class="layui-form-li"> <label for="activate">您的邮箱：<input id="txtEmail" style="border:1px solid red;padding:5px" type="text" placeholder="请选写邮箱！" /></label>
+     <span class="layui-form-text"><em style="color:#c00;">（尚未激活,激活后别人回复了您的贴子会收到邮件提醒）</em> </span> </li>
     <li class="layui-form-li" style="margin-top: 20px; line-height: 26px;">
         <div>
-            1. <a class="layui-form-a" style="color:#4f99cf; cursor:pointer" id="aActivate" data-url="@Url.Content("~/UserCenter/ActivateMailSend?key="+Server.UrlEncode(Model.UserCode)+"&UserId="+Server.UrlEncode(Model.Now))" email="610262374@qq.com">发送验证邮件</a>，或者
+            <strong> 1.</strong> <a class="layui-form-a" style="color:#f60; cursor:pointer" id="aActivate" data-url="@Url.Content("~/UserCenter/ActivateMailSend?key="+Server.UrlEncode(Model.UserCode)+"&UserId="+Server.UrlEncode(Model.Now))" email="610262374@qq.com">点击并且发送验证邮件</a>
         </div>
+        <br />
         <div>
-            2. 如果您始终没有收到我们发送的邮件，请注意查看您邮箱中的垃圾邮件；
+            <strong> 2.</strong> 如果您始终没有收到我们发送的邮件，请注意查看您邮箱中的垃圾邮件，并标记为不是垃圾；
+            <img width="400" src="~/_theme/img/Mail/mail.png" />
         </div>
+        <br />
         <div>
-            3. 如果你实在无法激活邮件，您还可以联系：610262374@qq.com
+            <strong> 3. </strong>如果你实在无法激活邮件，您还可以联系：610262374@qq.com 手动激活
         </div>
     </li>
     }
