@@ -14,6 +14,7 @@ namespace Infrastructure.Pub
         public const string SessionGetForumsStatistics = "SessionGetForumsStatistics";
         public const string SessionForumsList = "SessionnForumsList";
         public const string SessionBBSRight = "SessionBBSRight";
+        public const string SessionMailTime = "SessionMailTime";
         public const string SessionUpdateUserMail = "SessionRemoveKey";
         public const string UserUniqueKey = "CookeUniqueKey";
         public const string UrlAdminIndex = "AdminSite/DocContent";

@@ -87,6 +87,22 @@ namespace SugarSite.Controllers
             var userIdInt = EncryptSugar.GetInstance().Decrypto(key).ObjToInt();
             var date =EncryptSugar.GetInstance().Decrypto(userId).ObjToDate();
             var model = new ResultModel<string>();
+            if (base.IsLogin == false)
+            {
+                model.ResultInfo = "登录超时请刷新页面重新登录";
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+            var cm = CacheManager<DateTime>.GetInstance();
+            string mailTimeKey = PubConst.SessionMailTime + key.ToLower();
+            if (cm.ContainsKey(mailTimeKey))
+            {
+                var mins = (DateTime.Now - cm[mailTimeKey]).TotalSeconds;
+                if (mins < 60)
+                {
+                    model.ResultInfo = "您刚才已经发送成功，如果还没有收到邮件，请等待{0}秒后重新发送。".ToFormat(Convert.ToUInt32(60 - mins));
+                    return Json(model, JsonRequestBehavior.AllowGet);
+                }
+            }
             _service.Command<HomeOutsourcing>((db, o) =>
             {
                 var isAny=db.Queryable<UserInfo>().Any(it => userIdInt == it.Id);
@@ -105,6 +121,7 @@ namespace SugarSite.Controllers
                     base.AddUpdateMailCache(uniqueKey);
                     model.IsSuccess = true;
                     Check.Exception(ms.Result.IsValuable(), "邮件激活失败！" + ms.Result);
+                    cm.Add(mailTimeKey, DateTime.Now, cm.Minutes);
                 }
                 else {
                     model.ResultInfo = "发送失败";
