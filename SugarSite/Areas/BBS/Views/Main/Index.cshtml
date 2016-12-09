@@ -8,26 +8,30 @@
 @using SyntacticSugar
 @model Infrastructure.ViewModels.BBS.MainResult
 @using Infrastructure.Pub;
+@section meta{
+    <meta name="description" content=".NET开源API之家，如果你有开源项目就加入我们，我们可以提供很好的文档服务">
+    <meta name="keywords" content=".NET开源,.NET ORM,文档园">
+}
 <div class="fly-tab">
     <span>
         @if (Model.Fid > 0)
         {
-        <a style="color:#ccc">
-           <img width="25" src="~/_theme/img/forums/@(Model.Fid).png" />  @((fname == null) ? "全部" : fname.Name)
-        </a>
+            <a style="color:#ccc">
+                <img width="25" src="~/_theme/img/forums/@(Model.Fid).png" />  @((fname == null) ? "全部" : fname.Name)
+            </a>
         }
         <a class="@((Model.OrderBy<=1).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=1">最新</a>
         <a class="@((Model.OrderBy==2).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=2">最新回复</a>
         @if (ViewBag.IsLogin)
         {
-        <a class="@((Model.OrderBy == 3).IIF("tab-this"))"  href="~/Ask/@Model.Fid?orderBy=3">我发</a>
-        <a class="@((Model.OrderBy == 4).IIF("tab-this"))"  href="~/Ask/@Model.Fid?orderBy=4">我回</a>
-        <a class="@((Model.OrderBy == 5).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=5">收藏</a>
+            <a class="@((Model.OrderBy == 3).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=3">我发</a>
+            <a class="@((Model.OrderBy == 4).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=4">我回</a>
+            <a class="@((Model.OrderBy == 5).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=5">收藏</a>
         }
         <a class="@((Model.OrderBy==6).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=6">精华</a>
         <a class="@((Model.OrderBy==7).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=7">公告</a>
     </span>
- 
+
     <a href="/BBS/Main/Ask" class="layui-btn jie-add">发布问题</a>
 </div>
 <ul class="fly-list">
@@ -35,7 +39,8 @@
     {
         foreach (var item in Model.TopicsList)
         {
-            if (item.PosterAvatar.IsNullOrEmpty()) {
+            if (item.PosterAvatar.IsNullOrEmpty())
+            {
                 item.PosterAvatar = Url.Content("~/_theme/default.jpg");
             }
             <li class="fly-list-li">
@@ -45,26 +50,26 @@
                 <h2 class="fly-tip">
                     @if (PubConst.SiteSeoFidList.Contains(item.Fid))
                     {
-                    <a href="~/Ask/@item.Fid/@item.Tid">[@Model.ForumsList.Single(it => it.Fid == item.Fid).Name.Trim()] @item.Title</a>
+                        <a href="~/Ask/@item.Fid/@item.Tid">[@Model.ForumsList.Single(it => it.Fid == item.Fid).Name.Trim()] @item.Title</a>
                     }
                     else
                     {
-                    <a href="~/BBS/Main/Detail/@item.Tid">[@Model.ForumsList.Single(it => it.Fid == item.Fid).Name.Trim()] @item.Title</a>
+                        <a href="~/BBS/Main/Detail/@item.Tid">[@Model.ForumsList.Single(it => it.Fid == item.Fid).Name.Trim()] @item.Title</a>
                     }
                     @*<span class="fly-tip-stick">置顶</span>
                         <span class="fly-tip-jing">精帖</span>*@
                 </h2>
                 <p>
-                    
+
                     @if (Request["orderBy"].IsIn("2", "4"))
                     {
-                       <span><a href="~/BBS/Main/Detail/@item.Tid">@item.Lastposter</a></span>
-                      <span>@DateSugar.DateStringFromNow(item.Lastpost.TryToDate().ToLocalTime())</span>
+                        <span><a href="~/BBS/Main/Detail/@item.Tid">@item.Lastposter</a></span>
+                        <span>@DateSugar.DateStringFromNow(item.Lastpost.TryToDate().ToLocalTime())</span>
                     }
                     else
                     {
-                       <span><a href="~/BBS/Main/Detail/@item.Tid">@item.Poster</a></span>
-                       <span>@DateSugar.DateStringFromNow(item.Postdatetime.TryToDate().ToLocalTime())</span>
+                        <span><a href="~/BBS/Main/Detail/@item.Tid">@item.Poster</a></span>
+                        <span>@DateSugar.DateStringFromNow(item.Postdatetime.TryToDate().ToLocalTime())</span>
                     }
                     <span class="fly-list-hint">
                         <i class="iconfont" title="回答">&#xe60c;</i> @item.Replies
@@ -77,5 +82,5 @@
 </ul>
 @if (Model.PageCount > 10)
 {
- @: @Html.Raw(Model.PageString)
+    @: @Html.Raw(Model.PageString)
 }

@@ -1,0 +1,42 @@
+﻿.syntaxhighlighter td.code .line {
+    font-size: 12px !important;
+}
+
+.syntaxhighlighter .keyword {
+    color: #cc86d4 !important;
+}
+
+.syntaxhighlighter td.code .line {
+    line-height: 1.8 !important;
+}
+
+.top-edit {
+    text-align: right;
+    cursor: pointer;
+}
+
+h1 .layui-btn {
+    font-size: 12px;
+    height: 30px;
+    line-height: 30px;
+    float: right;
+}
+
+.top-edit a {
+    margin-right: 5px;
+    color: #f60;
+}
+
+.my-favorites i {
+    font-size: 25px;
+}
+
+.my-favorites {
+    color: #1E9FFF;
+    cursor: pointer;
+    text-align: center;
+}
+
+    .my-favorites:hover {
+        color: #EE9FFF;
+    }

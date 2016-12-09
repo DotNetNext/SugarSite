@@ -18,50 +18,7 @@
 @using Infrastructure.Pub;
 @section css{
     <link href="~/_theme/ueditor/utf8-net/third-party/SyntaxHighlighter/shCoreDefault.css" rel="stylesheet" />
-    <style>
-        .syntaxhighlighter td.code .line {
-            font-size: 12px !important;
-        }
-
-        .syntaxhighlighter .keyword {
-            color: #cc86d4 !important;
-        }
-
-        .syntaxhighlighter td.code .line {
-            line-height: 1.8 !important;
-        }
-
-        .top-edit {
-            text-align: right;
-            cursor: pointer;
-        }
-
-        h1 .layui-btn {
-            font-size: 12px;
-            height: 30px;
-            line-height: 30px;
-            float: right;
-        }
-
-        .top-edit a {
-            margin-right: 5px;
-            color: #f60;
-        }
-
-        .my-favorites i {
-            font-size: 25px;
-        }
-
-        .my-favorites {
-            color: #1E9FFF;
-            cursor: pointer;
-            text-align: center;
-        }
-
-            .my-favorites:hover {
-                color: #EE9FFF;
-            }
-    </style>
+    <link href="~/_theme/css/bbs-detail.css" rel="stylesheet" />
 }
 @section js{
     <script src="~/_theme/ueditor/utf8-net/ueditor.config.js"></script>
@@ -155,7 +112,6 @@
     </script>
     <script src="~/_theme/ueditor/utf8-net/third-party/SyntaxHighlighter/shCore.js"></script>
     <script type="text/javascript">SyntaxHighlighter.all();</script>
-
 }
 @model Infrastructure.ViewModels.BBS.DetailResult
 <input type="hidden" id="hidLoginUrl" value="@Url.Content("~/Home/Login")" />
@@ -163,7 +119,6 @@
 <input type="hidden" id="hideFid" value="@Model.TopItem.Fid" />
 <div class="content detail" style="width:100%">
     <h1>@Model.PosItem.Title <a id="btnBack" class="layui-btn">返回</a></h1>
-
     <div class="fly-tip fly-detail-hint" data-id="5467">
         <span>@fName</span>
         <div class="fly-list-hint">
@@ -185,7 +140,7 @@
             &#xe600;<label id="favoritesText">@Model.IsFavorites.IIF("取消", "收藏")</label>
         </i>
         <div class="bdsharebuttonbox">
-           <a style="background:none;padding-left: 0;">&nbsp; 分享朋友圈：</a>
+            <a style="background:none;padding-left: 0;">&nbsp; 分享朋友圈：</a>
             <a href="#" class="bds_qzone" data-cmd="qzone"></a>
             <a href="#" class="bds_tsina" data-cmd="tsina"></a>
             <a href="#" class="bds_weixin" data-cmd="weixin"></a>

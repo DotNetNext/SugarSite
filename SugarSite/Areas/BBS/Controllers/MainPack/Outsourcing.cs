@@ -1,4 +1,5 @@
 ﻿using Infrastructure.DbModel;
+using Infrastructure.Pub;
 using SqlSugar;
 using SyntacticSugar;
 using System;
@@ -10,7 +11,7 @@ namespace SugarSite.Areas.BBS.Controllers
 {
     public class MainOutsourcing
     {
-        public BBS_Posts GetPosts(short fid, string content,UserInfo _userInfo,BBS_Topics top)
+        public BBS_Posts GetPosts(short fid, string content, UserInfo _userInfo, BBS_Topics top)
         {
             return new BBS_Posts()
             {
@@ -19,11 +20,11 @@ namespace SugarSite.Areas.BBS.Controllers
                 Posterid = _userInfo.Id,
                 Poster = _userInfo.NickName,
                 Message = content,
-                Postdatetime=DateTime.Now,
-                Title=top.Title,
-                Tid=top.Tid,
-                Lastedit=_userInfo.NickName
-             };
+                Postdatetime = DateTime.Now,
+                Title = top.Title,
+                Tid = top.Tid,
+                Lastedit = _userInfo.NickName
+            };
         }
 
         public BBS_Topics GetTopics(short fid, string title, int rate, UserInfo _userInfo)
@@ -45,13 +46,13 @@ namespace SugarSite.Areas.BBS.Controllers
         /// </summary>
         public enum TopicsSearchType
         {
-            最新=1,
-            最新回复=2,
-            我发=3,
-            我回=4,
-            收藏=5,
-            精华=6,
-            置顶=7
+            最新 = 1,
+            最新回复 = 2,
+            我发 = 3,
+            我回 = 4,
+            收藏 = 5,
+            精华 = 6,
+            置顶 = 7
         }
 
         /// <summary>
@@ -102,7 +103,7 @@ namespace SugarSite.Areas.BBS.Controllers
             }
             else if (orderBy == TopicsSearchType.最新回复.TryToInt() || orderBy == TopicsSearchType.我回.TryToInt())
             {
-                qureyable = qureyable.Where(it=>it.Replies>0).OrderBy(it => it.Lastpost, OrderByType.Desc);
+                qureyable = qureyable.Where(it => it.Replies > 0).OrderBy(it => it.Lastpost, OrderByType.Desc);
             }
             else
             {
@@ -111,5 +112,36 @@ namespace SugarSite.Areas.BBS.Controllers
 
             return qureyable;
         }
+        /// <summary>
+        /// 发送邮件通知
+        /// </summary>
+        /// <param name="isLogin"></param>
+        /// <param name="_userInfo"></param>
+        /// <param name="tid"></param>
+        /// <param name="p"></param>
+        /// <param name="db"></param>
+        internal void SendMail(UserInfo currentUser, int tid, BBS_Posts p, SqlSugarClient db)
+        {
+            var topic = db.Queryable<BBS_Topics>().Single(it => it.Tid == tid);
+            var isOneUser = currentUser.Id == topic.Posterid;
+            //发贴和回贴不是同一个人
+            if (isOneUser.IsFalse())
+            {
+                var toUser = db.Queryable<UserInfo>().Single(it => it.Id == topic.Posterid);
+                if (toUser.Email.IsEamil())
+                {
+                    var html = FileSugar.FileToString(FileSugar.GetMapPath("~/Template/mail/Replies.html")).Replace('\r', ' ').Replace('\n', ' ');
+                    string toUserName = toUser.NickName;
+                    string fromUserName = currentUser.NickName;
+                    string toMail = currentUser.Email;
+                    MailSmtp ms = new MailSmtp(PubGet.GetEmailSmtp, PubGet.GetEmailUserName, PubGet.GetEmailPassword);
+                    string url =RequestInfo.HttpDomain+ "/Ask/{0}/{1}".ToFormat(topic.Fid,topic.Tid);
+                    html = html.ToFormat(toUserName,fromUserName,topic.Title,DateTime.Now,url);
+                    ms.Send(PubGet.GetEmailUserName, PubConst.SiteMailUserName, toMail, fromUserName + "回复了您的贴子："+topic.Title, html);
+                }
+            }
+            //处理@
+        }
     }
+}
 }

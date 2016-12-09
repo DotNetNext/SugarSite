@@ -249,6 +249,9 @@ namespace SugarSite.Areas.BBS.Controllers
                             model.IsSuccess = true;
                             base.RemoveForumsStatisticsCache();
                             db.CommitTran();
+
+                            //发送邮箱提醒
+                            o.SendMail(base._userInfo,tid,p,db);
                         }
                     }
                     catch (Exception ex)
