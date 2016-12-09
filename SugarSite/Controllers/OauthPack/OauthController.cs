@@ -52,6 +52,7 @@ namespace SugarSite.Controllers
                         Uid = user.Id,
                         UniqueKey = uniqueKey
                     };
+                    db.Insert(lh);
                 }
                 catch (Exception ex)
                 {
