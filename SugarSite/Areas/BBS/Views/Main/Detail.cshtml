@@ -150,7 +150,10 @@
     <p class="top-edit">
         @if (isLogin && (user.Id == Model.TopItem.Posterid || user.RoleId != PubEnum.RoleType.User.TryToInt()))
         {
-            <a href="/BBS/Main/Ask?id=@Model.TopItem.Tid">修改</a>
+            if (PubEnum.RoleType.Admin.TryToInt() == user.RoleId || DateSugar.IsSameDay(Model.TopItem.Postdatetime.TryToDate().ToLocalTime(), DateTime.Now))
+            {
+             <a href="/BBS/Main/Ask?id=@Model.TopItem.Tid">修改</a>
+            }
         }
     </p>
     <a name="comment"></a>
