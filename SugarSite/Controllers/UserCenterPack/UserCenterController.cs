@@ -60,6 +60,7 @@ namespace SugarSite.Controllers
         #region api
         public JsonResult ActivateMailSubmit(string key, string userId,string mail)
         {
+            Check.Exception(mail.IsEamil().IsFalse(), "参数不合法");
             var model = new ResultModel<string>();
             _service.Command<HomeOutsourcing>((db, o) =>
             {
@@ -71,6 +72,7 @@ namespace SugarSite.Controllers
                 {
                     model.ResultInfo = "激活成功！";
                     model.IsSuccess = true;
+                    mail = mail.ToLower();
                     db.Update<UserInfo>(new { Email = mail }, it => it.Id == userIdInt);
                     UpdateMailCache(userIdInt,mail);
                 }
@@ -81,9 +83,10 @@ namespace SugarSite.Controllers
             });
             return Json(model,JsonRequestBehavior.AllowGet);
         }
-        public JsonResult ActivateMailSend(string key, string userId,string mail)
+        public JsonResult ActivateMailSend(string key, string userId,string mail)   //命名反的误导黑客
         {
-            //命名反的防止误导黑客
+         
+            Check.Exception(mail.IsEamil().IsFalse(),"参数不合法");
             var userIdInt = EncryptSugar.GetInstance().Decrypto(key).ObjToInt();
             var date =EncryptSugar.GetInstance().Decrypto(userId).ObjToDate();
             var model = new ResultModel<string>();
@@ -105,17 +108,18 @@ namespace SugarSite.Controllers
             }
             _service.Command<HomeOutsourcing>((db, o) =>
             {
-                var isAny=db.Queryable<UserInfo>().Any(it => userIdInt == it.Id);
+                var isAnyUser=db.Queryable<UserInfo>().Any(it => userIdInt == it.Id);
                 var isOkDate = ((DateTime.Now - date).TotalDays<=3);
-                if (isAny && isOkDate)
+                var isAnyMail = db.Queryable<UserInfo>().Any(it => mail.ToLower() == it.Email);
+                if (isAnyUser && isOkDate && isAnyMail.IsFalse())
                 {
-                    var html=FileSugar.FileToString(FileSugar.GetMapPath("~/Template/mail/Validate.html")).Replace('\r', ' ').Replace('\n', ' ');
+                    var html = FileSugar.FileToString(FileSugar.GetMapPath("~/Template/mail/Validate.html")).Replace('\r', ' ').Replace('\n', ' ');
                     string userName = _userInfo.NickName;
-                    string aHtml = "<a href=\"{0}\">{1}</a>".ToFormat(RequestInfo.HttpDomain+""+Url.Action("ActivateMailSubmit", "UserCenter", new { key=key,userId=userId,mail}),"请点击这儿完成激活");
+                    string aHtml = "<a href=\"{0}\">{1}</a>".ToFormat(RequestInfo.HttpDomain + "" + Url.Action("ActivateMailSubmit", "UserCenter", new { key = key, userId = userId, mail }), "请点击这儿完成激活");
                     string dateString = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    MailSmtp ms = new MailSmtp(PubGet.GetEmailSmtp,PubGet.GetEmailUserName,PubGet.GetEmailPassword);
+                    MailSmtp ms = new MailSmtp(PubGet.GetEmailSmtp, PubGet.GetEmailUserName, PubGet.GetEmailPassword);
                     html = html.ToFormat(userName, aHtml, dateString);
-                    ms.Send(PubGet.GetEmailUserName, PubConst.SiteMailUserName,mail,userName+"邮箱激活通知", html);
+                    ms.Send(PubGet.GetEmailUserName, PubConst.SiteMailUserName, mail, userName + "邮箱激活通知", html);
                     model.ResultInfo = "发送成功，请打开邮箱完成激活！";
                     string uniqueKey = PubGet.GetUserKey;
                     base.AddUpdateMailCache(uniqueKey);
@@ -123,7 +127,11 @@ namespace SugarSite.Controllers
                     Check.Exception(ms.Result.IsValuable(), "邮件激活失败！" + ms.Result);
                     cm.Add(mailTimeKey, DateTime.Now, cm.Minutes);
                 }
-                else {
+                else if (isAnyMail) {
+                    model.ResultInfo = "发送失败，该邮箱已经被激活，或已经存在。";
+                }
+                else
+                {
                     model.ResultInfo = "发送失败";
                 }
             });
