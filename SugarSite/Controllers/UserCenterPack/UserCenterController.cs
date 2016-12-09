@@ -51,8 +51,14 @@ namespace SugarSite.Controllers
             return View(model);
         }
 
-        public ActionResult ActivateMailSubmitSuccess(string key ,string userId)
+        public ActionResult ActivateMailSubmitSuccess(string key, string userId, string mail)
         {
+            var model = new ResultModel<string>();
+            _service.Command<UserCenterOutsourcing, ResultModel<string>>((o, api) =>
+            {
+                model = api.Get(Url.Action("ActivateMailSubmit"), new { key=key,userId=userId,mail=mail });
+                ViewBag.Message = model.ResultInfo;
+            });
             return View();
         }
         #endregion
@@ -70,7 +76,7 @@ namespace SugarSite.Controllers
                 var isOkDate = ((DateTime.Now - date).TotalDays <= 3);
                 if (isAny && isOkDate)
                 {
-                    model.ResultInfo = "激活成功！";
+                    model.ResultInfo = "激活成功,请刷新你的页面！";
                     model.IsSuccess = true;
                     mail = mail.ToLower();
                     db.Update<UserInfo>(new { Email = mail }, it => it.Id == userIdInt);
@@ -115,7 +121,7 @@ namespace SugarSite.Controllers
                 {
                     var html = FileSugar.FileToString(FileSugar.GetMapPath("~/Template/mail/Validate.html")).Replace('\r', ' ').Replace('\n', ' ');
                     string userName = _userInfo.NickName;
-                    string aHtml = "<a href=\"{0}\">{1}</a>".ToFormat(RequestInfo.HttpDomain + "" + Url.Action("ActivateMailSubmit", "UserCenter", new { key = key, userId = userId, mail }), "请点击这儿完成激活");
+                    string aHtml = "<a href=\"{0}\">{1}</a>".ToFormat(RequestInfo.HttpDomain + "" + Url.Action("ActivateMailSubmitSuccess", "UserCenter", new { key = key, userId = userId, mail }), "请点击这儿完成激活");
                     string dateString = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     MailSmtp ms = new MailSmtp(PubGet.GetEmailSmtp, PubGet.GetEmailUserName, PubGet.GetEmailPassword);
                     html = html.ToFormat(userName, aHtml, dateString);
