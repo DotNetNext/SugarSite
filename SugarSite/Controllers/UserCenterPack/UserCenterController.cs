@@ -193,7 +193,7 @@ namespace SugarSite.Controllers
                         imgObj.CreateSmallPhoto(savePath, 100, 100, smallPath);//生成缩略图
                         FileSugar.DeleteFile(savePath);
                         FileSugar.Move(smallPath, savePath);
-                        db.Update<UserInfo>(new { avatar = webPath }, it => it.Id == _userInfo.Id);
+                        db.Update<UserInfo>(new { avatar = webPath+"?r="+RandomSugar.GetRandomNum(5) }, it => it.Id == _userInfo.Id);
                         RestCurrentUserCache();
                     }
                 });
