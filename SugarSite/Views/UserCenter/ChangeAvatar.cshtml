@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "修改头像";
+    Layout = "~/Views/Shared/_Layout_BBS.cshtml";
+    UserInfo user = ViewBag.User;
+    if (user != null && user.Avatar.IsNullOrEmpty())
+    {
+        user.Avatar = Url.Content("~/_theme/default.jpg");
+    }
+}
+@using Infrastructure.DbModel
+@using SyntacticSugar
+@section js{
+    <script>
+        layui.use(['upload', "ejq"], function () {
+            var $ = layui.ejq;
+            layui.upload({
+                url: $.action.urlContent("UserCenter/UploadAvatar"),  //上传接口
+                success: function (msg) { //上传成功后的回调
+                    imgAvatar.src = msg.ResultInfo;
+                }
+            });
+        });
+    </script>
+
+}
+<div class="main layui-clear">
+    <h2 class="page-title">用心中心</h2>
+    <div class="wrap">
+        <div class="content">
+            <div class="fly-msg">账号设置</div>
+            <div class="fly-tab user-tab">
+                <span id="LAY-mine">
+                    <a href="/UserCenter">我的主页</a>
+                    <a class="tab-this" href="/UserCenter/ChangeAvatar">修改头像</a>
+                </span>
+            </div>
+            <div class="user-mine">
+                <div class="site-demo-upload">
+                    <img id="imgAvatar" src="@user.Avatar">
+                    <div class="site-demo-upbar">
+                        <input type="file" name="file" class="layui-upload-file" id="test">
+                    </div>
+                </div>
+            </div>
+            <div id="LAY-page"></div>
+        </div>
+    </div>
+    <div class="edge">
+        <div class="user-about">
+
+        </div>
+    </div>
+</div>

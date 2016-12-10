@@ -77,7 +77,17 @@ namespace SugarSite
             }
             cm.Add(key, list, cm.Day * 365);
         }
-
+        public void RestCurrentUserCache() {
+            string uniqueKey = PubGet.GetUserKey;
+            var cm = CacheManager<UserInfo>.GetInstance();
+            if (cm.ContainsKey(uniqueKey)) {
+                _service.Command<BaseOutsourcing>((db, o) =>
+                {
+                    var user = db.Queryable<UserInfo>().InSingle(_userInfo.Id);
+                    cm.Add(uniqueKey, user, cm.Day);
+                });
+            }
+        }
         public void UpdateMailCache(int userId,string mail)
         {
             var cm = CacheManager<List<string>>.GetInstance();

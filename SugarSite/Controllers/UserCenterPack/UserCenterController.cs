@@ -27,6 +27,15 @@ namespace SugarSite.Controllers
             return View();
         }
 
+        public ActionResult ChangeAvatar()
+        {
+            if (base.IsLogin == false)
+            {
+                return this.Redirect("~/Ask");
+            }
+            return View();
+        }
+
         public ActionResult ActivateMail()
         {
             if (base.IsLogin == false)
@@ -56,7 +65,7 @@ namespace SugarSite.Controllers
             var model = new ResultModel<string>();
             _service.Command<UserCenterOutsourcing, ResultModel<string>>((o, api) =>
             {
-                model = api.Get(Url.Action("ActivateMailSubmit"), new { key=key,userId=userId,mail=mail });
+                model = api.Get(Url.Action("ActivateMailSubmit"), new { key = key, userId = userId, mail = mail });
                 ViewBag.Message = model.ResultInfo;
             });
             return View();
@@ -64,7 +73,7 @@ namespace SugarSite.Controllers
         #endregion
 
         #region api
-        public JsonResult ActivateMailSubmit(string key, string userId,string mail)
+        public JsonResult ActivateMailSubmit(string key, string userId, string mail)
         {
             Check.Exception(mail.IsEamil().IsFalse(), "参数不合法");
             var model = new ResultModel<string>();
@@ -80,21 +89,21 @@ namespace SugarSite.Controllers
                     model.IsSuccess = true;
                     mail = mail.ToLower();
                     db.Update<UserInfo>(new { Email = mail }, it => it.Id == userIdInt);
-                    UpdateMailCache(userIdInt,mail);
+                    UpdateMailCache(userIdInt, mail);
                 }
                 else
                 {
                     model.ResultInfo = "激活失败，请重新发送邮箱验证或者联系管理员 610262374@qq.com 。";
                 }
             });
-            return Json(model,JsonRequestBehavior.AllowGet);
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult ActivateMailSend(string key, string userId,string mail)   //命名反的误导黑客
+        public JsonResult ActivateMailSend(string key, string userId, string mail)   //命名反的误导黑客
         {
-         
-            Check.Exception(mail.IsEamil().IsFalse(),"参数不合法");
+
+            Check.Exception(mail.IsEamil().IsFalse(), "参数不合法");
             var userIdInt = EncryptSugar.GetInstance().Decrypto(key).ObjToInt();
-            var date =EncryptSugar.GetInstance().Decrypto(userId).ObjToDate();
+            var date = EncryptSugar.GetInstance().Decrypto(userId).ObjToDate();
             var model = new ResultModel<string>();
             if (base.IsLogin == false)
             {
@@ -114,8 +123,8 @@ namespace SugarSite.Controllers
             }
             _service.Command<HomeOutsourcing>((db, o) =>
             {
-                var isAnyUser=db.Queryable<UserInfo>().Any(it => userIdInt == it.Id);
-                var isOkDate = ((DateTime.Now - date).TotalDays<=3);
+                var isAnyUser = db.Queryable<UserInfo>().Any(it => userIdInt == it.Id);
+                var isOkDate = ((DateTime.Now - date).TotalDays <= 3);
                 var isAnyMail = db.Queryable<UserInfo>().Any(it => mail.ToLower() == it.Email);
                 if (isAnyUser && isOkDate && isAnyMail.IsFalse())
                 {
@@ -133,7 +142,8 @@ namespace SugarSite.Controllers
                     Check.Exception(ms.Result.IsValuable(), "邮件激活失败！" + ms.Result);
                     cm.Add(mailTimeKey, DateTime.Now, cm.Minutes);
                 }
-                else if (isAnyMail) {
+                else if (isAnyMail)
+                {
                     model.ResultInfo = "发送失败，该邮箱已经被激活，或已经存在。";
                 }
                 else
@@ -141,7 +151,54 @@ namespace SugarSite.Controllers
                     model.ResultInfo = "发送失败";
                 }
             });
-            return Json(model,JsonRequestBehavior.AllowGet);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UploadAvatar()
+        {
+            ResultModel<string> model = new ResultModel<string>();
+            if (base.IsLogin.IsFalse())
+            {
+                model.ResultInfo = "您还没有登录！";
+                return Json(model);
+            }
+            try
+            {
+                _service.Command<UserCenterOutsourcing>((db, o) =>
+                {
+                    var imgObj = new UploadImage();
+                    var file = Request.Files[0];
+                    if (file.ContentLength / 1024.0 / 1024.0 > 1)
+                    {
+                        model.ResultInfo = "上传图片不能超过一M！";
+                    }
+                    else if (file.ContentType.IsIn("image/png", "image/gif", "image/jpg", "image/jpeg").IsFalse())
+                    {
+                        model.ResultInfo = "上传失败，您的图片不是PNG GIF JPG 格式！";
+                    }
+                    else
+                    {
+                        model.IsSuccess = true;
+                        string webPath = "/_theme/img/avatar" + _userInfo.Id + ".jpg";
+                        string savePath = FileSugar.GetMapPath("~" + webPath);
+                        string smallPath = FileSugar.GetMapPath("~/_theme/img/_avatar" + _userInfo.Id + ".jpg");
+                        file.SaveAs(savePath);
+                        model.ResultInfo = Url.Content("~/" + webPath) + "?r=" + Guid.NewGuid();
+                        imgObj.CreateSmallPhoto(savePath, 100, 100, smallPath);//生成缩略图
+                        FileSugar.DeleteFile(savePath);
+                        FileSugar.Move(smallPath, savePath);
+                        db.Update<UserInfo>(new { avatar = webPath }, it => it.Id == _userInfo.Id);
+                        RestCurrentUserCache();
+                    }
+                });
+                return Json(model);
+            }
+            catch (Exception ex)
+            {
+                PubMethod.WirteExp(ex);
+                model.ResultInfo = "上传失败！";
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetPublicInfo(int id)
