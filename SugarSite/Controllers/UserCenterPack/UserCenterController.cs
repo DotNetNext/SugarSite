@@ -206,6 +206,7 @@ namespace SugarSite.Controllers
             var model = new ResultModel<PubUserResult>();
             _service.Command<HomeOutsourcing>((db, o) =>
             {
+                o.InsertVisitor(base.IsLogin,id, db,_userInfo);
                 model.ResultInfo = new PubUserResult();
                 model.ResultInfo.UserInfo = db.Queryable<UserInfo>().InSingle(id);
                 //最新发布

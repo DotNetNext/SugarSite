@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Infrastructure.DbModel;
+using SqlSugar;
 
 namespace SugarSite.Controllers
 {
@@ -28,6 +30,21 @@ namespace SugarSite.Controllers
             sm.Add(PubConst.SessionVerifyCode, value);
             //输出图片
             v.OutputImage(System.Web.HttpContext.Current.Response);
+        }
+
+        public void InsertVisitor(bool isLogin,int id, SqlSugarClient db, UserInfo user)
+        {
+            if (isLogin&&user.Id!=id)
+            {
+                db.Delete<VisitorList>(it => it.Uid == id && it.VisitorId == user.Id);//删除历史
+                VisitorList v = new VisitorList()
+                {
+                    CreateDate = DateTime.Now,
+                    Uid = id,
+                    VisitorId = user.Id
+                };
+                db.Insert(v);
+            }
         }
     }
 }
