@@ -8,9 +8,11 @@
         user.Avatar = Url.Content("~/_theme/default.jpg");
     }
 }
+@model IndexResult
 @using SyntacticSugar
 @using Infrastructure.DbModel
 @using Infrastructure.Pub
+@using Infrastructure.ViewModels.UserCenter
 <div class="main layui-clear">
     <h2 class="page-title">用心中心</h2>
     <div class="wrap">
@@ -18,10 +20,11 @@
             <div class="fly-msg">
                 @if (user == null || user.Email.IsNullOrEmpty())
                 {
-                   @: 您的邮箱尚未验证，激活后别人回复了您的贴子我们会发邮件提醒你哦，
-                <a href="~/UserCenter/ActivateMail">立即去激活？</a>
+                    @: 您的邮箱尚未验证，激活后别人回复了您的贴子我们会发邮件提醒你哦，
+                    <a href="~/UserCenter/ActivateMail">立即去激活？</a>
                 }
-                else {
+                else
+                {
                     @:你的邮箱 @user.Email 已经激活
                 }
             </div>
@@ -51,13 +54,28 @@
             <div class="user-looklog" style="padding-bottom:200px;">
                 <h3>最近访客</h3>
                 <span>
-                    <a href="/u/168">
-                        <img src="http://fly.layui.com/avatar/168.jpg" />
-                        <cite>贤心</cite> <i>刚刚</i>
-                    </a>
+                    @if (Model.VList.IsValuable())
+                    {
+                        foreach (var item in Model.VList)
+                        {
+                            if (item.VisAvatar.IsNullOrEmpty())
+                            {
+                                item.VisAvatar = Url.Content("~/_theme/default.jpg");
+                            }
+                            <a href="~/UserCenter/PublicInfo?id=@item.VisitorId">
+                                <img src="@item.VisAvatar" />
+                                <cite>@item.VisName</cite> <i>@DateSugar.DateStringFromNow(item.CreateDate.ToLocalTime())</i>
+                            </a>
+                        }
+                    }
+                    else
+                    {
+                        <div class="fly-msg">
+                            没有相关数据
+                        </div>
+                    }
                 </span>
             </div>
         </div>
     </div>
 </div>
-
