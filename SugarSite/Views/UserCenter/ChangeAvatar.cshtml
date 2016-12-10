@@ -18,6 +18,7 @@
                 url: $.action.urlContent("UserCenter/UploadAvatar"),  //上传接口
                 success: function (msg) { //上传成功后的回调
                     imgAvatar.src = msg.ResultInfo;
+                    $(".avatar img").attr("src", imgAvatar.src);
                 }
             });
         });

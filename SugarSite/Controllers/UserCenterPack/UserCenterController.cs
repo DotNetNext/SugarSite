@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using SqlSugar;
 using SyntacticSugar;
 using Infrastructure.Pub;
+using Infrastructure.ViewModels.Views;
 
 namespace SugarSite.Controllers
 {
@@ -24,7 +25,12 @@ namespace SugarSite.Controllers
             {
                 return this.Redirect("~/Ask");
             }
-            return View();
+            IndexResult model = new IndexResult();
+            _service.Command<IndexResult, ResultModel<IndexResult>>((db,api) =>
+            {
+                model = api.Get(Url.Action("GetIndexModel"),null).ResultInfo;
+            });
+            return View(model);
         }
 
         public ActionResult ChangeAvatar()
@@ -206,7 +212,7 @@ namespace SugarSite.Controllers
             var model = new ResultModel<PubUserResult>();
             _service.Command<HomeOutsourcing>((db, o) =>
             {
-                o.InsertVisitor(base.IsLogin,id, db,_userInfo);
+                o.InsertVisitor(base.IsLogin, id, db, _userInfo);
                 model.ResultInfo = new PubUserResult();
                 model.ResultInfo.UserInfo = db.Queryable<UserInfo>().InSingle(id);
                 //最新发布
@@ -230,6 +236,30 @@ namespace SugarSite.Controllers
                        .ToList();
                     }
                 }
+            });
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetIndexModel()
+        {
+            var model = new ResultModel<IndexResult>();
+            _service.Command<IndexResult>((db, o) =>
+            {
+                db.CurrentFilterKey = null;//无假删除不需要走过滤器
+                IndexResult res = new IndexResult();
+                res.VList = db.Queryable<VisitorList>()
+                .JoinTable<UserInfo>((v, u) => v.VisitorId == u.Id)
+                .OrderBy(v => v.VisitorId).Take(12)
+                .Where(v=>v.Uid==_userInfo.Id)
+                .Select<UserInfo, V_VisitorList>((v, u) => new V_VisitorList()
+                {
+                    VisitorId = v.VisitorId,
+                    VisAvatar = u.Avatar,
+                    VisName = u.NickName,
+                    CreateDate = v.CreateDate,
+                    Uid = v.Uid
+                }).ToList();
+                model.ResultInfo = res;
             });
             return Json(model, JsonRequestBehavior.AllowGet);
         }
