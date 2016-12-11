@@ -16,20 +16,26 @@ namespace Infrastructure.Pub
                 var logPath = FileSugar.MergeUrl(
                        FileSugar.GetMapPath("~/"),
                        "log",
-                       DateTime.Now.ToString("yyyy-MM-dd")+".txt"
+                       DateTime.Now.ToString("yyyy-MM-dd") + ".txt"
                        );
-                if (FileSugar.IsExistFile(logPath).IsFalse()) {
+                if (FileSugar.IsExistFile(logPath).IsFalse())
+                {
                     FileSugar.CreateFile(logPath);
                 }
                 FileSugar.AppendText(logPath, "***********{0}{1}***********".ToFormat("开始:", DateTime.Now));
                 FileSugar.AppendText(logPath, ex.Message);
                 FileSugar.AppendText(logPath, "***********{0}***********\r\n".ToFormat("结束"));
             }
-            catch 
+            catch
             {
 
             }
         }
 
+        public static string RemoveAllSpace(string str)
+        {
+            if (str.IsNullOrEmpty()) return str;
+            return str.Trim().Replace(" ", "_");
+        }
     }
 }

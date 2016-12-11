@@ -138,7 +138,8 @@ namespace SugarSite.Areas.BBS.Controllers
                     MailSmtp ms = new MailSmtp(PubGet.GetEmailSmtp, PubGet.GetEmailUserName, PubGet.GetEmailPassword);
                     string url =RequestInfo.HttpDomain+ "/Ask/{0}/{1}#btnSubmit".ToFormat(topic.Fid,topic.Tid);
                     html = html.ToFormat(toUserName,fromUserName,topic.Title,DateTime.Now,url);
-                    ms.Send(PubGet.GetEmailUserName, PubConst.SiteMailUserName, toMail, fromUserName + "回复了您的贴子："+topic.Title.Trim(), html);
+                    var title = PubMethod.RemoveAllSpace(fromUserName + "回复了您的贴子：" + topic.Title);
+                    ms.Send(PubGet.GetEmailUserName, PubConst.SiteMailUserName, toMail,title, html);
                 }
             }
 
@@ -160,7 +161,8 @@ namespace SugarSite.Areas.BBS.Controllers
                             MailSmtp ms = new MailSmtp(PubGet.GetEmailSmtp, PubGet.GetEmailUserName, PubGet.GetEmailPassword);
                             string url = RequestInfo.HttpDomain + "/Ask/{0}/{1}#btnSubmit".ToFormat(topic.Fid, topic.Tid);
                             html = html.ToFormat(toUserName, fromUserName, p.Message, DateTime.Now, url);
-                            ms.Send(PubGet.GetEmailUserName, PubConst.SiteMailUserName, toMail, fromUserName + "在【" + topic.Title.TryToString().Trim() + "】@了你", html);
+                            var title = PubMethod.RemoveAllSpace(fromUserName + "在【" + topic.Title.TryToString().Trim() + "】@了你");
+                            ms.Send(PubGet.GetEmailUserName, PubConst.SiteMailUserName, toMail,title, html);
                         }
                     }
                 }
