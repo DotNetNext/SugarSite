@@ -139,7 +139,7 @@ namespace SugarSite.Areas.BBS.Controllers
                     MailSmtp ms = new MailSmtp(PubGet.GetEmailSmtp, PubGet.GetEmailUserName, PubGet.GetEmailPassword);
                     string url =RequestInfo.HttpDomain+ "/Ask/{0}/{1}#btnSubmit".ToFormat(topic.Fid,topic.Tid);
                     html = html.ToFormat(toUserName,fromUserName,topic.Title,DateTime.Now,url);
-                    var title = PubMethod.RemoveAllSpace(fromUserName + "回复了您的贴子：" + topic.Title);
+                    var title = PubMethod.RemoveAllSpace(fromUserName + "回复了：" +StringSugar.ToCutString(topic.Title,10,"..."));
                     ms.Send(PubGet.GetEmailUserName, PubConst.SiteMailUserName, toMail,title, html);
                     System.Threading.Thread.Sleep(100);
                 }
