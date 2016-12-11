@@ -5,6 +5,7 @@ using SyntacticSugar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace SugarSite.Areas.BBS.Controllers
@@ -124,13 +125,13 @@ namespace SugarSite.Areas.BBS.Controllers
         {
             var topic = db.Queryable<BBS_Topics>().Single(it => it.Tid == tid);
             var isOneUser = currentUser.Id == topic.Posterid;
+            var html = FileSugar.FileToString(FileSugar.GetMapPath("~/Template/mail/Replies.html")).Replace('\r', ' ').Replace('\n', ' ');
             //发贴和回贴不是同一个人
             if (isOneUser.IsFalse())
             {
                 var toUser = db.Queryable<UserInfo>().Single(it => it.Id == topic.Posterid);
                 if (toUser.Email.IsEamil())
                 {
-                    var html = FileSugar.FileToString(FileSugar.GetMapPath("~/Template/mail/Replies.html")).Replace('\r', ' ').Replace('\n', ' ');
                     string toUserName = toUser.NickName;
                     string fromUserName = currentUser.NickName;
                     string toMail = toUser.Email;
@@ -140,7 +141,27 @@ namespace SugarSite.Areas.BBS.Controllers
                     ms.Send(PubGet.GetEmailUserName, PubConst.SiteMailUserName, toMail, fromUserName + "回复了您的贴子："+topic.Title.Trim(), html);
                 }
             }
+
             //处理@
+            if (p.Message.IsValuable() && p.Message.Contains("@")) {
+                var adUserIds = db.Queryable<BBS_Posts>().Where(it => it.Tid == tid && it.Parentid > 0).Select(it => it.Posterid).ToList();
+                var adUsers = db.Queryable<UserInfo>().In(adUserIds).ToList();
+                var matchUsers = Regex.Matches(p.Message, @"\<span style\=""color:#4f99cf""\>@(.+?)\<\/span\>");
+                if (matchUsers != null && matchUsers.Count > 0) {
+                    var userNames = matchUsers.Cast<Match>().Select(it => it.Value).ToList();
+                    adUsers=adUsers.Where(it => userNames.Contains(it.NickName)).ToList();
+                    foreach (var item in adUsers)
+                    {
+                        string toUserName = item.NickName;
+                        string fromUserName = currentUser.NickName;
+                        string toMail = item.Email;
+                        MailSmtp ms = new MailSmtp(PubGet.GetEmailSmtp, PubGet.GetEmailUserName, PubGet.GetEmailPassword);
+                        string url = RequestInfo.HttpDomain + "/Ask/{0}/{1}#btnSubmit".ToFormat(topic.Fid, topic.Tid);
+                        html = html.ToFormat(toUserName, fromUserName, topic.Title, DateTime.Now, url);
+                        ms.Send(PubGet.GetEmailUserName, PubConst.SiteMailUserName, toMail, fromUserName + "回复了：<br>" +p.Message, html);
+                    }
+                }
+            }
         }
     }
 
