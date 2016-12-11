@@ -148,17 +148,20 @@ namespace SugarSite.Areas.BBS.Controllers
                 var adUsers = db.Queryable<UserInfo>().In(adUserIds).ToList();
                 var matchUsers = Regex.Matches(p.Message, @"\<span style\=""color:#4f99cf""\>@(.+?)\<\/span\>");
                 if (matchUsers != null && matchUsers.Count > 0) {
-                    var userNames = matchUsers.Cast<Match>().Select(it => it.Value).ToList();
+                    var userNames = matchUsers.Cast<Match>().Select(it => it.Groups[1].Value).ToList();
                     adUsers=adUsers.Where(it => userNames.Contains(it.NickName)).ToList();
                     foreach (var item in adUsers)
                     {
-                        string toUserName = item.NickName;
-                        string fromUserName = currentUser.NickName;
-                        string toMail = item.Email;
-                        MailSmtp ms = new MailSmtp(PubGet.GetEmailSmtp, PubGet.GetEmailUserName, PubGet.GetEmailPassword);
-                        string url = RequestInfo.HttpDomain + "/Ask/{0}/{1}#btnSubmit".ToFormat(topic.Fid, topic.Tid);
-                        html = html.ToFormat(toUserName, fromUserName, topic.Title, DateTime.Now, url);
-                        ms.Send(PubGet.GetEmailUserName, PubConst.SiteMailUserName, toMail, fromUserName + "回复了：<br>" +p.Message, html);
+                        if (item.Email.IsValuable() && item.Id != currentUser.Id)
+                        {
+                            string toUserName = item.NickName;
+                            string fromUserName = currentUser.NickName;
+                            string toMail = item.Email;
+                            MailSmtp ms = new MailSmtp(PubGet.GetEmailSmtp, PubGet.GetEmailUserName, PubGet.GetEmailPassword);
+                            string url = RequestInfo.HttpDomain + "/Ask/{0}/{1}#btnSubmit".ToFormat(topic.Fid, topic.Tid);
+                            html = html.ToFormat(toUserName, fromUserName, p.Message, DateTime.Now, url);
+                            ms.Send(PubGet.GetEmailUserName, PubConst.SiteMailUserName, toMail, fromUserName + "在【" + topic.Title.TryToString().Trim() + "】@了你", html);
+                        }
                     }
                 }
             }
