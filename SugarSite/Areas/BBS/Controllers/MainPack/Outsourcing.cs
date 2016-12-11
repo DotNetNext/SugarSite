@@ -126,6 +126,7 @@ namespace SugarSite.Areas.BBS.Controllers
             var topic = db.Queryable<BBS_Topics>().Single(it => it.Tid == tid);
             var isOneUser = currentUser.Id == topic.Posterid;
             var html = FileSugar.FileToString(FileSugar.GetMapPath("~/Template/mail/Replies.html")).Replace('\r', ' ').Replace('\n', ' ');
+            var oldHtml = html;
             //发贴和回贴不是同一个人
             if (isOneUser.IsFalse())
             {
@@ -140,9 +141,10 @@ namespace SugarSite.Areas.BBS.Controllers
                     html = html.ToFormat(toUserName,fromUserName,topic.Title,DateTime.Now,url);
                     var title = PubMethod.RemoveAllSpace(fromUserName + "回复了您的贴子：" + topic.Title);
                     ms.Send(PubGet.GetEmailUserName, PubConst.SiteMailUserName, toMail,title, html);
+                    System.Threading.Thread.Sleep(100);
                 }
             }
-
+            html = oldHtml;
             //处理@
             if (p.Message.IsValuable() && p.Message.Contains("@")) {
                 var adUserIds = db.Queryable<BBS_Posts>().Where(it => it.Tid == tid && it.Parentid > 0).Select(it => it.Posterid).ToList();
@@ -163,6 +165,7 @@ namespace SugarSite.Areas.BBS.Controllers
                             html = html.ToFormat(toUserName, fromUserName, p.Message, DateTime.Now, url);
                             var title = PubMethod.RemoveAllSpace(fromUserName + "在【" + topic.Title.TryToString().Trim() + "】@了你");
                             ms.Send(PubGet.GetEmailUserName, PubConst.SiteMailUserName, toMail,title, html);
+                            System.Threading.Thread.Sleep(100);
                         }
                     }
                 }
