@@ -47,3 +47,15 @@ body .syntaxhighlighter td.code .line {
     line-height: 1.8 !important;
 }
 body .fly-list-one li{/* margin: 0 10px; */text-align: left !important;}
+
+@media screen and (max-width: 750px) {
+    body a.avatar {
+       display:block !important;
+       position: absolute;
+       right: 80px;
+       top: -6px;
+    }
+    body a.avatar cite {
+       display:none !important
+    }
+}

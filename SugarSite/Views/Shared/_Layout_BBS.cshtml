@@ -25,7 +25,7 @@
     <link href="~/_theme/layui-v1.0.3/layui/css/layui.css?v=1" rel="stylesheet" />
     <link href="~/_theme/layui-v1.0.3/layui/css/global.css?v=1" rel="stylesheet" />
     @RenderSection("css", false)
-    <link href="~/_theme/css/bbs.css" rel="stylesheet" />
+    <link href="~/_theme/css/bbs.css?v=1" rel="stylesheet" />
 </head>
 <body>
     <input id="HidUrlAction" name="HidUrlAction" value="@Url.Action("/")" type="hidden" />
@@ -203,13 +203,12 @@
     <div class="footer">
         <p>
             <a href="@Url.Content("/ask")">文档园</a>
-            2016 &copy; <a href="@Url.Content("/")">CodeIsBug.com</a> <a href="https://github.com/sunkaixuan/" target="_blank">作者更多开源</a>
+            2016 &copy; <a href="@Url.Content("/")">CodeIsBug.com</a> <a href="https://github.com/sunkaixuan/" target="_blank">更多开源</a>
         </p>  <p>
             <a href="/" target="_blank">产品授权</a>
             <a href="/" target="_blank">VIP说明</a>
             <a href="/" target="_blank">商务合作</a>
             <a href="/" target="_blank" rel="nofollow">微博</a>
-            <a href="/" target="_blank">微信公众号</a>
         </p>
     </div>
     <script src="~/_theme/layui-v1.0.3/layui/layui.js"></script>
