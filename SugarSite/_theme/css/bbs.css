@@ -78,6 +78,9 @@ body .fly-list-one li { /* margin: 0 10px; */
     body .jie-add {
         float: right !important;
     }
+    body .pagination .page_number{
+        display:none
+    }
 }
 @media screen and (max-width: 350px) {
     body .search-category span a {

@@ -38,8 +38,8 @@
       <HintPath>..\packages\sqlSugar.3.5.3.1\lib\net40\SqlSugar.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SyntacticSugar, Version=2.0.1.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SyntacticSugar.2.2.0\lib\net40\SyntacticSugar.dll</HintPath>
+    <Reference Include="SyntacticSugar, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SyntacticSugar.2.4.0\lib\net40\SyntacticSugar.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
