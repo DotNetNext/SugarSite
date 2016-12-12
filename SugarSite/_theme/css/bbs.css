@@ -81,6 +81,12 @@ body .fly-list-one li { /* margin: 0 10px; */
     body .pagination .page_number{
         display:none
     }
+    body .pagination {
+      text-align:center !important
+    }
+     body .pagination span{
+         display:none
+     }
 }
 @media screen and (max-width: 350px) {
     body .search-category span a {
