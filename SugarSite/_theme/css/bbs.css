@@ -46,16 +46,42 @@ body .syntaxhighlighter .keyword {
 body .syntaxhighlighter td.code .line {
     line-height: 1.8 !important;
 }
-body .fly-list-one li{/* margin: 0 10px; */text-align: left !important;}
+
+body .fly-list-one li { /* margin: 0 10px; */
+    text-align: left !important;
+}
 
 @media screen and (max-width: 750px) {
     body a.avatar {
-       display:block !important;
-       position: absolute;
-       right: 80px;
-       top: -6px;
+        display: block !important;
+        position: absolute;
+        right: 80px;
+        top: -6px;
     }
+
     body a.avatar cite {
-       display:none !important
+            display: none !important;
+    }
+
+    body .search-category {
+        display:block !important
+    }
+
+    body .search-category span {
+          
+    }
+
+    body .search-category span a {
+          padding: 1px 6px !important;
+          font-size:12px;
+    }
+    body .jie-add {
+        float: right !important;
+    }
+}
+@media screen and (max-width: 350px) {
+    body .search-category span a {
+          padding: 1px 3px !important;
+          font-size:11px;
     }
 }

@@ -12,14 +12,9 @@
     <meta name="description" content=".NET开源API之家，如果你有开源项目就加入我们，我们可以提供很好的文档服务">
     <meta name="keywords" content=".NET开源,.NET ORM,文档园">
 }
-<div class="fly-tab">
+<div class="fly-tab search-category">
     <span>
-        @if (Model.Fid > 0)
-        {
-            <a style="color:#ccc">
-                <img width="25" src="~/_theme/img/forums/@(Model.Fid).png" />  @((fname == null) ? "全部" : fname.Name)
-            </a>
-        }
+           
         <a class="@((Model.OrderBy<=1).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=1">最新</a>
         <a class="@((Model.OrderBy==2).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=2">最新回复</a>
         @if (ViewBag.IsLogin)
@@ -32,7 +27,7 @@
         <a class="@((Model.OrderBy==7).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=7">公告</a>
     </span>
 
-    <a href="/BBS/Main/Ask" class="layui-btn jie-add">发布问题</a>
+    <a href="/BBS/Main/Ask" class="layui-btn jie-add">发布</a>
 </div>
 <ul class="fly-list">
     @if (Model.TopicsList.IsValuable())
