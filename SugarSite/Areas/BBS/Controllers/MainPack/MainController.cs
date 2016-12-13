@@ -252,6 +252,8 @@ namespace SugarSite.Areas.BBS.Controllers
 
                             //发送邮箱提醒
                             o.SendMail(base._userInfo,tid,p,db);
+                            //发送站内信
+                            o.SendPMS(base._userInfo, tid, p, db);
                         }
                     }
                     catch (Exception ex)

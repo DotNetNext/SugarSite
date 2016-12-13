@@ -171,6 +171,79 @@ namespace SugarSite.Areas.BBS.Controllers
                 }
             }
         }
+
+        /// <summary>
+        /// 站内信
+        /// </summary>
+        /// <param name="currentUser"></param>
+        /// <param name="tid"></param>
+        /// <param name="p"></param>
+        /// <param name="db"></param>
+        internal void SendPMS(UserInfo currentUser, int tid, BBS_Posts p, SqlSugarClient db)
+        {
+            var topic = db.Queryable<BBS_Topics>().Single(it => it.Tid == tid);
+            var isOneUser = currentUser.Id == topic.Posterid;
+            var html = FileSugar.FileToString(FileSugar.GetMapPath("~/Template/mail/Replies.html")).Replace('\r', ' ').Replace('\n', ' ');
+            var oldHtml = html;
+            //发贴和回贴不是同一个人
+            if (isOneUser.IsFalse())
+            {
+                var toUser = db.Queryable<UserInfo>().Single(it => it.Id == topic.Posterid);
+                string toUserName = toUser.NickName;
+                string fromUserName = currentUser.NickName;
+                string toMail = toUser.Email;
+                MailSmtp ms = new MailSmtp(PubGet.GetEmailSmtp, PubGet.GetEmailUserName, PubGet.GetEmailPassword);
+                string url = RequestInfo.HttpDomain + "/Ask/{0}/{1}#btnSubmit".ToFormat(topic.Fid, topic.Tid);
+                html = html.ToFormat(toUserName, fromUserName, topic.Title, DateTime.Now, url);
+                var title = PubMethod.RemoveAllSpace(fromUserName + "回复了：" + StringSugar.ToCutString(topic.Title, 10, "..."));
+                db.Insert<BBS_PMS>(new BBS_PMS()
+                {
+                    Message = html,
+                    Subject = title,
+                    Msgfrom = fromUserName,
+                    Msgfromid = currentUser.Id,
+                    Msgto = toUserName,
+                    Msgtoid = toUser.Id,
+                    Postdatetime = DateTime.Now
+                });
+            }
+            html = oldHtml;
+            //处理@
+            if (p.Message.IsValuable() && p.Message.Contains("@"))
+            {
+                var adUserIds = db.Queryable<BBS_Posts>().Where(it => it.Tid == tid && it.Parentid > 0).Select(it => it.Posterid).ToList();
+                var adUsers = db.Queryable<UserInfo>().In(adUserIds).ToList();
+                var matchUsers = Regex.Matches(p.Message, @"\<span style\=""color:#4f99cf""\>@(.+?)\<\/span\>");
+                if (matchUsers != null && matchUsers.Count > 0)
+                {
+                    var userNames = matchUsers.Cast<Match>().Select(it => it.Groups[1].Value).ToList();
+                    adUsers = adUsers.Where(it => userNames.Contains(it.NickName)).ToList();
+                    foreach (var item in adUsers)
+                    {
+                        if (item.Email.IsValuable() && item.Id != currentUser.Id)
+                        {
+                            string toUserName = item.NickName;
+                            string fromUserName = currentUser.NickName;
+                            string toMail = item.Email;
+                            MailSmtp ms = new MailSmtp(PubGet.GetEmailSmtp, PubGet.GetEmailUserName, PubGet.GetEmailPassword);
+                            string url = RequestInfo.HttpDomain + "/Ask/{0}/{1}#btnSubmit".ToFormat(topic.Fid, topic.Tid);
+                            html = html.ToFormat(toUserName, fromUserName, p.Message, DateTime.Now, url);
+                            var title = PubMethod.RemoveAllSpace(fromUserName + "在【" + topic.Title.TryToString().Trim() + "】@了你");
+                            db.Insert<BBS_PMS>(new BBS_PMS()
+                            {
+                                Message = html,
+                                Subject = title,
+                                Msgfrom = fromUserName,
+                                Msgfromid = currentUser.Id,
+                                Msgto = toUserName,
+                                Msgtoid = item.Id,
+                                Postdatetime = DateTime.Now
+                            });
+                        }
+                    }
+                }
+            }
+        }
     }
 
 }
