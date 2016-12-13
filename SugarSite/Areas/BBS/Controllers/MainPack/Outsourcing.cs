@@ -183,7 +183,7 @@ namespace SugarSite.Areas.BBS.Controllers
         {
             var topic = db.Queryable<BBS_Topics>().Single(it => it.Tid == tid);
             var isOneUser = currentUser.Id == topic.Posterid;
-            var html = FileSugar.FileToString(FileSugar.GetMapPath("~/Template/mail/Replies.html")).Replace('\r', ' ').Replace('\n', ' ');
+            var html = FileSugar.FileToString(FileSugar.GetMapPath("~/Template/mail/PMS.html")).Replace('\r', ' ').Replace('\n', ' ');
             var oldHtml = html;
             //发贴和回贴不是同一个人
             if (isOneUser.IsFalse())
@@ -194,7 +194,7 @@ namespace SugarSite.Areas.BBS.Controllers
                 string toMail = toUser.Email;
                 MailSmtp ms = new MailSmtp(PubGet.GetEmailSmtp, PubGet.GetEmailUserName, PubGet.GetEmailPassword);
                 string url = RequestInfo.HttpDomain + "/Ask/{0}/{1}#btnSubmit".ToFormat(topic.Fid, topic.Tid);
-                html = html.ToFormat(toUserName, fromUserName, topic.Title, DateTime.Now, url);
+                html = html.ToFormat(toUserName, fromUserName, topic.Title,url);
                 var title = PubMethod.RemoveAllSpace(fromUserName + "回复了：" + StringSugar.ToCutString(topic.Title, 10, "..."));
                 db.Insert<BBS_PMS>(new BBS_PMS()
                 {
@@ -228,7 +228,7 @@ namespace SugarSite.Areas.BBS.Controllers
                             string toMail = item.Email;
                             MailSmtp ms = new MailSmtp(PubGet.GetEmailSmtp, PubGet.GetEmailUserName, PubGet.GetEmailPassword);
                             string url = RequestInfo.HttpDomain + "/Ask/{0}/{1}#btnSubmit".ToFormat(topic.Fid, topic.Tid);
-                            html = html.ToFormat(toUserName, fromUserName, p.Message, DateTime.Now, url);
+                            html = html.ToFormat(toUserName, fromUserName, p.Message,url);
                             var title = PubMethod.RemoveAllSpace(fromUserName + "在【" + topic.Title.TryToString().Trim() + "】@了你");
                             db.Insert<BBS_PMS>(new BBS_PMS()
                             {
