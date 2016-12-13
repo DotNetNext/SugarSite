@@ -77,5 +77,12 @@ namespace Infrastructure.DbModel
         /// </summary>
         public string Message {get;set;}
 
+        /// <summary>
+        /// Desc:- 
+        /// Default:- 
+        /// Nullable:False 
+        /// </summary>
+        public Boolean IsDeleted {get;set;}
+
     }
 }
