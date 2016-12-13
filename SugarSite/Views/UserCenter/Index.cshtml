@@ -36,9 +36,35 @@
             </div>
             <div class="user-mine">
                 <ul class="mine-view jie-row" style="display: block;">
-                    <div class="fly-msg">
-                        没有相关数据
-                    </div>
+                    @if (Model.PmsListNew.IsValuable())
+                    {
+                    
+                            foreach (var item in Model.PmsListNew)
+                            {
+                                <div id="LAY_minemsg">
+                                    <ul class="mine-msg">
+                                        <li data-id="19367">
+                                            <div msg="">
+                                                @item.Subject
+                                                <br />
+                                                <i style="color:#999">附加消息：</i>
+                                                @Html.Raw(item.Message)
+                                            </div>
+                                            <p>
+                                                <span>刚刚</span><a href="javascript:;" class="layui-btn layui-btn-small fly-delete">删除</a>
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
+
+                    }
+                    else
+                    {
+                        <div class="fly-msg">
+                            没有相关数据
+                        </div>
+                            }
                 </ul>
             </div>
             <div id="LAY-page"></div>

@@ -204,6 +204,7 @@ namespace SugarSite.Areas.BBS.Controllers
                     Msgfromid = currentUser.Id,
                     Msgto = toUserName,
                     Msgtoid = toUser.Id,
+                    New = 1,
                     Postdatetime = DateTime.Now
                 });
             }
@@ -237,6 +238,7 @@ namespace SugarSite.Areas.BBS.Controllers
                                 Msgfromid = currentUser.Id,
                                 Msgto = toUserName,
                                 Msgtoid = item.Id,
+                                New=1,
                                 Postdatetime = DateTime.Now
                             });
                         }

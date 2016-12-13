@@ -26,9 +26,9 @@ namespace SugarSite.Controllers
                 return this.Redirect("~/Ask");
             }
             IndexResult model = new IndexResult();
-            _service.Command<IndexResult, ResultModel<IndexResult>>((db,api) =>
+            _service.Command<IndexResult, ResultModel<IndexResult>>((db, api) =>
             {
-                model = api.Get(Url.Action("GetIndexModel"),null).ResultInfo;
+                model = api.Get(Url.Action("GetIndexModel"), null).ResultInfo;
             });
             return View(model);
         }
@@ -193,7 +193,7 @@ namespace SugarSite.Controllers
                         imgObj.CreateSmallPhoto(savePath, 100, 100, smallPath);//生成缩略图
                         FileSugar.DeleteFile(savePath);
                         FileSugar.Move(smallPath, savePath);
-                        db.Update<UserInfo>(new { avatar = webPath+"?r="+RandomSugar.GetRandomNum(5) }, it => it.Id == _userInfo.Id);
+                        db.Update<UserInfo>(new { avatar = webPath + "?r=" + RandomSugar.GetRandomNum(5) }, it => it.Id == _userInfo.Id);
                         RestCurrentUserCache();
                     }
                 });
@@ -250,7 +250,7 @@ namespace SugarSite.Controllers
                 res.VList = db.Queryable<VisitorList>()
                 .JoinTable<UserInfo>((v, u) => v.VisitorId == u.Id)
                 .OrderBy(v => v.VisitorId).Take(12)
-                .Where(v=>v.Uid==_userInfo.Id)
+                .Where(v => v.Uid == _userInfo.Id)
                 .Select<UserInfo, V_VisitorList>((v, u) => new V_VisitorList()
                 {
                     VisitorId = v.VisitorId,
@@ -260,6 +260,14 @@ namespace SugarSite.Controllers
                     Uid = v.Uid
                 }).ToList();
                 model.ResultInfo = res;
+                //获取未读
+                res.PmsListNew = db.Queryable<BBS_PMS>()
+                .Where(it => it.Msgtoid == _userInfo.Id && it.New == 1)
+                .OrderBy(it => it.Postdatetime, OrderByType.Desc).ToList();
+                //获取已读
+                res.PmsListOld = db.Queryable<BBS_PMS>()
+                .Where(it => it.Msgtoid == _userInfo.Id && it.New == 0)
+                .OrderBy(it => it.Postdatetime, OrderByType.Desc).ToList();
             });
             return Json(model, JsonRequestBehavior.AllowGet);
         }
