@@ -45,11 +45,11 @@
                 <h2 class="fly-tip">
                     @if (PubConst.SiteSeoFidList.Contains(item.Fid))
                     {
-                        <a href="~/Ask/@item.Fid/@item.Tid">[@Model.ForumsList.Single(it => it.Fid == item.Fid).Name.Trim()] @item.Title</a>
+                        <a href="~/Ask/@item.Fid/@item.Tid">[@Model.ForumsList.Single(it => it.Fid == item.Fid).Name.Trim()] @item.Title.TryToString().Trim()</a>
                     }
                     else
                     {
-                        <a href="~/BBS/Main/Detail/@item.Tid">[@Model.ForumsList.Single(it => it.Fid == item.Fid).Name.Trim()] @item.Title</a>
+                        <a href="~/BBS/Main/Detail/@item.Tid">[@Model.ForumsList.Single(it => it.Fid == item.Fid).Name.Trim()] @item.Title.TryToString().Trim()</a>
                     }
                     @*<span class="fly-tip-stick">置顶</span>
                         <span class="fly-tip-jing">精帖</span>*@
