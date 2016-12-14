@@ -62,7 +62,10 @@ body a.avatar i {
         top: -6px;
         width:80px;
     }
-
+    body a.avatar img {
+        width:35px !important;
+        height:35px !important
+    }
     body a.avatar cite {
             display: none !important;
     }

@@ -19,10 +19,10 @@
              var $ = layui.ejq;
              var layer = layui.layer;
              var adelete = $(".fly-delete");
+             var pmsNew = $(".pms-new");
              adelete.click(function () {
                  var th = $(this);
                  var id = th.data("id");
-                 debugger
                  $.ajax({
                      url: $.action.urlContent("UserCenter/DeletePmsById"),
                      data: { id: id },
@@ -34,6 +34,17 @@
                      }
                  });
              })
+             if (pmsNew.size() > 0) {
+                 $.ajax({
+                     url: $.action.urlContent("UserCenter/ClearPmsNew"),
+                     cache: false,
+                     success: function (msg) {
+                         th.closest(".pms-box").remove();
+                     }, error: function (msg) {
+
+                     }
+                 });
+             }
          });
      </script>
 }
@@ -69,7 +80,11 @@
                                     <ul class="mine-msg">
                                         <li data-id="19367">
                                             <div msg="">
-                                                @item.Subject
+                                                @item.Subject 
+                                                @if (item.New == 1)
+                                                {
+                                                <font class="pms-new" color="#f60">【新】</font>
+                                                }
                                                 <br />
                                                 <i style="color:#999">附加消息：</i>
                                                 @Html.Raw(item.Message)
