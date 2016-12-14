@@ -9,6 +9,10 @@ namespace Infrastructure.Pub
 {
     public class PubMethod
     {
+        /// <summary>
+        /// 写入日志文件
+        /// </summary>
+        /// <param name="ex"></param>
         public static void WirteExp(Exception ex)
         {
             try
