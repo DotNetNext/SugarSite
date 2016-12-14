@@ -195,8 +195,6 @@ namespace SugarSite.Areas.BBS.Controllers
                 var toUser = db.Queryable<UserInfo>().Single(it => it.Id == topic.Posterid);
                 string toUserName = toUser.NickName;
                 string fromUserName = currentUser.NickName;
-                string toMail = toUser.Email;
-                MailSmtp ms = new MailSmtp(PubGet.GetEmailSmtp, PubGet.GetEmailUserName, PubGet.GetEmailPassword);
                 string url = RequestInfo.HttpDomain + "/Ask/{0}/{1}#btnSubmit".ToFormat(topic.Fid, topic.Tid);
                 html = html.ToFormat(toUserName, fromUserName, topic.Title,url);
                 var title = PubMethod.RemoveAllSpace(fromUserName + "回复了：" + StringSugar.ToCutString(topic.Title, 10, "..."));
@@ -229,8 +227,6 @@ namespace SugarSite.Areas.BBS.Controllers
                         {
                             string toUserName = item.NickName;
                             string fromUserName = currentUser.NickName;
-                            string toMail = item.Email;
-                            MailSmtp ms = new MailSmtp(PubGet.GetEmailSmtp, PubGet.GetEmailUserName, PubGet.GetEmailPassword);
                             string url = RequestInfo.HttpDomain + "/Ask/{0}/{1}#btnSubmit".ToFormat(topic.Fid, topic.Tid);
                             html = html.ToFormat(toUserName, fromUserName, p.Message,url);
                             var title = PubMethod.RemoveAllSpace(fromUserName + "在【" + topic.Title.TryToString().Trim() + "】@了你");
