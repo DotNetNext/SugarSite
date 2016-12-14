@@ -5,7 +5,7 @@
     UserInfo user = ViewBag.User;
     if (user != null && user.Avatar.IsNullOrEmpty())
     {
-        user.Avatar = Url.Content("~/_theme/default.jpg");
+        user.Avatar =PubMethod.GetDefaultAvatar(Url.Content("~/"),user.Avatar);
     }
 }
 @model IndexResult
@@ -13,6 +13,30 @@
 @using Infrastructure.DbModel
 @using Infrastructure.Pub
 @using Infrastructure.ViewModels.UserCenter
+@section js{
+     <script>
+         layui.define(['ejq', 'layer'], function (exports) {
+             var $ = layui.ejq;
+             var layer = layui.layer;
+             var adelete = $(".fly-delete");
+             adelete.click(function () {
+                 var th = $(this);
+                 var id = th.data("id");
+                 debugger
+                 $.ajax({
+                     url: $.action.urlContent("UserCenter/DeletePmsById"),
+                     data: { id: id },
+                     cache:false,
+                     success: function (msg) {
+                         th.closest(".pms-box").remove();
+                     }, error: function (msg) {
+                         layer.msg("删除失败！");
+                     }
+                 });
+             })
+         });
+     </script>
+}
 <div class="main layui-clear">
     <h2 class="page-title">用心中心</h2>
     <div class="wrap">
@@ -41,7 +65,7 @@
                     
                             foreach (var item in Model.PmsListNew)
                             {
-                                <div id="LAY_minemsg">
+                                <div class="pms-box">
                                     <ul class="mine-msg">
                                         <li data-id="19367">
                                             <div msg="">
@@ -50,8 +74,8 @@
                                                 <i style="color:#999">附加消息：</i>
                                                 @Html.Raw(item.Message)
                                             </div>
-                                            <p>
-                                                <span>刚刚</span><a href="javascript:;" class="layui-btn layui-btn-small fly-delete">删除</a>
+                                            <p style="width:150px;float:right">
+                                                <span>@DateSugar.DateStringFromNow(item.Postdatetime.TryToDate().ToLocalTime())</span><a href="javascript:;" data-id="@item.Pmid" class="layui-btn layui-btn-small fly-delete">删除</a>
                                             </p>
                                         </li>
                                     </ul>
@@ -64,7 +88,7 @@
                         <div class="fly-msg">
                             没有相关数据
                         </div>
-                            }
+                     }
                 </ul>
             </div>
             <div id="LAY-page"></div>

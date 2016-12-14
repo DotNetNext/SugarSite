@@ -166,7 +166,7 @@ namespace SugarSite.Controllers
             if (base.IsLogin.IsFalse())
             {
                 model.ResultInfo = "您还没有登录！";
-                return Json(model);
+                return Json(model, JsonRequestBehavior.AllowGet);
             }
             try
             {
@@ -263,13 +263,31 @@ namespace SugarSite.Controllers
                 //获取未读
                 res.PmsListNew = db.Queryable<BBS_PMS>()
                 .Where(it => it.Msgtoid == _userInfo.Id && it.New == 1)
-                .OrderBy(it => it.Postdatetime, OrderByType.Desc).ToList();
+                .OrderBy(it => it.Postdatetime, OrderByType.Desc).Take(100).ToList();
                 //获取已读
                 res.PmsListOld = db.Queryable<BBS_PMS>()
                 .Where(it => it.Msgtoid == _userInfo.Id && it.New == 0)
-                .OrderBy(it => it.Postdatetime, OrderByType.Desc).ToList();
+                .OrderBy(it => it.Postdatetime, OrderByType.Desc).Take(100).ToList();
             });
             return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult DeletePmsById(int id)
+        {
+            var model = new ResultModel<string>();
+            if (base.IsLogin.IsFalse())
+            {
+                model.ResultInfo = "您还没有登录！";
+                return Json(model,JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                _service.Command<IndexResult>((db, o) =>
+                {
+                    db.Delete<BBS_PMS>(it => it.Pmid == id&&it.Msgtoid==_userInfo.Id);
+                });
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
         }
         #endregion
     }
