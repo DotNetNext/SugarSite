@@ -6,6 +6,7 @@
     }
     var qqUrl = UI.GetQQUrl();
     var wbUrl = UI.GetWbUrl();
+    V_UserInformationStatistics userStatistics = ViewBag.UserInformationStatistics;
 }
 @using Infrastructure.DbModel
 @using OAuth.Tools
@@ -25,7 +26,7 @@
     <link href="~/_theme/layui-v1.0.3/layui/css/layui.css?v=1" rel="stylesheet" />
     <link href="~/_theme/layui-v1.0.3/layui/css/global.css?v=1" rel="stylesheet" />
     @RenderSection("css", false)
-    <link href="~/_theme/css/bbs.css?v=2" rel="stylesheet" />
+    <link href="~/_theme/css/bbs.css?v=3" rel="stylesheet" />
 </head>
 <body>
     <input id="HidUrlAction" name="HidUrlAction" value="@Url.Action("/")" type="hidden" />
@@ -53,6 +54,10 @@
                     <a class="avatar" href="~/UserCenter">
                         <img src="@user.Avatar" />
                         <cite>@user.NickName</cite>
+                        @if (userStatistics != null && userStatistics.PmsCount > 0)
+                        {
+                        <i class="pms-tip">(@userStatistics.PmsCount)</i>
+                        }
                     </a>
                     <div class="nav">
                         <a href="@Url.Content("/Home/Logout")"><i class="iconfont icon-tuichu" style="top: 0; font-size: 22px;"></i>退了</a>

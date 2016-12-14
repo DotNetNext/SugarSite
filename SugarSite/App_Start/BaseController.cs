@@ -51,6 +51,17 @@ namespace SugarSite
                     });
                 }
             }
+            else
+            {
+                _service.Command<BaseOutsourcing>((db, o) =>
+                {
+                    var filterKey= db.CurrentFilterKey;
+                    db.CurrentFilterKey = null;
+                    ViewBag.UserInformationStatistics = db.Queryable<V_UserInformationStatistics>()
+                    .Single(it => it.Id == _userInfo.Id);
+                    db.CurrentFilterKey = filterKey;
+                });
+            }
             ViewBag.User = _userInfo;
         }
 
@@ -77,10 +88,12 @@ namespace SugarSite
             }
             cm.Add(key, list, cm.Day * 365);
         }
-        public void RestCurrentUserCache() {
+        public void RestCurrentUserCache()
+        {
             string uniqueKey = PubGet.GetUserKey;
             var cm = CacheManager<UserInfo>.GetInstance();
-            if (cm.ContainsKey(uniqueKey)) {
+            if (cm.ContainsKey(uniqueKey))
+            {
                 _service.Command<BaseOutsourcing>((db, o) =>
                 {
                     var user = db.Queryable<UserInfo>().InSingle(_userInfo.Id);
@@ -88,23 +101,26 @@ namespace SugarSite
                 });
             }
         }
-        public void UpdateMailCache(int userId,string mail)
+        public void UpdateMailCache(int userId, string mail)
         {
             var cm = CacheManager<List<string>>.GetInstance();
             string key = PubConst.SessionUpdateUserMail;
             if (cm.ContainsKey(key))
             {
-                var listKey=cm[key];
-                if (listKey.IsValuable()) {
+                var listKey = cm[key];
+                if (listKey.IsValuable())
+                {
                     var cmUser = CacheManager<UserInfo>.GetInstance();
                     string uniqueKey = PubGet.GetUserKey;
                     foreach (var item in listKey)
                     {
-                        if (cmUser.ContainsKey(item)) {
+                        if (cmUser.ContainsKey(item))
+                        {
                             var userInfo = cmUser[item];
-                            if (userInfo.Id == userId) {
+                            if (userInfo.Id == userId)
+                            {
                                 userInfo.Email = mail;
-                                cmUser.Add(item,userInfo,cm.Day*365);
+                                cmUser.Add(item, userInfo, cm.Day * 365);
                             }
                         }
                     }

@@ -50,13 +50,17 @@ body .syntaxhighlighter td.code .line {
 body .fly-list-one li { /* margin: 0 10px; */
     text-align: left !important;
 }
-
+body a.avatar i {
+  font-style:initial !important;
+  margin-bottom:2px;
+}
 @media screen and (max-width: 750px) {
     body a.avatar {
         display: block !important;
         position: absolute;
         right: 80px;
         top: -6px;
+        width:80px;
     }
 
     body a.avatar cite {
