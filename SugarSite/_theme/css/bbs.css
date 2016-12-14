@@ -54,6 +54,14 @@ body a.avatar i {
   font-style:initial !important;
   margin-bottom:2px;
 }
+body .pms-box a {
+   color:#c00
+}
+body .pms-box a.fly-delete {
+   background:#fff;
+   position:relative;
+   top:-2px
+}
 @media screen and (max-width: 750px) {
     body a.avatar {
         display: block !important;
