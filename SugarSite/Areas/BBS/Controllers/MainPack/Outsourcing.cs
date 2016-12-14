@@ -123,6 +123,10 @@ namespace SugarSite.Areas.BBS.Controllers
         /// <param name="db"></param>
         internal void SendMail(UserInfo currentUser, int tid, BBS_Posts p, SqlSugarClient db)
         {
+            //未配置邮箱不发送
+            if (PubGet.GetEmailUserName.IsNullOrEmpty()) {
+                return;
+            }
             var topic = db.Queryable<BBS_Topics>().Single(it => it.Tid == tid);
             var isOneUser = currentUser.Id == topic.Posterid;
             var html = FileSugar.FileToString(FileSugar.GetMapPath("~/Template/mail/Replies.html")).Replace('\r', ' ').Replace('\n', ' ');
