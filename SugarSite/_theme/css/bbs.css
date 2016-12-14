@@ -60,7 +60,8 @@ body a.avatar i {
         position: absolute;
         right: 80px;
         top: -6px;
-        width:80px;
+        width:70px;
+        text-align:right;
     }
     body a.avatar img {
         width:35px !important;
