@@ -37,5 +37,30 @@ namespace Infrastructure.Pub
             if (str.IsNullOrEmpty()) return str;
             return str.Trim().Replace(" ", "_");
         }
+
+        /// <summary>
+        /// 获取默认头像
+        /// </summary>
+        /// <param name="rootUrl"></param>
+        /// <param name="avatar"></param>
+        /// <returns></returns>
+        public static string GetDefaultAvatar(string rootUrl, string avatar)
+        {
+            if (avatar.IsNullOrEmpty())
+            {
+                return rootUrl + "_theme/default.jpg";
+            }
+            else
+            {
+                if (avatar.ToLower().IsContainsIn("http"))
+                {
+                    return avatar;
+                }
+                else
+                {
+                    return rootUrl.TryToString().TrimEnd('/') +"/"+ avatar.TrimStart('/');
+                }
+            }
+        }
     }
 }
