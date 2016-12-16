@@ -62,6 +62,9 @@ body .pms-box a.fly-delete {
    position:relative;
    top:-2px
 }
+body .online-list{
+    font-size:12px !important
+}
 @media screen and (max-width: 750px) {
     body a.avatar {
         display: block !important;
