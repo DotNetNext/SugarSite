@@ -63,6 +63,85 @@ namespace SugarSite
                 });
             }
             ViewBag.User = _userInfo;
+            SetOnlineVisitors(_userInfo);
+            SetSiteInfoResult();
+        }
+
+        /// <summary>
+        /// 设置统计信息
+        /// </summary>
+        private void SetSiteInfoResult()
+        {
+            SiteInfoResult sr = new SiteInfoResult();
+            var cm = CacheManager<SiteInfoResult>.GetInstance();
+            var key= PubConst.SessionSiteInfoResult;
+            if (cm.ContainsKey(key)) {
+                sr = cm[key];
+            }
+            else {
+                _service.Command<BaseOutsourcing>((db, o) =>
+                {
+                    sr.UserCount=db.Queryable<UserInfo>().Count();
+                    cm.Add(key, sr, cm.Day);
+                });
+            }
+            ViewBag.SiteInfoResult = sr;
+        }
+
+        /// <summary>
+        /// 设置在线信息
+        /// </summary>
+        /// <param name="_userInfo"></param>
+        private void SetOnlineVisitors(UserInfo _userInfo)
+        {
+            var timeOut = DateTime.Now.AddMinutes(-PubConst.SiteOnlineTimeOut);
+            List<OnlineVisitorsResult> onlineList = null;
+            var key = PubConst.SessionOnline;
+            var cm = CacheManager<List<OnlineVisitorsResult>>.GetInstance();
+            if (cm.ContainsKey(key)) {
+                onlineList = cm[key];
+                if (onlineList.IsValuable()) {
+                    //过滤超时用户
+                    onlineList = onlineList.Where(it => it.LastActionTime > timeOut).ToList();
+                }
+            }
+            if (onlineList == null || onlineList.Count == 0) {
+                onlineList = new List<OnlineVisitorsResult>();
+            }
+            var ip = RequestInfo.UserAddress;
+            OnlineVisitorsResult o = new OnlineVisitorsResult();
+            o.User = new UserInfo();
+            if (_userInfo != null && _userInfo.Id > 0)
+            {
+                var oItem = onlineList.FirstOrDefault(it => it.User.Id == _userInfo.Id);
+                if (oItem != null)
+                {
+                    oItem.LastActionTime = DateTime.Now;
+                    oItem.LastActionIp = ip;
+                }
+                else {
+                    o.User = _userInfo;
+                    o.LastActionIp = ip;
+                    o.LastActionTime = DateTime.Now;
+                    onlineList.Add(o);
+                }
+            }
+            else {
+                var oItem = onlineList.FirstOrDefault(it => it.LastActionIp == ip);
+                if (oItem != null)
+                {
+                    oItem.LastActionTime = DateTime.Now;
+                    oItem.LastActionIp = ip;
+                }
+                else
+                {
+                    o.User = new UserInfo() { RoleId=PubEnum.RoleType.Tourist.TryToInt() };
+                    o.LastActionIp = ip;
+                    o.LastActionTime = DateTime.Now;
+                    onlineList.Add(o);
+                }
+            }
+            ViewBag.OnlineVisitorsResult = onlineList;
         }
 
         public bool IsLogin

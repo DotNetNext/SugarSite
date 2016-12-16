@@ -7,6 +7,7 @@
     var qqUrl = UI.GetQQUrl();
     var wbUrl = UI.GetWbUrl();
     V_UserInformationStatistics userStatistics = ViewBag.UserInformationStatistics;
+    List<UserInfo> onlineList = ViewBag.OnLineUser;
 }
 @using Infrastructure.DbModel
 @using OAuth.Tools
@@ -202,6 +203,29 @@
                     </span>
                 </div>
 
+                @if (onlineList.IsValuable())
+                {
+                    <h3 class="page-title">在线用户</h3>
+                    <div class="user-looklog leifeng-rank">
+                        <span>
+                            @if (onlineList != null && onlineList.IsValuable())
+                            {
+                                foreach (var u in onlineList)
+                                {
+                                    if (u.Avatar.IsNullOrEmpty())
+                                    {
+                                        u.Avatar = Url.Content("~/_theme/default.jpg");
+                                    }
+                                    <a href="~/UserCenter/PublicInfo?id=@u.Id">
+                                        <img src="@u.Avatar.Replace("/30","/100")">
+                                        <cite>@u.NickName</cite>
+                                        <i>@(((Infrastructure.Pub.PubEnum.RoleType)u.RoleId).GetAttributeValue())</i>
+                                    </a>
+                                }
+                            }
+                        </span>
+                    </div>
+                }
             </div>
         }
     </div>

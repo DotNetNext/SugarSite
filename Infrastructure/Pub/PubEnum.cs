@@ -15,7 +15,10 @@ namespace Infrastructure.Pub
             [Desc("会员")]
             User = 2,
             [Desc("版主")]
-            Moderator=3
+            Moderator=3,
+            [Desc("游客")]
+            Tourist =4
         }
+
     }
 }

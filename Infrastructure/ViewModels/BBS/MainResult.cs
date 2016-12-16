@@ -21,9 +21,19 @@ namespace Infrastructure.ViewModels.BBS
         /// </summary>
         public List<BBS_Forums> ForumsList { get; set; }
 
-
+        /// <summary>
+        /// 排序方式
+        /// </summary>
         public int OrderBy { get; set; }
 
+        /// <summary>
+        /// 在线用户
+        /// </summary>
+        public List<OnlineVisitorsResult> OnlineList { get; set; }
 
+        /// <summary>
+        /// 获取网站信息
+        /// </summary>
+        public SiteInfoResult SiteInfo { get; set; }
     }
 }

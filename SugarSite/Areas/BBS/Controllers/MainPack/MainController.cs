@@ -32,6 +32,8 @@ namespace SugarSite.Areas.BBS.Controllers
                  model.ForumsList = ViewBag.ForList;
                  model.OrderBy = orderBy.TryToInt();
                  model.Fid = (short)fid.TryToInt();
+                 model.OnlineList = ViewBag.OnlineVisitorsResult;
+                 model.SiteInfo = ViewBag.SiteInfoResult;
                  var ps = new SyntacticSugar.PageString();
                  model.PageString = ps.ToPageString(model.PageCount, model.PageSize, model.PageIndex, Url.Content("/Ask?"));
              });

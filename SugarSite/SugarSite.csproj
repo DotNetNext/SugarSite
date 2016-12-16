@@ -277,6 +277,10 @@
     <Content Include="_theme\img\forums\6.png" />
     <Content Include="_theme\img\forums\9.png" />
     <Content Include="_theme\img\Mail\mail.png" />
+    <Content Include="_theme\img\Online\1.gif" />
+    <Content Include="_theme\img\Online\2.gif" />
+    <Content Include="_theme\img\Online\3.gif" />
+    <Content Include="_theme\img\Online\4.gif" />
     <Content Include="_theme\img\wx.jpg" />
     <Content Include="_theme\img\zfb.jpg" />
     <Content Include="_theme\jquery-1.10.2.min.js" />

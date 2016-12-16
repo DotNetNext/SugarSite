@@ -4,6 +4,10 @@
     ViewBag.IsBBSMain = true;
     ViewBag.Title = ".NET文档园 .NET开源ORM - 首页";
     var fname = Model.ForumsList.SingleOrDefault(it => it.Fid == Model.Fid);
+    ViewBag.OnLineUser = Model.OnlineList.Where(it => it.User.RoleId != 4)
+        .OrderByDescending(it=>it.LastActionTime)
+        .Take(8)
+        .Select(it => it.User).ToList();
 }
 @using SyntacticSugar
 @model Infrastructure.ViewModels.BBS.MainResult
@@ -12,6 +16,11 @@
     <meta name="description" content=".NET开源API之家，如果你有开源项目就加入我们，我们可以提供很好的文档服务">
     <meta name="keywords" content=".NET开源,.NET ORM,文档园">
 }
+<div>
+    <div>
+        @(Model.OnlineList.Count) 人在线 - @(Model.OnlineList.Where(it => it.User.RoleId != 4).Count()) 会员, @(Model.OnlineList.Where(it => it.User.RoleId == 4).Count()) 游客 共@(Model.SiteInfo.UserCount)位会员
+    </div>
+</div>
 <div class="fly-tab search-category">
     <span>
            
