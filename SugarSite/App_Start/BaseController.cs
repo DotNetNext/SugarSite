@@ -141,6 +141,7 @@ namespace SugarSite
                     onlineList.Add(o);
                 }
             }
+            cm.Add(key,onlineList,cm.Day);
             ViewBag.OnlineVisitorsResult = onlineList;
         }
 
