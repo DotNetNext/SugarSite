@@ -5,7 +5,7 @@
     ViewBag.Title = ".NET文档园 .NET开源ORM - 首页";
     var fname = Model.ForumsList.SingleOrDefault(it => it.Fid == Model.Fid);
     ViewBag.OnLineUser = Model.OnlineList.Where(it => it.User.RoleId != 4)
-        .OrderByDescending(it=>it.LastActionTime)
+        .OrderByDescending(it => it.LastActionTime)
         .Take(8)
         .Select(it => it.User).ToList();
 }
@@ -17,11 +17,11 @@
     <meta name="keywords" content=".NET开源,.NET ORM,文档园">
 }
 <div class="online-list">
-     @(Model.OnlineList.Count) 人在线 - @(Model.OnlineList.Where(it => it.User.RoleId != 4).Count()) 会员, @(Model.OnlineList.Where(it => it.User.RoleId == 4).Count()) 游客 共@(Model.SiteInfo.UserCount)位会员
+    @(Model.OnlineList.Count) 人在线 - @(Model.OnlineList.Where(it => it.User.RoleId != 4).Count()) 会员, @(Model.OnlineList.Where(it => it.User.RoleId == 4).Count()) 游客 共@(Model.SiteInfo.UserCount)位会员
 </div>
 <div class="fly-tab search-category">
     <span>
-           
+
         <a class="@((Model.OrderBy<=1).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=1">最新</a>
         <a class="@((Model.OrderBy==2).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=2">最新回复</a>
         @if (ViewBag.IsLogin)
@@ -30,10 +30,12 @@
             <a class="@((Model.OrderBy == 4).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=4">我回</a>
             <a class="@((Model.OrderBy == 5).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=5">收藏</a>
         }
-        <a class="@((Model.OrderBy==6).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=6">精华</a>
-        <a class="@((Model.OrderBy==7).IIF("tab-this"))" href="~/Ask/@Model.Fid?orderBy=7">公告</a>
     </span>
-
+    <form id="frmSearch" action="~/Ask/@Model.Fid" class="fly-search" method="get">
+        <i  onclick="frmSearch.submit()" class="iconfont icon-sousuo"></i>
+        <input type="hidden" name="orderBy"  value="@Request["orderBy"]"/>
+        <input class="layui-input" autocomplete="off" value="@Request["title"]" placeholder="搜索内容，回车跳转" type="text" name="title">
+    </form>
     <a href="/BBS/Main/Ask" class="layui-btn jie-add">发布</a>
 </div>
 <ul class="fly-list">

@@ -18,7 +18,7 @@ namespace SugarSite.Areas.BBS.Controllers
         public MainController(DbService s) : base(s) { }
 
         #region page
-        public ActionResult Index(int? fid, int? orderBy, int? pageIndex)
+        public ActionResult Index(int? fid, int? orderBy, int? pageIndex, string title = null)
         {
             MainResult model = new MainResult();
             ViewBag.NewUserList = base.GetNewUserList;
@@ -28,7 +28,7 @@ namespace SugarSite.Areas.BBS.Controllers
             ViewBag.BBS_Right = base.GetBBS_Right;
             _service.Command<MainOutsourcing, ResultModel<MainResult>>((db, o, api) =>
              {
-                 model = api.Get(Url.Action("GetMainResult"), new { fid = fid, orderBy = orderBy, pageIndex = pageIndex }).ResultInfo;
+                 model = api.Get(Url.Action("GetMainResult"), new {title = title, fid = fid, orderBy = orderBy, pageIndex = pageIndex }).ResultInfo;
                  model.ForumsList = ViewBag.ForList;
                  model.OrderBy = orderBy.TryToInt();
                  model.Fid = (short)fid.TryToInt();
@@ -165,7 +165,7 @@ namespace SugarSite.Areas.BBS.Controllers
             return Json(model);
         }
 
-        public JsonResult GetMainResult(int? fid, int? orderBy, int pageIndex = 1)
+        public JsonResult GetMainResult(int? fid, int? orderBy, int pageIndex = 1,string title=null)
         {
             ResultModel<MainResult> model = new ResultModel<MainResult>();
             model.ResultInfo = new MainResult();
@@ -177,6 +177,9 @@ namespace SugarSite.Areas.BBS.Controllers
                 if (fid > 0)
                 {
                     qureyable = qureyable.Where(it => it.Fid == fid);
+                }
+                if (title.IsValuable()) {
+                    qureyable = qureyable.Where(it => it.Title.Contains(title));
                 }
                 qureyable = o.GetMainQueryable(orderBy, db, qureyable, this);
                 int pageCount = 0;
