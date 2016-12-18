@@ -249,7 +249,7 @@ namespace SugarSite.Controllers
                 IndexResult res = new IndexResult();
                 res.VList = db.Queryable<VisitorList>()
                 .JoinTable<UserInfo>((v, u) => v.VisitorId == u.Id)
-                .OrderBy(v => v.VisitorId).Take(12)
+                .OrderBy(v => v.CreateDate,OrderByType.Desc).Take(12)
                 .Where(v => v.Uid == _userInfo.Id)
                 .Select<UserInfo, V_VisitorList>((v, u) => new V_VisitorList()
                 {
