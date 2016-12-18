@@ -35,7 +35,7 @@ namespace SugarSite.Areas.BBS.Controllers
                  model.OnlineList = ViewBag.OnlineVisitorsResult;
                  model.SiteInfo = ViewBag.SiteInfoResult;
                  var ps = new SyntacticSugar.PageString();
-                 model.PageString = ps.ToPageString(model.PageCount, model.PageSize, model.PageIndex, Url.Content("/Ask?"));
+                 model.PageString = ps.ToPageString(model.PageCount, model.PageSize, model.PageIndex, Url.Content("/Ask?fid="+fid+"&"));
              });
             return View(model);
         }
