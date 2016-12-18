@@ -40,3 +40,9 @@ h1 .layui-btn {
     .my-favorites:hover {
         color: #EE9FFF;
     }
+@media screen and (max-width: 750px) {
+    .detail h1 {
+        font-size:18px !important;
+    }
+}
+
