@@ -219,12 +219,14 @@ namespace SugarSite.Controllers
                 model.ResultInfo.RecentAsks = db.Queryable<BBS_Topics>()
                 .Where(it => it.Posterid == id)
                 .OrderBy(it => it.Postdatetime, OrderByType.Desc)
+                .Take(20)
                 .ToList();
                 //最新回复信息
                 model.ResultInfo.RecentReplies = db.Queryable<BBS_Posts>()
                .Where(it => it.Posterid == id)
                .Where(it => it.Parentid > 0)
                .OrderBy(it => it.Postdatetime, OrderByType.Desc)
+               .Take(20)
                .ToList();
                 if (model.ResultInfo.RecentReplies.IsValuable())
                 {
