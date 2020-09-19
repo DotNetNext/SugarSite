@@ -21,7 +21,7 @@
     <div>
         <body class="site-home @className" id="LAY_home" style="background-color: @bodyClassValue">
             <input id="HidUrlAction" name="HidUrlAction" value="@Url.Action("/")" type="hidden" />
-            <div class="layui-header header header-index">
+            <div class="layui-header header header-index2">
                 <div class="layui-main">
                     <a class="logo" href="/">
                         孙凯旋个人主页
@@ -52,15 +52,15 @@
                     </ul>
                 </div>
             </div>
-            <div class="site-banner">
-                <div class="site-banner-bg">
+            <div class="site-banner" style="background:none !important">
+                <div class="site-banner-bg" style="background:none !important">
                 </div>
                 <div class="site-banner-main">
                     @RenderBody()
                 </div>
             </div>
             <div class="layui-main"></div>
-            <div class="layui-footer footer footer-index">
+            <div class="layui-footer footer footer-index bn">
                 <div class="layui-main">
                     <p>2016 © <a href="/">CodeIsBug.com</a>Apache Licence 2.0</p>
                     <p>

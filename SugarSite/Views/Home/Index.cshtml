@@ -4,19 +4,78 @@
     ViewBag.PageNum = 1;
 }
 @section meta{
-   <meta name="keywords" content="SqlSugar ORM">
-   <meta name="description" content="SqlSugar ORM 官网 ，孙凯旋的个人主页，SqlSugar是一款轻量级、高性能、以及支持.NET 4.+和ASP.NET Core一款ORM框架。另外还支持了MySql、Sqlserver、Sqlite和Oracle四种数据库。" />    
+    <meta name="keywords" content="SqlSugar ORM">
+    <meta name="description" content="SqlSugar ORM 官网 ，孙凯旋的个人主页，SqlSugar是一款轻量级、高性能、以及支持.NET 4.+和ASP.NET Core一款ORM框架。另外还支持了MySql、Sqlserver、Sqlite和Oracle四种数据库。" />
 }
 @section css{
-   <style>
-       .layui-hide{display:none!important}
-    </style>   
+    <style>
+        .layui-hide {
+            display: none !important
+        }
+
+        .site-desc {
+            position: relative;
+            height: 70px;
+            margin-top: 20px;
+        }
+            .site-desc cite {
+                font: 14px Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+            }
+
+        .site-desc-anim {
+            -webkit-animation-name: site-desc;
+            animation-name: site-desc;
+        }
+
+        .web-font-desc {
+            font-family: "webfont-desc" !important;
+            font-size: 16px;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .site-desc {
+            position: relative;
+            height: 70px;
+            margin-top: 20px;
+        }
+
+            .site-desc .web-font-desc {
+                color: #fff;
+                color: rgba(255,255,255,.8);
+                font-size: 30px;
+                font-weight: 100;
+            }
+        body {
+            line-height: 24px;
+            font: 14px Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+            background-image: url(/_theme/logo.jpg) !important;
+            background: no-repeat;
+        }
+        .header-index2 {
+            border-radius: 0px;
+            border: 0;
+            background-color: rgba(0,0,0,0.19);
+        }
+        .maincss .site-banner-bg {
+            background-image: none !important;
+            background-color: none !important;
+        }
+        div.site-banne {
+           background:none !important
+        }
+        .bn {
+            background: none !important
+        }
+    </style>
 }
 <div class="site-zfj site-zfj-anim">
     <i class="layui-icon" style="color: #FBDAC7; color: rgba(255,255,255,.5);"></i>
 </div>
 <div class="layui-anim site-desc site-desc-anim">
-    <cite>.NET 4.+ & .NET CORE 高性能 轻量级<span style="color:#fff;"> ORM框架</span>，众多.NET框架中最容易使用的数据库访问技术</cite>
+    <p class="web-font-desc">轻量级数据库访问框架</p>
+    <cite>支持多种数据，支持.NET Core & .NET 4.0 ,成熟的ORM框架</cite>
 </div>
 <div class="site-download">
     <a href="https://github.com/sunkaixuan/SqlSugar" class="layui-inline site-down" target="_blank">
@@ -28,7 +87,7 @@
     <span>当前版本：<cite class="site-showv">3.x</cite></span>
     <span>下载量：<em class="site-showdowns">@Convert.ToInt32(downCount)</em></span>
 </div>
-<div class="site-banner-other">
+<div class="site-banner-other" style="bottom:0 !important">
     <iframe src="http://ghbtns.com/github-btn.html?user=sunkaixuan&repo=sqlsugar&type=watch&count=true" width="105" height="20"></iframe>
     <iframe src="http://ghbtns.com/github-btn.html?user=sunkaixuan&repo=sqlsugar&type=fork&count=true" width="105" height="20"></iframe>
 </div>

@@ -8,7 +8,12 @@
 
 */
 
-a.logo {color: white !important; top:23px !important }
+a.logo {
+    color: white !important;
+    color: white !important;
+    top: 18px !important;
+    font-size: 20px;
+}
 /* 布局 */
 .site-inline{font-size: 0;}
 .site-tree, .site-content{display: inline-block;  *display:inline; *zoom:1; vertical-align: top; font-size: 14px;}
@@ -89,7 +94,7 @@ body .layui-layout-admin .footer-demo{height: auto; padding: 15px 0; line-height
 
 
 .site-desc{position: relative; height: 70px; margin-top: 25px;  color:white; font-size:30px}
-.site-desc:before{ content:"SqlSugar ORM" }
+.site-desc:before{ content:"" }
 .site-desc-anim{-webkit-animation-name: site-desc; animation-name: site-desc;}
 
 .site-desc cite{position: absolute; bottom: -40px; left: 0; width: 100%; color: #c2c2c2; font-style: normal;}
@@ -301,7 +306,7 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
 
 
 /***前台自定义***/
-.maincss .site-banner-bg{background-image: url(/_theme/logo.jpg)!important; background-color: #080018!important;}
+ 
 .innercss .site-banner-bg{ background:#fff !important}
 .innercss .layui-tree li { text-align:left}
 .innercss .footer-index { display:none}

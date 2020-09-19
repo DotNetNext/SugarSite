@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -392,6 +393,7 @@
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\upload.js" />
     <Content Include="_theme\layui-v1.0.3\layui\lay\modules\util.js" />
     <Content Include="_theme\logo.jpg" />
+    <Content Include="_theme\titlebg.jpg" />
     <Content Include="_theme\ueditor\utf8-net\dialogs\anchor\anchor.html" />
     <Content Include="_theme\ueditor\utf8-net\dialogs\attachment\attachment.css" />
     <Content Include="_theme\ueditor\utf8-net\dialogs\attachment\attachment.html" />
