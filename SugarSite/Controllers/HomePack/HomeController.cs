@@ -25,7 +25,7 @@ namespace SugarSite.Controllers
             return View();
         }
 
-        public ActionResult Doc(int masterId = 1, int typeId = 0)
+        public ActionResult Doc(int masterId=1,int typeId = 0)
         {
             var model = new ResultModel<DocResult>();
             _service.Command<HomeOutsourcing, ResultModel<DocResult>>((o, api) =>
@@ -33,14 +33,8 @@ namespace SugarSite.Controllers
                 model = api.Get(Url.Action("GetDoc"), new { typeId = typeId, masterId = masterId });
             });
             ViewBag.IsAdmin = _userInfo != null && _userInfo.RoleId == 1;
-            if (masterId == 1)//获取老的文档视图，主要是考虑到SEO更换URL保留老的，新站可以直接去掉这个判段
-            {
-                return View(model);
-            }
-            else
-            {
-                return View("~/Views/Home/Doc_New.cshtml", model);
-            }
+            ViewBag.DocTitle = model.ResultInfo.Title;
+            return View(model);
         }
 
         public ActionResult Reward()
@@ -204,6 +198,7 @@ namespace SugarSite.Controllers
             {
                 model.ResultInfo = new Infrastructure.ViewModels.DocResult();
                 model.ResultInfo.DocType = db.Queryable<DocType>().Where(it => it.MasterId == masterId).ToList();
+                model.ResultInfo.Title = model.ResultInfo.DocType?.FirstOrDefault()?.TypeName;
                 if (typeId == 0)//如果没有文章ID取第一条
                 {
                     typeId = model.ResultInfo.DocType.Where(it => it.MasterId == masterId).Where(it => it.Level == 2).OrderBy(it => it.Level).ThenBy(it => it.Sort).First().Id;

@@ -33,7 +33,7 @@
                         @if (ViewBag.IsNew == null)
                         {
                         <li class="layui-nav-item @((ViewBag.PageNum == 2) ? "page-current" : "")">
-                            <a href="/Home/Doc">SqlSugar文档</a>
+                            <a href="/Home/Doc">@(ViewBag.DocTitle!=null? ViewBag.DocTitle : "SqlSugar文档")</a>
                         </li>
                         }
                         else
@@ -64,11 +64,7 @@
                 <div class="layui-main">
                     <p>2016 © <a href="/">CodeIsBug.com</a>Apache Licence 2.0</p>
                     <p>
-                        <a href="/" target="_blank">所有作品:</a>
-                        <a href="https://github.com/sunkaixuan/SqlSugar" target="_blank">SqlSugar</a>
-                        <a href="https://github.com/sunkaixuan/SqliteSugar" target="_blank">SqliteSugar</a>
-                        <a href="https://github.com/sunkaixuan/OracleSugar" target="_blank">OracleSugar</a>
-                        <a href="https://github.com/sunkaixuan/MySqlSugar" target="_blank">MySqlSugar</a>
+                        <a href="http://icp.chinaz.com/codeisbug.com" target="_blank">苏ICP备16056174号-1</a>
                     </p>
                 </div>
             </div>
