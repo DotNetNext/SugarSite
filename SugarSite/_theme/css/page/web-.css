@@ -1,0 +1,65 @@
+﻿.layui-hide {
+    display: none !important
+}
+
+.site-desc {
+    position: relative;
+    height: 70px;
+    margin-top: 20px;
+}
+
+    .site-desc cite {
+        font: 14px Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+    }
+
+.site-desc-anim {
+    -webkit-animation-name: site-desc;
+    animation-name: site-desc;
+}
+
+.web-font-desc {
+    font-family: "webfont-desc" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.site-desc {
+    position: relative;
+    height: 70px;
+    margin-top: 20px;
+}
+
+    .site-desc .web-font-desc {
+        color: #fff;
+        color: rgba(255,255,255,.8);
+        font-size: 30px;
+        font-weight: 100;
+    }
+
+body {
+    line-height: 24px;
+    font: 14px Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+    background-image: url(/_theme/logo.jpg) !important;
+    background: no-repeat;
+}
+
+.header-index2 {
+    border-radius: 0px;
+    border: 0;
+    background-color: rgba(0,0,0,0.19);
+}
+
+.maincss .site-banner-bg {
+    background-image: none !important;
+    background-color: none !important;
+}
+
+div.site-banne {
+    background: none !important
+}
+
+.bn {
+    background: none !important
+}
