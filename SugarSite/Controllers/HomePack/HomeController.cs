@@ -34,6 +34,21 @@ namespace SugarSite.Controllers
             });
             ViewBag.IsAdmin = _userInfo != null && _userInfo.RoleId == 1;
             ViewBag.DocTitle = model.ResultInfo.Title;
+            model.ResultInfo.MasterId = masterId;
+            model.ResultInfo.TypeId = typeId;
+            return View(model);
+        }
+
+        public ActionResult DocSearch(string title, int masterId = 1, int typeId = 0)
+        {
+            var model = new ResultModel<DocDetailsResult>();
+            _service.Command<HomeOutsourcing, ResultModel<DocDetailsResult>>((o, api) =>
+            {
+                model = api.Get(Url.Action("GetDocDetails"), new { typeId = typeId,title=title, masterId = masterId });
+            });
+            ViewBag.IsAdmin = _userInfo != null && _userInfo.RoleId == 1;
+            model.ResultInfo.MasterId = masterId;
+            model.ResultInfo.TypeId = typeId;
             return View(model);
         }
 
@@ -212,7 +227,42 @@ namespace SugarSite.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
 
         }
+        /// <summary>
+        /// 获取文档搜索
+        /// </summary>
+        /// <param name="TypeId"></param>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 0)]
+        public JsonResult GetDocDetails(int typeId,string title, int masterId = 1)
+        {
+            var model = new ResultModel<DocDetailsResult>();
+            _service.Command<HomeOutsourcing>((db, o) =>
+            {
+                model.ResultInfo = new Infrastructure.ViewModels.DocDetailsResult();
+                model.ResultInfo.DocType = db.Queryable<DocType>().Where(it => it.MasterId == masterId).ToList();
+                model.ResultInfo.SearchList =new List<DocType>();
+                var level2Types = db.SqlQuery<DocType>(@"select top 20 * from DocType t  where t.[Level]=2 and 
+                (
+                t.id in(
+                       select  TypeId from DocContent   where Content like '%'+@title+'%' 
+                )
+                or 
+                 TypeName like  '%'+@title+'%' 
+                )", new { title =title});
+                if (level2Types != null && level2Types.Count > 0)
+                {
+                    foreach (var item in level2Types)
+                    {
+                        model.ResultInfo.SearchList.Add(item);
+                    }
+                }
+                model.IsSuccess = true;
+            });
+            return Json(model, JsonRequestBehavior.AllowGet);
 
+        }
+        
         /// <summary>
         /// 获取验证码图片
         /// </summary>

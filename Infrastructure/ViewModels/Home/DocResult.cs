@@ -17,5 +17,7 @@ namespace Infrastructure.ViewModels
         public DocType CurrentType { get; set; }
         public DocMaster Master { get; set; }
         public string Title { get; set; }
+        public int MasterId { get; set; }
+        public int TypeId { get; set; }
     }
 }

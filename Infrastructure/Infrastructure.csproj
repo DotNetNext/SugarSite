@@ -91,6 +91,7 @@
     <Compile Include="ViewModels\BBS\RightRelust.cs" />
     <Compile Include="ViewModels\BBS\DetailResult.cs" />
     <Compile Include="ViewModels\BBS\MainResult.cs" />
+    <Compile Include="ViewModels\Home\DocDetailsResult.cs" />
     <Compile Include="ViewModels\Home\DocResult.cs" />
     <Compile Include="ViewModels\Admin\DocContentResult.cs" />
     <Compile Include="ViewModels\BBS\OnlineVisitorsResult.cs" />

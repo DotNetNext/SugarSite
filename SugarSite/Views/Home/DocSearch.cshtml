@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = Model.ResultInfo.CurrentType.TypeName + "-" + Model.ResultInfo.Master.MasterName + PubConst.SitePrefix;
+    ViewBag.Title = "搜索结果";
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.PageNum = 2;
     var type = Model.ResultInfo.DocType;
@@ -13,12 +13,31 @@
     <link href="~/_theme/ueditor/utf8-net/third-party/SyntaxHighlighter/shCoreDefault.css" rel="stylesheet" />
     <link href="~/_theme/css/page/doc.css" rel="stylesheet" />
     <link href="~/_theme/css/fonts/fonts.css" rel="stylesheet" />
+    <style>
+        .search-list {
+            padding: 10px;
+            padding-left:0
+        }
+        .search-box {
+            padding-top: 10px;
+        }
+            .search-list a {
+                color: #2440b3;
+                font-size: 18px;
+                line-height: 22px;
+            }
+
+        .site-content red {
+            font-size: 14px;
+            color: #999;
+        }
+    </style>
 }
 @section js{
     <script src="~/_theme/ueditor/utf8-net/third-party/SyntaxHighlighter/shCore.js"></script>
     <script type="text/javascript">SyntaxHighlighter.all();</script>
 }
-@model ResultModel<DocResult>
+@model ResultModel<DocDetailsResult>
 <div class="layui-main site-inline">
     <div class="site-tree">
         <ul class="layui-tree">
@@ -38,7 +57,7 @@
                     <li><h2>@item.TypeName</h2></li>
                     foreach (var childItem in itemChildren)
                     {
-                        <li class="site-tree-noicon @((Model.ResultInfo.CurrentType.Id==childItem.Id).IIF("layui-this",""))">
+                        <li class="site-tree-noicon @((fist.IndexOf(item)==0&&itemChildren.IndexOf(childItem)==0).IIF("layui-this",""))">
                             <a href="@Url.Action("Doc",new { typeId=childItem.Id})"><cite>@childItem.TypeName</cite></a>
                         </li>
                     }
@@ -47,21 +66,16 @@
         </ul>
     </div>
     <div class="site-content">
-        @if (Model.ResultInfo.DocContent.IsValuable())
-        {
-            var list = Model.ResultInfo.DocContent.Where(it => it.TypeId == Model.ResultInfo.CurrentType.Id).ToList();
-            foreach (var item in list)
+
+        <red>Sugar为您找到相关结果@(@Model.ResultInfo.SearchList.Count)个</red>
+        <div class="search-box">
+            @foreach (var item in Model.ResultInfo.SearchList)
             {
-                <h1 class="site-h1">@item.Title</h1>
-                <div>
-                    @if (ViewBag.IsAdmin == true)
-                    {
-                        <a class="admin-button" target="_blank" href="/AdminSite/DocContent/PageDCAdd?id=@item.Id">管理</a>
-                    }
-                    @Html.Raw(item.Content)
+                <div class="search-list">
+                    <a href="/home/doc?masterId=@Model.ResultInfo.MasterId&typeId=@item.Id">@(1 + Model.ResultInfo.SearchList.IndexOf(item))、 @item.TypeName</a>
                 </div>
             }
-        }
+        </div>
     </div>
 </div>
 <div class="site-tree-mobile layui-hide">

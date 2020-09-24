@@ -28,3 +28,18 @@
 .gutter {
     display: none;
 }
+#frmSearch {
+    position:relative;
+    margin-top:8px;
+    text-align:center
+}
+#frmSearch input{
+   width:97%;
+   margin-left:2px
+}
+#frmSearch i {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    color: #999;
+}

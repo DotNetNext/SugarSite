@@ -249,7 +249,7 @@
     <Content Include="_theme\bbs-logo.png" />
     <Content Include="_theme\css\bbs-detail.css" />
     <Content Include="_theme\css\bbs.css" />
-    <Content Include="_theme\css\doc.css" />
+    <Content Include="_theme\css\page\doc.css" />
     <Content Include="_theme\css\fonts\fonts.css" />
     <Content Include="_theme\css\fonts\font_001z27klwvobt9.svg" />
     <Content Include="_theme\css\page\web-index.css" />
@@ -713,6 +713,7 @@
     <Content Include="Views\UserCenter\ActivateMail.cshtml" />
     <Content Include="Views\UserCenter\ActivateMailSubmitSuccess.cshtml" />
     <Content Include="Views\UserCenter\ChangeAvatar.cshtml" />
+    <Content Include="Views\Home\DocSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
