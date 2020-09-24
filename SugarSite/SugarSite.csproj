@@ -252,7 +252,7 @@
     <Content Include="_theme\css\doc.css" />
     <Content Include="_theme\css\fonts\fonts.css" />
     <Content Include="_theme\css\fonts\font_001z27klwvobt9.svg" />
-    <Content Include="_theme\css\page\web-.css" />
+    <Content Include="_theme\css\page\web-index.css" />
     <Content Include="_theme\default.jpg" />
     <Content Include="_theme\ico.ico" />
     <Content Include="Web.config">
