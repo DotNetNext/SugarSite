@@ -242,14 +242,14 @@ namespace SugarSite.Controllers
                 model.ResultInfo = new Infrastructure.ViewModels.DocDetailsResult();
                 model.ResultInfo.DocType = db.Queryable<DocType>().Where(it => it.MasterId == masterId).ToList();
                 model.ResultInfo.SearchList =new List<DocType>();
-                var level2Types = db.SqlQuery<DocType>(@"select top 20 * from DocType t  where t.[Level]=2 and 
+                var level2Types = db.SqlQuery<DocType>(@"select top 20 * from DocType t  where t.[Level]=2 and MasterId=@MasterId  and 
                 (
                 t.id in(
                        select  TypeId from DocContent   where Content like '%'+@title+'%' 
                 )
                 or 
                  TypeName like  '%'+@title+'%' 
-                )", new { title =title});
+                )", new { title =title, MasterId = masterId });
                 if (level2Types != null && level2Types.Count > 0)
                 {
                     foreach (var item in level2Types)
