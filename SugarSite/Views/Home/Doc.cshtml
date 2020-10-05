@@ -22,7 +22,7 @@
 <div class="layui-main site-inline">
     <div class="site-tree">
         <ul class="layui-tree">
-            <li>
+            <li >
                 <form id="frmSearch" action="/home/DocSearch?masterId=@Model.ResultInfo.MasterId&typeId=@Model.ResultInfo.TypeId" class="fly-search" method="get">
                     <i onclick="frmSearch.submit()" class="iconfont icon-sousuo"></i>
                     <input type="hidden" name="orderBy" value="">
@@ -35,10 +35,10 @@
                 foreach (var item in fist)
                 {
                     var itemChildren = type.Where(it => item.Id == it.ParentId).ToList();
-                    <li><h2>@item.TypeName</h2></li>
+                    <li class="clear"><h2>@item.TypeName</h2></li>
                     foreach (var childItem in itemChildren.OrderByDescending(it=>it.Sort))
                     {
-                        <li class="site-tree-noicon @((Model.ResultInfo.CurrentType.Id==childItem.Id).IIF("layui-this",""))">
+                        <li class="@((type.Count>25?"site-float":"")) site-tree-noicon @((Model.ResultInfo.CurrentType.Id==childItem.Id).IIF("layui-this",""))">
                             <a href="@Url.Action("Doc",new { typeId=childItem.Id})"><cite>@childItem.TypeName</cite></a>
                         </li>
                     }

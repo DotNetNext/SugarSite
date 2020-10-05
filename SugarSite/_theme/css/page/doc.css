@@ -43,3 +43,12 @@
     top: 5px;
     color: #999;
 }
+
+.site-float {
+    display: block;
+    width: 40%;
+    float: left
+}
+.clear {
+  clear:both
+}
