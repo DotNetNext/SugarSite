@@ -216,7 +216,7 @@ namespace SugarSite.Controllers
                 model.ResultInfo.Title = model.ResultInfo.DocType?.FirstOrDefault()?.TypeName;
                 if (typeId == 0)//如果没有文章ID取第一条
                 {
-                    typeId = model.ResultInfo.DocType.Where(it => it.MasterId == masterId).Where(it => it.Level == 2).OrderBy(it => it.Level).ThenBy(it => it.Sort).First().Id;
+                    typeId = model.ResultInfo.DocType.Where(it => it.MasterId == masterId).Where(it => it.Level == 2).OrderBy(it => it.Level).ThenByDescending(it => it.Sort).First().Id;
                 }
                 var list = db.Queryable<DocContent>().Where(it => it.TypeId == typeId).ToList();
                 model.ResultInfo.DocContent = list;
