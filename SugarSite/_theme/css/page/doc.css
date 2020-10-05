@@ -10,9 +10,9 @@
     line-height: 1.8 !important;
 }
 
-.site-h1 {
+/*.site-h1 {
     color: #f60 !important;
-}
+}*/
 
 @media screen and (max-width: 750px) {
     .code .container {
