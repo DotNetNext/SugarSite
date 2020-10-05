@@ -12,8 +12,10 @@ using System.Web.Routing;
 
 namespace SugarSite
 {
+     
     public class MvcApplication : System.Web.HttpApplication
     {
+        public const string Version = "2.1";
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
