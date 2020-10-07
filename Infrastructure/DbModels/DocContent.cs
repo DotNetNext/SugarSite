@@ -63,5 +63,7 @@ namespace Infrastructure.DbModel
         /// </summary>
         public string Creator {get;set;}
 
+        public string Script { get; set; }
+
     }
 }

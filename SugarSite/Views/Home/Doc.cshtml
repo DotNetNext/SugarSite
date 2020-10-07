@@ -59,6 +59,15 @@
                         <a class="admin-button" target="_blank" href="/AdminSite/DocContent/PageDCAdd?id=@item.Id">管理</a>
                     }
                     @Html.Raw(item.Content)
+
+                    @if (!string.IsNullOrEmpty(item.Script))
+                    {
+                        @section appendJs{
+                        <script>
+                            @Html.Raw(item.Script)
+                        </script>
+                       }
+                    }
                 </div>
             }
         }
