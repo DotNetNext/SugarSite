@@ -44,7 +44,7 @@
             <li>
                 <form id="frmSearch" action="/home/DocSearch?masterId=@Model.ResultInfo.MasterId&typeId=@Model.ResultInfo.TypeId" class="fly-search" method="get">
                     <i onclick="frmSearch.submit()" class="iconfont icon-sousuo"></i>
-                    <input type="hidden" name="orderBy" value="">
+                    <input type="hidden" name="masterId" value="@Model.ResultInfo.MasterId">
                     <input class="layui-input" autocomplete="off" value="" placeholder="搜索内容，回车跳转" type="text" name="title">
                 </form>
             </li>
