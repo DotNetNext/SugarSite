@@ -52,3 +52,29 @@
 .clear {
   clear:both
 }
+
+@media screen and (max-width: 1200px) {
+
+    a.logoM {
+        display: none !important
+    }
+
+    .header .layui-nav {
+        left: 0 !important;
+    }
+
+        .header .layui-nav .layui-nav-item {
+            margin: 0 5px;
+        }
+
+    .footer a {
+        color: #808080 !important;
+    }
+}
+
+@media screen and (max-width: 330px) {
+
+    .header .layui-nav * {
+        font-size: 12px;
+    }
+}
