@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "有偿服务";
+    ViewBag.PageNum = 5;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    <style>
+        @@media screen and (max-width: 1200px) {
+
+            a.logoM {
+                display: none !important
+            }
+
+            .header .layui-nav {
+                left: 0 !important;
+            }
+
+                .header .layui-nav .layui-nav-item {
+                    margin: 0 5px;
+                }
+
+            .footer a {
+                color: #808080 !important;
+            }
+        }
+
+        .firstRow th {
+            background: #009E94 !important;
+            color: white !important
+        }
+
+        @@media screen and (max-width: 330px) {
+
+            .header .layui-nav * {
+                font-size: 12px;
+            }
+        }
+
+        .site-content .title {
+            font-size: 20px !important;
+            line-height: 50px;
+            font-weight: normal;
+            color: red;
+        }
+
+        .ue-table-interlace-color-single td {
+            background: #fff !important;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .ue-table-interlace-color-double td {
+            background: #fff !important;
+            background: #fff !important;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .site-content table {
+            border-left: 1px solid #ccc;
+        }
+    </style>
+}
+<div class="site-content">
+    <div>
+
+        <p class="title">收费原因</p>
+        <p>1、对于很多人来说时间比金钱更重要，例如花20块钱可以解决自已需要一天时间问题，何乐而不为呢？ </p>
+
+        <p>
+           2、收费服务，不单单只是SqlSugar方面，还包括工作中遇到难点，学习遇到困难 和 工作外包等 
+        </p>
+ 
+
+        <p class="title">收费方式</p>
+        <p>1、先功能后付款</p>
+        <p>2、由SqlSugar框架引起的问题免费</p>
+   
+        <p class="title">收费明细</p>
+        <table align="center">
+            <tbody>
+
+                <tr class="firstRow">
+                    <th style="border-left:1px solid #ccc; word-break: break-all; background-color: rgb(75, 172, 198);" width="487"><p><span style="color: rgb(255, 255, 255);"><br></span></p><p><span style="color: rgb(255, 255, 255);">&nbsp; 名称</span></p><p><span style="color: rgb(255, 255, 255);"><br></span></p></th>
+                    <th style="word-break: break-all; background-color: rgb(75, 172, 198);" width="275">
+                        <p>
+                            <span style="color: rgb(255, 255, 255);">&nbsp;有效行数</span><span style="color: rgb(255, 255, 255);">&nbsp;</span>
+                        </p>
+                    </th>
+                    <th style="border-right:1px solid #ccc;word-break: break-all; background-color: rgb(75, 172, 198);" width="244"><span style="color: rgb(255, 255, 255);">价格（RMB）</span></th>
+                </tr>
+                <tr class="ue-table-interlace-color-single"><td width="487" valign="top" style="word-break: break-all; background-color: rgb(187, 187, 187);"><p style="line-height: 2em;">&nbsp;</p><p style="line-height: 2em;">&nbsp; 技术难点 ，不需要远程，没有涉及复杂业务</p><p style="line-height: 2em;"><br></p></td><td width="275" valign="top" style="word-break: break-all; background-color: rgb(187, 187, 187);"><p><br></p><p><br></p><p>&nbsp; &nbsp; &nbsp;1-100</p></td><td width="244" valign="top" style="word-break: break-all; background-color: rgb(187, 187, 187);"><p><br></p><p>&nbsp;</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5-50</p></td></tr>
+                <tr class="ue-table-interlace-color-double"><td width="487" valign="top" style="word-break: break-all; background-color: rgb(204, 204, 204);"><p><br></p><p>&nbsp; 代码缺陷或者技术难点，需要远程协助，没有涉及复杂的业务<br></p><p><br></p></td><td width="275" valign="top" style="word-break: break-all; background-color: rgb(204, 204, 204);"><p><br></p><p>&nbsp; &nbsp; &nbsp;1-100</p></td><td width="244" valign="top" style="word-break: break-all; background-color: rgb(204, 204, 204);"><p><br></p><p>&nbsp; &nbsp; &nbsp; &nbsp; 10-150</p></td></tr>
+                <tr class="ue-table-interlace-color-single"><td width="487" valign="top" style="word-break: break-all; background-color: rgb(187, 187, 187);"><p style="line-height: 2em;">&nbsp;</p><p style="line-height: 2em;">&nbsp; 代码缺陷或者技术难点，需要远程协助，涉及了比较复杂业务代码</p><p style="line-height: 2em;"><br></p></td><td width="275" valign="top" style="word-break: break-all; background-color: rgb(187, 187, 187);"><p><br></p><p><br></p><p>&nbsp; &nbsp; &nbsp;1-150</p></td><td width="244" valign="top" style="word-break: break-all; background-color: rgb(187, 187, 187);"><p><br></p><p><br></p><p>&nbsp; &nbsp; &nbsp; &nbsp; 30-500</p></td></tr>
+                <tr class="ue-table-interlace-color-double"><td width="487" valign="top" style="word-break: break-all; background-color: rgb(204, 204, 204);"><p><br></p><p>&nbsp; 新功能<br></p><p><br></p></td><td width="275" valign="top" style="word-break: break-all; background-color: rgb(204, 204, 204);"><p><br></p><p>&nbsp; &nbsp; &nbsp;面议</p></td><td width="244" valign="top" style="word-break: break-all; background-color: rgb(204, 204, 204);"><p><br></p><p><span>&nbsp; &nbsp; &nbsp; &nbsp;面议</span></p></td></tr>
+                <tr class="ue-table-interlace-color-single"><td width="487" valign="top" style="word-break: break-all; background-color: rgb(187, 187, 187);"><p style="line-height: 2em;">&nbsp;</p><p style="line-height: 2em;">&nbsp; 企业技术顾问（上海、南通地区）&nbsp; &nbsp;</p><p style="line-height: 2em;"><br></p></td><td width="275" valign="top" style="word-break: break-all; background-color: rgb(187, 187, 187);"><p><br></p><p><br></p><p>&nbsp; &nbsp; &nbsp;-</p></td><td width="244" valign="top" style="word-break: break-all; background-color: rgb(187, 187, 187);"><p><br></p><p><br></p><p>&nbsp; &nbsp; &nbsp; 200/小时</p></td></tr>
+                <tr class="ue-table-interlace-color-double"><td width="487" valign="top" style="word-break: break-all; background-color: rgb(204, 204, 204);"><p><br></p><p>&nbsp; 技术教学/电话+ 远程桌面演示<br></p><p><br></p></td><td width="275" valign="top" style="word-break: break-all; background-color: rgb(204, 204, 204);"><p><br></p><p>&nbsp; &nbsp; -</p></td><td width="244" valign="top" style="word-break: break-all; background-color: rgb(204, 204, 204);"><p><br></p><p><span>&nbsp; &nbsp; &nbsp;88/小时</span></p></td></tr>
+            </tbody>
+        </table>
+        <p>
+
+        </p>
+        <p>&nbsp;<img src="/_theme/ueditor/utf8-net/net/upload/image/20201007/6373767078586761727354649.png" title="QQ_128px_1230490_easyicon.net.png" alt="QQ_128px_1230490_easyicon.net.png"></p><p>&nbsp; 点击图片与我聊天</p><p><br></p><p><span style="color: rgb(255, 0, 0);">&nbsp;点击无效加QQ 610262374</span></p><p><br></p><p><br></p>
+
+    </div>
+</div>

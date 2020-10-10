@@ -714,6 +714,7 @@
     <Content Include="Views\UserCenter\ActivateMailSubmitSuccess.cshtml" />
     <Content Include="Views\UserCenter\ChangeAvatar.cshtml" />
     <Content Include="Views\Home\DocSearch.cshtml" />
+    <Content Include="Views\Home\Charge.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">

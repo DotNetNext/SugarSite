@@ -1,39 +1,167 @@
 ﻿
 @{
-    ViewBag.Title = "打赏作者";
+    ViewBag.Title = "免费服务";
     ViewBag.PageNum = 4;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section css{
-      <style>
-           .tableBox{width:600px;margin:auto;margin-top:4em}
-           .tableBox p{font-size:2em;font-weight:bold}
-           .tableBox img{margin-top:1em}
-           .layui-hide{display:none!important}
-           .tableBox .title{text-align:left;padding-bottom:2em;color: #f60;font-size: 1.5em;line-height:1.5}
-           @@media screen and (max-width: 1200px) {
-                  .tableBox img{width:45% !important; height:inherit!important;min-width: 140px;}
-                  .tableBox{width:100%;margin-top:2em!important}
-                  .tableBox .title{padding:2em;}
-           }
-      </style>
-}
-<table  class="tableBox">
-    <tr>
-        <td class="title" colspan="2">
-            本站的所有技术都是开源的，不收取任何费用，如果本站的技术可以帮到你，或者希望它能够提供更好的服务，你可以打赏一下小站，为作者加油打气。
-        </td>
-    </tr>
-    <tr>
-        <td valign="top">
-            <p>微信</p>
-            <img height="300" title="微信" src="~/_theme/img/wx.jpg" />
-        </td>
-        <td>
-            <p>支付宝</p>
-            <img height="300" title="支付宝" src="~/_theme/img/zfb.jpg" />
-        </td>
-    </tr>
+    <style>
+        .tableBox {
+            width: 600px;
+            margin: auto;
+            margin-top: 4em
+        }
 
-</table>
+            .tableBox p {
+                font-size: 2em;
+                font-weight: bold
+            }
+
+            .tableBox img {
+                margin-top: 1em
+            }
+
+        .layui-hide {
+            display: none !important
+        }
+
+        .tableBox .title {
+            text-align: left;
+            padding-bottom: 1em;
+            color: #f60;
+            font-size: 1.5em;
+            line-height: 1
+        }
+
+        .tableBox td.text {
+            text-align: left !important
+        }
+
+        @@media screen and (max-width: 1200px) {
+            .tableBox img {
+                width: 45% !important;
+                height: inherit !important;
+                min-width: 140px;
+            }
+
+            .tableBox {
+                width: 100%;
+                margin-top: 2em !important
+            }
+
+                .tableBox .title {
+                    padding: 0.5em;
+                }
+                .tableBox .text {
+                    padding-left:0.5em;
+                }
+        }
+
+        @@media screen and (max-width: 1200px) {
+
+            a.logoM {
+                display: none !important
+            }
+
+            .header .layui-nav {
+                left: 0 !important;
+            }
+
+                .header .layui-nav .layui-nav-item {
+                    margin: 0 5px;
+                }
+
+            .footer a {
+                color: #808080 !important;
+            }
+        }
+
+        @@media screen and (max-width: 330px) {
+
+            .header .layui-nav * {
+                font-size: 12px;
+            }
+        }
+    </style>
+}
+    <table class="tableBox">
+        <tr>
+            <td class="title" colspan="2">
+                免费服务
+            </td>
+        </tr>
+        <tr>
+            <td class="text" colspan="2">
+                1、文档园发布 简单问题或者用法咨询 100%答复
+
+            </td>
+        </tr>
+        <tr>
+            <td class="text" colspan="2">
+
+                2、提供可重现BUG用例 100%修复
+            </td>
+        </tr>
+        <tr>
+            <td class="text" colspan="2">
+
+                3、采纳优秀的建议和需求
+
+            </td>
+        </tr>
+
+        <tr>
+            <td class="text" colspan="2">
+                4、及时更新文档
+            </td>
+        </tr>
+        <tr>
+            <td class="text" colspan="2">
+               5、版本升级有记录 
+            </td>
+        </tr>
+
+        <tr>
+            <td class="text" colspan="2">
+                6、qq交流群讨论  654015377  |  726648662 |  225982985
+            </td>
+        </tr>
+        <tr>
+            <td class="text" colspan="2">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td class="text" colspan="2">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td class="title" colspan="2">
+                打赏作者
+            </td>
+        </tr>
+        <tr>
+            <td class="text" colspan="2">
+
+                本站的所有技术都是开源的，不收取任何费用，如果本站的技术可以帮到你，或者希望它能够提供更好的服务，你可以打赏一下小站，为作者加油打气。
+            </td>
+        </tr>
+        <tr>
+            <td class="text" colspan="2">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">
+                <p>微信</p>
+                <img height="300" title="微信" src="~/_theme/img/wx.jpg" />
+            </td>
+            <td>
+                <p>支付宝</p>
+                <img height="300" title="支付宝" src="~/_theme/img/zfb.jpg" />
+            </td>
+        </tr>
+
+    </table>
 

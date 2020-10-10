@@ -56,7 +56,11 @@ namespace SugarSite.Controllers
         {
             return View();
         }
-
+        public ActionResult Charge()
+        {
+            return View();
+        }
+   
         public ActionResult Login()
         {
             if (IsLogin)
