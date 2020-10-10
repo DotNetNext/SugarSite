@@ -32,9 +32,9 @@
                     <ul class="layui-nav">
                         @if (ViewBag.IsNew == null)
                         {
-                        <li class="layui-nav-item @((ViewBag.PageNum == 2) ? "page-current" : "")">
-                            <a href="/Home/Doc">@(ViewBag.DocTitle!=null? ViewBag.DocTitle : "SqlSugar文档")</a>
-                        </li>
+                            <li class="layui-nav-item @((ViewBag.PageNum == 2) ? "page-current" : "")">
+                                <a href="/Home/Doc">@(ViewBag.DocTitle != null ? ViewBag.DocTitle : "SqlSugar文档")</a>
+                            </li>
                         }
                         else
                         {
@@ -46,7 +46,10 @@
                             <a href="/Ask">文档园</a>
                         </li>
                         <li class="layui-nav-item @((ViewBag.PageNum==4)?"page-current":"")">
-                            <a href="/Home/Reward">打赏</a>
+                            <a href="/Home/Reward">免费服务</a>
+                        </li>
+                        <li class="layui-nav-item @((ViewBag.PageNum==4)?"page-current":"")">
+                            <a href="/Home/Reward">有偿服务</a>
                         </li>
                         <span class="layui-nav-bar" style="left: 54px; top: 61px; width: 0px; opacity: 0;"></span>
                     </ul>
