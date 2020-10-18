@@ -270,6 +270,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="_theme\img\addWX.jpg" />
     <Content Include="_theme\img\forums\1.png" />
     <Content Include="_theme\img\forums\11.png" />
     <Content Include="_theme\img\forums\14.png" />
