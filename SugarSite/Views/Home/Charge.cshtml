@@ -63,37 +63,41 @@
         }
 
         .chat {
-           cursor:pointer
+            cursor: pointer
         }
 
         @@media screen and (max-width: 1200px) {
             .site-content .title {
                 font-size: 17px !important;
-                padding-left:5px;
+                padding-left: 5px;
             }
+
             .site-content .p {
                 font-size: 12px !important;
                 padding-left: 5px;
             }
+
             .site-content th {
-                font-size:13px;
+                font-size: 13px;
             }
+
             .site-content td {
                 font-size: 12px;
-                padding-left:5px;
+                padding-left: 5px;
             }
+
             .layui-hide {
-              display:none !important
+                display: none !important
             }
         }
     </style>
 }
 @section js{
-   <script>
-       function chat() {
-           window.open('http://wpa.qq.com/msgrd?v=3&uin=610262374&site=qq&menu=yes', '_brank');
-       }
-    </script>    
+    <script>
+        function chat() {
+            window.open('http://wpa.qq.com/msgrd?v=3&uin=610262374&site=qq&menu=yes', '_brank');
+        }
+    </script>
 }
 <div class="site-content">
     <div>
@@ -131,10 +135,23 @@
                 <tr class="ue-table-interlace-color-double"><td width="487" valign="top" style="word-break: break-all; background-color: rgb(204, 204, 204);"><p><br></p><p>&nbsp; 技术教学/电话+ 远程桌面演示<br></p><p><br></p></td><td width="275" valign="top" style="word-break: break-all; background-color: rgb(204, 204, 204);"><p><br></p><p>&nbsp; &nbsp; -</p></td><td width="244" valign="top" style="word-break: break-all; background-color: rgb(204, 204, 204);"><p><br></p><p><span>&nbsp; &nbsp; &nbsp;88/小时</span></p></td></tr>
             </tbody>
         </table>
-        <p>
-
-        </p>
-        <p>&nbsp;<img class="chat" onclick="chat()" src="/_theme/ueditor/utf8-net/net/upload/image/20201007/6373767078586761727354649.png" title="与我聊天" alt="QQ_128px_1230490_easyicon.net.png"></p><p>&nbsp; 点击图片与我聊天</p><p><br></p><p><span style="color: rgb(255, 0, 0);">&nbsp;点击无效加QQ 610262374</span></p><p><br></p><p><br></p>
-
+        <p><br></p><p><br></p>
+        <table style="border:none !important;width:100%">
+            <tr>
+                <td width="40%">
+                    <p>&nbsp;<img class="chat" onclick="chat()" src="/_theme/ueditor/utf8-net/net/upload/image/20201007/6373767078586761727354649.png" title="与我聊天" alt="QQ_128px_1230490_easyicon.net.png"></p><p>&nbsp; 点击图片与我聊天</p><p><br></p><p><span style="color: rgb(255, 0, 0);">&nbsp;点击无效加QQ 610262374</span></p>
+                </td>
+               
+                <td width="27%" valign="top">
+                    <p>微信支付</p>
+                    <img height="150" title="微信" src="/_theme/img/wx.jpg">
+                </td>
+                <td width="5%"></td>
+                <td  width="27%" >
+                    <p>支付宝支付</p>
+                    <img height="150" title="支付宝" src="/_theme/img/zfb.jpg">
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
