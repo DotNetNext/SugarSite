@@ -130,6 +130,8 @@ namespace SugarSite.Areas.BBS.Controllers
                 Check.Exception(fid == 0 || title.IsNullOrEmpty() || content.IsNullOrEmpty() || vercode.IsNullOrEmpty(), "参数不合法！");
                 Check.Exception(title.Length < 5 && content.Length < 20 || content.Length > 1000000, "参数不合法！");
                 Check.Exception(base.GetForumsList != null && base.GetForumsList.Any(it => it.Fid == fid).IsFalse(), "参数不合法！");
+                var myUser = db.Queryable<UserInfo>().InSingle(_userInfo.Id);
+                Check.Exception(myUser.IsDeleted == true, "用户已被删除！");
                 var sm = SessionManager<string>.GetInstance();
                 var severCode = sm[PubConst.SessionVerifyCode];
                 model.IsSuccess = false;
@@ -187,6 +189,9 @@ namespace SugarSite.Areas.BBS.Controllers
             {
                 Check.Exception(pid == 0 ||  content.IsNullOrEmpty() || vercode.IsNullOrEmpty(), "参数不合法！");
                 Check.Exception(content.Length < 5 || content.Length > 1000000, "参数不合法！");
+                var myUser = db.Queryable<UserInfo>().InSingle(_userInfo.Id);
+                Check.Exception(myUser.IsDeleted==true, "用户已被删除！");
+
                 var sm = SessionManager<string>.GetInstance();
                 var severCode = sm[PubConst.SessionVerifyCode];
                 model.IsSuccess = false;

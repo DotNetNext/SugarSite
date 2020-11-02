@@ -15,7 +15,7 @@ namespace SugarSite
      
     public class MvcApplication : System.Web.HttpApplication
     {
-        public const string Version = "2.2";
+        public const string Version = "2.3";
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
