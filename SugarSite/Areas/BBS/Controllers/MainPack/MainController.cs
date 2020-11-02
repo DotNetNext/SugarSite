@@ -66,6 +66,20 @@ namespace SugarSite.Areas.BBS.Controllers
             ViewBag.ForList = base.GetForumsList;
             return View();
         }
+
+        public ActionResult AskItem(int postId)
+        {
+            if (IsLogin.IsFalse())
+            {
+                return this.Redirect("/Home/Login");
+            }
+            BBS_Posts model=new BBS_Posts();
+            _service.Command<MainOutsourcing, ResultModel<BBS_Posts>>((db, o,api) =>
+            {
+                model = api.Get(Url.Action("GetPostByPid"), new { pid = postId }).ResultInfo;
+            });
+             return View(model);
+        }
         #endregion
 
         #region api
@@ -149,6 +163,50 @@ namespace SugarSite.Areas.BBS.Controllers
                             Check.Exception(topics.Posterid != _userInfo.Id && _userInfo.RoleId == PubEnum.RoleType.User.TryToInt(), "您没有权限修改！");
                             db.Update<BBS_Topics>(new { Title = title, Rate = rate, Fid = fid }, it => it.Tid == id);
                             db.Update<BBS_Posts>(new { Title = title, Rate = rate, Fid = fid, Message = content }, it => it.Tid == id && it.Parentid == 0);
+                        }
+                        db.CommitTran();
+                        model.IsSuccess = true;
+                        base.RemoveForumsStatisticsCache();//清除统计缓存
+                    }
+                    catch (Exception ex)
+                    {
+                        model.ResultInfo = "发布失败！";
+                        db.RollbackTran();
+                        PubMethod.WirteExp(ex);
+                    }
+                }
+            });
+            return Json(model);
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public JsonResult AskItemSubmit(short pid, string title, string content, string vercode)
+        {
+            ResultModel<string> model = new ResultModel<string>();
+            _service.Command<MainOutsourcing>((db, o) =>
+            {
+                Check.Exception(pid == 0 ||  content.IsNullOrEmpty() || vercode.IsNullOrEmpty(), "参数不合法！");
+                Check.Exception(content.Length < 5 || content.Length > 1000000, "参数不合法！");
+                var sm = SessionManager<string>.GetInstance();
+                var severCode = sm[PubConst.SessionVerifyCode];
+                model.IsSuccess = false;
+                if (vercode != severCode)
+                {
+                    model.ResultInfo = "验证码错误！";
+                }
+                else if (IsLogin.IsFalse())
+                {
+                    model.ResultInfo = "对不起您还没有登录！";
+                }
+                else
+                {
+                    try
+                    {
+                        db.BeginTran();
+                        var post= db.Queryable<BBS_Posts>().InSingle(pid);
+                        if ((post.Postdatetime.AddDays(3)>DateTime.Now&&post.Posterid==base._userInfo.Id)||base._userInfo.RoleId==1) 
+                        {
+                            db.Update<BBS_Posts>(new { Message = content }, it => it.Pid == pid);
                         }
                         db.CommitTran();
                         model.IsSuccess = true;
@@ -279,6 +337,17 @@ namespace SugarSite.Areas.BBS.Controllers
             _service.Command<MainOutsourcing>((db, o) =>
             {
                 model.ResultInfo = db.Queryable<BBS_Posts>().Where(it => it.Tid == tid).Where(it => it.Parentid == 0).Single();
+            });
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetPostByPid(int pid)
+        {
+            ResultModel<BBS_Posts> model = new ResultModel<BBS_Posts>();
+            _service.Command<MainOutsourcing>((db, o) =>
+            {
+                model.ResultInfo = db.Queryable<BBS_Posts>().Where(it => it.Pid == pid).Single();
+                model.ResultInfo.Title = db.Queryable<BBS_Topics>().Where(it => it.Tid == model.ResultInfo.Tid).Single().Title;
             });
             return Json(model, JsonRequestBehavior.AllowGet);
         }

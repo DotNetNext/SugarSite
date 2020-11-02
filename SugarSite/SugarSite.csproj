@@ -687,6 +687,7 @@
     <Content Include="Areas\BBS\Views\Main\Index.cshtml" />
     <Content Include="Areas\BBS\Views\Main\Ask.cshtml" />
     <Content Include="Areas\BBS\Views\Main\Detail.cshtml" />
+    <Content Include="Areas\BBS\Views\Main\AskItem.cshtml" />
     <None Include="Properties\PublishProfiles\skx.pubxml" />
     <None Include="Properties\PublishProfiles\skx2.pubxml" />
     <Content Include="Views\Home\Doc.cshtml" />

@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "修改回复";
+    Layout = "~/Views/Shared/_Layout_BBS.cshtml";
+    List<BBS_Forums> ForList = ViewBag.ForList;
+}
+@model BBS_Posts
+@using Infrastructure.DbModel
+@using SyntacticSugar
+@section js{
+    <script src="~/_theme/ueditor/utf8-net/ueditor.config.js"></script>
+    <script src="~/_theme/ueditor/utf8-net/ueditor.all.js"></script>
+    <script>
+        var ue = UE.getEditor('container', {
+            toolbars: [['fullscreen', 'source', 'insertcode', 'paragraph', 'fontfamily', 'fontsize', '|', 'undo', 'redo', '|',
+                'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', '|',
+                'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+                'directionalityltr', 'directionalityrtl', 'indent', '|',
+                'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|',
+                'link', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+                'simpleupload', 'insertimage', 'emotion', 'scrawl', 'attachment', 'map', 'template', '|',
+                'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'splittorows', 'splittocols'
+            ]]
+        });
+        layui.use(['form', 'laydate','ejq' ,'ajaxforms'], function () {
+            var form = layui.form()
+            , layer = layui.layer
+            , laydate = layui.laydate;
+            var $ = layui.ajaxforms;
+            var $btnSubmit = $("#btnSubmit");
+            var $title = $("#title");
+            var $txtVercode = $("#txtVercode");
+            var $id = $("#id");
+            var $selfid = $("#selfid");
+            var $rate = $("[name=rate]");
+            var $imgOutPutVerifyCode = $("#imgVerifyCode");
+            var isEdit = $.request.queryString().id > 0;
+            if (isEdit) {
+                $.ajax({
+                    url: $.action.url("GetPost", null, "Main", "BBS"),
+                    cache: false,
+                    data: { tid: $.request.queryString().id },
+                    success: function (msg) {
+                        var result = msg.ResultInfo;
+                        ue.setContent(result.Message);
+                        $id.val(result.Tid);
+                        $title.val(result.Title);
+                        $rate.val(result.Rate);
+                        $selfid.val(result.Fid);
+                    }
+                })
+            }
+            $imgOutPutVerifyCode.click(function () {
+                var th = $(this);
+                var src = th.attr("src") + "1";
+                th.attr("src", src);
+            });
+            $btnSubmit.click(function (e) {
+                e.preventDefault();
+                var $ = layui.ajaxforms;
+                var $fid = $("#selfid");
+                var c = ue.getContent();
+                if ($txtVercode.val() == "") {
+                    layer.msg("请填写验证码！");
+                }
+                else {
+                    var index = layer.load(1, {
+                        shade: [0.3, '#fff']
+                    });
+                    $("form").ajaxSubmit({
+                        url: $.action.url("AskItemSubmit", null, "Main", "BBS"),
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.IsSuccess) {
+                                window.location.href = "/Ask/@(Model.Fid)/@(Model.Tid)";
+                            } else {
+                                layer.msg(msg.ResultInfo);
+                            }
+                            layer.close(index);
+                        },error:function(){
+                            layer.close(index);
+                        }
+                    })
+                }
+            });
+        });
+    </script>
+
+}
+<div class="main layui-clear">
+    <h2 class="page-title">@Model.Title</h2>
+    <div class="layui-form layui-form-pane">
+        <form action="" method="post">
+            <div class="layui-form-item layui-form-text">
+                <input type="hidden" name="pid" value="@Model.Pid" />
+                <div class="layui-input-block">
+                    <!-- 加载编辑器的容器 -->
+                    <script id="container" name="Content" style="height:300px" type="text/plain">@Html.Raw(Model.Message)</script>
+                </div>
+            </div>
+       
+            <div class="layui-form-item">
+                <label for="L_vercode" class="layui-form-label">人类验证</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="txtVercode" name="vercode" placeholder="请回答后面的问题" autocomplete="off" class="layui-input" />
+                </div>
+                <div class="layui-form-mid">
+                    <span style="color: #c00;"><img id="imgVerifyCode" src="@Url.Action("OutPutVerifyCode","Home",new { Area=""})?r=" /></span>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <button id="btnSubmit" class="layui-btn" lay-filter="*" lay-submit="">立即发布</button>
+            </div>
+        </form>
+    </div>
+</div>
+
