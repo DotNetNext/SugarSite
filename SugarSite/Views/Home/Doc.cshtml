@@ -1,6 +1,10 @@
 ﻿
 @{
     ViewBag.Title = Model.ResultInfo.CurrentType.TypeName + "-" + Model.ResultInfo.Master.MasterName + PubConst.SitePrefix;
+    if (Model.ResultInfo.DocType.Where(it => it.Level == 2).First().Id == Model.ResultInfo.CurrentType.Id)
+    {
+        ViewBag.Title =  Model.ResultInfo.DocContent.First().Title+"-"  + PubConst.SitePrefix;
+    }
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.PageNum = 2;
     var type = Model.ResultInfo.DocType;
@@ -38,7 +42,7 @@
                     <li class="clear"><h2>@item.TypeName</h2></li>
                     foreach (var childItem in itemChildren.OrderByDescending(it=>it.Sort))
                     {
-                        <li class="@((type.Count>25?"site-float":"")) site-tree-noicon @((Model.ResultInfo.CurrentType.Id==childItem.Id).IIF("layui-this",""))">
+                        <li class="@((type.Count>25&&fist.Count>1?"site-float":"")) site-tree-noicon @((Model.ResultInfo.CurrentType.Id==childItem.Id).IIF("layui-this",""))">
                             <a href="@Url.Action("Doc",new { typeId=childItem.Id})"><cite>@childItem.TypeName</cite></a>
                         </li>
                     }

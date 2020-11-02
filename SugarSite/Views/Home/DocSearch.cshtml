@@ -57,7 +57,7 @@
                     <li class="clear"><h2>@item.TypeName</h2></li>
                     foreach (var childItem in itemChildren)
                     {
-                        <li class="@((type.Count>25?"site-float":"")) site-tree-noicon @((fist.IndexOf(item)==0&&itemChildren.IndexOf(childItem)==0).IIF("layui-this",""))">
+                        <li class="@((type.Count>25&&fist.Count>1?"site-float":"")) site-tree-noicon @((fist.IndexOf(item)==0&&itemChildren.IndexOf(childItem)==0).IIF("layui-this",""))">
                             <a href="@Url.Action("Doc",new { typeId=childItem.Id})"><cite>@childItem.TypeName</cite></a>
                         </li>
                     }
