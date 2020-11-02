@@ -17,12 +17,20 @@
         .content {
             width: 100%;
         }
+        .deleted {
+           color:blueviolet;
+           font-size:12px;
+        }
     </style>
 }
 <div class="fly-home">
     <img src="@Model.UserInfo.Avatar" alt="@Model.UserInfo.NickName" />
     <h1>
         @Model.UserInfo.NickName <i class="iconfont icon-nv"></i>
+        @if (Model.IsAdmin)
+        {
+          <a href="/UserCenter/DeleteUserId?id=@Model.UserInfo.Id"  class="deleted">删除用户</a>
+        }
         <span style="color:#c00;">（@(((PubEnum.RoleType)Model.UserInfo.RoleId).GetAttributeValue())）</span>
     </h1>
     <p class="fly-home-info">

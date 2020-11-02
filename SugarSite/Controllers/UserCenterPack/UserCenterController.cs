@@ -214,6 +214,10 @@ namespace SugarSite.Controllers
             {
                 o.InsertVisitor(base.IsLogin, id, db, _userInfo);
                 model.ResultInfo = new PubUserResult();
+                string uniqueKey = PubGet.GetUserKey;
+                var cm = CacheManager<UserInfo>.GetInstance();
+                var user = cm[uniqueKey];
+                model.ResultInfo.IsAdmin = user?.RoleId == 1;
                 model.ResultInfo.UserInfo = db.Queryable<UserInfo>().InSingle(id);
                 //最新发布
                 model.ResultInfo.RecentAsks = db.Queryable<BBS_Topics>()
@@ -287,6 +291,35 @@ namespace SugarSite.Controllers
                 return Json(model, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult DeleteUserId(int id) 
+        {
+
+            var model = new ResultModel<string>();
+            if (base.IsLogin.IsFalse())
+            {
+                model.ResultInfo = "您还没有登录！";
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                string uniqueKey = PubGet.GetUserKey;
+                var cm = CacheManager<UserInfo>.GetInstance();
+                var user = cm[uniqueKey];
+                if (user.RoleId == 1)
+                {
+                    _service.Command<IndexResult>((db, o) =>
+                    {
+                        db.FalseDelete<UserInfo>("IsDeleted", it=>it.Id==id);
+                        db.FalseDelete<BBS_Posts>("IsDeleted", it => it.Posterid == id);
+                        db.FalseDelete<BBS_Topics>("IsDeleted", it => it.Posterid == id);
+                        model.IsSuccess = true;
+                    });
+                }
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public JsonResult ClearPmsNew()
         {
             var model = new ResultModel<string>();

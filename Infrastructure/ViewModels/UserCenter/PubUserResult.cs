@@ -13,5 +13,6 @@ namespace Infrastructure.ViewModels.UserCenter
         public List<BBS_Posts> RecentReplies { get; set; }
         public List<BBS_Topics> RecentRepliesTopics { get; set; }
         public List<BBS_Topics> RecentAsks { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }
