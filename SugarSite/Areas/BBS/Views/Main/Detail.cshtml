@@ -181,7 +181,7 @@
                     <div class="jieda-reply">
                         <span class="jieda-zan " type="zan"> <i class="iconfont icon-zan"></i> <em>0</em> </span>
                         <span data-name="@item.Poster" data-id="@item.Posterid" type="reply" class="iReply"> <i class="iconfont icon-svgmoban53"></i> 回复 </span>
-                        @if ((item.Postdatetime.AddDays(3) > DateTime.Now&&item.Posterid==user.Id)|| user.RoleId==1)
+                        @if ((item.Postdatetime.AddDays(3) > DateTime.Now&&item.Posterid==user?.Id)|| user?.RoleId==1)
                         {
                          <a href="/BBS/Main/AskItem?postId=@item.Pid">修改</a>
                         }
