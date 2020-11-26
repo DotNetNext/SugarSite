@@ -1,7 +1,8 @@
 ﻿
 @{
-    if (Model.ResultInfo.DocType == null) 
+    if (Model.ResultInfo.DocType == null|| Model.ResultInfo.Master==null)
     {
+    <center>没有数据</center>
         return;
     }
     ViewBag.Title = Model.ResultInfo.CurrentType.TypeName + "-" + Model.ResultInfo.Master.MasterName + PubConst.SitePrefix;

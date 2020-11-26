@@ -25,7 +25,7 @@ namespace SugarSite.Controllers
             return View();
         }
 
-        public ActionResult Doc(int masterId=1,int typeId = 0)
+        public ActionResult Doc(int masterId = 1, int typeId = 0)
         {
             var model = new ResultModel<DocResult>();
             _service.Command<HomeOutsourcing, ResultModel<DocResult>>((o, api) =>
@@ -44,7 +44,7 @@ namespace SugarSite.Controllers
             var model = new ResultModel<DocDetailsResult>();
             _service.Command<HomeOutsourcing, ResultModel<DocDetailsResult>>((o, api) =>
             {
-                model = api.Get(Url.Action("GetDocDetails"), new { typeId = typeId,title=title, masterId = masterId });
+                model = api.Get(Url.Action("GetDocDetails"), new { typeId = typeId, title = title, masterId = masterId });
             });
             ViewBag.IsAdmin = _userInfo != null && _userInfo.RoleId == 1;
             model.ResultInfo.MasterId = masterId;
@@ -60,7 +60,7 @@ namespace SugarSite.Controllers
         {
             return View();
         }
-   
+
         public ActionResult Login()
         {
             if (IsLogin)
@@ -224,8 +224,9 @@ namespace SugarSite.Controllers
                 }
                 var list = db.Queryable<DocContent>().Where(it => it.TypeId == typeId).ToList();
                 model.ResultInfo.DocContent = list;
-                model.ResultInfo.CurrentType = model.ResultInfo.DocType.Single(it => it.Id == typeId);
-                model.ResultInfo.Master = db.Queryable<DocMaster>().Single(it => it.Id == model.ResultInfo.CurrentType.MasterId);
+                model.ResultInfo.CurrentType = model.ResultInfo.DocType.SingleOrDefault(it => it.Id == typeId);
+                if (model.ResultInfo.CurrentType != null)
+                    model.ResultInfo.Master = db.Queryable<DocMaster>().SingleOrDefault(it => it.Id == model.ResultInfo.CurrentType.MasterId);
                 model.IsSuccess = true;
             });
             return Json(model, JsonRequestBehavior.AllowGet);
@@ -238,14 +239,14 @@ namespace SugarSite.Controllers
         /// <param name="Id"></param>
         /// <returns></returns>
         [OutputCache(Duration = 0)]
-        public JsonResult GetDocDetails(int typeId,string title, int masterId = 1)
+        public JsonResult GetDocDetails(int typeId, string title, int masterId = 1)
         {
             var model = new ResultModel<DocDetailsResult>();
             _service.Command<HomeOutsourcing>((db, o) =>
             {
                 model.ResultInfo = new Infrastructure.ViewModels.DocDetailsResult();
                 model.ResultInfo.DocType = db.Queryable<DocType>().Where(it => it.MasterId == masterId).ToList();
-                model.ResultInfo.SearchList =new List<DocType>();
+                model.ResultInfo.SearchList = new List<DocType>();
                 var level2Types = db.SqlQuery<DocType>(@"select top 20 * from DocType t  where t.[Level]=2 and MasterId=@MasterId  and 
                 (
                 t.id in(
@@ -253,7 +254,7 @@ namespace SugarSite.Controllers
                 )
                 or 
                  TypeName like  '%'+@title+'%' 
-                )", new { title =title, MasterId = masterId });
+                )", new { title = title, MasterId = masterId });
                 if (level2Types != null && level2Types.Count > 0)
                 {
                     foreach (var item in level2Types)
@@ -266,7 +267,7 @@ namespace SugarSite.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
 
         }
-        
+
         /// <summary>
         /// 获取验证码图片
         /// </summary>
