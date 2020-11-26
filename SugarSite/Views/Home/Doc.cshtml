@@ -1,5 +1,9 @@
 ﻿
 @{
+    if (Model.ResultInfo.DocType == null) 
+    {
+        return;
+    }
     ViewBag.Title = Model.ResultInfo.CurrentType.TypeName + "-" + Model.ResultInfo.Master.MasterName + PubConst.SitePrefix;
     if (Model.ResultInfo.DocType.Where(it => it.Level == 2).First().Id == Model.ResultInfo.CurrentType.Id)
     {

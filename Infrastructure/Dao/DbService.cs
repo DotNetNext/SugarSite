@@ -121,8 +121,9 @@ namespace Infrastructure.Dao
         /// 将错误信息写入日志
         /// </summary>
         /// <param name="ex"></param>
-        private static void WriteExMessage(Exception ex)
+        private void WriteExMessage(Exception ex)
         {
+            Dispose();
             PubMethod.WirteExp(ex);
         }
 
@@ -131,6 +132,7 @@ namespace Infrastructure.Dao
             if (_db != null)
             {
                 _db.Dispose();
+                _db = null;
             }
         }
     }
