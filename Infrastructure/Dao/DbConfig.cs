@@ -28,7 +28,7 @@ namespace Infrastructure.Dao
                 {//在这儿打段点可以查看生成的SQL语句
 
                 };
-                reval.CommandTimeOut = 1;
+                reval.CommandTimeOut = 2;
                 return reval;
             }
             catch (Exception ex)

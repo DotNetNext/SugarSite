@@ -7,6 +7,7 @@ using SqlSugar;
 using SyntacticSugar;
 using Infrastructure.Tool;
 using Infrastructure.Pub;
+using System.Data.SqlClient;
 
 namespace Infrastructure.Dao
 {
@@ -125,6 +126,39 @@ namespace Infrastructure.Dao
         {
             Dispose();
             PubMethod.WirteExp(ex);
+
+            var context = System.Web.HttpContext.Current;
+            var url=context.Request.Url;
+
+            var errorUrl = FileSugar.GetMapPath("~/error_url/log.txt");
+            if (FileSugar.IsExistFile(errorUrl).IsFalse())
+            {
+                FileSugar.CreateFile(errorUrl);
+            }
+
+            FileSugar.AppendText(errorUrl, DateTime.Now.ToString()); 
+            FileSugar.AppendText(errorUrl, url.ToString());
+            if (context.Request.QueryString.Count > 0)
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (var item in context.Request.QueryString.Keys)
+                {
+                    sb.Append(item.ToString() + "_" + context.Request.QueryString[item.ToString()] + "|");
+                }
+                FileSugar.AppendText(errorUrl, sb.ToString());
+            }
+            if (context.Request.Form.Count > 0)
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (var item in context.Request.Form.Keys)
+                {
+                    sb.Append(item.ToString() + "_" + context.Request.Form[item.ToString()] + "|");
+                }
+                FileSugar.AppendText(errorUrl, sb.ToString());
+            }
+            FileSugar.AppendText(errorUrl, "");
+            SqlConnection.ClearAllPools();
+            GC.Collect();
         }
 
         public void Dispose()
