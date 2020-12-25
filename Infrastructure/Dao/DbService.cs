@@ -156,6 +156,9 @@ namespace Infrastructure.Dao
                 }
                 FileSugar.AppendText(errorUrl, sb.ToString());
             }
+            FileSugar.AppendText(errorUrl, context.Request.ServerVariables.Get("Remote_Addr").ToString());
+            FileSugar.AppendText(errorUrl, context.Request.ServerVariables.Get("Remote_Host").ToString());
+            FileSugar.AppendText(errorUrl, context.Request.Browser.Platform);
             FileSugar.AppendText(errorUrl, "");
             SqlConnection.ClearAllPools();
             GC.Collect();
