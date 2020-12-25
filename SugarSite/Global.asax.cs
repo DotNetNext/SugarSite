@@ -38,6 +38,10 @@ namespace SugarSite
         {
             //将不带www.的域名跳转到带www.的域名 (301跳转)
             string strUrl = Request.Url.ToString().Trim().ToLower();
+            if (strUrl.Contains("codeisbug"))
+            {
+                Response.RedirectPermanent(strUrl.Replace("codeisbug","donet5.com"));
+            }
             if (strUrl.Contains(PubConst.SiteDomain.ToLower()) && !strUrl.Contains("www."))
             {
                 Response.RedirectPermanent(strUrl.Replace(PubConst.SiteDomain, "www." + PubConst.SiteDomain));
