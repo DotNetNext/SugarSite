@@ -40,7 +40,7 @@ namespace SugarSite
             string strUrl = Request.Url.ToString().Trim().ToLower();
             if (strUrl.Contains("codeisbug"))
             {
-                Response.RedirectPermanent(strUrl.Replace("codeisbug","donet5.com"));
+                Response.RedirectPermanent(strUrl.Replace("codeisbug","donet5"));
             }
             if (strUrl.Contains(PubConst.SiteDomain.ToLower()) && !strUrl.Contains("www."))
             {
