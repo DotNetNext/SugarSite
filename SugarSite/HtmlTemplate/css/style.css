@@ -681,3 +681,7 @@ ul.social-list li a:hover, ul.social-list li a:focus{
 	position: absolute;
 	right: 0;
 }
+.navbar-fixed-top {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
