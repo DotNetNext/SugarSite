@@ -1,42 +1,229 @@
-﻿@{
-    ViewBag.Title = "开源大数据果糖网 (SqlSugar ORM 官网)";
-    var downCount = (DateTime.Now - Convert.ToDateTime("2015-1-1")).TotalDays * 5;
-    ViewBag.PageNum = 1;
+﻿@{ 
+    Layout = null;
 }
-@section meta{
-    <meta name="keywords" content="SqlSugar ORM,开源大数据果糖网">
-    <meta name="description" content="开源大数据果糖网，SqlSugar是一款轻量级、高性能、以及支持.NET 4.+和ASP.NET Core一款ORM框架。另外还支持了MySql、Sqlserver、Sqlite和Oracle四种数据库。" />
-}
-@section css{
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="keywords" content="开源大数据果糖网，SqlSugar ORM">
+    <meta name="description" content=".NET开源技术学习网站 SqlSugar ORM " />
 
-    <link href="~/_theme/css/page/web-index.css?v=@MvcApplication.Version" rel="stylesheet" />
-}
-<div class="site-zfj site-zfj-anim">
-    <i class="layui-icon" style="color: #FBDAC7; color: rgba(255,255,255,.5);"></i>
-</div>
-<div class="layui-anim site-desc site-desc-anim">
-    <p class="web-font-desc">SqlSugar ORM</p>
-    <cite>支持多种数据，支持.NET Core & .NET 4.0 &.NET5 ,成熟的ORM框架</cite>
-</div>
-<div class="site-download">
-    <a href="https://github.com/sunkaixuan/SqlSugar" class="layui-inline site-down" target="_blank">
-        <cite class="layui-icon"></cite>
-        Git下载
-    </a>
-    <a href="https://gitee.com/sunkaixuan/SqlSugar" class="layui-inline  site-down" style="width:20px;border:none; margin:0; padding:0" target="_blank">
-        &nbsp;
-    </a>
-    <a href="https://gitee.com/sunkaixuan/SqlSugar" class="layui-inline site-down" target="_blank">
-        <cite class="layui-icon"></cite>
-        Gitee下载
-    </a>
-</div>
- 
-<div class="site-version">
-    <span>当前版本：<cite class="site-showv">最新</cite></span>
-    <span>下载量：<em class="site-showdowns">@Convert.ToInt32(downCount * 5)</em></span>
-</div>
-<div class="site-banner-other" style="bottom:0 !important">
-    <iframe src="http://ghbtns.com/github-btn.html?user=sunkaixuan&repo=sqlsugar&type=watch&count=true" width="105" height="20"></iframe>
-    <iframe src="http://ghbtns.com/github-btn.html?user=sunkaixuan&repo=sqlsugar&type=fork&count=true" width="105" height="20"></iframe>
-</div>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="HtmlTemplate/css/bootstrap.min.css">
+    <link rel="stylesheet" href="HtmlTemplate/css/ionicons.min.css">
+    <link rel="stylesheet" href="HtmlTemplate/css/owl.carousel.css">
+    <link rel="stylesheet" href="HtmlTemplate/css/owl.theme.css">
+    <link rel="stylesheet" href="HtmlTemplate/css/style.css">
+    <title>C#开源大数据果糖网(SqlSugar官网)</title>
+</head>
+<body>
+    <header id="home" class="gradient-violat">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">
+                        <span class="logo-wraper logo-white">
+                             <i style=" padding-left:10px;font-size: 40px; position: relative; top: 6px; " class="ion-android-happy"></i> 开源大数据果糖网
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav  navbar-right">
+                        <li class="active"><a href="/">首页 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="/Ask">文档园</a></li>
+                        <li><a href="/Home/Reward">免费服务</a></li>
+                        <li><a href="/Home/Charge">收费服务</a></li>
+
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+                <hr class="navbar-divider">
+            </div><!-- /.container-fluid -->
+        </nav>
+    </header>
+    <section id="introduction" class="gradient-violat padding-top-60 home-slider">
+        <div id="home-slider" class="owl-carousel">
+            <div>
+                <div class="sliding-card-with-bottom-image text-center padding-top-90">
+                    <div class="image-container text-center sm-display-none padding-top-bottom-60">
+                        &nbsp;
+                    </div>
+                    <h3 class="cta-heading text-white  margin-top-bottom-30">Dot Net 主流开源技术 </h3>
+                    <p class="text-white slider-para">SqlSugar ORM</p>
+                    <div class="cta-btn-group">
+                        <a class="btn btn-orange border-none btn-rounded-corner" href="https://github.com/donet5/SqlSugar">Github下载 <span class="icon-on-button"><i class="ion-ios-cloud-download-outline"></i></span></a>
+                        <a class="btn btn-orange border-none btn-rounded-corner" href="https://gitee.com/sunkaixuan/SqlSugar">Gitee下载 <span class="icon-on-button"><i class="ion-ios-cloud-download-outline"></i></span></a>
+                    </div>
+
+                    <div class="image-container text-center sm-display-none padding-top-bottom-60">
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section id="feature" class="padding-top-bottom-60 bg-image-fit-50" style="background:url(HtmlTemplate/images/1_back.png)">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="feature-wiget">
+                
+                        <div class="content">
+                            <h4 class="bottom-line"><a href="/Home/Doc"> <i class="ion-settings"></i> SqlSugar文档</a> </h4>
+                            <p>
+                                是一款高性能、轻量级的ORM框架，使用SqlSugar你大可放心，除了有详细文档和几年的大量用户积累，
+                                SqlSugar还提供了完整的服务，让您的项目没有后顾之忧
+                            </p>
+                        </div>
+                    </div>
+                    <div class="feature-wiget">
+             
+                        <div class="content">
+                            <h4 class="bottom-line"><a href="https://monksoul.gitee.io/furion/docs">  <i class="ion-calendar"></i> .NET5 企业级框架Furion</a> </h4>
+                            <p>Furion 可以快速配置WebApi,官方提供了多种 Web 应用类型的脚手架，方便大家快速创建多层架构项目。目前支持以下应用脚手架</p>
+                        </div>
+                    </div>
+                    <div class="feature-wiget">
+                         
+                        <div class="content">
+                            <h4 class="bottom-line"><a href="http://apk.neters.club/.doc/guide/">  <i class="ion-ipad"></i> BCVP（Blog.Core&Vue Project）</a> </h4>
+                            <p>Blog.Core 开箱即用的企业级前后端分离【 .NET Core5.0 Api + Vue 2.x + RBAC】权限框架。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="services" class="padding-top-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <img class="img-responsive sm-display-none" src="HtmlTemplate/images/hand_phone.png" alt="">
+                </div>
+          
+                <div class="col-md-8 margin-top-30">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="heading-wraper text-center margin-bottom-80">
+                                <h4>学习文档</h4>
+                                <hr class="heading-devider gradient-orange">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <h5 class="service-title"><a href="http://www.donet5.com/Doc/4">.NET面试题</a> </h5>
+                            <p class="services-content margin-bottom-25">_面试_求职/职场_实用文档。包括当前.net面试中大部分常考题目,对正在求职的.net程序员非常有用</p>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <h5 class="service-title"><a href="http://www.donet5.com/Doc/7">.NET C# 24种设计模式大全</a> </h5>
+                            <p class="services-content margin-bottom-25">提高扩展性 大量使用面向接口编程,预留扩展插槽,新的功能或特性很容易加 入到系统中来</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <h5 class="service-title"><a href="https://github.com/donet5/template">100款 HTML5模版</a></h5>
+                            <p class="services-content margin-bottom-25">网页设计和制作人员就已开始关注和使用 HTML5 了,如今 HTML5 得到了更加广泛的应用,国外有很多网站已使用 HTML5 技术制作</p>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <h5 class="service-title"><a href="http://www.donet5.com/Doc/6">C# 算法大全</a></h5>
+                            <p class="services-content margin-bottom-25">算法是在有限步骤内求解某一问题所使用的一组定义明确的规则。通俗点说,就是计算机解题的过程 </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="cta" class="gradient-violat cta padding-top-bottom-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h3 class="cta-heading text-white">即将开源作品</h3>
+                    <p class="text-white">WebFirst</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="padding-top-120">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="footer-left-content">
+                        <div class="logo-colored">
+                            <img src="HtmlTemplate/images/Logo_color.png" alt="">联系我们
+                        </div>
+                        <div class="content">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="footer-list-wiget">
+                                <h4>QQ</h4>
+                                <div class="list-group">
+                                    610262374
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="footer-list-wiget">
+                                <h4>电话</h4>
+                                <div class="list-group">
+                                    18994231891
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="footer-list-wiget">
+                                <h4>邮箱</h4>
+                                <div class="list-group">
+                                    610262374@qq.com
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="footer-list-wiget">
+                                <h4>微信</h4>
+                                <div class="list-group">
+                                    sabimao
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="footer-divider">
+            <div class="copyright-cta">
+                <p class="text-uppercase" style="text-align:center"> <a href="http://beian.miit.gov.cn/"><span class="span text-violat ">苏ICP备2020070057号-1</span></a></p>
+            </div>
+        </div>
+        </div>
+        <div class="footer-end-line"></div>
+    </footer>
+    <div id="scroll-top-div" class="scroll-top-div">
+        <div class="scroll-top-icon-container">
+            <i class="ion-ios-arrow-thin-up"></i>
+        </div>
+    </div>
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="HtmlTemplate/js/jquery.min.js"></script>
+    <script src="HtmlTemplate/js/bootstrap.min.js"></script>
+    <script src="HtmlTemplate/js/owl.carousel.min.js"></script>
+    <script src="HtmlTemplate/js/script.js"></script>
+</body>
+</html>
