@@ -685,3 +685,6 @@ ul.social-list li a:hover, ul.social-list li a:focus{
 	padding-top: 15px;
 	padding-bottom: 15px;
 }
+.bottom-line a {
+	text-transform:none;
+}
