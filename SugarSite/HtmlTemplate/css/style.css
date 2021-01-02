@@ -688,3 +688,6 @@ ul.social-list li a:hover, ul.social-list li a:focus{
 .bottom-line a {
 	text-transform:none;
 }
+.nav > li {
+	font-size: 16px;
+}
