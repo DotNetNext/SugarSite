@@ -1,11 +1,16 @@
 ﻿.syntaxhighlighter td.code .line {
-    font-size: 12px !important;
+    line-height: 22px !important;
+    font-size: 15px !important;
+    font-family: --ifm-font-family-monospace;
+}
+.syntaxhighlighter td.code .line code {
+    font-size: 15.2px !important;
 }
 
 .syntaxhighlighter .keyword {
     color: rgb(255, 203, 107) !important;
 }
-
+ 
 .syntaxhighlighter td.code .line {
     line-height: 1.8 !important;
 }
@@ -20,6 +25,10 @@
 
 .syntaxhighlighter .comments, .syntaxhighlighter .comments a {
     color: rgb(105, 112, 152) !important;
+}
+.syntaxhighlighter {
+    border: 0 !important;
+    border-radius:6px !important;
 }
 /*.site-h1 {
     color: #f60 !important;
@@ -122,9 +131,11 @@
     font-weight: bold;
 }
 .site-content p {
-    font-size: .85em;
+    font-size: 1em;
     padding: 2px .4em;
     border-radius: 2px;
+    line-height: 1.75em;
+    padding: 2px .4em;
 }
 .site-h1 {
     margin-bottom: 20px;
@@ -134,4 +145,331 @@
     border-bottom: 1px solid #eee;
     font-size: 28px !important;
     font-weight: 300 !important;
+    margin-block-start:0 !important;
 }
+.site-tree .layui-tree li h2 {
+    line-height: 36px;
+    border-left: 5px solid #f2f2f2 !important;
+    margin: 15px 0 5px;
+    padding: 0 10px;
+    background-color: #f2f2f2;
+    font-weight: 600;
+    color: #222;
+}
+.syntaxhighlighter td.code .line {
+    line-height: 22px !important;
+    font-size: 15px !important;
+    font-family: --ifm-font-family-monospace;
+}
+.syntaxhighlighter td.code .line code {
+    font-size: 15.2px !important;
+}
+
+.syntaxhighlighter .keyword {
+    color: rgb(255, 203, 107) !important;
+}
+
+.syntaxhighlighter td.code .line {
+    line-height: 1.8 !important;
+}
+
+.syntaxhighlighter .plain, .syntaxhighlighter .plain a {
+    color: rgb(191, 199, 213) !important
+}
+
+.syntaxhighlighter .string, .syntaxhighlighter .string a {
+    color: rgb(195, 232, 141) !important;
+}
+
+.syntaxhighlighter .comments, .syntaxhighlighter .comments a {
+    color: rgb(105, 112, 152) !important;
+}
+.syntaxhighlighter {
+    border: 0 !important;
+    border-radius:6px !important;
+}
+/*.site-h1 {
+    color: #f60 !important;
+}*/
+
+@media screen and (max-width: 750px) {
+    .code .container {
+        word-break: break-all;
+    }
+}
+
+.syntaxhighlighter {
+    padding-bottom: 20px !important;
+    padding-top: 20px !important;
+    background: rgb(41, 45, 62) !important;
+}
+
+.gutter {
+    display: none;
+}
+#frmSearch {
+    position:relative;
+    margin-top:5px;
+    text-align:center
+}
+.site-tree .layui-tree li h2 {
+   margin:5px !important;
+}
+#frmSearch input{
+   width:97%;
+   margin-left:2px
+}
+#frmSearch i {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    color: #999;
+}
+
+.site-float {
+    display: block;
+    width: 40%;
+    float: left
+}
+.clear {
+  clear:both
+}
+
+@media screen and (max-width: 1200px) {
+
+    a.logoM {
+        display: none !important
+    }
+
+    .header .layui-nav {
+        left: 0 !important;
+    }
+
+        .header .layui-nav .layui-nav-item {
+            margin: 0 5px;
+        }
+
+    .footer a {
+        color: #808080 !important;
+    }
+}
+
+@media screen and (max-width: 330px) {
+
+    .header .layui-nav * {
+        font-size: 12px;
+    }
+}
+
+.site-content h1 {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+.site-content h2 {
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+.site-content h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+.site-content p {
+    font-size: 1em;
+    padding: 2px .4em;
+    border-radius: 2px;
+    line-height: 1.75em;
+    padding: 2px .4em;
+}
+.site-h1 {
+    margin-bottom: 20px;
+    line-height: 60px;
+    padding-bottom: 10px;
+    color: #393D49;
+    border-bottom: 1px solid #eee;
+    font-size: 28px !important;
+    font-weight: 300 !important;
+    margin-block-start:0 !important;
+}
+.site-tree .layui-tree li h2 {
+    line-height: 36px;
+    border-left: 5px solid #f2f2f2 !important;
+    margin: 15px 0 5px;
+    padding: 0 10px;
+    background-color: #f2f2f2;
+    font-weight: 600;
+    color: #222;
+}
+.syntaxhighlighter td.code .line {
+    line-height: 22px !important;
+    font-size: 15px !important;
+    font-family: --ifm-font-family-monospace;
+}
+.syntaxhighlighter td.code .line code {
+    font-size: 15.2px !important;
+}
+
+.syntaxhighlighter .keyword {
+    color: rgb(255, 203, 107) !important;
+}
+
+.syntaxhighlighter td.code .line {
+    line-height: 1.8 !important;
+}
+
+.syntaxhighlighter .plain, .syntaxhighlighter .plain a {
+    color: rgb(191, 199, 213) !important
+}
+
+.syntaxhighlighter .string, .syntaxhighlighter .string a {
+    color: rgb(195, 232, 141) !important;
+}
+
+.syntaxhighlighter .comments, .syntaxhighlighter .comments a {
+    color: rgb(105, 112, 152) !important;
+}
+.syntaxhighlighter {
+    border: 0 !important;
+    border-radius:6px !important;
+}
+/*.site-h1 {
+    color: #f60 !important;
+}*/
+
+@media screen and (max-width: 750px) {
+    .code .container {
+        word-break: break-all;
+    }
+}
+
+.syntaxhighlighter {
+    padding-bottom: 20px !important;
+    padding-top: 20px !important;
+    background: rgb(41, 45, 62) !important;
+}
+
+.gutter {
+    display: none;
+}
+#frmSearch {
+    position:relative;
+    margin-top:5px;
+    text-align:center
+}
+.site-tree .layui-tree li h2 {
+   margin:5px !important;
+}
+#frmSearch input{
+   width:97%;
+   margin-left:2px
+}
+#frmSearch i {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    color: #999;
+}
+
+.site-float {
+    display: block;
+    width: 40%;
+    float: left
+}
+.clear {
+  clear:both
+}
+
+@media screen and (max-width: 1200px) {
+
+    a.logoM {
+        display: none !important
+    }
+
+    .header .layui-nav {
+        left: 0 !important;
+    }
+
+        .header .layui-nav .layui-nav-item {
+            margin: 0 5px;
+        }
+
+    .footer a {
+        color: #808080 !important;
+    }
+}
+
+@media screen and (max-width: 330px) {
+
+    .header .layui-nav * {
+        font-size: 12px;
+    }
+}
+
+.site-content h1 {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+.site-content h2 {
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+.site-content h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+.site-content p {
+    font-size: 1em;
+    padding: 2px .4em;
+    border-radius: 2px;
+    line-height: 1.75em;
+    padding: 2px .4em;
+}
+.site-h1 {
+    margin-bottom: 20px;
+    line-height: 60px;
+    padding-bottom: 10px;
+    color: #393D49;
+    border-bottom: 1px solid #eee;
+    font-size: 28px !important;
+    font-weight: 300 !important;
+    margin-block-start:0 !important;
+}
+.site-tree .layui-tree li h2 {
+    line-height: 36px;
+    border-left: 5px solid #f2f2f2 !important;
+    margin: 15px 0 5px;
+    padding: 0 10px;
+    background-color: #f2f2f2;
+    font-weight: 600;
+    color: #222;
+}
+ 
