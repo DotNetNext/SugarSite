@@ -143,9 +143,9 @@ body .layui-layer-dir .layui-layer-content{padding: 10px; max-height: 280px; ove
 .site-tree .layui-tree .layui-this a{color: #01AAED;}
 .site-tree .layui-tree .layui-this .layui-icon{color: #01AAED;}
 
-.site-fix .site-tree{position: fixed; top: 0; bottom: 0; z-index: 666; min-height: 0; overflow: auto;  background-color: #fff;}
+/*.site-fix .site-tree{position: fixed; top: 0; bottom: 0; z-index: 666; min-height: 0; overflow: auto;  background-color: #fff;}
 .site-fix .site-content{margin-left: 220px;}
-.site-fix-footer .site-tree{margin-bottom: 120px;}
+.site-fix-footer .site-tree{margin-bottom: 120px;}*/
 
 
 .site-title{ margin: 30px 0 20px;}

@@ -3,13 +3,24 @@
 }
 
 .syntaxhighlighter .keyword {
-    color: #cc86d4 !important;
+    color: rgb(255, 203, 107) !important;
 }
 
 .syntaxhighlighter td.code .line {
     line-height: 1.8 !important;
 }
 
+.syntaxhighlighter .plain, .syntaxhighlighter .plain a {
+    color: rgb(191, 199, 213) !important
+}
+
+.syntaxhighlighter .string, .syntaxhighlighter .string a {
+    color: rgb(195, 232, 141) !important;
+}
+
+.syntaxhighlighter .comments, .syntaxhighlighter .comments a {
+    color: rgb(105, 112, 152) !important;
+}
 /*.site-h1 {
     color: #f60 !important;
 }*/
@@ -23,6 +34,7 @@
 .syntaxhighlighter {
     padding-bottom: 20px !important;
     padding-top: 20px !important;
+    background: rgb(41, 45, 62) !important;
 }
 
 .gutter {
@@ -80,4 +92,46 @@
     .header .layui-nav * {
         font-size: 12px;
     }
+}
+
+.site-content h1 {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+.site-content h2 {
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+.site-content h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+.site-content p {
+    font-size: .85em;
+    padding: 2px .4em;
+    border-radius: 2px;
+}
+.site-h1 {
+    margin-bottom: 20px;
+    line-height: 60px;
+    padding-bottom: 10px;
+    color: #393D49;
+    border-bottom: 1px solid #eee;
+    font-size: 28px !important;
+    font-weight: 300 !important;
 }
