@@ -26,10 +26,15 @@
 .syntaxhighlighter .comments, .syntaxhighlighter .comments a {
     color: rgb(105, 112, 152) !important;
 }
+.syntaxhighlighter .scroll {
+    overflow-x: scroll !important;
+    max-width: 900px !important;
+}
 .syntaxhighlighter {
     border: 0 !important;
     border-radius:6px !important;
 }
+
 /*.site-h1 {
     color: #f60 !important;
 }*/
