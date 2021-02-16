@@ -97,6 +97,7 @@
     <Compile Include="ViewModels\Admin\DocContentResult.cs" />
     <Compile Include="ViewModels\BBS\OnlineVisitorsResult.cs" />
     <Compile Include="ViewModels\BBS\SiteInfoResult.cs" />
+    <Compile Include="ViewModels\Home\IndexResult.cs" />
     <Compile Include="ViewModels\PageModel.cs" />
     <Compile Include="ViewModels\ResultModel.cs" />
     <Compile Include="ViewModels\UserCenter\IndexResult.cs" />

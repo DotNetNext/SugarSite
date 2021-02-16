@@ -27,13 +27,15 @@ p{
 	color: #999999;
 	width:90%
 }
-
-.btn{
+.topic {
+  margin-bottom:0.5em
+}
+.btn {
 	font-family: 'Montserrat', sans-serif;
 	font-size: 0.707em;
 	text-transform: uppercase;
 	font-weight: 600;
-	padding:12px 40px;
+	padding: 12px 40px;
 	box-shadow: 0px 4px 10px 0px rgba(91, 91, 91, 0.45);
 	line-height: 1;
 	transition: all .5s ease;
@@ -697,4 +699,8 @@ ul.social-list li a:hover, ul.social-list li a:focus{
 }
 .nav > li {
 	font-size: 16px;
+}
+a {
+	color: #005da6;
+	text-transform:none;
 }

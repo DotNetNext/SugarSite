@@ -21,8 +21,16 @@ namespace SugarSite.Controllers
         #region Page View
         public ActionResult Index()
         {
-            ViewBag.IsMainPage = true;
-            return View();
+            var model = new ResultModel<HomeIndexResult>();
+            model.IsSuccess = true;
+            _service.Command<object>((db, o) =>
+            {
+               model.ResultInfo = new HomeIndexResult();
+               model.ResultInfo.NewList=db.Queryable<BBS_Topics>().OrderBy(it => it.Tid, OrderByType.Desc).Take(10).ToList();
+               model.ResultInfo.LastList = db.Queryable<BBS_Topics>().OrderBy(it => it.Lastpost, OrderByType.Desc).Take(10).ToList();
+               model.ResultInfo.Master = db.Queryable<DocMaster>().OrderBy(it => it.Id, OrderByType.Desc).Take(100).ToList();
+            });
+            return View(model);
         }
 
         public ActionResult Doc(int masterId = 1, int typeId = 0)

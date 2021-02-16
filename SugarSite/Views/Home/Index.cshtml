@@ -1,6 +1,7 @@
-﻿@{ 
-    Layout = null;
-}
+﻿@{ Layout = null; }
+@using Infrastructure.Pub;
+@using SyntacticSugar
+@model Infrastructure.ViewModels.ResultModel<Infrastructure.ViewModels.HomeIndexResult>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,7 +35,7 @@
                     </button>
                     <a class="navbar-brand" href="/">
                         <span class="logo-wraper logo-white">
-                             <i style=" padding-left:10px;font-size: 40px; position: relative; top: 6px; " class="ion-android-happy"></i> 开源大数据果糖网
+                            <i style=" padding-left:10px;font-size: 40px; position: relative; top: 6px; " class="ion-android-happy"></i> 开源大数据果糖网
                         </span>
                     </a>
                 </div>
@@ -75,7 +76,7 @@
 
         </div>
     </section>
-    <section id="feature" class="padding-top-30 bg-image-fit-50"  >
+    <section id="feature" class="padding-top-30 bg-image-fit-50">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -112,7 +113,7 @@
                         <div class="content">
                             <h4 class=""><a href="/Doc/11"> <i class="ion-thermometer"></i> WebFirst</a> </h4>
                             <p>
-                                一款支持在线管理的代码管理器，支持EXE版本和WEB版本
+                                一款支持在线管理的代生成器，支持EXE和WEB 
                             </p>
                         </div>
                     </div>
@@ -139,13 +140,33 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-3">
+                    @foreach (var item in Model.ResultInfo.NewList)
+                    {
+        <div class="row  topic">
+            <a href="/Ask/@item.Fid/@item.Tid">
+                @(item.Title.Length>20?(item.Title.Substring(0,21)+".."):item.Title)
+            </a>
+            <p>@item.Poster @DateSugar.DateStringFromNow(item.Postdatetime.Value)</p>
+        </div>}
+                </div>
+                <div class="col-md-3">
+                    @foreach (var item in Model.ResultInfo.LastList)
+                    {
+        <div class="row topic">
+            <a href="/Ask/@item.Fid/@item.Tid">
+                @(item.Title.Length>20?(item.Title.Substring(0,21)+".."):item.Title)
+            </a>
+            <p>@item.Lastposter @DateSugar.DateStringFromNow(item.Lastpost.Value)</p>
+        </div>}
+                </div>
             </div>
         </div>
     </section>
     <section id="services" class="padding-top-30">
         <div class="container">
             <div class="row">
-              
+
                 <div class="col-md-12 margin-top-30">
                     <div class="row">
                         <div class="col-md-12">
@@ -157,23 +178,16 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
-                            <h5 class="service-title"><a href="/Doc/4">.NET面试题</a> </h5>
-                            <p class="services-content margin-bottom-25">_面试_求职/职场_实用文档。包括当前.net面试中大部分常考题目,对正在求职的.net程序员非常有用</p>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <h5 class="service-title"><a href="/Doc/7">.NET C# 24种设计模式大全</a> </h5>
-                            <p class="services-content margin-bottom-25">提高扩展性 大量使用面向接口编程,预留扩展插槽,新的功能或特性很容易加 入到系统中来</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6">
                             <h5 class="service-title"><a href="https://github.com/donet5/template">100款 HTML5模版</a></h5>
-                            <p class="services-content margin-bottom-25">网页设计和制作人员就已开始关注和使用 HTML5 了,如今 HTML5 得到了更加广泛的应用,国外有很多网站已使用 HTML5 技术制作</p>
+                            <p class="services-content  ">网页设计和制作人员就已开始关注和使用 HTML5 了...</p>
                         </div>
-                        <div class="col-md-6 col-sm-6">
-                            <h5 class="service-title"><a href="/Doc/6">C# 算法大全</a></h5>
-                            <p class="services-content margin-bottom-80">算法是在有限步骤内求解某一问题所使用的一组定义明确的规则。通俗点说,就是计算机解题的过程 </p>
-                        </div>
+                        @foreach (var item in Model.ResultInfo.Master)
+                        {
+                            <div class="col-md-6 col-sm-6">
+                                <h5 class="service-title"><a href="/Doc/@item.Id">@item.MasterName</a> </h5>
+                                <p class="services-content  ">@item.Html </p>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
