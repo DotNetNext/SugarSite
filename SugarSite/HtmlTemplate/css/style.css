@@ -704,3 +704,19 @@ a {
 	color: #005da6;
 	text-transform:none;
 }
+#home-slider p, .text-white {
+	width: 100% !important
+}
+@media screen and (max-width: 1000px) 
+{
+	.heading-wraper {
+	   display:none
+	}
+	.topic {
+	   display:none
+	}
+	.col-md-12 .heading-wraper {
+		display:inherit;
+		width:100% !important
+	}
+}

@@ -65,6 +65,13 @@ body .pms-box a.fly-delete {
 body .online-list{
     font-size:12px !important
 }
+.nav a {
+    padding: 0 20px;
+    font-size: 14px;
+    color: #999;
+    position: relative;
+    top: 5px;
+}
 @media screen and (max-width: 750px) {
     body a.avatar {
         display: block !important;
