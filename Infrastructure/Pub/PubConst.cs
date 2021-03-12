@@ -21,7 +21,7 @@ namespace Infrastructure.Pub
         public const string UserUniqueKey = "CookeUniqueKey";
         public const string UrlAdminIndex = "AdminSite/DocContent";
         public const string SitePrefix = "-文档园";
-        public const string SiteDomain = "codeisbug.com";
+        public const string SiteDomain = "donet5.com";
         public const string SiteMailUserName = "文档园";
         public const int SiteOnlineTimeOut = 20;//20分
         public const int SitePageSize = 25;
